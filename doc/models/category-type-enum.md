@@ -1,0 +1,33 @@
+
+# Category Type Enum
+
+Type of the file being uploaded.
+
+## Enumeration
+
+`CategoryTypeEnum`
+
+## Fields
+
+| Name |
+|  --- |
+| `GENERALVALIDATION` |
+| `OBSERVABILITYTEMPLATE` |
+| `SWAGGERSPEC` |
+| `DEPENDENTSERVICEVALUES` |
+| `WORKLOADTGZ` |
+| `WORKLOADVALUE` |
+| `WORKLOADYAML` |
+| `WORKLOADTERRAFORMZIP` |
+| `WORKLOADTERRAFORMTF` |
+| `WORKLOADTERRAFORMTFVAR` |
+| `WORKFLOWSOURCEFILE` |
+| `WORKFLOWINPUTSCHEMA` |
+| `WORKFLOWTGZ` |
+
+## Example
+
+```
+GENERAL_VALIDATION
+```
+
