@@ -36,6 +36,37 @@ namespace Verizon.Standard.Controllers
         internal SessionManagementController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
+        /// The new password is effective immediately. Passwords do not expire, but Verizon recommends changing your password every 90 days.
+        /// </summary>
+        /// <param name="body">Required parameter: Request with current password that needs to be reset..</param>
+        /// <returns>Returns the ApiResponse of Models.SessionResetPasswordResult response from the API call.</returns>
+        public ApiResponse<Models.SessionResetPasswordResult> ResetConnectivityManagementPassword(
+                Models.SessionResetPasswordRequest body)
+            => CoreHelper.RunTask(ResetConnectivityManagementPasswordAsync(body));
+
+        /// <summary>
+        /// The new password is effective immediately. Passwords do not expire, but Verizon recommends changing your password every 90 days.
+        /// </summary>
+        /// <param name="body">Required parameter: Request with current password that needs to be reset..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.SessionResetPasswordResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.SessionResetPasswordResult>> ResetConnectivityManagementPasswordAsync(
+                Models.SessionResetPasswordRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.SessionResetPasswordResult>()
+              .Server(Server.M2m)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Put, "/v1/session/password/actions/reset")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.SessionResetPasswordResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// Initiates a Connectivity Management session and returns a VZ-M2M session token that is required in subsequent API requests.
         /// </summary>
         /// <param name="body">Optional parameter: Request to initiate a session..</param>
@@ -87,37 +118,6 @@ namespace Verizon.Standard.Controllers
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.LogOutRequest>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// The new password is effective immediately. Passwords do not expire, but Verizon recommends changing your password every 90 days.
-        /// </summary>
-        /// <param name="body">Required parameter: Request with current password that needs to be reset..</param>
-        /// <returns>Returns the ApiResponse of Models.SessionResetPasswordResult response from the API call.</returns>
-        public ApiResponse<Models.SessionResetPasswordResult> ResetConnectivityManagementPassword(
-                Models.SessionResetPasswordRequest body)
-            => CoreHelper.RunTask(ResetConnectivityManagementPasswordAsync(body));
-
-        /// <summary>
-        /// The new password is effective immediately. Passwords do not expire, but Verizon recommends changing your password every 90 days.
-        /// </summary>
-        /// <param name="body">Required parameter: Request with current password that needs to be reset..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.SessionResetPasswordResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.SessionResetPasswordResult>> ResetConnectivityManagementPasswordAsync(
-                Models.SessionResetPasswordRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.SessionResetPasswordResult>()
-              .Server(Server.M2m)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Put, "/v1/session/password/actions/reset")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.SessionResetPasswordResult>(_response)))
               .ExecuteAsync(cancellationToken);
     }
 }

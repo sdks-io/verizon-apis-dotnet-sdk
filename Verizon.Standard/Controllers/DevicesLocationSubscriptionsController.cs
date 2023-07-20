@@ -36,36 +36,6 @@ namespace Verizon.Standard.Controllers
         internal DevicesLocationSubscriptionsController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// This subscriptions endpoint retrieves an account's current location subscription status.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
-        /// <returns>Returns the ApiResponse of Models.DeviceLocationSubscription response from the API call.</returns>
-        public ApiResponse<Models.DeviceLocationSubscription> GetLocationServiceSubscriptionStatus(
-                string account)
-            => CoreHelper.RunTask(GetLocationServiceSubscriptionStatusAsync(account));
-
-        /// <summary>
-        /// This subscriptions endpoint retrieves an account's current location subscription status.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.DeviceLocationSubscription response from the API call.</returns>
-        public async Task<ApiResponse<Models.DeviceLocationSubscription>> GetLocationServiceSubscriptionStatusAsync(
-                string account,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.DeviceLocationSubscription>()
-              .Server(Server.DeviceLocation)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/subscriptions/{account}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("account", account))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new DeviceLocationResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceLocationSubscription>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// This endpoint allows user to search for billable usage for accounts based on the provided date range.
         /// </summary>
         /// <param name="body">Required parameter: Request to obtain billable usage for accounts..</param>
@@ -94,6 +64,36 @@ namespace Verizon.Standard.Controllers
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new DeviceLocationResultException(_reason, _context)))
                   .Deserializer(_response => _response))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// This subscriptions endpoint retrieves an account's current location subscription status.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <returns>Returns the ApiResponse of Models.DeviceLocationSubscription response from the API call.</returns>
+        public ApiResponse<Models.DeviceLocationSubscription> GetLocationServiceSubscriptionStatus(
+                string account)
+            => CoreHelper.RunTask(GetLocationServiceSubscriptionStatusAsync(account));
+
+        /// <summary>
+        /// This subscriptions endpoint retrieves an account's current location subscription status.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.DeviceLocationSubscription response from the API call.</returns>
+        public async Task<ApiResponse<Models.DeviceLocationSubscription>> GetLocationServiceSubscriptionStatusAsync(
+                string account,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.DeviceLocationSubscription>()
+              .Server(Server.DeviceLocation)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/subscriptions/{account}")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("account", account))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new DeviceLocationResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceLocationSubscription>(_response)))
               .ExecuteAsync(cancellationToken);
     }
 }

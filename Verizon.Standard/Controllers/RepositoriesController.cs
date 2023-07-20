@@ -36,6 +36,49 @@ namespace Verizon.Standard.Controllers
         internal RepositoriesController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
+        /// Delete the repository.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="repositoryName">Required parameter: Name of the repository which is about to be deleted..</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <returns>Returns the ApiResponse of Models.EdgeServiceOnboardingDeleteResult response from the API call.</returns>
+        public ApiResponse<Models.EdgeServiceOnboardingDeleteResult> DeleteRepository(
+                string accountName,
+                string repositoryName,
+                string correlationId = null)
+            => CoreHelper.RunTask(DeleteRepositoryAsync(accountName, repositoryName, correlationId));
+
+        /// <summary>
+        /// Delete the repository.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="repositoryName">Required parameter: Name of the repository which is about to be deleted..</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.EdgeServiceOnboardingDeleteResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.EdgeServiceOnboardingDeleteResult>> DeleteRepositoryAsync(
+                string accountName,
+                string repositoryName,
+                string correlationId = null,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.EdgeServiceOnboardingDeleteResult>()
+              .Server(Server.Services)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Delete, "/v1/config/repository/{repositoryName}")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Header(_header => _header.Setup("AccountName", accountName))
+                      .Template(_template => _template.Setup("repositoryName", repositoryName))
+                      .Header(_header => _header.Setup("correlationId", correlationId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Bad Request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("404", CreateErrorCase("Not found.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.EdgeServiceOnboardingDeleteResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// Get all repositories in the platform.
         /// </summary>
         /// <param name="accountName">Required parameter: User account name..</param>
@@ -118,49 +161,6 @@ namespace Verizon.Standard.Controllers
                   .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
                   .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.Repository>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Delete the repository.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="repositoryName">Required parameter: Name of the repository which is about to be deleted..</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <returns>Returns the ApiResponse of Models.EdgeServiceOnboardingDeleteResult response from the API call.</returns>
-        public ApiResponse<Models.EdgeServiceOnboardingDeleteResult> DeleteRepository(
-                string accountName,
-                string repositoryName,
-                string correlationId = null)
-            => CoreHelper.RunTask(DeleteRepositoryAsync(accountName, repositoryName, correlationId));
-
-        /// <summary>
-        /// Delete the repository.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="repositoryName">Required parameter: Name of the repository which is about to be deleted..</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.EdgeServiceOnboardingDeleteResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.EdgeServiceOnboardingDeleteResult>> DeleteRepositoryAsync(
-                string accountName,
-                string repositoryName,
-                string correlationId = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.EdgeServiceOnboardingDeleteResult>()
-              .Server(Server.Services)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Delete, "/v1/config/repository/{repositoryName}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Header(_header => _header.Setup("AccountName", accountName))
-                      .Template(_template => _template.Setup("repositoryName", repositoryName))
-                      .Header(_header => _header.Setup("correlationId", correlationId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Bad Request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("Not found.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.EdgeServiceOnboardingDeleteResult>(_response)))
               .ExecuteAsync(cancellationToken);
     }
 }

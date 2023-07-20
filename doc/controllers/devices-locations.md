@@ -13,9 +13,9 @@ DevicesLocationsController devicesLocationsController = client.DevicesLocationsC
 * [List Devices Locations Synchronous](../../doc/controllers/devices-locations.md#list-devices-locations-synchronous)
 * [List Devices Locations Asynchronous](../../doc/controllers/devices-locations.md#list-devices-locations-asynchronous)
 * [Cancel Device Location Request](../../doc/controllers/devices-locations.md#cancel-device-location-request)
-* [Create Location Report](../../doc/controllers/devices-locations.md#create-location-report)
 * [Retrieve Location Report](../../doc/controllers/devices-locations.md#retrieve-location-report)
 * [Get Location Report Status](../../doc/controllers/devices-locations.md#get-location-report-status)
+* [Create Location Report](../../doc/controllers/devices-locations.md#create-location-report)
 * [Cancel Queued Location Report Generation](../../doc/controllers/devices-locations.md#cancel-queued-location-report-generation)
 
 
@@ -242,83 +242,6 @@ catch (ApiException e)
 | Default | Unexpected error. | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
 
 
-# Create Location Report
-
-Request an asynchronous device location report.
-
-```csharp
-CreateLocationReportAsync(
-    Models.LocationRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.LocationRequest`](../../doc/models/location-request.md) | Body, Required | Request for device location report. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.AsynchronousLocationRequestResult>>`](../../doc/models/asynchronous-location-request-result.md)
-
-## Example Usage
-
-```csharp
-LocationRequest body = new LocationRequest
-{
-    AccountName = "1234567890-00001",
-    AccuracyMode = 0,
-    CacheMode = CacheModeEnum.Enum1,
-    DeviceList = new List<Models.DeviceInfo>
-    {
-        new DeviceInfo
-        {
-            Id = "980003420535573",
-            Kind = "imei",
-            Mdn = "7892345678",
-        },
-        new DeviceInfo
-        {
-            Id = "375535024300089",
-            Kind = "imei",
-            Mdn = "7897654321",
-        },
-        new DeviceInfo
-        {
-            Id = "A100003861E585",
-            Kind = "meid",
-            Mdn = "7897650914",
-        },
-    },
-};
-
-try
-{
-    ApiResponse<AsynchronousLocationRequestResult> result = await devicesLocationsController.CreateLocationReportAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
-  "status": "QUEUED"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| Default | Unexpected error. | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
-
-
 # Retrieve Location Report
 
 Download a completed asynchronous device location report.
@@ -453,6 +376,83 @@ catch (ApiException e)
 {
   "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
   "status": "INPROGRESS"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | Unexpected error. | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
+
+
+# Create Location Report
+
+Request an asynchronous device location report.
+
+```csharp
+CreateLocationReportAsync(
+    Models.LocationRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`Models.LocationRequest`](../../doc/models/location-request.md) | Body, Required | Request for device location report. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.AsynchronousLocationRequestResult>>`](../../doc/models/asynchronous-location-request-result.md)
+
+## Example Usage
+
+```csharp
+LocationRequest body = new LocationRequest
+{
+    AccountName = "1234567890-00001",
+    AccuracyMode = 0,
+    CacheMode = CacheModeEnum.Enum1,
+    DeviceList = new List<Models.DeviceInfo>
+    {
+        new DeviceInfo
+        {
+            Id = "980003420535573",
+            Kind = "imei",
+            Mdn = "7892345678",
+        },
+        new DeviceInfo
+        {
+            Id = "375535024300089",
+            Kind = "imei",
+            Mdn = "7897654321",
+        },
+        new DeviceInfo
+        {
+            Id = "A100003861E585",
+            Kind = "meid",
+            Mdn = "7897650914",
+        },
+    },
+};
+
+try
+{
+    ApiResponse<AsynchronousLocationRequestResult> result = await devicesLocationsController.CreateLocationReportAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
+  "status": "QUEUED"
 }
 ```
 

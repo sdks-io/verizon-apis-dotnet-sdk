@@ -36,34 +36,38 @@ namespace Verizon.Standard.Controllers
         internal BillingController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// This endpoint allows user to add managed accounts to a primary account.
+        /// This endpoint allows user to retrieve the list of all accounts managed by a primary account.
         /// </summary>
-        /// <param name="body">Required parameter: Service name and list of accounts to add.</param>
-        /// <returns>Returns the ApiResponse of Models.ManagedAccountsAddResponse response from the API call.</returns>
-        public ApiResponse<Models.ManagedAccountsAddResponse> AddAccount(
-                Models.ManagedAccountsAddRequest body)
-            => CoreHelper.RunTask(AddAccountAsync(body));
+        /// <param name="accountName">Required parameter: Primary account identifier.</param>
+        /// <param name="serviceName">Required parameter: Service name.</param>
+        /// <returns>Returns the ApiResponse of Models.ManagedAccountsGetAllResponse response from the API call.</returns>
+        public ApiResponse<Models.ManagedAccountsGetAllResponse> ListManagedAccount(
+                string accountName,
+                string serviceName)
+            => CoreHelper.RunTask(ListManagedAccountAsync(accountName, serviceName));
 
         /// <summary>
-        /// This endpoint allows user to add managed accounts to a primary account.
+        /// This endpoint allows user to retrieve the list of all accounts managed by a primary account.
         /// </summary>
-        /// <param name="body">Required parameter: Service name and list of accounts to add.</param>
+        /// <param name="accountName">Required parameter: Primary account identifier.</param>
+        /// <param name="serviceName">Required parameter: Service name.</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.ManagedAccountsAddResponse response from the API call.</returns>
-        public async Task<ApiResponse<Models.ManagedAccountsAddResponse>> AddAccountAsync(
-                Models.ManagedAccountsAddRequest body,
+        /// <returns>Returns the ApiResponse of Models.ManagedAccountsGetAllResponse response from the API call.</returns>
+        public async Task<ApiResponse<Models.ManagedAccountsGetAllResponse>> ListManagedAccountAsync(
+                string accountName,
+                string serviceName,
                 CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.ManagedAccountsAddResponse>()
+            => await CreateApiCall<Models.ManagedAccountsGetAllResponse>()
               .Server(Server.SubscriptionServer)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/managedaccounts/actions/add")
+                  .Setup(HttpMethod.Get, "/managedaccounts/{accountName}/service/{serviceName}")
                   .WithAuth("global")
                   .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+                      .Template(_template => _template.Setup("accountName", accountName))
+                      .Template(_template => _template.Setup("serviceName", serviceName))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Unexpected error", (_reason, _context) => new DeviceLocationResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ManagedAccountsAddResponse>(_response)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ManagedAccountsGetAllResponse>(_response)))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
@@ -129,38 +133,34 @@ namespace Verizon.Standard.Controllers
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
-        /// This endpoint allows user to retrieve the list of all accounts managed by a primary account.
+        /// This endpoint allows user to add managed accounts to a primary account.
         /// </summary>
-        /// <param name="accountName">Required parameter: Primary account identifier.</param>
-        /// <param name="serviceName">Required parameter: Service name.</param>
-        /// <returns>Returns the ApiResponse of Models.ManagedAccountsGetAllResponse response from the API call.</returns>
-        public ApiResponse<Models.ManagedAccountsGetAllResponse> ListManagedAccount(
-                string accountName,
-                string serviceName)
-            => CoreHelper.RunTask(ListManagedAccountAsync(accountName, serviceName));
+        /// <param name="body">Required parameter: Service name and list of accounts to add.</param>
+        /// <returns>Returns the ApiResponse of Models.ManagedAccountsAddResponse response from the API call.</returns>
+        public ApiResponse<Models.ManagedAccountsAddResponse> AddAccount(
+                Models.ManagedAccountsAddRequest body)
+            => CoreHelper.RunTask(AddAccountAsync(body));
 
         /// <summary>
-        /// This endpoint allows user to retrieve the list of all accounts managed by a primary account.
+        /// This endpoint allows user to add managed accounts to a primary account.
         /// </summary>
-        /// <param name="accountName">Required parameter: Primary account identifier.</param>
-        /// <param name="serviceName">Required parameter: Service name.</param>
+        /// <param name="body">Required parameter: Service name and list of accounts to add.</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.ManagedAccountsGetAllResponse response from the API call.</returns>
-        public async Task<ApiResponse<Models.ManagedAccountsGetAllResponse>> ListManagedAccountAsync(
-                string accountName,
-                string serviceName,
+        /// <returns>Returns the ApiResponse of Models.ManagedAccountsAddResponse response from the API call.</returns>
+        public async Task<ApiResponse<Models.ManagedAccountsAddResponse>> AddAccountAsync(
+                Models.ManagedAccountsAddRequest body,
                 CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.ManagedAccountsGetAllResponse>()
+            => await CreateApiCall<Models.ManagedAccountsAddResponse>()
               .Server(Server.SubscriptionServer)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/managedaccounts/{accountName}/service/{serviceName}")
+                  .Setup(HttpMethod.Post, "/managedaccounts/actions/add")
                   .WithAuth("global")
                   .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("accountName", accountName))
-                      .Template(_template => _template.Setup("serviceName", serviceName))))
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Unexpected error", (_reason, _context) => new DeviceLocationResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ManagedAccountsGetAllResponse>(_response)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ManagedAccountsAddResponse>(_response)))
               .ExecuteAsync(cancellationToken);
     }
 }

@@ -11,10 +11,10 @@ TargetsController targetsController = client.TargetsController;
 ## Methods
 
 * [Query Target](../../doc/controllers/targets.md#query-target)
-* [Delete Target](../../doc/controllers/targets.md#delete-target)
-* [Create Target](../../doc/controllers/targets.md#create-target)
 * [Generate Target External ID](../../doc/controllers/targets.md#generate-target-external-id)
 * [Create Azure Central Io T Application](../../doc/controllers/targets.md#create-azure-central-io-t-application)
+* [Create Target](../../doc/controllers/targets.md#create-target)
+* [Delete Target](../../doc/controllers/targets.md#delete-target)
 
 
 # Query Target
@@ -91,131 +91,6 @@ catch (ApiException e)
     "versionid": "caf85ff7-200e-11e9-a85b-02420a621e0a"
   }
 ]
-```
-
-
-# Delete Target
-
-Remove a target from a ThingSpace account.
-
-```csharp
-DeleteTargetAsync(
-    Models.DeleteTargetRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.DeleteTargetRequest`](../../doc/models/delete-target-request.md) | Body, Required | The request body identifies the target to delete. |
-
-## Response Type
-
-`Task`
-
-## Example Usage
-
-```csharp
-DeleteTargetRequest body = new DeleteTargetRequest
-{
-    Accountidentifier = new AccountIdentifier
-    {
-        Billingaccountid = "0000000000-00001",
-    },
-    Resourceidentifier = new ResourceIdentifier
-    {
-        Id = "2e61a17d-8fd1-6816-e995-e4c2528bf535",
-    },
-};
-
-try
-{
-    await targetsController.DeleteTargetAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-
-# Create Target
-
-Define a target to receive data streams, alerts, or callbacks. After creating the target resource, use its ID in a subscription to set up a data stream.
-
-```csharp
-CreateTargetAsync(
-    Models.CreateTargetRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.CreateTargetRequest`](../../doc/models/create-target-request.md) | Body, Required | The request body provides the details of the target that you want to create. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.Target>>`](../../doc/models/target.md)
-
-## Example Usage
-
-```csharp
-CreateTargetRequest body = new CreateTargetRequest
-{
-    Accountidentifier = new AccountIdentifier
-    {
-        Billingaccountid = "0000000000-00001",
-    },
-    Billingaccountid = "0000000000-00001",
-    Kind = "ts.target",
-    Address = "https://your_IoT_Central_Application.azureiotcentral.com",
-    Addressscheme = "streamazureiot",
-    Fields = new CreateTargetRequestFields
-    {
-        Httpheaders = new FieldsHttpHeaders
-        {
-            Authorization = "SharedAccessSignature sr=d1f9b6bf-1380-41f6-b757-d9805e48392b&sig=EF5tnXClw3MWkb84OkIOUhMH%2FaS1DRD2nXT69QR8RD8%3D&skn=TSCCtoken&se=1648827260410",
-        },
-        Devicetypes = new List<string>
-        {
-            "cHeAssetTracker",
-            "cHeAssetTrackerV2",
-            "tgAssetTracker",
-            "tgAssetTrackerV2",
-        },
-    },
-};
-
-try
-{
-    ApiResponse<Target> result = await targetsController.CreateTargetAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "address": "arn:aws:iam::252156542978:role/ThingSpace",
-  "addressscheme": "streamawsiot",
-  "billingaccountid": "1223334444-00001",
-  "createdon": "2018-12-21T04:37:42.651Z",
-  "externalid": "lJZnih8BfqsosZrEEkfPuR3aGOk2i-HIr6tXN275ioJF6bezIrQB9EbzpTRep8J7RmV7QH==",
-  "id": "0e411230-c3eb-64dc-f5f4-1020364aa81f",
-  "kind": "ts.target",
-  "lastupdated": "2018-12-21T04:37:42.651Z",
-  "name": "AWS Target",
-  "region": "us-east-1",
-  "version": "1.0",
-  "versionid": "27aca5a4-04da-11e9-bff3-02420a5e1b0b"
-}
 ```
 
 
@@ -327,6 +202,131 @@ catch (ApiException e)
   "appName": "newarmapp1",
   "sharedSecret": "SharedAccessSignaturesr={client secret}",
   "url": "https://newarmapp1.azureiotcentral.com"
+}
+```
+
+
+# Create Target
+
+Define a target to receive data streams, alerts, or callbacks. After creating the target resource, use its ID in a subscription to set up a data stream.
+
+```csharp
+CreateTargetAsync(
+    Models.CreateTargetRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`Models.CreateTargetRequest`](../../doc/models/create-target-request.md) | Body, Required | The request body provides the details of the target that you want to create. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.Target>>`](../../doc/models/target.md)
+
+## Example Usage
+
+```csharp
+CreateTargetRequest body = new CreateTargetRequest
+{
+    Accountidentifier = new AccountIdentifier
+    {
+        Billingaccountid = "0000000000-00001",
+    },
+    Billingaccountid = "0000000000-00001",
+    Kind = "ts.target",
+    Address = "https://your_IoT_Central_Application.azureiotcentral.com",
+    Addressscheme = "streamazureiot",
+    Fields = new CreateTargetRequestFields
+    {
+        Httpheaders = new FieldsHttpHeaders
+        {
+            Authorization = "SharedAccessSignature sr=d1f9b6bf-1380-41f6-b757-d9805e48392b&sig=EF5tnXClw3MWkb84OkIOUhMH%2FaS1DRD2nXT69QR8RD8%3D&skn=TSCCtoken&se=1648827260410",
+        },
+        Devicetypes = new List<string>
+        {
+            "cHeAssetTracker",
+            "cHeAssetTrackerV2",
+            "tgAssetTracker",
+            "tgAssetTrackerV2",
+        },
+    },
+};
+
+try
+{
+    ApiResponse<Target> result = await targetsController.CreateTargetAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "address": "arn:aws:iam::252156542978:role/ThingSpace",
+  "addressscheme": "streamawsiot",
+  "billingaccountid": "1223334444-00001",
+  "createdon": "2018-12-21T04:37:42.651Z",
+  "externalid": "lJZnih8BfqsosZrEEkfPuR3aGOk2i-HIr6tXN275ioJF6bezIrQB9EbzpTRep8J7RmV7QH==",
+  "id": "0e411230-c3eb-64dc-f5f4-1020364aa81f",
+  "kind": "ts.target",
+  "lastupdated": "2018-12-21T04:37:42.651Z",
+  "name": "AWS Target",
+  "region": "us-east-1",
+  "version": "1.0",
+  "versionid": "27aca5a4-04da-11e9-bff3-02420a5e1b0b"
+}
+```
+
+
+# Delete Target
+
+Remove a target from a ThingSpace account.
+
+```csharp
+DeleteTargetAsync(
+    Models.DeleteTargetRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`Models.DeleteTargetRequest`](../../doc/models/delete-target-request.md) | Body, Required | The request body identifies the target to delete. |
+
+## Response Type
+
+`Task`
+
+## Example Usage
+
+```csharp
+DeleteTargetRequest body = new DeleteTargetRequest
+{
+    Accountidentifier = new AccountIdentifier
+    {
+        Billingaccountid = "0000000000-00001",
+    },
+    Resourceidentifier = new ResourceIdentifier
+    {
+        Id = "2e61a17d-8fd1-6816-e995-e4c2528bf535",
+    },
+};
+
+try
+{
+    await targetsController.DeleteTargetAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
 }
 ```
 

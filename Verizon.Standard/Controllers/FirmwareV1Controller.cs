@@ -36,102 +36,6 @@ namespace Verizon.Standard.Controllers
         internal FirmwareV1Controller(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// Lists all device firmware images available for an account, based on the devices registered to that account.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
-        /// <returns>Returns the ApiResponse of List<Models.Firmware> response from the API call.</returns>
-        public ApiResponse<List<Models.Firmware>> ListAvailableFirmware(
-                string account)
-            => CoreHelper.RunTask(ListAvailableFirmwareAsync(account));
-
-        /// <summary>
-        /// Lists all device firmware images available for an account, based on the devices registered to that account.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of List<Models.Firmware> response from the API call.</returns>
-        public async Task<ApiResponse<List<Models.Firmware>>> ListAvailableFirmwareAsync(
-                string account,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<List<Models.Firmware>>()
-              .Server(Server.SoftwareManagementV1)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/firmware/{account}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("account", account))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV1ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.Firmware>>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Schedules a firmware upgrade for devices.
-        /// </summary>
-        /// <param name="body">Required parameter: Details of the firmware upgrade request..</param>
-        /// <returns>Returns the ApiResponse of Models.FirmwareUpgrade response from the API call.</returns>
-        public ApiResponse<Models.FirmwareUpgrade> ScheduleFirmwareUpgrade(
-                Models.FirmwareUpgradeRequest body)
-            => CoreHelper.RunTask(ScheduleFirmwareUpgradeAsync(body));
-
-        /// <summary>
-        /// Schedules a firmware upgrade for devices.
-        /// </summary>
-        /// <param name="body">Required parameter: Details of the firmware upgrade request..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.FirmwareUpgrade response from the API call.</returns>
-        public async Task<ApiResponse<Models.FirmwareUpgrade>> ScheduleFirmwareUpgradeAsync(
-                Models.FirmwareUpgradeRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.FirmwareUpgrade>()
-              .Server(Server.SoftwareManagementV1)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/upgrades")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV1ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.FirmwareUpgrade>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Returns information about a specified upgrade, include the target date of the upgrade, the list of devices in the upgrade, and the status of the upgrade for each device.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
-        /// <param name="upgradeId">Required parameter: The UUID of the upgrade, returned by POST /upgrades when the upgrade was scheduled..</param>
-        /// <returns>Returns the ApiResponse of Models.FirmwareUpgrade response from the API call.</returns>
-        public ApiResponse<Models.FirmwareUpgrade> ListFirmwareUpgradeDetails(
-                string account,
-                string upgradeId)
-            => CoreHelper.RunTask(ListFirmwareUpgradeDetailsAsync(account, upgradeId));
-
-        /// <summary>
-        /// Returns information about a specified upgrade, include the target date of the upgrade, the list of devices in the upgrade, and the status of the upgrade for each device.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
-        /// <param name="upgradeId">Required parameter: The UUID of the upgrade, returned by POST /upgrades when the upgrade was scheduled..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.FirmwareUpgrade response from the API call.</returns>
-        public async Task<ApiResponse<Models.FirmwareUpgrade>> ListFirmwareUpgradeDetailsAsync(
-                string account,
-                string upgradeId,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.FirmwareUpgrade>()
-              .Server(Server.SoftwareManagementV1)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/upgrades/{account}/upgrade/{upgradeId}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("account", account))
-                      .Template(_template => _template.Setup("upgradeId", upgradeId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV1ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.FirmwareUpgrade>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Add or remove devices from a scheduled upgrade.
         /// </summary>
         /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
@@ -173,6 +77,37 @@ namespace Verizon.Standard.Controllers
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
+        /// Schedules a firmware upgrade for devices.
+        /// </summary>
+        /// <param name="body">Required parameter: Details of the firmware upgrade request..</param>
+        /// <returns>Returns the ApiResponse of Models.FirmwareUpgrade response from the API call.</returns>
+        public ApiResponse<Models.FirmwareUpgrade> ScheduleFirmwareUpgrade(
+                Models.FirmwareUpgradeRequest body)
+            => CoreHelper.RunTask(ScheduleFirmwareUpgradeAsync(body));
+
+        /// <summary>
+        /// Schedules a firmware upgrade for devices.
+        /// </summary>
+        /// <param name="body">Required parameter: Details of the firmware upgrade request..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.FirmwareUpgrade response from the API call.</returns>
+        public async Task<ApiResponse<Models.FirmwareUpgrade>> ScheduleFirmwareUpgradeAsync(
+                Models.FirmwareUpgradeRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.FirmwareUpgrade>()
+              .Server(Server.SoftwareManagementV1)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/upgrades")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV1ResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.FirmwareUpgrade>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// Cancel a scheduled firmware upgrade.
         /// </summary>
         /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
@@ -205,6 +140,71 @@ namespace Verizon.Standard.Controllers
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV1ResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.FotaV1SuccessResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Lists all device firmware images available for an account, based on the devices registered to that account.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <returns>Returns the ApiResponse of List<Models.Firmware> response from the API call.</returns>
+        public ApiResponse<List<Models.Firmware>> ListAvailableFirmware(
+                string account)
+            => CoreHelper.RunTask(ListAvailableFirmwareAsync(account));
+
+        /// <summary>
+        /// Lists all device firmware images available for an account, based on the devices registered to that account.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of List<Models.Firmware> response from the API call.</returns>
+        public async Task<ApiResponse<List<Models.Firmware>>> ListAvailableFirmwareAsync(
+                string account,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<List<Models.Firmware>>()
+              .Server(Server.SoftwareManagementV1)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/firmware/{account}")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("account", account))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV1ResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.Firmware>>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Returns information about a specified upgrade, include the target date of the upgrade, the list of devices in the upgrade, and the status of the upgrade for each device.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <param name="upgradeId">Required parameter: The UUID of the upgrade, returned by POST /upgrades when the upgrade was scheduled..</param>
+        /// <returns>Returns the ApiResponse of Models.FirmwareUpgrade response from the API call.</returns>
+        public ApiResponse<Models.FirmwareUpgrade> ListFirmwareUpgradeDetails(
+                string account,
+                string upgradeId)
+            => CoreHelper.RunTask(ListFirmwareUpgradeDetailsAsync(account, upgradeId));
+
+        /// <summary>
+        /// Returns information about a specified upgrade, include the target date of the upgrade, the list of devices in the upgrade, and the status of the upgrade for each device.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <param name="upgradeId">Required parameter: The UUID of the upgrade, returned by POST /upgrades when the upgrade was scheduled..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.FirmwareUpgrade response from the API call.</returns>
+        public async Task<ApiResponse<Models.FirmwareUpgrade>> ListFirmwareUpgradeDetailsAsync(
+                string account,
+                string upgradeId,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.FirmwareUpgrade>()
+              .Server(Server.SoftwareManagementV1)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/upgrades/{account}/upgrade/{upgradeId}")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("account", account))
+                      .Template(_template => _template.Setup("upgradeId", upgradeId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV1ResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.FirmwareUpgrade>(_response)))
               .ExecuteAsync(cancellationToken);
     }
 }

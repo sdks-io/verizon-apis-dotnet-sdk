@@ -10,10 +10,66 @@ SoftwareManagementCallbacksV2Controller softwareManagementCallbacksV2Controller 
 
 ## Methods
 
+* [Register Callback](../../doc/controllers/software-management-callbacks-v2.md#register-callback)
 * [List Registered Callbacks](../../doc/controllers/software-management-callbacks-v2.md#list-registered-callbacks)
 * [Update Callback](../../doc/controllers/software-management-callbacks-v2.md#update-callback)
-* [Register Callback](../../doc/controllers/software-management-callbacks-v2.md#register-callback)
 * [Deregister Callback](../../doc/controllers/software-management-callbacks-v2.md#deregister-callback)
+
+
+# Register Callback
+
+This endpoint allows user to create the HTTPS callback address.
+
+```csharp
+RegisterCallbackAsync(
+    string account,
+    Models.FotaV2CallbackRegistrationRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account` | `string` | Template, Required | Account identifier. |
+| `body` | [`Models.FotaV2CallbackRegistrationRequest`](../../doc/models/fota-v2-callback-registration-request.md) | Body, Required | Callback URL registration. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.FotaV2CallbackRegistrationResult>>`](../../doc/models/fota-v2-callback-registration-result.md)
+
+## Example Usage
+
+```csharp
+string account = "0000123456-00001";
+FotaV2CallbackRegistrationRequest body = new FotaV2CallbackRegistrationRequest
+{
+    Url = "https://10.120.102.183:50559/CallbackListener/FirmwareServiceMessages.asmx",
+};
+
+try
+{
+    ApiResponse<FotaV2CallbackRegistrationResult> result = await softwareManagementCallbacksV2Controller.RegisterCallbackAsync(account, body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "url": "https://10.120.102.183:50559/CallbackListener/FirmwareServiceMessages.asmx"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
 
 
 # List Registered Callbacks
@@ -111,62 +167,6 @@ catch (ApiException e)
 ```json
 {
   "url": "https://255.255.11.135:50559/CallbackListener/FirmwareServiceMessages.asmx"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
-
-
-# Register Callback
-
-This endpoint allows user to create the HTTPS callback address.
-
-```csharp
-RegisterCallbackAsync(
-    string account,
-    Models.FotaV2CallbackRegistrationRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier. |
-| `body` | [`Models.FotaV2CallbackRegistrationRequest`](../../doc/models/fota-v2-callback-registration-request.md) | Body, Required | Callback URL registration. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.FotaV2CallbackRegistrationResult>>`](../../doc/models/fota-v2-callback-registration-result.md)
-
-## Example Usage
-
-```csharp
-string account = "0000123456-00001";
-FotaV2CallbackRegistrationRequest body = new FotaV2CallbackRegistrationRequest
-{
-    Url = "https://10.120.102.183:50559/CallbackListener/FirmwareServiceMessages.asmx",
-};
-
-try
-{
-    ApiResponse<FotaV2CallbackRegistrationResult> result = await softwareManagementCallbacksV2Controller.RegisterCallbackAsync(account, body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "url": "https://10.120.102.183:50559/CallbackListener/FirmwareServiceMessages.asmx"
 }
 ```
 

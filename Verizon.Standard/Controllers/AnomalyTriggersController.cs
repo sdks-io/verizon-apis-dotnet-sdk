@@ -36,37 +36,6 @@ namespace Verizon.Standard.Controllers
         internal AnomalyTriggersController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// Creates the trigger to identify an anomaly.
-        /// </summary>
-        /// <param name="body">Required parameter: Request to create an anomaly trigger..</param>
-        /// <returns>Returns the ApiResponse of Models.AnomalyDetectionTrigger response from the API call.</returns>
-        public ApiResponse<Models.AnomalyDetectionTrigger> CreateAnomalyDetectionTrigger(
-                List<Models.CreateTriggerRequestOptions> body)
-            => CoreHelper.RunTask(CreateAnomalyDetectionTriggerAsync(body));
-
-        /// <summary>
-        /// Creates the trigger to identify an anomaly.
-        /// </summary>
-        /// <param name="body">Required parameter: Request to create an anomaly trigger..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.AnomalyDetectionTrigger response from the API call.</returns>
-        public async Task<ApiResponse<Models.AnomalyDetectionTrigger>> CreateAnomalyDetectionTriggerAsync(
-                List<Models.CreateTriggerRequestOptions> body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.AnomalyDetectionTrigger>()
-              .Server(Server.M2m)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v2/triggers")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("0", CreateErrorCase("An error occurred.", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AnomalyDetectionTrigger>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Updates an existing trigger using the account name.
         /// </summary>
         /// <param name="body">Required parameter: Request to update existing trigger..</param>
@@ -125,6 +94,37 @@ namespace Verizon.Standard.Controllers
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("0", CreateErrorCase("An error occurred.", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AnomalyTriggerResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Creates the trigger to identify an anomaly.
+        /// </summary>
+        /// <param name="body">Required parameter: Request to create an anomaly trigger..</param>
+        /// <returns>Returns the ApiResponse of Models.AnomalyDetectionTrigger response from the API call.</returns>
+        public ApiResponse<Models.AnomalyDetectionTrigger> CreateAnomalyDetectionTrigger(
+                List<Models.CreateTriggerRequestOptions> body)
+            => CoreHelper.RunTask(CreateAnomalyDetectionTriggerAsync(body));
+
+        /// <summary>
+        /// Creates the trigger to identify an anomaly.
+        /// </summary>
+        /// <param name="body">Required parameter: Request to create an anomaly trigger..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.AnomalyDetectionTrigger response from the API call.</returns>
+        public async Task<ApiResponse<Models.AnomalyDetectionTrigger>> CreateAnomalyDetectionTriggerAsync(
+                List<Models.CreateTriggerRequestOptions> body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.AnomalyDetectionTrigger>()
+              .Server(Server.M2m)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/v2/triggers")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("0", CreateErrorCase("An error occurred.", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AnomalyDetectionTrigger>(_response)))
               .ExecuteAsync(cancellationToken);
     }
 }

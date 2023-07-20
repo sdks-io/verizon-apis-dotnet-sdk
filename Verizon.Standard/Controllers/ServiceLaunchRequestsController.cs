@@ -36,6 +36,56 @@ namespace Verizon.Standard.Controllers
         internal ServiceLaunchRequestsController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
+        /// Create a request for launching a service.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="userName">Required parameter: Example: .</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <param name="body">Optional parameter: Request for launching a service..</param>
+        /// <returns>Returns the ApiResponse of Models.ServiceLaunchRequestResult response from the API call.</returns>
+        public ApiResponse<Models.ServiceLaunchRequestResult> CreateServiceLaunchRequest(
+                string accountName,
+                string userName,
+                string correlationId = null,
+                Models.CreateServiceLaunchRequest body = null)
+            => CoreHelper.RunTask(CreateServiceLaunchRequestAsync(accountName, userName, correlationId, body));
+
+        /// <summary>
+        /// Create a request for launching a service.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="userName">Required parameter: Example: .</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <param name="body">Optional parameter: Request for launching a service..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.ServiceLaunchRequestResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.ServiceLaunchRequestResult>> CreateServiceLaunchRequestAsync(
+                string accountName,
+                string userName,
+                string correlationId = null,
+                Models.CreateServiceLaunchRequest body = null,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.ServiceLaunchRequestResult>()
+              .Server(Server.Services)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/v1/service/launch/request")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("AccountName", accountName))
+                      .Header(_header => _header.Setup("userName", userName))
+                      .Header(_header => _header.Setup("Content-Type", "*/*"))
+                      .Header(_header => _header.Setup("correlationId", correlationId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
+                  .ErrorCase("404", CreateErrorCase("HTTP 404 Not found.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
+                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
+                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ServiceLaunchRequestResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// Get information related to a service launch request.
         /// </summary>
         /// <param name="accountName">Required parameter: User account name..</param>
@@ -100,56 +150,6 @@ namespace Verizon.Standard.Controllers
                   .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
                   .ErrorCase("0", CreateErrorCase("Unexpected error.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ServiceLaunchRequestsResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Create a request for launching a service.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="userName">Required parameter: Example: .</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <param name="body">Optional parameter: Request for launching a service..</param>
-        /// <returns>Returns the ApiResponse of Models.ServiceLaunchRequestResult response from the API call.</returns>
-        public ApiResponse<Models.ServiceLaunchRequestResult> CreateServiceLaunchRequest(
-                string accountName,
-                string userName,
-                string correlationId = null,
-                Models.CreateServiceLaunchRequest body = null)
-            => CoreHelper.RunTask(CreateServiceLaunchRequestAsync(accountName, userName, correlationId, body));
-
-        /// <summary>
-        /// Create a request for launching a service.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="userName">Required parameter: Example: .</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <param name="body">Optional parameter: Request for launching a service..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.ServiceLaunchRequestResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.ServiceLaunchRequestResult>> CreateServiceLaunchRequestAsync(
-                string accountName,
-                string userName,
-                string correlationId = null,
-                Models.CreateServiceLaunchRequest body = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.ServiceLaunchRequestResult>()
-              .Server(Server.Services)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v1/service/launch/request")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("AccountName", accountName))
-                      .Header(_header => _header.Setup("userName", userName))
-                      .Header(_header => _header.Setup("Content-Type", "*/*"))
-                      .Header(_header => _header.Setup("correlationId", correlationId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("HTTP 404 Not found.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
-                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
-                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ServiceLaunchRequestResult>(_response)))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>

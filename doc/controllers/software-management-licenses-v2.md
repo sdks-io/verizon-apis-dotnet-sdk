@@ -10,22 +10,23 @@ SoftwareManagementLicensesV2Controller softwareManagementLicensesV2Controller = 
 
 ## Methods
 
-* [Get Account License Status](../../doc/controllers/software-management-licenses-v2.md#get-account-license-status)
+* [Delete List of Licenses to Remove](../../doc/controllers/software-management-licenses-v2.md#delete-list-of-licenses-to-remove)
 * [Assign Licenses to Devices](../../doc/controllers/software-management-licenses-v2.md#assign-licenses-to-devices)
+* [Get Account License Status](../../doc/controllers/software-management-licenses-v2.md#get-account-license-status)
 * [Remove Licenses From Devices](../../doc/controllers/software-management-licenses-v2.md#remove-licenses-from-devices)
 * [List Licenses to Remove](../../doc/controllers/software-management-licenses-v2.md#list-licenses-to-remove)
 * [Create List of Licenses to Remove](../../doc/controllers/software-management-licenses-v2.md#create-list-of-licenses-to-remove)
-* [Delete List of Licenses to Remove](../../doc/controllers/software-management-licenses-v2.md#delete-list-of-licenses-to-remove)
 
 
-# Get Account License Status
+# Delete List of Licenses to Remove
 
-The endpoint allows user to list license usage.
+**This endpoint is deprecated.**
+
+This endpoint allows user to delete a created cancel candidate device list.
 
 ```csharp
-GetAccountLicenseStatusAsync(
-    string account,
-    string lastSeenDeviceId = null)
+DeleteListOfLicensesToRemoveAsync(
+    string account)
 ```
 
 ## Parameters
@@ -33,20 +34,18 @@ GetAccountLicenseStatusAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `account` | `string` | Template, Required | Account identifier. |
-| `lastSeenDeviceId` | `string` | Query, Optional | Last seen device identifier. |
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V2LicenseSummary>>`](../../doc/models/v2-license-summary.md)
+[`Task<ApiResponse<Models.FotaV2SuccessResult>>`](../../doc/models/fota-v2-success-result.md)
 
 ## Example Usage
 
 ```csharp
-string account = "0000123456-00001";
-string lastSeenDeviceId = "15-digit IMEI";
+string account = "0242078689-00001";
 try
 {
-    ApiResponse<V2LicenseSummary> result = await softwareManagementLicensesV2Controller.GetAccountLicenseStatusAsync(account, lastSeenDeviceId);
+    ApiResponse<FotaV2SuccessResult> result = await softwareManagementLicensesV2Controller.DeleteListOfLicensesToRemoveAsync(account);
 }
 catch (ApiException e)
 {
@@ -59,30 +58,7 @@ catch (ApiException e)
 
 ```json
 {
-  "accountName": "0402196254-00001",
-  "totalLicense": 5000,
-  "assignedLicenses": 4319,
-  "hasMoreData": true,
-  "lastSeenDeviceId": "1000",
-  "maxPageSize": 10,
-  "deviceList": [
-    {
-      "deviceId": "990003425730535",
-      "assignmentTime": "2017-11-29T16:03:42.000Z"
-    },
-    {
-      "deviceId": "990000473475989",
-      "assignmentTime": "2017-11-29T16:03:42.000Z"
-    },
-    {
-      "deviceId": "990000347475989",
-      "assignmentTime": "2017-11-29T16:03:42.000Z"
-    },
-    {
-      "deviceId": "990007303425535",
-      "assignmentTime": "2017-11-29T16:03:42.000Z"
-    }
-  ]
+  "success": true
 }
 ```
 
@@ -157,6 +133,81 @@ catch (ApiException e)
       "deviceId": "990000473475967",
       "status": "Failure",
       "resultReason": "Device does not exist."
+    }
+  ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
+
+
+# Get Account License Status
+
+The endpoint allows user to list license usage.
+
+```csharp
+GetAccountLicenseStatusAsync(
+    string account,
+    string lastSeenDeviceId = null)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account` | `string` | Template, Required | Account identifier. |
+| `lastSeenDeviceId` | `string` | Query, Optional | Last seen device identifier. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.V2LicenseSummary>>`](../../doc/models/v2-license-summary.md)
+
+## Example Usage
+
+```csharp
+string account = "0000123456-00001";
+string lastSeenDeviceId = "15-digit IMEI";
+try
+{
+    ApiResponse<V2LicenseSummary> result = await softwareManagementLicensesV2Controller.GetAccountLicenseStatusAsync(account, lastSeenDeviceId);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "accountName": "0402196254-00001",
+  "totalLicense": 5000,
+  "assignedLicenses": 4319,
+  "hasMoreData": true,
+  "lastSeenDeviceId": "1000",
+  "maxPageSize": 10,
+  "deviceList": [
+    {
+      "deviceId": "990003425730535",
+      "assignmentTime": "2017-11-29T16:03:42.000Z"
+    },
+    {
+      "deviceId": "990000473475989",
+      "assignmentTime": "2017-11-29T16:03:42.000Z"
+    },
+    {
+      "deviceId": "990000347475989",
+      "assignmentTime": "2017-11-29T16:03:42.000Z"
+    },
+    {
+      "deviceId": "990007303425535",
+      "assignmentTime": "2017-11-29T16:03:42.000Z"
     }
   ]
 }
@@ -372,57 +423,6 @@ catch (ApiException e)
     "990003425730535",
     "990000473475989"
   ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
-
-
-# Delete List of Licenses to Remove
-
-**This endpoint is deprecated.**
-
-This endpoint allows user to delete a created cancel candidate device list.
-
-```csharp
-DeleteListOfLicensesToRemoveAsync(
-    string account)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.FotaV2SuccessResult>>`](../../doc/models/fota-v2-success-result.md)
-
-## Example Usage
-
-```csharp
-string account = "0242078689-00001";
-try
-{
-    ApiResponse<FotaV2SuccessResult> result = await softwareManagementLicensesV2Controller.DeleteListOfLicensesToRemoveAsync(account);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "success": true
 }
 ```
 

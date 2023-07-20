@@ -36,6 +36,42 @@ namespace Verizon.Standard.Controllers
         internal SoftwareManagementCallbacksV2Controller(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
+        /// This endpoint allows user to create the HTTPS callback address.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier..</param>
+        /// <param name="body">Required parameter: Callback URL registration..</param>
+        /// <returns>Returns the ApiResponse of Models.FotaV2CallbackRegistrationResult response from the API call.</returns>
+        public ApiResponse<Models.FotaV2CallbackRegistrationResult> RegisterCallback(
+                string account,
+                Models.FotaV2CallbackRegistrationRequest body)
+            => CoreHelper.RunTask(RegisterCallbackAsync(account, body));
+
+        /// <summary>
+        /// This endpoint allows user to create the HTTPS callback address.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier..</param>
+        /// <param name="body">Required parameter: Callback URL registration..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.FotaV2CallbackRegistrationResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.FotaV2CallbackRegistrationResult>> RegisterCallbackAsync(
+                string account,
+                Models.FotaV2CallbackRegistrationRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.FotaV2CallbackRegistrationResult>()
+              .Server(Server.SoftwareManagementV2)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/callbacks/{account}")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Template(_template => _template.Setup("account", account))
+                      .Header(_header => _header.Setup("Content-Type", "*/*"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.FotaV2CallbackRegistrationResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// This endpoint allows user to get the registered callback information.
         /// </summary>
         /// <param name="account">Required parameter: Account identifier..</param>
@@ -91,42 +127,6 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Put, "/callbacks/{account}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Template(_template => _template.Setup("account", account))
-                      .Header(_header => _header.Setup("Content-Type", "*/*"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.FotaV2CallbackRegistrationResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// This endpoint allows user to create the HTTPS callback address.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier..</param>
-        /// <param name="body">Required parameter: Callback URL registration..</param>
-        /// <returns>Returns the ApiResponse of Models.FotaV2CallbackRegistrationResult response from the API call.</returns>
-        public ApiResponse<Models.FotaV2CallbackRegistrationResult> RegisterCallback(
-                string account,
-                Models.FotaV2CallbackRegistrationRequest body)
-            => CoreHelper.RunTask(RegisterCallbackAsync(account, body));
-
-        /// <summary>
-        /// This endpoint allows user to create the HTTPS callback address.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier..</param>
-        /// <param name="body">Required parameter: Callback URL registration..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.FotaV2CallbackRegistrationResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.FotaV2CallbackRegistrationResult>> RegisterCallbackAsync(
-                string account,
-                Models.FotaV2CallbackRegistrationRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.FotaV2CallbackRegistrationResult>()
-              .Server(Server.SoftwareManagementV2)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/callbacks/{account}")
                   .WithAuth("global")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))

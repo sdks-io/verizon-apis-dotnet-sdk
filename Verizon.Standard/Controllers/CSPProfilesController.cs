@@ -36,61 +36,6 @@ namespace Verizon.Standard.Controllers
         internal CSPProfilesController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// Fetch available cloud credentials within user's organization.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <param name="q">Optional parameter: Use the coloumn (:) character to separate multiple query params eg type=AWS:awsCspProfile.credType=ACCESS_KEY,ROLE_ARN:state=UNVERIFIED,VERIFIED..</param>
-        /// <param name="limit">Optional parameter: Number of items to return..</param>
-        /// <param name="offSet">Optional parameter: Id of the last respose value in the previous list..</param>
-        /// <returns>Returns the ApiResponse of Models.CSPProfileData response from the API call.</returns>
-        public ApiResponse<Models.CSPProfileData> FetchCloudCredentialDetails(
-                string accountName,
-                string correlationId = null,
-                string q = null,
-                long? limit = null,
-                long? offSet = null)
-            => CoreHelper.RunTask(FetchCloudCredentialDetailsAsync(accountName, correlationId, q, limit, offSet));
-
-        /// <summary>
-        /// Fetch available cloud credentials within user's organization.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <param name="q">Optional parameter: Use the coloumn (:) character to separate multiple query params eg type=AWS:awsCspProfile.credType=ACCESS_KEY,ROLE_ARN:state=UNVERIFIED,VERIFIED..</param>
-        /// <param name="limit">Optional parameter: Number of items to return..</param>
-        /// <param name="offSet">Optional parameter: Id of the last respose value in the previous list..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.CSPProfileData response from the API call.</returns>
-        public async Task<ApiResponse<Models.CSPProfileData>> FetchCloudCredentialDetailsAsync(
-                string accountName,
-                string correlationId = null,
-                string q = null,
-                long? limit = null,
-                long? offSet = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.CSPProfileData>()
-              .Server(Server.Services)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/v1/cspProfiles/")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Header(_header => _header.Setup("AccountName", accountName))
-                      .Header(_header => _header.Setup("correlationId", correlationId))
-                      .Query(_query => _query.Setup("q", q))
-                      .Query(_query => _query.Setup("limit", limit))
-                      .Query(_query => _query.Setup("offSet", offSet))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("403", CreateErrorCase("Forbidden.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("Not found.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("429", CreateErrorCase("Too many requests.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("0", CreateErrorCase("Forbidden.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.CSPProfileData>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Create a new cloud credential within user's organization.
         /// </summary>
         /// <param name="accountName">Required parameter: User account name..</param>
@@ -176,6 +121,61 @@ namespace Verizon.Standard.Controllers
                   .ErrorCase("404", CreateErrorCase("Not Found.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
                   .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.EdgeServiceOnboardingDeleteResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Fetch available cloud credentials within user's organization.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <param name="q">Optional parameter: Use the coloumn (:) character to separate multiple query params eg type=AWS:awsCspProfile.credType=ACCESS_KEY,ROLE_ARN:state=UNVERIFIED,VERIFIED..</param>
+        /// <param name="limit">Optional parameter: Number of items to return..</param>
+        /// <param name="offSet">Optional parameter: Id of the last respose value in the previous list..</param>
+        /// <returns>Returns the ApiResponse of Models.CSPProfileData response from the API call.</returns>
+        public ApiResponse<Models.CSPProfileData> FetchCloudCredentialDetails(
+                string accountName,
+                string correlationId = null,
+                string q = null,
+                long? limit = null,
+                long? offSet = null)
+            => CoreHelper.RunTask(FetchCloudCredentialDetailsAsync(accountName, correlationId, q, limit, offSet));
+
+        /// <summary>
+        /// Fetch available cloud credentials within user's organization.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <param name="q">Optional parameter: Use the coloumn (:) character to separate multiple query params eg type=AWS:awsCspProfile.credType=ACCESS_KEY,ROLE_ARN:state=UNVERIFIED,VERIFIED..</param>
+        /// <param name="limit">Optional parameter: Number of items to return..</param>
+        /// <param name="offSet">Optional parameter: Id of the last respose value in the previous list..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.CSPProfileData response from the API call.</returns>
+        public async Task<ApiResponse<Models.CSPProfileData>> FetchCloudCredentialDetailsAsync(
+                string accountName,
+                string correlationId = null,
+                string q = null,
+                long? limit = null,
+                long? offSet = null,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.CSPProfileData>()
+              .Server(Server.Services)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/v1/cspProfiles/")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Header(_header => _header.Setup("AccountName", accountName))
+                      .Header(_header => _header.Setup("correlationId", correlationId))
+                      .Query(_query => _query.Setup("q", q))
+                      .Query(_query => _query.Setup("limit", limit))
+                      .Query(_query => _query.Setup("offSet", offSet))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("403", CreateErrorCase("Forbidden.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("404", CreateErrorCase("Not found.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("429", CreateErrorCase("Too many requests.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("0", CreateErrorCase("Forbidden.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.CSPProfileData>(_response)))
               .ExecuteAsync(cancellationToken);
     }
 }

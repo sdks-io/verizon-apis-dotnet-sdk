@@ -36,6 +36,87 @@ namespace Verizon.Standard.Controllers
         internal DeviceGroupsController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
+        /// Make changes to a device group, including changing the name and description, and adding or removing devices.
+        /// </summary>
+        /// <param name="aname">Required parameter: Account name..</param>
+        /// <param name="gname">Required parameter: Group name..</param>
+        /// <param name="body">Required parameter: Request to update device group..</param>
+        /// <returns>Returns the ApiResponse of Models.ConnectivityManagementSuccessResult response from the API call.</returns>
+        public ApiResponse<Models.ConnectivityManagementSuccessResult> UpdateDeviceGroup(
+                string aname,
+                string gname,
+                Models.DeviceGroupUpdateRequest body)
+            => CoreHelper.RunTask(UpdateDeviceGroupAsync(aname, gname, body));
+
+        /// <summary>
+        /// Make changes to a device group, including changing the name and description, and adding or removing devices.
+        /// </summary>
+        /// <param name="aname">Required parameter: Account name..</param>
+        /// <param name="gname">Required parameter: Group name..</param>
+        /// <param name="body">Required parameter: Request to update device group..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.ConnectivityManagementSuccessResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.ConnectivityManagementSuccessResult>> UpdateDeviceGroupAsync(
+                string aname,
+                string gname,
+                Models.DeviceGroupUpdateRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.ConnectivityManagementSuccessResult>()
+              .Server(Server.M2m)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Put, "/v1/groups/{aname}/name/{gname}")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Template(_template => _template.Setup("aname", aname))
+                      .Template(_template => _template.Setup("gname", gname))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ConnectivityManagementSuccessResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// When HTTP status is 202, a URL will be returned in the Location header of the form /groups/{aname}/name/{gname}/?next={token}. This URL can be used to request the next set of groups.
+        /// </summary>
+        /// <param name="aname">Required parameter: Account name..</param>
+        /// <param name="gname">Required parameter: Group name..</param>
+        /// <param name="next">Optional parameter: Continue the previous query from the pageUrl pagetoken..</param>
+        /// <returns>Returns the ApiResponse of Models.DeviceGroupDevicesData response from the API call.</returns>
+        public ApiResponse<Models.DeviceGroupDevicesData> GetDeviceGroupInformation(
+                string aname,
+                string gname,
+                long? next = null)
+            => CoreHelper.RunTask(GetDeviceGroupInformationAsync(aname, gname, next));
+
+        /// <summary>
+        /// When HTTP status is 202, a URL will be returned in the Location header of the form /groups/{aname}/name/{gname}/?next={token}. This URL can be used to request the next set of groups.
+        /// </summary>
+        /// <param name="aname">Required parameter: Account name..</param>
+        /// <param name="gname">Required parameter: Group name..</param>
+        /// <param name="next">Optional parameter: Continue the previous query from the pageUrl pagetoken..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.DeviceGroupDevicesData response from the API call.</returns>
+        public async Task<ApiResponse<Models.DeviceGroupDevicesData>> GetDeviceGroupInformationAsync(
+                string aname,
+                string gname,
+                long? next = null,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.DeviceGroupDevicesData>()
+              .Server(Server.M2m)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/v1/groups/{aname}/name/{gname}")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("aname", aname))
+                      .Template(_template => _template.Setup("gname", gname))
+                      .Query(_query => _query.Setup("next", next))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceGroupDevicesData>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// Create a new device group and optionally add devices to the group. Device groups can make it easier to manage similar devices and to get reports on their usage.
         /// </summary>
         /// <param name="body">Required parameter: A request to create a new device group..</param>
@@ -94,87 +175,6 @@ namespace Verizon.Standard.Controllers
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.DeviceGroup>>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// When HTTP status is 202, a URL will be returned in the Location header of the form /groups/{aname}/name/{gname}/?next={token}. This URL can be used to request the next set of groups.
-        /// </summary>
-        /// <param name="aname">Required parameter: Account name..</param>
-        /// <param name="gname">Required parameter: Group name..</param>
-        /// <param name="next">Optional parameter: Continue the previous query from the pageUrl pagetoken..</param>
-        /// <returns>Returns the ApiResponse of Models.DeviceGroupDevicesData response from the API call.</returns>
-        public ApiResponse<Models.DeviceGroupDevicesData> GetDeviceGroupInformation(
-                string aname,
-                string gname,
-                long? next = null)
-            => CoreHelper.RunTask(GetDeviceGroupInformationAsync(aname, gname, next));
-
-        /// <summary>
-        /// When HTTP status is 202, a URL will be returned in the Location header of the form /groups/{aname}/name/{gname}/?next={token}. This URL can be used to request the next set of groups.
-        /// </summary>
-        /// <param name="aname">Required parameter: Account name..</param>
-        /// <param name="gname">Required parameter: Group name..</param>
-        /// <param name="next">Optional parameter: Continue the previous query from the pageUrl pagetoken..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.DeviceGroupDevicesData response from the API call.</returns>
-        public async Task<ApiResponse<Models.DeviceGroupDevicesData>> GetDeviceGroupInformationAsync(
-                string aname,
-                string gname,
-                long? next = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.DeviceGroupDevicesData>()
-              .Server(Server.M2m)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/v1/groups/{aname}/name/{gname}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("aname", aname))
-                      .Template(_template => _template.Setup("gname", gname))
-                      .Query(_query => _query.Setup("next", next))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceGroupDevicesData>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Make changes to a device group, including changing the name and description, and adding or removing devices.
-        /// </summary>
-        /// <param name="aname">Required parameter: Account name..</param>
-        /// <param name="gname">Required parameter: Group name..</param>
-        /// <param name="body">Required parameter: Request to update device group..</param>
-        /// <returns>Returns the ApiResponse of Models.ConnectivityManagementSuccessResult response from the API call.</returns>
-        public ApiResponse<Models.ConnectivityManagementSuccessResult> UpdateDeviceGroup(
-                string aname,
-                string gname,
-                Models.DeviceGroupUpdateRequest body)
-            => CoreHelper.RunTask(UpdateDeviceGroupAsync(aname, gname, body));
-
-        /// <summary>
-        /// Make changes to a device group, including changing the name and description, and adding or removing devices.
-        /// </summary>
-        /// <param name="aname">Required parameter: Account name..</param>
-        /// <param name="gname">Required parameter: Group name..</param>
-        /// <param name="body">Required parameter: Request to update device group..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.ConnectivityManagementSuccessResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.ConnectivityManagementSuccessResult>> UpdateDeviceGroupAsync(
-                string aname,
-                string gname,
-                Models.DeviceGroupUpdateRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.ConnectivityManagementSuccessResult>()
-              .Server(Server.M2m)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Put, "/v1/groups/{aname}/name/{gname}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Template(_template => _template.Setup("aname", aname))
-                      .Template(_template => _template.Setup("gname", gname))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ConnectivityManagementSuccessResult>(_response)))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>

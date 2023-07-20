@@ -36,6 +36,41 @@ namespace Verizon.Standard.Controllers
         internal CampaignsV3Controller(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
+        /// This endpoint allows user to cancel a firmware campaign. A firmware campaign already started can not be cancelled.
+        /// </summary>
+        /// <param name="acc">Required parameter: Account identifier..</param>
+        /// <param name="campaignId">Required parameter: Firmware upgrade information..</param>
+        /// <returns>Returns the ApiResponse of Models.FotaV3SuccessResult response from the API call.</returns>
+        public ApiResponse<Models.FotaV3SuccessResult> CancelCampaign(
+                string acc,
+                string campaignId)
+            => CoreHelper.RunTask(CancelCampaignAsync(acc, campaignId));
+
+        /// <summary>
+        /// This endpoint allows user to cancel a firmware campaign. A firmware campaign already started can not be cancelled.
+        /// </summary>
+        /// <param name="acc">Required parameter: Account identifier..</param>
+        /// <param name="campaignId">Required parameter: Firmware upgrade information..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.FotaV3SuccessResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.FotaV3SuccessResult>> CancelCampaignAsync(
+                string acc,
+                string campaignId,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.FotaV3SuccessResult>()
+              .Server(Server.SoftwareManagementV3)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Delete, "/campaigns/{acc}/{campaignId}")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("acc", acc))
+                      .Template(_template => _template.Setup("campaignId", campaignId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.FotaV3SuccessResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// This endpoint allows a user to schedule a firmware upgrade for a list of devices.
         /// </summary>
         /// <param name="acc">Required parameter: Account identifier..</param>
@@ -186,41 +221,6 @@ namespace Verizon.Standard.Controllers
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.Campaign>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// This endpoint allows user to cancel a firmware campaign. A firmware campaign already started can not be cancelled.
-        /// </summary>
-        /// <param name="acc">Required parameter: Account identifier..</param>
-        /// <param name="campaignId">Required parameter: Firmware upgrade information..</param>
-        /// <returns>Returns the ApiResponse of Models.FotaV3SuccessResult response from the API call.</returns>
-        public ApiResponse<Models.FotaV3SuccessResult> CancelCampaign(
-                string acc,
-                string campaignId)
-            => CoreHelper.RunTask(CancelCampaignAsync(acc, campaignId));
-
-        /// <summary>
-        /// This endpoint allows user to cancel a firmware campaign. A firmware campaign already started can not be cancelled.
-        /// </summary>
-        /// <param name="acc">Required parameter: Account identifier..</param>
-        /// <param name="campaignId">Required parameter: Firmware upgrade information..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.FotaV3SuccessResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.FotaV3SuccessResult>> CancelCampaignAsync(
-                string acc,
-                string campaignId,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.FotaV3SuccessResult>()
-              .Server(Server.SoftwareManagementV3)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Delete, "/campaigns/{acc}/{campaignId}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("acc", acc))
-                      .Template(_template => _template.Setup("campaignId", campaignId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.FotaV3SuccessResult>(_response)))
               .ExecuteAsync(cancellationToken);
     }
 }

@@ -10,55 +10,8 @@ AccountDevicesController accountDevicesController = client.AccountDevicesControl
 
 ## Methods
 
-* [Get Account Device Information](../../doc/controllers/account-devices.md#get-account-device-information)
 * [List Account Devices Information](../../doc/controllers/account-devices.md#list-account-devices-information)
-
-
-# Get Account Device Information
-
-Retrieve account device information such as reported firmware on the devices.
-
-```csharp
-GetAccountDeviceInformationAsync(
-    string acc,
-    string lastSeenDeviceId = null,
-    Models.DevicesProtocolEnum? protocol = Models.DevicesProtocolEnum.LWM2m)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `acc` | `string` | Template, Required | Account identifier. |
-| `lastSeenDeviceId` | `string` | Query, Optional | Last seen device identifier. |
-| `protocol` | [`Models.DevicesProtocolEnum?`](../../doc/models/devices-protocol-enum.md) | Query, Optional | Filter to retrieve a specific protocol type used.<br>**Default**: `DevicesProtocolEnum.LWM2M` |
-
-## Response Type
-
-[`Task<ApiResponse<Models.V3AccountDeviceList>>`](../../doc/models/v3-account-device-list.md)
-
-## Example Usage
-
-```csharp
-string acc = "0000123456-00001";
-string lastSeenDeviceId = "0";
-Models.DevicesProtocolEnum? protocol = DevicesProtocolEnum.LWM2m;
-try
-{
-    ApiResponse<V3AccountDeviceList> result = await accountDevicesController.GetAccountDeviceInformationAsync(acc, lastSeenDeviceId, protocol);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV3ResultException`](../../doc/models/fota-v3-result-exception.md) |
+* [Get Account Device Information](../../doc/controllers/account-devices.md#get-account-device-information)
 
 
 # List Account Devices Information
@@ -128,6 +81,53 @@ catch (ApiException e)
       "lastConnectionTime": "2012-04-23T18:25:43.511Z"
     }
   ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV3ResultException`](../../doc/models/fota-v3-result-exception.md) |
+
+
+# Get Account Device Information
+
+Retrieve account device information such as reported firmware on the devices.
+
+```csharp
+GetAccountDeviceInformationAsync(
+    string acc,
+    string lastSeenDeviceId = null,
+    Models.DevicesProtocolEnum? protocol = Models.DevicesProtocolEnum.LWM2m)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `acc` | `string` | Template, Required | Account identifier. |
+| `lastSeenDeviceId` | `string` | Query, Optional | Last seen device identifier. |
+| `protocol` | [`Models.DevicesProtocolEnum?`](../../doc/models/devices-protocol-enum.md) | Query, Optional | Filter to retrieve a specific protocol type used.<br>**Default**: `DevicesProtocolEnum.LWM2M` |
+
+## Response Type
+
+[`Task<ApiResponse<Models.V3AccountDeviceList>>`](../../doc/models/v3-account-device-list.md)
+
+## Example Usage
+
+```csharp
+string acc = "0000123456-00001";
+string lastSeenDeviceId = "0";
+Models.DevicesProtocolEnum? protocol = DevicesProtocolEnum.LWM2m;
+try
+{
+    ApiResponse<V3AccountDeviceList> result = await accountDevicesController.GetAccountDeviceInformationAsync(acc, lastSeenDeviceId, protocol);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
 }
 ```
 

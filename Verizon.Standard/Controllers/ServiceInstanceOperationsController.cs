@@ -36,68 +36,6 @@ namespace Verizon.Standard.Controllers
         internal ServiceInstanceOperationsController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// Resumes a suspended Service Instance.
-        /// </summary>
-        /// <param name="serviceInstanceId">Required parameter: Example: .</param>
-        /// <param name="userId">Required parameter: Example: .</param>
-        /// <param name="requestId">Required parameter: Example: .</param>
-        /// <param name="userRole">Required parameter: Example: .</param>
-        /// <param name="customerId">Required parameter: Example: .</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <returns>Returns the ApiResponse of Models.ServiceResumeResult response from the API call.</returns>
-        public ApiResponse<Models.ServiceResumeResult> ServiceResume(
-                string serviceInstanceId,
-                string userId,
-                string requestId,
-                Models.UserRoleEnum userRole,
-                string customerId,
-                string correlationId = null)
-            => CoreHelper.RunTask(ServiceResumeAsync(serviceInstanceId, userId, requestId, userRole, customerId, correlationId));
-
-        /// <summary>
-        /// Resumes a suspended Service Instance.
-        /// </summary>
-        /// <param name="serviceInstanceId">Required parameter: Example: .</param>
-        /// <param name="userId">Required parameter: Example: .</param>
-        /// <param name="requestId">Required parameter: Example: .</param>
-        /// <param name="userRole">Required parameter: Example: .</param>
-        /// <param name="customerId">Required parameter: Example: .</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.ServiceResumeResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.ServiceResumeResult>> ServiceResumeAsync(
-                string serviceInstanceId,
-                string userId,
-                string requestId,
-                Models.UserRoleEnum userRole,
-                string customerId,
-                string correlationId = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.ServiceResumeResult>()
-              .Server(Server.Services)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v1/service/instances/{serviceInstanceId}/resume")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("serviceInstanceId", serviceInstanceId))
-                      .Header(_header => _header.Setup("userId", userId))
-                      .Header(_header => _header.Setup("requestId", requestId))
-                      .Header(_header => _header.Setup("user_role", ApiHelper.JsonSerialize(userRole).Trim('\"')))
-                      .Header(_header => _header.Setup("customerId", customerId))
-                      .Header(_header => _header.Setup("correlationId", correlationId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Bad Request.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
-                  .ErrorCase("403", CreateErrorCase("Forbidden.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("Not found.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
-                  .ErrorCase("415", CreateErrorCase("Unsupported media type.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
-                  .ErrorCase("429", CreateErrorCase("Too many requests.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
-                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
-                  .ErrorCase("0", CreateErrorCase("Unexpected error.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ServiceResumeResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Suspend a service Instance.
         /// </summary>
         /// <param name="serviceInstanceId">Required parameter: Example: .</param>
@@ -201,6 +139,68 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Services)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/v1/service/instances/{serviceInstanceId}/remove")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("serviceInstanceId", serviceInstanceId))
+                      .Header(_header => _header.Setup("userId", userId))
+                      .Header(_header => _header.Setup("requestId", requestId))
+                      .Header(_header => _header.Setup("user_role", ApiHelper.JsonSerialize(userRole).Trim('\"')))
+                      .Header(_header => _header.Setup("customerId", customerId))
+                      .Header(_header => _header.Setup("correlationId", correlationId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Bad Request.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
+                  .ErrorCase("403", CreateErrorCase("Forbidden.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
+                  .ErrorCase("404", CreateErrorCase("Not found.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
+                  .ErrorCase("415", CreateErrorCase("Unsupported media type.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
+                  .ErrorCase("429", CreateErrorCase("Too many requests.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
+                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
+                  .ErrorCase("0", CreateErrorCase("Unexpected error.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ServiceResumeResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Resumes a suspended Service Instance.
+        /// </summary>
+        /// <param name="serviceInstanceId">Required parameter: Example: .</param>
+        /// <param name="userId">Required parameter: Example: .</param>
+        /// <param name="requestId">Required parameter: Example: .</param>
+        /// <param name="userRole">Required parameter: Example: .</param>
+        /// <param name="customerId">Required parameter: Example: .</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <returns>Returns the ApiResponse of Models.ServiceResumeResult response from the API call.</returns>
+        public ApiResponse<Models.ServiceResumeResult> ServiceResume(
+                string serviceInstanceId,
+                string userId,
+                string requestId,
+                Models.UserRoleEnum userRole,
+                string customerId,
+                string correlationId = null)
+            => CoreHelper.RunTask(ServiceResumeAsync(serviceInstanceId, userId, requestId, userRole, customerId, correlationId));
+
+        /// <summary>
+        /// Resumes a suspended Service Instance.
+        /// </summary>
+        /// <param name="serviceInstanceId">Required parameter: Example: .</param>
+        /// <param name="userId">Required parameter: Example: .</param>
+        /// <param name="requestId">Required parameter: Example: .</param>
+        /// <param name="userRole">Required parameter: Example: .</param>
+        /// <param name="customerId">Required parameter: Example: .</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.ServiceResumeResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.ServiceResumeResult>> ServiceResumeAsync(
+                string serviceInstanceId,
+                string userId,
+                string requestId,
+                Models.UserRoleEnum userRole,
+                string customerId,
+                string correlationId = null,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.ServiceResumeResult>()
+              .Server(Server.Services)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/v1/service/instances/{serviceInstanceId}/resume")
                   .WithAuth("global")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("serviceInstanceId", serviceInstanceId))

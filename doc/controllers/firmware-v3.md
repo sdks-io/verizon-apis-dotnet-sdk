@@ -11,8 +11,8 @@ FirmwareV3Controller firmwareV3Controller = client.FirmwareV3Controller;
 ## Methods
 
 * [List Available Firmware](../../doc/controllers/firmware-v3.md#list-available-firmware)
-* [Synchronize Device Firmware](../../doc/controllers/firmware-v3.md#synchronize-device-firmware)
 * [Report Device Firmware](../../doc/controllers/firmware-v3.md#report-device-firmware)
+* [Synchronize Device Firmware](../../doc/controllers/firmware-v3.md#synchronize-device-firmware)
 
 
 # List Available Firmware
@@ -67,6 +67,50 @@ catch (ApiException e)
     "protocol": "LWM2M"
   }
 ]
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV3ResultException`](../../doc/models/fota-v3-result-exception.md) |
+
+
+# Report Device Firmware
+
+Ask a device to report its firmware version asynchronously.
+
+```csharp
+ReportDeviceFirmwareAsync(
+    string acc,
+    string deviceId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `acc` | `string` | Template, Required | Account identifier. |
+| `deviceId` | `string` | Template, Required | Device identifier. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceFirmwareVersionUpdateResult>>`](../../doc/models/device-firmware-version-update-result.md)
+
+## Example Usage
+
+```csharp
+string acc = "0000123456-00001";
+string deviceId = "15-digit IMEI";
+try
+{
+    ApiResponse<DeviceFirmwareVersionUpdateResult> result = await firmwareV3Controller.ReportDeviceFirmwareAsync(acc, deviceId);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
 ```
 
 ## Errors
@@ -132,50 +176,6 @@ catch (ApiException e)
       "firmwareVersion": "SR1.2.0.0-10657"
     }
   ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV3ResultException`](../../doc/models/fota-v3-result-exception.md) |
-
-
-# Report Device Firmware
-
-Ask a device to report its firmware version asynchronously.
-
-```csharp
-ReportDeviceFirmwareAsync(
-    string acc,
-    string deviceId)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `acc` | `string` | Template, Required | Account identifier. |
-| `deviceId` | `string` | Template, Required | Device identifier. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceFirmwareVersionUpdateResult>>`](../../doc/models/device-firmware-version-update-result.md)
-
-## Example Usage
-
-```csharp
-string acc = "0000123456-00001";
-string deviceId = "15-digit IMEI";
-try
-{
-    ApiResponse<DeviceFirmwareVersionUpdateResult> result = await firmwareV3Controller.ReportDeviceFirmwareAsync(acc, deviceId);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
 }
 ```
 

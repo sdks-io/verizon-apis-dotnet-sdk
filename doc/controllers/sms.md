@@ -12,63 +12,9 @@ SMSController sMSController = client.SMSController;
 
 ## Methods
 
-* [Send SMS to Device](../../doc/controllers/sms.md#send-sms-to-device)
 * [List Devices SMS Messages](../../doc/controllers/sms.md#list-devices-sms-messages)
+* [Send SMS to Device](../../doc/controllers/sms.md#send-sms-to-device)
 * [Start Queued SMS Delivery](../../doc/controllers/sms.md#start-queued-sms-delivery)
-
-
-# Send SMS to Device
-
-The messages are queued on the ThingSpace Platform and sent as soon as possible, but they may be delayed due to traffic and routing considerations.
-
-```csharp
-SendSMSToDeviceAsync(
-    Models.SMSSendRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.SMSSendRequest`](../../doc/models/sms-send-request.md) | Body, Required | Request to send SMS. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
-
-## Example Usage
-
-```csharp
-SMSSendRequest body = new SMSSendRequest
-{
-    ServicePlan = "T Plan 2",
-    SmsMessage = "The rain in Spain stays mainly in the plain.",
-};
-
-try
-{
-    ApiResponse<DeviceManagementResult> result = await sMSController.SendSMSToDeviceAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
 # List Devices SMS Messages
@@ -134,6 +80,60 @@ catch (ApiException e)
     }
   ],
   "hasMoreData": false
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# Send SMS to Device
+
+The messages are queued on the ThingSpace Platform and sent as soon as possible, but they may be delayed due to traffic and routing considerations.
+
+```csharp
+SendSMSToDeviceAsync(
+    Models.SMSSendRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`Models.SMSSendRequest`](../../doc/models/sms-send-request.md) | Body, Required | Request to send SMS. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+
+## Example Usage
+
+```csharp
+SMSSendRequest body = new SMSSendRequest
+{
+    ServicePlan = "T Plan 2",
+    SmsMessage = "The rain in Spain stays mainly in the plain.",
+};
+
+try
+{
+    ApiResponse<DeviceManagementResult> result = await sMSController.SendSMSToDeviceAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
 }
 ```
 

@@ -72,42 +72,6 @@ namespace Verizon.Standard.Controllers
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
-        /// Calculate aggregated report per day with number of sessions and usage information. User will receive an asynchronous callback for the specified list of devices (Max 10000) and date range (Max 180 days).
-        /// </summary>
-        /// <param name="body">Required parameter: Aggregated session report request..</param>
-        /// <returns>Returns the ApiResponse of Models.AggregatedReportCallbackResult response from the API call.</returns>
-        public ApiResponse<Models.AggregatedReportCallbackResult> CalculateAggregatedReportAsynchronous(
-                Models.AggregateSessionReportRequest body)
-            => CoreHelper.RunTask(CalculateAggregatedReportAsynchronousAsync(body));
-
-        /// <summary>
-        /// Calculate aggregated report per day with number of sessions and usage information. User will receive an asynchronous callback for the specified list of devices (Max 10000) and date range (Max 180 days).
-        /// </summary>
-        /// <param name="body">Required parameter: Aggregated session report request..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.AggregatedReportCallbackResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.AggregatedReportCallbackResult>> CalculateAggregatedReportAsynchronousAsync(
-                Models.AggregateSessionReportRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.AggregatedReportCallbackResult>()
-              .Server(Server.HyperPreciseLocation)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/report/async/aggregate")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Bad request.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("Unauthorized request. Access token is missing or invalid.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
-                  .ErrorCase("403", CreateErrorCase("Forbidden request.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("Bad request. Not found.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
-                  .ErrorCase("409", CreateErrorCase("Bad request. Conflict state.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
-                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AggregatedReportCallbackResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Detailed report of session duration and number of bytes transferred per day.
         /// </summary>
         /// <param name="body">Required parameter: Request for sessions report..</param>
@@ -141,6 +105,42 @@ namespace Verizon.Standard.Controllers
                   .ErrorCase("409", CreateErrorCase("Bad request. Conflict state.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
                   .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.SessionReport>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Calculate aggregated report per day with number of sessions and usage information. User will receive an asynchronous callback for the specified list of devices (Max 10000) and date range (Max 180 days).
+        /// </summary>
+        /// <param name="body">Required parameter: Aggregated session report request..</param>
+        /// <returns>Returns the ApiResponse of Models.AggregatedReportCallbackResult response from the API call.</returns>
+        public ApiResponse<Models.AggregatedReportCallbackResult> CalculateAggregatedReportAsynchronous(
+                Models.AggregateSessionReportRequest body)
+            => CoreHelper.RunTask(CalculateAggregatedReportAsynchronousAsync(body));
+
+        /// <summary>
+        /// Calculate aggregated report per day with number of sessions and usage information. User will receive an asynchronous callback for the specified list of devices (Max 10000) and date range (Max 180 days).
+        /// </summary>
+        /// <param name="body">Required parameter: Aggregated session report request..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.AggregatedReportCallbackResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.AggregatedReportCallbackResult>> CalculateAggregatedReportAsynchronousAsync(
+                Models.AggregateSessionReportRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.AggregatedReportCallbackResult>()
+              .Server(Server.HyperPreciseLocation)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/report/async/aggregate")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Bad request.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("Unauthorized request. Access token is missing or invalid.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
+                  .ErrorCase("403", CreateErrorCase("Forbidden request.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
+                  .ErrorCase("404", CreateErrorCase("Bad request. Not found.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
+                  .ErrorCase("409", CreateErrorCase("Bad request. Conflict state.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
+                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AggregatedReportCallbackResult>(_response)))
               .ExecuteAsync(cancellationToken);
     }
 }

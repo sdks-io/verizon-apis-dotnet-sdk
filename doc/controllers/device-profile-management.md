@@ -10,10 +10,56 @@ DeviceProfileManagementController deviceProfileManagementController = client.Dev
 
 ## Methods
 
+* [Profile to Set Fallback Attribute](../../doc/controllers/device-profile-management.md#profile-to-set-fallback-attribute)
 * [Activate Device Through Profile](../../doc/controllers/device-profile-management.md#activate-device-through-profile)
 * [Profile to Activate Device](../../doc/controllers/device-profile-management.md#profile-to-activate-device)
 * [Profile to Deactivate Device](../../doc/controllers/device-profile-management.md#profile-to-deactivate-device)
-* [Profile to Set Fallback Attribute](../../doc/controllers/device-profile-management.md#profile-to-set-fallback-attribute)
+
+
+# Profile to Set Fallback Attribute
+
+Allows the profile to set the fallback attribute to the device.
+
+```csharp
+ProfileToSetFallbackAttributeAsync(
+    Models.SetFallbackAttributeRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`Models.SetFallbackAttributeRequest`](../../doc/models/set-fallback-attribute-request.md) | Body, Required | Device Profile Query |
+
+## Response Type
+
+[`Task<ApiResponse<Models.RequestResponse>>`](../../doc/models/request-response.md)
+
+## Example Usage
+
+```csharp
+SetFallbackAttributeRequest body = new SetFallbackAttributeRequest
+{
+    AccountName = "0000123456-00001",
+    CarrierName = "the name of the mobile service provider",
+};
+
+try
+{
+    ApiResponse<RequestResponse> result = await deviceProfileManagementController.ProfileToSetFallbackAttributeAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Bad request | [`RestErrorResponseException`](../../doc/models/rest-error-response-exception.md) |
 
 
 # Activate Device Through Profile
@@ -164,52 +210,6 @@ ProfileRequest2 body = new ProfileRequest2
 try
 {
     ApiResponse<RequestResponse> result = await deviceProfileManagementController.ProfileToDeactivateDeviceAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Bad request | [`RestErrorResponseException`](../../doc/models/rest-error-response-exception.md) |
-
-
-# Profile to Set Fallback Attribute
-
-Allows the profile to set the fallback attribute to the device.
-
-```csharp
-ProfileToSetFallbackAttributeAsync(
-    Models.SetFallbackAttributeRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.SetFallbackAttributeRequest`](../../doc/models/set-fallback-attribute-request.md) | Body, Required | Device Profile Query |
-
-## Response Type
-
-[`Task<ApiResponse<Models.RequestResponse>>`](../../doc/models/request-response.md)
-
-## Example Usage
-
-```csharp
-SetFallbackAttributeRequest body = new SetFallbackAttributeRequest
-{
-    AccountName = "0000123456-00001",
-    CarrierName = "the name of the mobile service provider",
-};
-
-try
-{
-    ApiResponse<RequestResponse> result = await deviceProfileManagementController.ProfileToSetFallbackAttributeAsync(body);
 }
 catch (ApiException e)
 {

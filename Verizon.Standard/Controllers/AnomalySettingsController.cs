@@ -67,36 +67,6 @@ namespace Verizon.Standard.Controllers
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
-        /// Retrieves the current anomaly detection settings for an account.
-        /// </summary>
-        /// <param name="accountName">Required parameter: The name of the subscribed account..</param>
-        /// <returns>Returns the ApiResponse of Models.AnomalyDetectionSettings response from the API call.</returns>
-        public ApiResponse<Models.AnomalyDetectionSettings> ListAnomalyDetectionSettings(
-                string accountName)
-            => CoreHelper.RunTask(ListAnomalyDetectionSettingsAsync(accountName));
-
-        /// <summary>
-        /// Retrieves the current anomaly detection settings for an account.
-        /// </summary>
-        /// <param name="accountName">Required parameter: The name of the subscribed account..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.AnomalyDetectionSettings response from the API call.</returns>
-        public async Task<ApiResponse<Models.AnomalyDetectionSettings>> ListAnomalyDetectionSettingsAsync(
-                string accountName,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.AnomalyDetectionSettings>()
-              .Server(Server.M2m)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/v1/intelligence/{accountName}/anomaly/settings")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("accountName", accountName))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("0", CreateErrorCase("An error occurred.", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AnomalyDetectionSettings>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Resets the thresholds to zero.
         /// </summary>
         /// <param name="accountName">Required parameter: The name of the subscribed account..</param>
@@ -124,6 +94,36 @@ namespace Verizon.Standard.Controllers
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("0", CreateErrorCase("An error occurred.", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.IntelligenceSuccessResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Retrieves the current anomaly detection settings for an account.
+        /// </summary>
+        /// <param name="accountName">Required parameter: The name of the subscribed account..</param>
+        /// <returns>Returns the ApiResponse of Models.AnomalyDetectionSettings response from the API call.</returns>
+        public ApiResponse<Models.AnomalyDetectionSettings> ListAnomalyDetectionSettings(
+                string accountName)
+            => CoreHelper.RunTask(ListAnomalyDetectionSettingsAsync(accountName));
+
+        /// <summary>
+        /// Retrieves the current anomaly detection settings for an account.
+        /// </summary>
+        /// <param name="accountName">Required parameter: The name of the subscribed account..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.AnomalyDetectionSettings response from the API call.</returns>
+        public async Task<ApiResponse<Models.AnomalyDetectionSettings>> ListAnomalyDetectionSettingsAsync(
+                string accountName,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.AnomalyDetectionSettings>()
+              .Server(Server.M2m)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/v1/intelligence/{accountName}/anomaly/settings")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("accountName", accountName))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("0", CreateErrorCase("An error occurred.", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AnomalyDetectionSettings>(_response)))
               .ExecuteAsync(cancellationToken);
     }
 }

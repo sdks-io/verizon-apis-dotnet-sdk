@@ -12,11 +12,11 @@ Verizon Terms of Service: [https://www.verizon.com/business/5g-edge-portal/legal
 If you are building with .NET CLI tools then you can also use the following command:
 
 ```bash
-dotnet add package VerizonApisSDK --version 1.0.0
+dotnet add package sdksio.VerizonApisSDK --version 1.0.0
 ```
 
 You can also view the package at:
-https://www.nuget.org/packages/VerizonApisSDK/1.0.0
+https://www.nuget.org/packages/sdksio.VerizonApisSDK/1.0.0
 
 ## Initialize the API Client
 

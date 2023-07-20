@@ -36,44 +36,6 @@ namespace Verizon.Standard.Controllers
         internal SoftwareManagementLicensesV1Controller(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// Assigns licenses to a specified list of devices so that firmware upgrades can be scheduled for those devices.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
-        /// <param name="body">Required parameter: IMEIs of the devices to assign licenses to..</param>
-        /// <returns>Returns the ApiResponse of Models.V1LicensesAssignedRemovedResult response from the API call.</returns>
-        [Obsolete]
-        public ApiResponse<Models.V1LicensesAssignedRemovedResult> AssignLicensesToDevices(
-                string account,
-                Models.V1LicensesAssignedRemovedRequest body)
-            => CoreHelper.RunTask(AssignLicensesToDevicesAsync(account, body));
-
-        /// <summary>
-        /// Assigns licenses to a specified list of devices so that firmware upgrades can be scheduled for those devices.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
-        /// <param name="body">Required parameter: IMEIs of the devices to assign licenses to..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.V1LicensesAssignedRemovedResult response from the API call.</returns>
-        [Obsolete]
-        public async Task<ApiResponse<Models.V1LicensesAssignedRemovedResult>> AssignLicensesToDevicesAsync(
-                string account,
-                Models.V1LicensesAssignedRemovedRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.V1LicensesAssignedRemovedResult>()
-              .Server(Server.SoftwareManagementV1)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/licenses/{account}/assign")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Template(_template => _template.Setup("account", account))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV1ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.V1LicensesAssignedRemovedResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Remove unused licenses from device.
         /// </summary>
         /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
@@ -101,6 +63,76 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV1)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/licenses/{account}/remove")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Template(_template => _template.Setup("account", account))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV1ResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.V1LicensesAssignedRemovedResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Deletes the entire list of cancellation candidate devices.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <returns>Returns the ApiResponse of Models.FotaV1SuccessResult response from the API call.</returns>
+        [Obsolete]
+        public ApiResponse<Models.FotaV1SuccessResult> DeleteListOfLicensesToRemove(
+                string account)
+            => CoreHelper.RunTask(DeleteListOfLicensesToRemoveAsync(account));
+
+        /// <summary>
+        /// Deletes the entire list of cancellation candidate devices.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.FotaV1SuccessResult response from the API call.</returns>
+        [Obsolete]
+        public async Task<ApiResponse<Models.FotaV1SuccessResult>> DeleteListOfLicensesToRemoveAsync(
+                string account,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.FotaV1SuccessResult>()
+              .Server(Server.SoftwareManagementV1)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Delete, "/licenses/{account}/cancel")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("account", account))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV1ResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.FotaV1SuccessResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Assigns licenses to a specified list of devices so that firmware upgrades can be scheduled for those devices.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <param name="body">Required parameter: IMEIs of the devices to assign licenses to..</param>
+        /// <returns>Returns the ApiResponse of Models.V1LicensesAssignedRemovedResult response from the API call.</returns>
+        [Obsolete]
+        public ApiResponse<Models.V1LicensesAssignedRemovedResult> AssignLicensesToDevices(
+                string account,
+                Models.V1LicensesAssignedRemovedRequest body)
+            => CoreHelper.RunTask(AssignLicensesToDevicesAsync(account, body));
+
+        /// <summary>
+        /// Assigns licenses to a specified list of devices so that firmware upgrades can be scheduled for those devices.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <param name="body">Required parameter: IMEIs of the devices to assign licenses to..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.V1LicensesAssignedRemovedResult response from the API call.</returns>
+        [Obsolete]
+        public async Task<ApiResponse<Models.V1LicensesAssignedRemovedResult>> AssignLicensesToDevicesAsync(
+                string account,
+                Models.V1LicensesAssignedRemovedRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.V1LicensesAssignedRemovedResult>()
+              .Server(Server.SoftwareManagementV1)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/licenses/{account}/assign")
                   .WithAuth("global")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
@@ -147,38 +179,6 @@ namespace Verizon.Standard.Controllers
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV1ResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.V1ListOfLicensesToRemoveResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Deletes the entire list of cancellation candidate devices.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
-        /// <returns>Returns the ApiResponse of Models.FotaV1SuccessResult response from the API call.</returns>
-        [Obsolete]
-        public ApiResponse<Models.FotaV1SuccessResult> DeleteListOfLicensesToRemove(
-                string account)
-            => CoreHelper.RunTask(DeleteListOfLicensesToRemoveAsync(account));
-
-        /// <summary>
-        /// Deletes the entire list of cancellation candidate devices.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.FotaV1SuccessResult response from the API call.</returns>
-        [Obsolete]
-        public async Task<ApiResponse<Models.FotaV1SuccessResult>> DeleteListOfLicensesToRemoveAsync(
-                string account,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.FotaV1SuccessResult>()
-              .Server(Server.SoftwareManagementV1)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Delete, "/licenses/{account}/cancel")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("account", account))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV1ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.FotaV1SuccessResult>(_response)))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>

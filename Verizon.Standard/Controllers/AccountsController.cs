@@ -36,6 +36,41 @@ namespace Verizon.Standard.Controllers
         internal AccountsController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
+        /// When HTTP status is 202, a URL will be returned in the Location header of the form /leads/{aname}?next={token}. This URL can be used to request the next set of leads.
+        /// </summary>
+        /// <param name="aname">Required parameter: Account name..</param>
+        /// <param name="next">Optional parameter: Continue the previous query from the pageUrl in Location Header..</param>
+        /// <returns>Returns the ApiResponse of Models.AccountLeadsResult response from the API call.</returns>
+        public ApiResponse<Models.AccountLeadsResult> ListAccountLeads(
+                string aname,
+                long? next = null)
+            => CoreHelper.RunTask(ListAccountLeadsAsync(aname, next));
+
+        /// <summary>
+        /// When HTTP status is 202, a URL will be returned in the Location header of the form /leads/{aname}?next={token}. This URL can be used to request the next set of leads.
+        /// </summary>
+        /// <param name="aname">Required parameter: Account name..</param>
+        /// <param name="next">Optional parameter: Continue the previous query from the pageUrl in Location Header..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.AccountLeadsResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.AccountLeadsResult>> ListAccountLeadsAsync(
+                string aname,
+                long? next = null,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.AccountLeadsResult>()
+              .Server(Server.M2m)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/v1/leads/{aname}")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("aname", aname))
+                      .Query(_query => _query.Setup("next", next))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AccountLeadsResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// Returns information about a specified account.
         /// </summary>
         /// <param name="aname">Required parameter: Account name..</param>
@@ -93,41 +128,6 @@ namespace Verizon.Standard.Controllers
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AccountStatesAndServices>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// When HTTP status is 202, a URL will be returned in the Location header of the form /leads/{aname}?next={token}. This URL can be used to request the next set of leads.
-        /// </summary>
-        /// <param name="aname">Required parameter: Account name..</param>
-        /// <param name="next">Optional parameter: Continue the previous query from the pageUrl in Location Header..</param>
-        /// <returns>Returns the ApiResponse of Models.AccountLeadsResult response from the API call.</returns>
-        public ApiResponse<Models.AccountLeadsResult> ListAccountLeads(
-                string aname,
-                long? next = null)
-            => CoreHelper.RunTask(ListAccountLeadsAsync(aname, next));
-
-        /// <summary>
-        /// When HTTP status is 202, a URL will be returned in the Location header of the form /leads/{aname}?next={token}. This URL can be used to request the next set of leads.
-        /// </summary>
-        /// <param name="aname">Required parameter: Account name..</param>
-        /// <param name="next">Optional parameter: Continue the previous query from the pageUrl in Location Header..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.AccountLeadsResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.AccountLeadsResult>> ListAccountLeadsAsync(
-                string aname,
-                long? next = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.AccountLeadsResult>()
-              .Server(Server.M2m)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/v1/leads/{aname}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("aname", aname))
-                      .Query(_query => _query.Setup("next", next))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AccountLeadsResult>(_response)))
               .ExecuteAsync(cancellationToken);
     }
 }

@@ -35,66 +35,6 @@ namespace Verizon.Standard.Controllers
         internal CloudConnectorDevicesController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// Change configuration values on a device, such as setting how often a device records and reports sensor readings.
-        /// </summary>
-        /// <param name="body">Required parameter: The request body changes configuration values on a device..</param>
-        /// <returns>Returns the ApiResponse of Models.ChangeConfigurationResponse response from the API call.</returns>
-        public ApiResponse<Models.ChangeConfigurationResponse> UpdateDevicesConfigurationValue(
-                Models.ChangeConfigurationRequest body)
-            => CoreHelper.RunTask(UpdateDevicesConfigurationValueAsync(body));
-
-        /// <summary>
-        /// Change configuration values on a device, such as setting how often a device records and reports sensor readings.
-        /// </summary>
-        /// <param name="body">Required parameter: The request body changes configuration values on a device..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.ChangeConfigurationResponse response from the API call.</returns>
-        public async Task<ApiResponse<Models.ChangeConfigurationResponse>> UpdateDevicesConfigurationValueAsync(
-                Models.ChangeConfigurationRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.ChangeConfigurationResponse>()
-              .Server(Server.CloudConnector)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/devices/configuration/actions/set")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ChangeConfigurationResponse>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Find devices by property values. Returns an array of all matching device resources.
-        /// </summary>
-        /// <param name="body">Required parameter: The request body specifies fields and values to match..</param>
-        /// <returns>Returns the ApiResponse of Models.FindDeviceByPropertyResponseList response from the API call.</returns>
-        public ApiResponse<Models.FindDeviceByPropertyResponseList> FindDeviceByPropertyValues(
-                Models.QuerySubscriptionRequest body)
-            => CoreHelper.RunTask(FindDeviceByPropertyValuesAsync(body));
-
-        /// <summary>
-        /// Find devices by property values. Returns an array of all matching device resources.
-        /// </summary>
-        /// <param name="body">Required parameter: The request body specifies fields and values to match..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.FindDeviceByPropertyResponseList response from the API call.</returns>
-        public async Task<ApiResponse<Models.FindDeviceByPropertyResponseList>> FindDeviceByPropertyValuesAsync(
-                Models.QuerySubscriptionRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.FindDeviceByPropertyResponseList>()
-              .Server(Server.CloudConnector)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/devices/actions/query")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.FindDeviceByPropertyResponseList>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Search for devices by property values. Returns an array of all matching device resources.
         /// </summary>
         /// <param name="body">Required parameter: The request body specifies fields and values to match..</param>
@@ -155,6 +95,36 @@ namespace Verizon.Standard.Controllers
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
+        /// Find devices by property values. Returns an array of all matching device resources.
+        /// </summary>
+        /// <param name="body">Required parameter: The request body specifies fields and values to match..</param>
+        /// <returns>Returns the ApiResponse of Models.FindDeviceByPropertyResponseList response from the API call.</returns>
+        public ApiResponse<Models.FindDeviceByPropertyResponseList> FindDeviceByPropertyValues(
+                Models.QuerySubscriptionRequest body)
+            => CoreHelper.RunTask(FindDeviceByPropertyValuesAsync(body));
+
+        /// <summary>
+        /// Find devices by property values. Returns an array of all matching device resources.
+        /// </summary>
+        /// <param name="body">Required parameter: The request body specifies fields and values to match..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.FindDeviceByPropertyResponseList response from the API call.</returns>
+        public async Task<ApiResponse<Models.FindDeviceByPropertyResponseList>> FindDeviceByPropertyValuesAsync(
+                Models.QuerySubscriptionRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.FindDeviceByPropertyResponseList>()
+              .Server(Server.CloudConnector)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/devices/actions/query")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.FindDeviceByPropertyResponseList>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// Returns the readings of a specified sensor, with the most recent reading first. Sensor readings are stored as events; this request an array of events.
         /// </summary>
         /// <param name="fieldname">Required parameter: The name of the sensor..</param>
@@ -187,6 +157,36 @@ namespace Verizon.Standard.Controllers
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.SearchSensorHistoryResponseList>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Change configuration values on a device, such as setting how often a device records and reports sensor readings.
+        /// </summary>
+        /// <param name="body">Required parameter: The request body changes configuration values on a device..</param>
+        /// <returns>Returns the ApiResponse of Models.ChangeConfigurationResponse response from the API call.</returns>
+        public ApiResponse<Models.ChangeConfigurationResponse> UpdateDevicesConfigurationValue(
+                Models.ChangeConfigurationRequest body)
+            => CoreHelper.RunTask(UpdateDevicesConfigurationValueAsync(body));
+
+        /// <summary>
+        /// Change configuration values on a device, such as setting how often a device records and reports sensor readings.
+        /// </summary>
+        /// <param name="body">Required parameter: The request body changes configuration values on a device..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.ChangeConfigurationResponse response from the API call.</returns>
+        public async Task<ApiResponse<Models.ChangeConfigurationResponse>> UpdateDevicesConfigurationValueAsync(
+                Models.ChangeConfigurationRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.ChangeConfigurationResponse>()
+              .Server(Server.CloudConnector)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/devices/configuration/actions/set")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ChangeConfigurationResponse>(_response)))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>

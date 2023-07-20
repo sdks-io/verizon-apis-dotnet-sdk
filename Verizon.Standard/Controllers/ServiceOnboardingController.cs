@@ -36,74 +36,6 @@ namespace Verizon.Standard.Controllers
         internal ServiceOnboardingController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// Upload workload payload/package in the MEC platform.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="serviceName">Required parameter: Service name to which the file is going to be associated..</param>
-        /// <param name="version">Required parameter: Version of the service being used..</param>
-        /// <param name="categoryType">Required parameter: Type of the file being uploaded..</param>
-        /// <param name="categoryName">Required parameter: `workloadName` used in the service while creation..</param>
-        /// <param name="payload">Required parameter: Payload/file which is to be uploaded should be provided in formData..</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <param name="categoryVersion">Optional parameter: It is mandatory for only service file, not mandatory for workload and workflow file..</param>
-        /// <returns>Returns the ApiResponse of Models.ServiceFile response from the API call.</returns>
-        public ApiResponse<Models.ServiceFile> UploadServiceWorkloadFile(
-                string accountName,
-                string serviceName,
-                string version,
-                Models.CategoryTypeEnum categoryType,
-                string categoryName,
-                FileStreamInfo payload,
-                string correlationId = null,
-                string categoryVersion = null)
-            => CoreHelper.RunTask(UploadServiceWorkloadFileAsync(accountName, serviceName, version, categoryType, categoryName, payload, correlationId, categoryVersion));
-
-        /// <summary>
-        /// Upload workload payload/package in the MEC platform.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="serviceName">Required parameter: Service name to which the file is going to be associated..</param>
-        /// <param name="version">Required parameter: Version of the service being used..</param>
-        /// <param name="categoryType">Required parameter: Type of the file being uploaded..</param>
-        /// <param name="categoryName">Required parameter: `workloadName` used in the service while creation..</param>
-        /// <param name="payload">Required parameter: Payload/file which is to be uploaded should be provided in formData..</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <param name="categoryVersion">Optional parameter: It is mandatory for only service file, not mandatory for workload and workflow file..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.ServiceFile response from the API call.</returns>
-        public async Task<ApiResponse<Models.ServiceFile>> UploadServiceWorkloadFileAsync(
-                string accountName,
-                string serviceName,
-                string version,
-                Models.CategoryTypeEnum categoryType,
-                string categoryName,
-                FileStreamInfo payload,
-                string correlationId = null,
-                string categoryVersion = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.ServiceFile>()
-              .Server(Server.Services)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v1/files/{serviceName}/{version}/uploadAndValidate")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Header(_header => _header.Setup("AccountName", accountName))
-                      .Template(_template => _template.Setup("serviceName", serviceName))
-                      .Template(_template => _template.Setup("version", version))
-                      .Query(_query => _query.Setup("categoryType", ApiHelper.JsonSerialize(categoryType).Trim('\"')))
-                      .Query(_query => _query.Setup("categoryName", categoryName))
-                      .Form(_form => _form.Setup("payload", payload))
-                      .Header(_header => _header.Setup("correlationId", correlationId))
-                      .Query(_query => _query.Setup("categoryVersion", categoryVersion))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Bad Request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("Not found.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ServiceFile>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Fetch all organizational services in the platform.
         /// </summary>
         /// <param name="accountName">Required parameter: User account name..</param>
@@ -224,6 +156,74 @@ namespace Verizon.Standard.Controllers
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
+        /// Upload workload payload/package in the MEC platform.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="serviceName">Required parameter: Service name to which the file is going to be associated..</param>
+        /// <param name="version">Required parameter: Version of the service being used..</param>
+        /// <param name="categoryType">Required parameter: Type of the file being uploaded..</param>
+        /// <param name="categoryName">Required parameter: `workloadName` used in the service while creation..</param>
+        /// <param name="payload">Required parameter: Payload/file which is to be uploaded should be provided in formData..</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <param name="categoryVersion">Optional parameter: It is mandatory for only service file, not mandatory for workload and workflow file..</param>
+        /// <returns>Returns the ApiResponse of Models.ServiceFile response from the API call.</returns>
+        public ApiResponse<Models.ServiceFile> UploadServiceWorkloadFile(
+                string accountName,
+                string serviceName,
+                string version,
+                Models.CategoryTypeEnum categoryType,
+                string categoryName,
+                FileStreamInfo payload,
+                string correlationId = null,
+                string categoryVersion = null)
+            => CoreHelper.RunTask(UploadServiceWorkloadFileAsync(accountName, serviceName, version, categoryType, categoryName, payload, correlationId, categoryVersion));
+
+        /// <summary>
+        /// Upload workload payload/package in the MEC platform.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="serviceName">Required parameter: Service name to which the file is going to be associated..</param>
+        /// <param name="version">Required parameter: Version of the service being used..</param>
+        /// <param name="categoryType">Required parameter: Type of the file being uploaded..</param>
+        /// <param name="categoryName">Required parameter: `workloadName` used in the service while creation..</param>
+        /// <param name="payload">Required parameter: Payload/file which is to be uploaded should be provided in formData..</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <param name="categoryVersion">Optional parameter: It is mandatory for only service file, not mandatory for workload and workflow file..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.ServiceFile response from the API call.</returns>
+        public async Task<ApiResponse<Models.ServiceFile>> UploadServiceWorkloadFileAsync(
+                string accountName,
+                string serviceName,
+                string version,
+                Models.CategoryTypeEnum categoryType,
+                string categoryName,
+                FileStreamInfo payload,
+                string correlationId = null,
+                string categoryVersion = null,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.ServiceFile>()
+              .Server(Server.Services)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/v1/files/{serviceName}/{version}/uploadAndValidate")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Header(_header => _header.Setup("AccountName", accountName))
+                      .Template(_template => _template.Setup("serviceName", serviceName))
+                      .Template(_template => _template.Setup("version", version))
+                      .Query(_query => _query.Setup("categoryType", ApiHelper.JsonSerialize(categoryType).Trim('\"')))
+                      .Query(_query => _query.Setup("categoryName", categoryName))
+                      .Form(_form => _form.Setup("payload", payload))
+                      .Header(_header => _header.Setup("correlationId", correlationId))
+                      .Query(_query => _query.Setup("categoryVersion", categoryVersion))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Bad Request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("404", CreateErrorCase("Not found.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ServiceFile>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// Fetch a service details within user's organization using service name and version.
         /// </summary>
         /// <param name="accountName">Required parameter: User account name..</param>
@@ -273,6 +273,60 @@ namespace Verizon.Standard.Controllers
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
+        /// Initiate testing of a service in sandbox environment per claim based on service's compatibility(s).
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="serviceId">Required parameter: An id of the service created e.g. UUID..</param>
+        /// <param name="claimId">Required parameter: Id of the claim created e.g. UUID..</param>
+        /// <param name="body">Required parameter: Example: .</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <returns>Returns the ApiResponse of Models.ServiceManagementResult response from the API call.</returns>
+        public ApiResponse<Models.ServiceManagementResult> StartServiceClaimSandBoxTesting(
+                string accountName,
+                string serviceId,
+                string claimId,
+                Models.ClusterInfoDetails body,
+                string correlationId = null)
+            => CoreHelper.RunTask(StartServiceClaimSandBoxTestingAsync(accountName, serviceId, claimId, body, correlationId));
+
+        /// <summary>
+        /// Initiate testing of a service in sandbox environment per claim based on service's compatibility(s).
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="serviceId">Required parameter: An id of the service created e.g. UUID..</param>
+        /// <param name="claimId">Required parameter: Id of the claim created e.g. UUID..</param>
+        /// <param name="body">Required parameter: Example: .</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.ServiceManagementResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.ServiceManagementResult>> StartServiceClaimSandBoxTestingAsync(
+                string accountName,
+                string serviceId,
+                string claimId,
+                Models.ClusterInfoDetails body,
+                string correlationId = null,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.ServiceManagementResult>()
+              .Server(Server.Services)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Put, "/v1/services/{serviceId}/claims/{claimId}/sandBoxStart")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("AccountName", accountName))
+                      .Template(_template => _template.Setup("serviceId", serviceId))
+                      .Template(_template => _template.Setup("claimId", claimId))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))
+                      .Header(_header => _header.Setup("correlationId", correlationId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Bad Request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("0", CreateErrorCase("Unexpected error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ServiceManagementResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// Remove a service from user's organization.
         /// </summary>
         /// <param name="accountName">Required parameter: User account name..</param>
@@ -317,6 +371,102 @@ namespace Verizon.Standard.Controllers
                   .ErrorCase("404", CreateErrorCase("Not found.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
                   .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.EdgeServiceOnboardingDeleteResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Start service certification process. On successful completion of this process, service's status will change to certified.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="serviceName">Required parameter: Name of the service e.g. any sub string of serviceName..</param>
+        /// <param name="version">Required parameter: Version of service which is to be certified..</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <returns>Returns the ApiResponse of Models.ServiceManagementResult response from the API call.</returns>
+        public ApiResponse<Models.ServiceManagementResult> StopServiceTesting(
+                string accountName,
+                string serviceName,
+                string version,
+                string correlationId = null)
+            => CoreHelper.RunTask(StopServiceTestingAsync(accountName, serviceName, version, correlationId));
+
+        /// <summary>
+        /// Start service certification process. On successful completion of this process, service's status will change to certified.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="serviceName">Required parameter: Name of the service e.g. any sub string of serviceName..</param>
+        /// <param name="version">Required parameter: Version of service which is to be certified..</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.ServiceManagementResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.ServiceManagementResult>> StopServiceTestingAsync(
+                string accountName,
+                string serviceName,
+                string version,
+                string correlationId = null,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.ServiceManagementResult>()
+              .Server(Server.Services)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Put, "/v1/services/{serviceName}/{version}/certify")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Header(_header => _header.Setup("AccountName", accountName))
+                      .Template(_template => _template.Setup("serviceName", serviceName))
+                      .Template(_template => _template.Setup("version", version))
+                      .Header(_header => _header.Setup("correlationId", correlationId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Bad Request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("0", CreateErrorCase("Unexpected error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ServiceManagementResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Start the process to change a service's status to "Ready to Use". On success, service's status will be changed to "Ready to Use". Only a ready to use service can be deployed in production environment.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="serviceName">Required parameter: Name of the service e.g. any sub string of serviceName..</param>
+        /// <param name="version">Required parameter: Version of the service which is already certified and is ready for public use..</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <returns>Returns the ApiResponse of Models.ServiceManagementResult response from the API call.</returns>
+        public ApiResponse<Models.ServiceManagementResult> MarkServiceAsReadyForPublicUse(
+                string accountName,
+                string serviceName,
+                string version,
+                string correlationId = null)
+            => CoreHelper.RunTask(MarkServiceAsReadyForPublicUseAsync(accountName, serviceName, version, correlationId));
+
+        /// <summary>
+        /// Start the process to change a service's status to "Ready to Use". On success, service's status will be changed to "Ready to Use". Only a ready to use service can be deployed in production environment.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="serviceName">Required parameter: Name of the service e.g. any sub string of serviceName..</param>
+        /// <param name="version">Required parameter: Version of the service which is already certified and is ready for public use..</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.ServiceManagementResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.ServiceManagementResult>> MarkServiceAsReadyForPublicUseAsync(
+                string accountName,
+                string serviceName,
+                string version,
+                string correlationId = null,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.ServiceManagementResult>()
+              .Server(Server.Services)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Put, "/v1/services/{serviceName}/{version}/readyToPublicUse")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Header(_header => _header.Setup("AccountName", accountName))
+                      .Template(_template => _template.Setup("serviceName", serviceName))
+                      .Template(_template => _template.Setup("version", version))
+                      .Header(_header => _header.Setup("correlationId", correlationId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Bad Request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("0", CreateErrorCase("Unexpected error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ServiceManagementResult>(_response)))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
@@ -413,60 +563,6 @@ namespace Verizon.Standard.Controllers
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
-        /// Initiate testing of a service in sandbox environment per claim based on service's compatibility(s).
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="serviceId">Required parameter: An id of the service created e.g. UUID..</param>
-        /// <param name="claimId">Required parameter: Id of the claim created e.g. UUID..</param>
-        /// <param name="body">Required parameter: Example: .</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <returns>Returns the ApiResponse of Models.ServiceManagementResult response from the API call.</returns>
-        public ApiResponse<Models.ServiceManagementResult> StartServiceClaimSandBoxTesting(
-                string accountName,
-                string serviceId,
-                string claimId,
-                Models.ClusterInfoDetails body,
-                string correlationId = null)
-            => CoreHelper.RunTask(StartServiceClaimSandBoxTestingAsync(accountName, serviceId, claimId, body, correlationId));
-
-        /// <summary>
-        /// Initiate testing of a service in sandbox environment per claim based on service's compatibility(s).
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="serviceId">Required parameter: An id of the service created e.g. UUID..</param>
-        /// <param name="claimId">Required parameter: Id of the claim created e.g. UUID..</param>
-        /// <param name="body">Required parameter: Example: .</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.ServiceManagementResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.ServiceManagementResult>> StartServiceClaimSandBoxTestingAsync(
-                string accountName,
-                string serviceId,
-                string claimId,
-                Models.ClusterInfoDetails body,
-                string correlationId = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.ServiceManagementResult>()
-              .Server(Server.Services)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Put, "/v1/services/{serviceId}/claims/{claimId}/sandBoxStart")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("AccountName", accountName))
-                      .Template(_template => _template.Setup("serviceId", serviceId))
-                      .Template(_template => _template.Setup("claimId", claimId))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))
-                      .Header(_header => _header.Setup("correlationId", correlationId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Bad Request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("0", CreateErrorCase("Unexpected error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ServiceManagementResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Start publishing a service. On successful completion, service's status can be marked as Publish.
         /// </summary>
         /// <param name="accountName">Required parameter: User account name..</param>
@@ -500,102 +596,6 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Services)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Put, "/v1/services/{serviceName}/{version}/publish")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Header(_header => _header.Setup("AccountName", accountName))
-                      .Template(_template => _template.Setup("serviceName", serviceName))
-                      .Template(_template => _template.Setup("version", version))
-                      .Header(_header => _header.Setup("correlationId", correlationId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Bad Request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("0", CreateErrorCase("Unexpected error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ServiceManagementResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Start service certification process. On successful completion of this process, service's status will change to certified.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="serviceName">Required parameter: Name of the service e.g. any sub string of serviceName..</param>
-        /// <param name="version">Required parameter: Version of service which is to be certified..</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <returns>Returns the ApiResponse of Models.ServiceManagementResult response from the API call.</returns>
-        public ApiResponse<Models.ServiceManagementResult> StopServiceTesting(
-                string accountName,
-                string serviceName,
-                string version,
-                string correlationId = null)
-            => CoreHelper.RunTask(StopServiceTestingAsync(accountName, serviceName, version, correlationId));
-
-        /// <summary>
-        /// Start service certification process. On successful completion of this process, service's status will change to certified.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="serviceName">Required parameter: Name of the service e.g. any sub string of serviceName..</param>
-        /// <param name="version">Required parameter: Version of service which is to be certified..</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.ServiceManagementResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.ServiceManagementResult>> StopServiceTestingAsync(
-                string accountName,
-                string serviceName,
-                string version,
-                string correlationId = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.ServiceManagementResult>()
-              .Server(Server.Services)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Put, "/v1/services/{serviceName}/{version}/certify")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Header(_header => _header.Setup("AccountName", accountName))
-                      .Template(_template => _template.Setup("serviceName", serviceName))
-                      .Template(_template => _template.Setup("version", version))
-                      .Header(_header => _header.Setup("correlationId", correlationId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Bad Request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("0", CreateErrorCase("Unexpected error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ServiceManagementResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Start the process to change a service's status to "Ready to Use". On success, service's status will be changed to "Ready to Use". Only a ready to use service can be deployed in production environment.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="serviceName">Required parameter: Name of the service e.g. any sub string of serviceName..</param>
-        /// <param name="version">Required parameter: Version of the service which is already certified and is ready for public use..</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <returns>Returns the ApiResponse of Models.ServiceManagementResult response from the API call.</returns>
-        public ApiResponse<Models.ServiceManagementResult> MarkServiceAsReadyForPublicUse(
-                string accountName,
-                string serviceName,
-                string version,
-                string correlationId = null)
-            => CoreHelper.RunTask(MarkServiceAsReadyForPublicUseAsync(accountName, serviceName, version, correlationId));
-
-        /// <summary>
-        /// Start the process to change a service's status to "Ready to Use". On success, service's status will be changed to "Ready to Use". Only a ready to use service can be deployed in production environment.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="serviceName">Required parameter: Name of the service e.g. any sub string of serviceName..</param>
-        /// <param name="version">Required parameter: Version of the service which is already certified and is ready for public use..</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.ServiceManagementResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.ServiceManagementResult>> MarkServiceAsReadyForPublicUseAsync(
-                string accountName,
-                string serviceName,
-                string version,
-                string correlationId = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.ServiceManagementResult>()
-              .Server(Server.Services)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Put, "/v1/services/{serviceName}/{version}/readyToPublicUse")
                   .WithAuth("global")
                   .Parameters(_parameters => _parameters
                       .Header(_header => _header.Setup("AccountName", accountName))

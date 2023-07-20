@@ -36,34 +36,34 @@ namespace Verizon.Standard.Controllers
         internal UICCDeviceProfileManagementController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// Downloads an eUICC local profile to devices and enables the profile.
+        /// Disable a local profile on eUICC devices. The default or boot profile will become the enabled profile.
         /// </summary>
-        /// <param name="body">Required parameter: Device Profile Query.</param>
-        /// <returns>Returns the ApiResponse of Models.DeviceManagementResult response from the API call.</returns>
-        public ApiResponse<Models.DeviceManagementResult> DownloadLocalProfileToEnable(
+        /// <param name="body">Required parameter: Update state.</param>
+        /// <returns>Returns the ApiResponse of Models.RequestResponse response from the API call.</returns>
+        public ApiResponse<Models.RequestResponse> DisableLocalProfile(
                 Models.ProfileChangeStateRequest body)
-            => CoreHelper.RunTask(DownloadLocalProfileToEnableAsync(body));
+            => CoreHelper.RunTask(DisableLocalProfileAsync(body));
 
         /// <summary>
-        /// Downloads an eUICC local profile to devices and enables the profile.
+        /// Disable a local profile on eUICC devices. The default or boot profile will become the enabled profile.
         /// </summary>
-        /// <param name="body">Required parameter: Device Profile Query.</param>
+        /// <param name="body">Required parameter: Update state.</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.DeviceManagementResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.DeviceManagementResult>> DownloadLocalProfileToEnableAsync(
+        /// <returns>Returns the ApiResponse of Models.RequestResponse response from the API call.</returns>
+        public async Task<ApiResponse<Models.RequestResponse>> DisableLocalProfileAsync(
                 Models.ProfileChangeStateRequest body,
                 CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.DeviceManagementResult>()
+            => await CreateApiCall<Models.RequestResponse>()
               .Server(Server.M2m)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v1/devices/profile/actions/download_enable")
+                  .Setup(HttpMethod.Post, "/v1/devices/profile/actions/disable")
                   .WithAuth("global")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceManagementResult>(_response)))
+                  .ErrorCase("400", CreateErrorCase("Error Response", (_reason, _context) => new RestErrorResponseException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.RequestResponse>(_response)))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
@@ -98,68 +98,6 @@ namespace Verizon.Standard.Controllers
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
-        /// Enable a local profile that has been downloaded to eUICC devices.
-        /// </summary>
-        /// <param name="body">Required parameter: Update state.</param>
-        /// <returns>Returns the ApiResponse of Models.RequestResponse response from the API call.</returns>
-        public ApiResponse<Models.RequestResponse> EnableLocalProfile(
-                Models.ProfileChangeStateRequest body)
-            => CoreHelper.RunTask(EnableLocalProfileAsync(body));
-
-        /// <summary>
-        /// Enable a local profile that has been downloaded to eUICC devices.
-        /// </summary>
-        /// <param name="body">Required parameter: Update state.</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.RequestResponse response from the API call.</returns>
-        public async Task<ApiResponse<Models.RequestResponse>> EnableLocalProfileAsync(
-                Models.ProfileChangeStateRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.RequestResponse>()
-              .Server(Server.M2m)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v1/devices/profile/actions/enable")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error Response", (_reason, _context) => new RestErrorResponseException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.RequestResponse>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Disable a local profile on eUICC devices. The default or boot profile will become the enabled profile.
-        /// </summary>
-        /// <param name="body">Required parameter: Update state.</param>
-        /// <returns>Returns the ApiResponse of Models.RequestResponse response from the API call.</returns>
-        public ApiResponse<Models.RequestResponse> DisableLocalProfile(
-                Models.ProfileChangeStateRequest body)
-            => CoreHelper.RunTask(DisableLocalProfileAsync(body));
-
-        /// <summary>
-        /// Disable a local profile on eUICC devices. The default or boot profile will become the enabled profile.
-        /// </summary>
-        /// <param name="body">Required parameter: Update state.</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.RequestResponse response from the API call.</returns>
-        public async Task<ApiResponse<Models.RequestResponse>> DisableLocalProfileAsync(
-                Models.ProfileChangeStateRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.RequestResponse>()
-              .Server(Server.M2m)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v1/devices/profile/actions/disable")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error Response", (_reason, _context) => new RestErrorResponseException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.RequestResponse>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Delete a local profile from eUICC devices. If the local profile is enabled, it will first be disabled and the boot or default profile will be enabled.
         /// </summary>
         /// <param name="body">Required parameter: Update state.</param>
@@ -181,6 +119,68 @@ namespace Verizon.Standard.Controllers
               .Server(Server.M2m)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/v1/devices/profile/actions/delete")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Error Response", (_reason, _context) => new RestErrorResponseException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.RequestResponse>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Downloads an eUICC local profile to devices and enables the profile.
+        /// </summary>
+        /// <param name="body">Required parameter: Device Profile Query.</param>
+        /// <returns>Returns the ApiResponse of Models.DeviceManagementResult response from the API call.</returns>
+        public ApiResponse<Models.DeviceManagementResult> DownloadLocalProfileToEnable(
+                Models.ProfileChangeStateRequest body)
+            => CoreHelper.RunTask(DownloadLocalProfileToEnableAsync(body));
+
+        /// <summary>
+        /// Downloads an eUICC local profile to devices and enables the profile.
+        /// </summary>
+        /// <param name="body">Required parameter: Device Profile Query.</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.DeviceManagementResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.DeviceManagementResult>> DownloadLocalProfileToEnableAsync(
+                Models.ProfileChangeStateRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.DeviceManagementResult>()
+              .Server(Server.M2m)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/v1/devices/profile/actions/download_enable")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceManagementResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Enable a local profile that has been downloaded to eUICC devices.
+        /// </summary>
+        /// <param name="body">Required parameter: Update state.</param>
+        /// <returns>Returns the ApiResponse of Models.RequestResponse response from the API call.</returns>
+        public ApiResponse<Models.RequestResponse> EnableLocalProfile(
+                Models.ProfileChangeStateRequest body)
+            => CoreHelper.RunTask(EnableLocalProfileAsync(body));
+
+        /// <summary>
+        /// Enable a local profile that has been downloaded to eUICC devices.
+        /// </summary>
+        /// <param name="body">Required parameter: Update state.</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.RequestResponse response from the API call.</returns>
+        public async Task<ApiResponse<Models.RequestResponse>> EnableLocalProfileAsync(
+                Models.ProfileChangeStateRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.RequestResponse>()
+              .Server(Server.M2m)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/v1/devices/profile/actions/enable")
                   .WithAuth("global")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))

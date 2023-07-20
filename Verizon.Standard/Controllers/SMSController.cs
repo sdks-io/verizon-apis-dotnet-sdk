@@ -36,37 +36,6 @@ namespace Verizon.Standard.Controllers
         internal SMSController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// The messages are queued on the ThingSpace Platform and sent as soon as possible, but they may be delayed due to traffic and routing considerations.
-        /// </summary>
-        /// <param name="body">Required parameter: Request to send SMS..</param>
-        /// <returns>Returns the ApiResponse of Models.DeviceManagementResult response from the API call.</returns>
-        public ApiResponse<Models.DeviceManagementResult> SendSMSToDevice(
-                Models.SMSSendRequest body)
-            => CoreHelper.RunTask(SendSMSToDeviceAsync(body));
-
-        /// <summary>
-        /// The messages are queued on the ThingSpace Platform and sent as soon as possible, but they may be delayed due to traffic and routing considerations.
-        /// </summary>
-        /// <param name="body">Required parameter: Request to send SMS..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.DeviceManagementResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.DeviceManagementResult>> SendSMSToDeviceAsync(
-                Models.SMSSendRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.DeviceManagementResult>()
-              .Server(Server.M2m)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v1/sms")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceManagementResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// When HTTP status is 202, a URL will be returned in the Location header of the form /sms/{aname}/history?next={token}. This URL can be used to request the next set of messages.
         /// </summary>
         /// <param name="aname">Required parameter: Account name..</param>
@@ -99,6 +68,37 @@ namespace Verizon.Standard.Controllers
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.SMSMessagesQueryResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// The messages are queued on the ThingSpace Platform and sent as soon as possible, but they may be delayed due to traffic and routing considerations.
+        /// </summary>
+        /// <param name="body">Required parameter: Request to send SMS..</param>
+        /// <returns>Returns the ApiResponse of Models.DeviceManagementResult response from the API call.</returns>
+        public ApiResponse<Models.DeviceManagementResult> SendSMSToDevice(
+                Models.SMSSendRequest body)
+            => CoreHelper.RunTask(SendSMSToDeviceAsync(body));
+
+        /// <summary>
+        /// The messages are queued on the ThingSpace Platform and sent as soon as possible, but they may be delayed due to traffic and routing considerations.
+        /// </summary>
+        /// <param name="body">Required parameter: Request to send SMS..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.DeviceManagementResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.DeviceManagementResult>> SendSMSToDeviceAsync(
+                Models.SMSSendRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.DeviceManagementResult>()
+              .Server(Server.M2m)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/v1/sms")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceManagementResult>(_response)))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>

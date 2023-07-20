@@ -36,6 +36,30 @@ namespace Verizon.Standard.Controllers
         internal ServiceProfilesController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
+        /// List all service profiles registered under your API key.
+        /// </summary>
+        /// <returns>Returns the ApiResponse of Models.ListServiceProfilesResult response from the API call.</returns>
+        public ApiResponse<Models.ListServiceProfilesResult> ListServiceProfiles()
+            => CoreHelper.RunTask(ListServiceProfilesAsync());
+
+        /// <summary>
+        /// List all service profiles registered under your API key.
+        /// </summary>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.ListServiceProfilesResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.ListServiceProfilesResult>> ListServiceProfilesAsync(CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.ListServiceProfilesResult>()
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/serviceprofiles")
+                  .WithAuth("global"))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
+                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ListServiceProfilesResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// Creates a service profile that describes the resource requirements of a service.
         /// </summary>
         /// <param name="body">Required parameter: The request body passes all of the needed parameters to create a service profile. Parameters will be edited here rather than the **Parameters** section above. The `maxLatencyMs` and `clientType` parameters are both required in the request body. **Note:** The `maxLatencyMs` value must be submitted in multiples of 5. Additionally, "GPU" is future functionality and the values are not captured..</param>
@@ -65,61 +89,6 @@ namespace Verizon.Standard.Controllers
                   .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
                   .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.CreateServiceProfileResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// List all service profiles registered under your API key.
-        /// </summary>
-        /// <returns>Returns the ApiResponse of Models.ListServiceProfilesResult response from the API call.</returns>
-        public ApiResponse<Models.ListServiceProfilesResult> ListServiceProfiles()
-            => CoreHelper.RunTask(ListServiceProfilesAsync());
-
-        /// <summary>
-        /// List all service profiles registered under your API key.
-        /// </summary>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.ListServiceProfilesResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.ListServiceProfilesResult>> ListServiceProfilesAsync(CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.ListServiceProfilesResult>()
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/serviceprofiles")
-                  .WithAuth("global"))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ListServiceProfilesResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Returns a specified service profile.
-        /// </summary>
-        /// <param name="serviceProfileId">Required parameter: Example: .</param>
-        /// <returns>Returns the ApiResponse of Models.ResourcesServiceProfileWithId response from the API call.</returns>
-        public ApiResponse<Models.ResourcesServiceProfileWithId> GetServiceProfile(
-                string serviceProfileId)
-            => CoreHelper.RunTask(GetServiceProfileAsync(serviceProfileId));
-
-        /// <summary>
-        /// Returns a specified service profile.
-        /// </summary>
-        /// <param name="serviceProfileId">Required parameter: Example: .</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.ResourcesServiceProfileWithId response from the API call.</returns>
-        public async Task<ApiResponse<Models.ResourcesServiceProfileWithId>> GetServiceProfileAsync(
-                string serviceProfileId,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.ResourcesServiceProfileWithId>()
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/serviceprofiles/{serviceProfileId}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("serviceProfileId", serviceProfileId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ResourcesServiceProfileWithId>(_response)))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
@@ -157,6 +126,37 @@ namespace Verizon.Standard.Controllers
                   .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
                   .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.UpdateServiceProfileResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Returns a specified service profile.
+        /// </summary>
+        /// <param name="serviceProfileId">Required parameter: Example: .</param>
+        /// <returns>Returns the ApiResponse of Models.ResourcesServiceProfileWithId response from the API call.</returns>
+        public ApiResponse<Models.ResourcesServiceProfileWithId> GetServiceProfile(
+                string serviceProfileId)
+            => CoreHelper.RunTask(GetServiceProfileAsync(serviceProfileId));
+
+        /// <summary>
+        /// Returns a specified service profile.
+        /// </summary>
+        /// <param name="serviceProfileId">Required parameter: Example: .</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.ResourcesServiceProfileWithId response from the API call.</returns>
+        public async Task<ApiResponse<Models.ResourcesServiceProfileWithId>> GetServiceProfileAsync(
+                string serviceProfileId,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.ResourcesServiceProfileWithId>()
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/serviceprofiles/{serviceProfileId}")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("serviceProfileId", serviceProfileId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
+                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ResourcesServiceProfileWithId>(_response)))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>

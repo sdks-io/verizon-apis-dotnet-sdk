@@ -133,37 +133,6 @@ namespace Verizon.Standard.Controllers
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
-        /// Request an asynchronous device location report.
-        /// </summary>
-        /// <param name="body">Required parameter: Request for device location report..</param>
-        /// <returns>Returns the ApiResponse of Models.AsynchronousLocationRequestResult response from the API call.</returns>
-        public ApiResponse<Models.AsynchronousLocationRequestResult> CreateLocationReport(
-                Models.LocationRequest body)
-            => CoreHelper.RunTask(CreateLocationReportAsync(body));
-
-        /// <summary>
-        /// Request an asynchronous device location report.
-        /// </summary>
-        /// <param name="body">Required parameter: Request for device location report..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.AsynchronousLocationRequestResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.AsynchronousLocationRequestResult>> CreateLocationReportAsync(
-                Models.LocationRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.AsynchronousLocationRequestResult>()
-              .Server(Server.DeviceLocation)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/locationreports")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "*/*"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("0", CreateErrorCase("Unexpected error.", (_reason, _context) => new DeviceLocationResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AsynchronousLocationRequestResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Download a completed asynchronous device location report.
         /// </summary>
         /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
@@ -236,6 +205,37 @@ namespace Verizon.Standard.Controllers
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("0", CreateErrorCase("Unexpected error.", (_reason, _context) => new DeviceLocationResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.LocationReportStatus>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Request an asynchronous device location report.
+        /// </summary>
+        /// <param name="body">Required parameter: Request for device location report..</param>
+        /// <returns>Returns the ApiResponse of Models.AsynchronousLocationRequestResult response from the API call.</returns>
+        public ApiResponse<Models.AsynchronousLocationRequestResult> CreateLocationReport(
+                Models.LocationRequest body)
+            => CoreHelper.RunTask(CreateLocationReportAsync(body));
+
+        /// <summary>
+        /// Request an asynchronous device location report.
+        /// </summary>
+        /// <param name="body">Required parameter: Request for device location report..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.AsynchronousLocationRequestResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.AsynchronousLocationRequestResult>> CreateLocationReportAsync(
+                Models.LocationRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.AsynchronousLocationRequestResult>()
+              .Server(Server.DeviceLocation)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/locationreports")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "*/*"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("0", CreateErrorCase("Unexpected error.", (_reason, _context) => new DeviceLocationResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AsynchronousLocationRequestResult>(_response)))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>

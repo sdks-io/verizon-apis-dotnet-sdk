@@ -36,6 +36,37 @@ namespace Verizon.Standard.Controllers
         internal DeviceProfileManagementController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
+        /// Allows the profile to set the fallback attribute to the device.
+        /// </summary>
+        /// <param name="body">Required parameter: Device Profile Query.</param>
+        /// <returns>Returns the ApiResponse of Models.RequestResponse response from the API call.</returns>
+        public ApiResponse<Models.RequestResponse> ProfileToSetFallbackAttribute(
+                Models.SetFallbackAttributeRequest body)
+            => CoreHelper.RunTask(ProfileToSetFallbackAttributeAsync(body));
+
+        /// <summary>
+        /// Allows the profile to set the fallback attribute to the device.
+        /// </summary>
+        /// <param name="body">Required parameter: Device Profile Query.</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.RequestResponse response from the API call.</returns>
+        public async Task<ApiResponse<Models.RequestResponse>> ProfileToSetFallbackAttributeAsync(
+                Models.SetFallbackAttributeRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.RequestResponse>()
+              .Server(Server.M2m)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/v1/devices/profile/actions/setfallbackattribute")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Bad request", (_reason, _context) => new RestErrorResponseException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.RequestResponse>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// Uses the profile to bring the device under management.
         /// </summary>
         /// <param name="body">Required parameter: Device Profile Query.</param>
@@ -119,37 +150,6 @@ namespace Verizon.Standard.Controllers
               .Server(Server.M2m)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/v1/devices/profile/actions/deactivate")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Bad request", (_reason, _context) => new RestErrorResponseException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.RequestResponse>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Allows the profile to set the fallback attribute to the device.
-        /// </summary>
-        /// <param name="body">Required parameter: Device Profile Query.</param>
-        /// <returns>Returns the ApiResponse of Models.RequestResponse response from the API call.</returns>
-        public ApiResponse<Models.RequestResponse> ProfileToSetFallbackAttribute(
-                Models.SetFallbackAttributeRequest body)
-            => CoreHelper.RunTask(ProfileToSetFallbackAttributeAsync(body));
-
-        /// <summary>
-        /// Allows the profile to set the fallback attribute to the device.
-        /// </summary>
-        /// <param name="body">Required parameter: Device Profile Query.</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.RequestResponse response from the API call.</returns>
-        public async Task<ApiResponse<Models.RequestResponse>> ProfileToSetFallbackAttributeAsync(
-                Models.SetFallbackAttributeRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.RequestResponse>()
-              .Server(Server.M2m)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v1/devices/profile/actions/setfallbackattribute")
                   .WithAuth("global")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))

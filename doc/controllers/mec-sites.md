@@ -10,49 +10,8 @@ MECSitesController mECSitesController = client.MECSitesController;
 
 ## Methods
 
-* [List MEC Site Locations](../../doc/controllers/mec-sites.md#list-mec-site-locations)
 * [List ERN Cluster Namespaces](../../doc/controllers/mec-sites.md#list-ern-cluster-namespaces)
-
-
-# List MEC Site Locations
-
-Supports fetching MEC locations so the user can view the city.
-
-```csharp
-ListMECSiteLocationsAsync(
-    string accountName = null)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `accountName` | `string` | Header, Optional | User account name.<br>**Constraints**: *Maximum Length*: `64`, *Pattern*: `^[A-Za-z0-9]` |
-
-## Response Type
-
-[`Task<ApiResponse<Models.MECSiteLocationsResult>>`](../../doc/models/mec-site-locations-result.md)
-
-## Example Usage
-
-```csharp
-string accountName = "test_account1";
-try
-{
-    ApiResponse<MECSiteLocationsResult> result = await mECSitesController.ListMECSiteLocationsAsync(accountName);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error Response. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
+* [List MEC Site Locations](../../doc/controllers/mec-sites.md#list-mec-site-locations)
 
 
 # List ERN Cluster Namespaces
@@ -118,4 +77,45 @@ catch (ApiException e)
 | 404 | Not found. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
 | 500 | Internal Server Error. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
 | Default | Unexpected error. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
+
+
+# List MEC Site Locations
+
+Supports fetching MEC locations so the user can view the city.
+
+```csharp
+ListMECSiteLocationsAsync(
+    string accountName = null)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountName` | `string` | Header, Optional | User account name.<br>**Constraints**: *Maximum Length*: `64`, *Pattern*: `^[A-Za-z0-9]` |
+
+## Response Type
+
+[`Task<ApiResponse<Models.MECSiteLocationsResult>>`](../../doc/models/mec-site-locations-result.md)
+
+## Example Usage
+
+```csharp
+string accountName = "test_account1";
+try
+{
+    ApiResponse<MECSiteLocationsResult> result = await mECSitesController.ListMECSiteLocationsAsync(accountName);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error Response. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
 

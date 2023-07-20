@@ -36,6 +36,41 @@ namespace Verizon.Standard.Controllers
         internal ConnectivityCallbacksController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
+        /// Stops ThingSpace from sending callback messages for the specified account and service.
+        /// </summary>
+        /// <param name="aname">Required parameter: Account name..</param>
+        /// <param name="sname">Required parameter: Service name..</param>
+        /// <returns>Returns the ApiResponse of Models.CallbackActionResult response from the API call.</returns>
+        public ApiResponse<Models.CallbackActionResult> DeregisterCallback(
+                string aname,
+                string sname)
+            => CoreHelper.RunTask(DeregisterCallbackAsync(aname, sname));
+
+        /// <summary>
+        /// Stops ThingSpace from sending callback messages for the specified account and service.
+        /// </summary>
+        /// <param name="aname">Required parameter: Account name..</param>
+        /// <param name="sname">Required parameter: Service name..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.CallbackActionResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.CallbackActionResult>> DeregisterCallbackAsync(
+                string aname,
+                string sname,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.CallbackActionResult>()
+              .Server(Server.M2m)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Delete, "/v1/callbacks/{aname}/name/{sname}")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("aname", aname))
+                      .Template(_template => _template.Setup("sname", sname))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.CallbackActionResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// Returns the name and endpoint URL of the callback listening services registered for a given account.
         /// </summary>
         /// <param name="aname">Required parameter: Account name..</param>
@@ -96,41 +131,6 @@ namespace Verizon.Standard.Controllers
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("aname", aname))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.CallbackActionResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Stops ThingSpace from sending callback messages for the specified account and service.
-        /// </summary>
-        /// <param name="aname">Required parameter: Account name..</param>
-        /// <param name="sname">Required parameter: Service name..</param>
-        /// <returns>Returns the ApiResponse of Models.CallbackActionResult response from the API call.</returns>
-        public ApiResponse<Models.CallbackActionResult> DeregisterCallback(
-                string aname,
-                string sname)
-            => CoreHelper.RunTask(DeregisterCallbackAsync(aname, sname));
-
-        /// <summary>
-        /// Stops ThingSpace from sending callback messages for the specified account and service.
-        /// </summary>
-        /// <param name="aname">Required parameter: Account name..</param>
-        /// <param name="sname">Required parameter: Service name..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.CallbackActionResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.CallbackActionResult>> DeregisterCallbackAsync(
-                string aname,
-                string sname,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.CallbackActionResult>()
-              .Server(Server.M2m)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Delete, "/v1/callbacks/{aname}/name/{sname}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("aname", aname))
-                      .Template(_template => _template.Setup("sname", sname))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.CallbackActionResult>(_response)))

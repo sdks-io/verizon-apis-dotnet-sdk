@@ -36,6 +36,40 @@ namespace Verizon.Standard.Controllers
         internal ClientLoggingController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
+        /// Disables logging for a specific device.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier..</param>
+        /// <param name="deviceId">Required parameter: Device IMEI identifier..</param>
+        public void DisableDeviceLogging(
+                string account,
+                string deviceId)
+            => CoreHelper.RunVoidTask(DisableDeviceLoggingAsync(account, deviceId));
+
+        /// <summary>
+        /// Disables logging for a specific device.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier..</param>
+        /// <param name="deviceId">Required parameter: Device IMEI identifier..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the void response from the API call.</returns>
+        public async Task DisableDeviceLoggingAsync(
+                string account,
+                string deviceId,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<VoidType>()
+              .Server(Server.SoftwareManagementV2)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Delete, "/logging/{account}/devices/{deviceId}")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("account", account))
+                      .Template(_template => _template.Setup("deviceId", deviceId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
+)
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// Returns an array of all devices in the specified account for which logging is enabled.
         /// </summary>
         /// <param name="account">Required parameter: Account identifier..</param>
@@ -99,6 +133,41 @@ namespace Verizon.Standard.Controllers
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.DeviceLoggingStatus>>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Gets logs for a specific device.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier..</param>
+        /// <param name="deviceId">Required parameter: Device IMEI identifier..</param>
+        /// <returns>Returns the ApiResponse of List<Models.DeviceLog> response from the API call.</returns>
+        public ApiResponse<List<Models.DeviceLog>> ListDeviceLogs(
+                string account,
+                string deviceId)
+            => CoreHelper.RunTask(ListDeviceLogsAsync(account, deviceId));
+
+        /// <summary>
+        /// Gets logs for a specific device.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier..</param>
+        /// <param name="deviceId">Required parameter: Device IMEI identifier..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of List<Models.DeviceLog> response from the API call.</returns>
+        public async Task<ApiResponse<List<Models.DeviceLog>>> ListDeviceLogsAsync(
+                string account,
+                string deviceId,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<List<Models.DeviceLog>>()
+              .Server(Server.SoftwareManagementV2)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/logging/{account}/devices/{deviceId}/logs")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("account", account))
+                      .Template(_template => _template.Setup("deviceId", deviceId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.DeviceLog>>(_response)))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
@@ -168,75 +237,6 @@ namespace Verizon.Standard.Controllers
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceLoggingStatus>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Disables logging for a specific device.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier..</param>
-        /// <param name="deviceId">Required parameter: Device IMEI identifier..</param>
-        public void DisableDeviceLogging(
-                string account,
-                string deviceId)
-            => CoreHelper.RunVoidTask(DisableDeviceLoggingAsync(account, deviceId));
-
-        /// <summary>
-        /// Disables logging for a specific device.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier..</param>
-        /// <param name="deviceId">Required parameter: Device IMEI identifier..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the void response from the API call.</returns>
-        public async Task DisableDeviceLoggingAsync(
-                string account,
-                string deviceId,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<VoidType>()
-              .Server(Server.SoftwareManagementV2)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Delete, "/logging/{account}/devices/{deviceId}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("account", account))
-                      .Template(_template => _template.Setup("deviceId", deviceId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-)
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Gets logs for a specific device.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier..</param>
-        /// <param name="deviceId">Required parameter: Device IMEI identifier..</param>
-        /// <returns>Returns the ApiResponse of List<Models.DeviceLog> response from the API call.</returns>
-        public ApiResponse<List<Models.DeviceLog>> ListDeviceLogs(
-                string account,
-                string deviceId)
-            => CoreHelper.RunTask(ListDeviceLogsAsync(account, deviceId));
-
-        /// <summary>
-        /// Gets logs for a specific device.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier..</param>
-        /// <param name="deviceId">Required parameter: Device IMEI identifier..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of List<Models.DeviceLog> response from the API call.</returns>
-        public async Task<ApiResponse<List<Models.DeviceLog>>> ListDeviceLogsAsync(
-                string account,
-                string deviceId,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<List<Models.DeviceLog>>()
-              .Server(Server.SoftwareManagementV2)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/logging/{account}/devices/{deviceId}/logs")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("account", account))
-                      .Template(_template => _template.Setup("deviceId", deviceId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.DeviceLog>>(_response)))
               .ExecuteAsync(cancellationToken);
     }
 }

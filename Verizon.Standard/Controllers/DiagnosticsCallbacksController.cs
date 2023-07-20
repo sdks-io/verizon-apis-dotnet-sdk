@@ -36,6 +36,41 @@ namespace Verizon.Standard.Controllers
         internal DiagnosticsCallbacksController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
+        /// This endpoint allows user to delete a registered callback URL and credential.
+        /// </summary>
+        /// <param name="accountName">Required parameter: Account identifier..</param>
+        /// <param name="serviceName">Required parameter: Service name for callback notification..</param>
+        /// <returns>Returns the ApiResponse of Models.DeviceDiagnosticsCallback response from the API call.</returns>
+        public ApiResponse<Models.DeviceDiagnosticsCallback> UnregisterDiagnosticsCallback(
+                string accountName,
+                string serviceName)
+            => CoreHelper.RunTask(UnregisterDiagnosticsCallbackAsync(accountName, serviceName));
+
+        /// <summary>
+        /// This endpoint allows user to delete a registered callback URL and credential.
+        /// </summary>
+        /// <param name="accountName">Required parameter: Account identifier..</param>
+        /// <param name="serviceName">Required parameter: Service name for callback notification..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.DeviceDiagnosticsCallback response from the API call.</returns>
+        public async Task<ApiResponse<Models.DeviceDiagnosticsCallback>> UnregisterDiagnosticsCallbackAsync(
+                string accountName,
+                string serviceName,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.DeviceDiagnosticsCallback>()
+              .Server(Server.DeviceDiagnostics)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Delete, "/callbacks")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Query(_query => _query.Setup("accountName", accountName))
+                      .Query(_query => _query.Setup("serviceName", serviceName))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new DeviceDiagnosticsResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceDiagnosticsCallback>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// This endpoint allows user to get the registered callback information of an existing diagnostics subscription.
         /// </summary>
         /// <param name="accountName">Required parameter: Account identifier..</param>
@@ -91,41 +126,6 @@ namespace Verizon.Standard.Controllers
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "*/*"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new DeviceDiagnosticsResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceDiagnosticsCallback>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// This endpoint allows user to delete a registered callback URL and credential.
-        /// </summary>
-        /// <param name="accountName">Required parameter: Account identifier..</param>
-        /// <param name="serviceName">Required parameter: Service name for callback notification..</param>
-        /// <returns>Returns the ApiResponse of Models.DeviceDiagnosticsCallback response from the API call.</returns>
-        public ApiResponse<Models.DeviceDiagnosticsCallback> UnregisterDiagnosticsCallback(
-                string accountName,
-                string serviceName)
-            => CoreHelper.RunTask(UnregisterDiagnosticsCallbackAsync(accountName, serviceName));
-
-        /// <summary>
-        /// This endpoint allows user to delete a registered callback URL and credential.
-        /// </summary>
-        /// <param name="accountName">Required parameter: Account identifier..</param>
-        /// <param name="serviceName">Required parameter: Service name for callback notification..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.DeviceDiagnosticsCallback response from the API call.</returns>
-        public async Task<ApiResponse<Models.DeviceDiagnosticsCallback>> UnregisterDiagnosticsCallbackAsync(
-                string accountName,
-                string serviceName,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.DeviceDiagnosticsCallback>()
-              .Server(Server.DeviceDiagnostics)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Delete, "/callbacks")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Query(_query => _query.Setup("accountName", accountName))
-                      .Query(_query => _query.Setup("serviceName", serviceName))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new DeviceDiagnosticsResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceDiagnosticsCallback>(_response)))

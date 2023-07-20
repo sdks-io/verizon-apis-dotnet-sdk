@@ -35,36 +35,6 @@ namespace Verizon.Standard.Controllers
         internal CloudConnectorSubscriptionsController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// Create a subscription to define a streaming channel that sends data from devices in the account to an endpoint defined in a target resource.
-        /// </summary>
-        /// <param name="body">Required parameter: The request body provides the details of the subscription that you want to create..</param>
-        /// <returns>Returns the ApiResponse of Models.Subscription response from the API call.</returns>
-        public ApiResponse<Models.Subscription> CreateSubscription(
-                Models.CreateSubscriptionRequest body)
-            => CoreHelper.RunTask(CreateSubscriptionAsync(body));
-
-        /// <summary>
-        /// Create a subscription to define a streaming channel that sends data from devices in the account to an endpoint defined in a target resource.
-        /// </summary>
-        /// <param name="body">Required parameter: The request body provides the details of the subscription that you want to create..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.Subscription response from the API call.</returns>
-        public async Task<ApiResponse<Models.Subscription>> CreateSubscriptionAsync(
-                Models.CreateSubscriptionRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.Subscription>()
-              .Server(Server.CloudConnector)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/subscriptions")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.Subscription>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Search for subscriptions by property values. Returns an array of all matching subscription resources.
         /// </summary>
         /// <param name="body">Required parameter: The request body specifies fields and values to match..</param>
@@ -119,6 +89,36 @@ namespace Verizon.Standard.Controllers
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Create a subscription to define a streaming channel that sends data from devices in the account to an endpoint defined in a target resource.
+        /// </summary>
+        /// <param name="body">Required parameter: The request body provides the details of the subscription that you want to create..</param>
+        /// <returns>Returns the ApiResponse of Models.Subscription response from the API call.</returns>
+        public ApiResponse<Models.Subscription> CreateSubscription(
+                Models.CreateSubscriptionRequest body)
+            => CoreHelper.RunTask(CreateSubscriptionAsync(body));
+
+        /// <summary>
+        /// Create a subscription to define a streaming channel that sends data from devices in the account to an endpoint defined in a target resource.
+        /// </summary>
+        /// <param name="body">Required parameter: The request body provides the details of the subscription that you want to create..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.Subscription response from the API call.</returns>
+        public async Task<ApiResponse<Models.Subscription>> CreateSubscriptionAsync(
+                Models.CreateSubscriptionRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.Subscription>()
+              .Server(Server.CloudConnector)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/subscriptions")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.Subscription>(_response)))
               .ExecuteAsync(cancellationToken);
     }
 }

@@ -10,9 +10,69 @@ RepositoriesController repositoriesController = client.RepositoriesController;
 
 ## Methods
 
+* [Delete Repository](../../doc/controllers/repositories.md#delete-repository)
 * [List Repositories](../../doc/controllers/repositories.md#list-repositories)
 * [Create Repository](../../doc/controllers/repositories.md#create-repository)
-* [Delete Repository](../../doc/controllers/repositories.md#delete-repository)
+
+
+# Delete Repository
+
+Delete the repository.
+
+```csharp
+DeleteRepositoryAsync(
+    string accountName,
+    string repositoryName,
+    string correlationId = null)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountName` | `string` | Header, Required | User account name.<br>**Constraints**: *Maximum Length*: `32`, *Pattern*: `^[a-zA-Z0-9\-_]+$` |
+| `repositoryName` | `string` | Template, Required | Name of the repository which is about to be deleted.<br>**Constraints**: *Maximum Length*: `32`, *Pattern*: `^[a-zA-Z0-9-]+$` |
+| `correlationId` | `string` | Header, Optional | **Constraints**: *Maximum Length*: `50`, *Pattern*: `^[a-zA-Z0-9-]+$` |
+
+## Response Type
+
+[`Task<ApiResponse<Models.EdgeServiceOnboardingDeleteResult>>`](../../doc/models/edge-service-onboarding-delete-result.md)
+
+## Example Usage
+
+```csharp
+string accountName = "test_account1";
+string repositoryName = "dev-api-demo-repo-mdp";
+string correlationId = "9958f2f8-c4e3-46e0-8982-356de6515ae9";
+try
+{
+    ApiResponse<EdgeServiceOnboardingDeleteResult> result = await repositoriesController.DeleteRepositoryAsync(accountName, repositoryName, correlationId);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "message": "service deleted succesfully",
+  "status": "success",
+  "subStatus": "service delete - success"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Bad Request. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
+| 401 | Unauthorized. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
+| 404 | Not found. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
+| 500 | Internal Server Error. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
 
 
 # List Repositories
@@ -146,65 +206,5 @@ catch (ApiException e)
 |  --- | --- | --- |
 | 400 | Bad Request. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
 | 401 | Unauthorized. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
-| 500 | Internal Server Error. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
-
-
-# Delete Repository
-
-Delete the repository.
-
-```csharp
-DeleteRepositoryAsync(
-    string accountName,
-    string repositoryName,
-    string correlationId = null)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `accountName` | `string` | Header, Required | User account name.<br>**Constraints**: *Maximum Length*: `32`, *Pattern*: `^[a-zA-Z0-9\-_]+$` |
-| `repositoryName` | `string` | Template, Required | Name of the repository which is about to be deleted.<br>**Constraints**: *Maximum Length*: `32`, *Pattern*: `^[a-zA-Z0-9-]+$` |
-| `correlationId` | `string` | Header, Optional | **Constraints**: *Maximum Length*: `50`, *Pattern*: `^[a-zA-Z0-9-]+$` |
-
-## Response Type
-
-[`Task<ApiResponse<Models.EdgeServiceOnboardingDeleteResult>>`](../../doc/models/edge-service-onboarding-delete-result.md)
-
-## Example Usage
-
-```csharp
-string accountName = "test_account1";
-string repositoryName = "dev-api-demo-repo-mdp";
-string correlationId = "9958f2f8-c4e3-46e0-8982-356de6515ae9";
-try
-{
-    ApiResponse<EdgeServiceOnboardingDeleteResult> result = await repositoriesController.DeleteRepositoryAsync(accountName, repositoryName, correlationId);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "message": "service deleted succesfully",
-  "status": "success",
-  "subStatus": "service delete - success"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Bad Request. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
-| 401 | Unauthorized. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
-| 404 | Not found. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
 | 500 | Internal Server Error. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
 

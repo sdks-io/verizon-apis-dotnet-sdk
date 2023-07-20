@@ -10,8 +10,63 @@ M5gEdgePlatformsController m5gEdgePlatformsController = client.M5gEdgePlatformsC
 
 ## Methods
 
-* [List MEC Platforms](../../doc/controllers/5g-edge-platforms.md#list-mec-platforms)
 * [List Regions](../../doc/controllers/5g-edge-platforms.md#list-regions)
+* [List MEC Platforms](../../doc/controllers/5g-edge-platforms.md#list-mec-platforms)
+
+
+# List Regions
+
+List the geographical regions available, based on the user's bearer token. **Note:** Country code, Metropolitan area, Area and Zone are future functionality and will currently return a "null" value.
+
+```csharp
+ListRegionsAsync()
+```
+
+## Requires scope
+
+`EDGEDISCOVERYREAD`, `EDGESERVICEPROFILEREAD`, `EDGESERVICEPROFILEWRITE`, `EDGESERVICEREGISTRYREAD`, `EDGESERVICEREGISTRYWRITE`, `TS.APPLICATION.RO`, `TS.MEC.FULLACCESS`, `TS.MEC.LIMITACCESS`
+
+## Response Type
+
+[`Task<ApiResponse<Models.ListRegionsResult>>`](../../doc/models/list-regions-result.md)
+
+## Example Usage
+
+```csharp
+try
+{
+    ApiResponse<ListRegionsResult> result = await m5gEdgePlatformsController.ListRegionsAsync();
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "regions": [
+    {
+      "regionId": "consectetur",
+      "name": "US_EAST_1",
+      "countryCode": "nr",
+      "metro": "e1D",
+      "area": "IdUESF"
+    }
+  ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | HTTP 400 Bad Request. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
+| 401 | HTTP 401 Unauthorized. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
+| Default | HTTP 500 Internal Server Error. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
 
 
 # List MEC Platforms
@@ -72,61 +127,6 @@ catch (ApiException e)
       "zone": "e5oV52kMGjDLhnJSsLJZL",
       "region": "US_WEST_2",
       "status": "unknown"
-    }
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | HTTP 400 Bad Request. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
-| 401 | HTTP 401 Unauthorized. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
-| Default | HTTP 500 Internal Server Error. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
-
-
-# List Regions
-
-List the geographical regions available, based on the user's bearer token. **Note:** Country code, Metropolitan area, Area and Zone are future functionality and will currently return a "null" value.
-
-```csharp
-ListRegionsAsync()
-```
-
-## Requires scope
-
-`EDGEDISCOVERYREAD`, `EDGESERVICEPROFILEREAD`, `EDGESERVICEPROFILEWRITE`, `EDGESERVICEREGISTRYREAD`, `EDGESERVICEREGISTRYWRITE`, `TS.APPLICATION.RO`, `TS.MEC.FULLACCESS`, `TS.MEC.LIMITACCESS`
-
-## Response Type
-
-[`Task<ApiResponse<Models.ListRegionsResult>>`](../../doc/models/list-regions-result.md)
-
-## Example Usage
-
-```csharp
-try
-{
-    ApiResponse<ListRegionsResult> result = await m5gEdgePlatformsController.ListRegionsAsync();
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "regions": [
-    {
-      "regionId": "consectetur",
-      "name": "US_EAST_1",
-      "countryCode": "nr",
-      "metro": "e1D",
-      "area": "IdUESF"
     }
   ]
 }

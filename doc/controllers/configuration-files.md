@@ -10,52 +10,8 @@ ConfigurationFilesController configurationFilesController = client.Configuration
 
 ## Methods
 
-* [Get List of Files](../../doc/controllers/configuration-files.md#get-list-of-files)
 * [Upload Config File](../../doc/controllers/configuration-files.md#upload-config-file)
-
-
-# Get List of Files
-
-You can retrieve a list of configuration or supplementary of files for an account.
-
-```csharp
-GetListOfFilesAsync(
-    string acc,
-    string distributionType)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `acc` | `string` | Template, Required | Account identifier. |
-| `distributionType` | `string` | Query, Required | Filter the distributionType to only retrieve files for a specific distribution type. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.RetrievesAvailableFilesResponseList>>`](../../doc/models/retrieves-available-files-response-list.md)
-
-## Example Usage
-
-```csharp
-string acc = "0402196254-00001";
-string distributionType = "HTTP";
-try
-{
-    ApiResponse<RetrievesAvailableFilesResponseList> result = await configurationFilesController.GetListOfFilesAsync(acc, distributionType);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
+* [Get List of Files](../../doc/controllers/configuration-files.md#get-list-of-files)
 
 
 # Upload Config File
@@ -98,6 +54,50 @@ string localTargetPath = "/VZWFOTA/hello-world.txt";
 try
 {
     ApiResponse<UploadConfigurationFilesResponse> result = await configurationFilesController.UploadConfigFileAsync(acc, null, fileVersion, make, model, localTargetPath);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
+
+
+# Get List of Files
+
+You can retrieve a list of configuration or supplementary of files for an account.
+
+```csharp
+GetListOfFilesAsync(
+    string acc,
+    string distributionType)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `acc` | `string` | Template, Required | Account identifier. |
+| `distributionType` | `string` | Query, Required | Filter the distributionType to only retrieve files for a specific distribution type. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.RetrievesAvailableFilesResponseList>>`](../../doc/models/retrieves-available-files-response-list.md)
+
+## Example Usage
+
+```csharp
+string acc = "0402196254-00001";
+string distributionType = "HTTP";
+try
+{
+    ApiResponse<RetrievesAvailableFilesResponseList> result = await configurationFilesController.GetListOfFilesAsync(acc, distributionType);
 }
 catch (ApiException e)
 {

@@ -36,36 +36,6 @@ namespace Verizon.Standard.Controllers
         internal MECSitesController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// Supports fetching MEC locations so the user can view the city.
-        /// </summary>
-        /// <param name="accountName">Optional parameter: User account name..</param>
-        /// <returns>Returns the ApiResponse of Models.MECSiteLocationsResult response from the API call.</returns>
-        public ApiResponse<Models.MECSiteLocationsResult> ListMECSiteLocations(
-                string accountName = null)
-            => CoreHelper.RunTask(ListMECSiteLocationsAsync(accountName));
-
-        /// <summary>
-        /// Supports fetching MEC locations so the user can view the city.
-        /// </summary>
-        /// <param name="accountName">Optional parameter: User account name..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.MECSiteLocationsResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.MECSiteLocationsResult>> ListMECSiteLocationsAsync(
-                string accountName = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.MECSiteLocationsResult>()
-              .Server(Server.Services)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/v1/mecsite/locations")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Header(_header => _header.Setup("AccountName", accountName))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error Response.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.MECSiteLocationsResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Retrieve all clusters for the customer.
         /// </summary>
         /// <param name="userId">Required parameter: Example: .</param>
@@ -141,6 +111,36 @@ namespace Verizon.Standard.Controllers
                   .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
                   .ErrorCase("0", CreateErrorCase("Unexpected error.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ClustersNamespaces>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Supports fetching MEC locations so the user can view the city.
+        /// </summary>
+        /// <param name="accountName">Optional parameter: User account name..</param>
+        /// <returns>Returns the ApiResponse of Models.MECSiteLocationsResult response from the API call.</returns>
+        public ApiResponse<Models.MECSiteLocationsResult> ListMECSiteLocations(
+                string accountName = null)
+            => CoreHelper.RunTask(ListMECSiteLocationsAsync(accountName));
+
+        /// <summary>
+        /// Supports fetching MEC locations so the user can view the city.
+        /// </summary>
+        /// <param name="accountName">Optional parameter: User account name..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.MECSiteLocationsResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.MECSiteLocationsResult>> ListMECSiteLocationsAsync(
+                string accountName = null,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.MECSiteLocationsResult>()
+              .Server(Server.Services)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/v1/mecsite/locations")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Header(_header => _header.Setup("AccountName", accountName))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Error Response.", (_reason, _context) => new EdgeServiceLaunchResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.MECSiteLocationsResult>(_response)))
               .ExecuteAsync(cancellationToken);
     }
 }

@@ -10,50 +10,41 @@ BillingController billingController = client.BillingController;
 
 ## Methods
 
-* [Add Account](../../doc/controllers/billing.md#add-account)
+* [List Managed Account](../../doc/controllers/billing.md#list-managed-account)
 * [Managed Account Action](../../doc/controllers/billing.md#managed-account-action)
 * [Cancel Managed Account Action](../../doc/controllers/billing.md#cancel-managed-account-action)
-* [List Managed Account](../../doc/controllers/billing.md#list-managed-account)
+* [Add Account](../../doc/controllers/billing.md#add-account)
 
 
-# Add Account
+# List Managed Account
 
-This endpoint allows user to add managed accounts to a primary account.
+This endpoint allows user to retrieve the list of all accounts managed by a primary account.
 
 ```csharp
-AddAccountAsync(
-    Models.ManagedAccountsAddRequest body)
+ListManagedAccountAsync(
+    string accountName,
+    string serviceName)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.ManagedAccountsAddRequest`](../../doc/models/managed-accounts-add-request.md) | Body, Required | Service name and list of accounts to add |
+| `accountName` | `string` | Template, Required | Primary account identifier |
+| `serviceName` | `string` | Template, Required | Service name |
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ManagedAccountsAddResponse>>`](../../doc/models/managed-accounts-add-response.md)
+[`Task<ApiResponse<Models.ManagedAccountsGetAllResponse>>`](../../doc/models/managed-accounts-get-all-response.md)
 
 ## Example Usage
 
 ```csharp
-ManagedAccountsAddRequest body = new ManagedAccountsAddRequest
-{
-    AccountName = "1234567890-00001",
-    ServiceName = ServiceNameEnum.Location,
-    Type = "TS-LOC-COARSE-CellID-Aggr",
-    ManagedAccList = new List<string>
-    {
-        "1223334444-00001",
-        "2334445555-00001",
-        "3445556666-00001",
-    },
-};
-
+string accountName = "1223334444-00001";
+string serviceName = "serviceName8";
 try
 {
-    ApiResponse<ManagedAccountsAddResponse> result = await billingController.AddAccountAsync(body);
+    ApiResponse<ManagedAccountsGetAllResponse> result = await billingController.ListManagedAccountAsync(accountName, serviceName);
 }
 catch (ApiException e)
 {
@@ -66,22 +57,15 @@ catch (ApiException e)
 
 ```json
 {
-  "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
-  "statusList": [
+  "accountName": "2024009649-00001",
+  "ManagedAccAddedList": [
     {
       "id": "1223334444-00001",
-      "status": "Success",
-      "reason": "Success"
+      "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33"
     },
     {
       "id": "2334445555-00001",
-      "status": "Success",
-      "reason": "Success"
-    },
-    {
-      "id": "3445556666-00001",
-      "status": "Success",
-      "reason": "Success"
+      "txid": "d4fbff33-ece4-9f02-42ef-2c90bd287e3b"
     }
   ]
 }
@@ -218,35 +202,44 @@ catch (ApiException e)
 | 400 | Unexpected error | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
 
 
-# List Managed Account
+# Add Account
 
-This endpoint allows user to retrieve the list of all accounts managed by a primary account.
+This endpoint allows user to add managed accounts to a primary account.
 
 ```csharp
-ListManagedAccountAsync(
-    string accountName,
-    string serviceName)
+AddAccountAsync(
+    Models.ManagedAccountsAddRequest body)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `accountName` | `string` | Template, Required | Primary account identifier |
-| `serviceName` | `string` | Template, Required | Service name |
+| `body` | [`Models.ManagedAccountsAddRequest`](../../doc/models/managed-accounts-add-request.md) | Body, Required | Service name and list of accounts to add |
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ManagedAccountsGetAllResponse>>`](../../doc/models/managed-accounts-get-all-response.md)
+[`Task<ApiResponse<Models.ManagedAccountsAddResponse>>`](../../doc/models/managed-accounts-add-response.md)
 
 ## Example Usage
 
 ```csharp
-string accountName = "1223334444-00001";
-string serviceName = "serviceName8";
+ManagedAccountsAddRequest body = new ManagedAccountsAddRequest
+{
+    AccountName = "1234567890-00001",
+    ServiceName = ServiceNameEnum.Location,
+    Type = "TS-LOC-COARSE-CellID-Aggr",
+    ManagedAccList = new List<string>
+    {
+        "1223334444-00001",
+        "2334445555-00001",
+        "3445556666-00001",
+    },
+};
+
 try
 {
-    ApiResponse<ManagedAccountsGetAllResponse> result = await billingController.ListManagedAccountAsync(accountName, serviceName);
+    ApiResponse<ManagedAccountsAddResponse> result = await billingController.AddAccountAsync(body);
 }
 catch (ApiException e)
 {
@@ -259,15 +252,22 @@ catch (ApiException e)
 
 ```json
 {
-  "accountName": "2024009649-00001",
-  "ManagedAccAddedList": [
+  "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
+  "statusList": [
     {
       "id": "1223334444-00001",
-      "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33"
+      "status": "Success",
+      "reason": "Success"
     },
     {
       "id": "2334445555-00001",
-      "txid": "d4fbff33-ece4-9f02-42ef-2c90bd287e3b"
+      "status": "Success",
+      "reason": "Success"
+    },
+    {
+      "id": "3445556666-00001",
+      "status": "Success",
+      "reason": "Success"
     }
   ]
 }

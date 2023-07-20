@@ -36,6 +36,30 @@ namespace Verizon.Standard.Controllers
         internal M5gEdgePlatformsController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
+        /// List the geographical regions available, based on the user's bearer token. **Note:** Country code, Metropolitan area, Area and Zone are future functionality and will currently return a "null" value.
+        /// </summary>
+        /// <returns>Returns the ApiResponse of Models.ListRegionsResult response from the API call.</returns>
+        public ApiResponse<Models.ListRegionsResult> ListRegions()
+            => CoreHelper.RunTask(ListRegionsAsync());
+
+        /// <summary>
+        /// List the geographical regions available, based on the user's bearer token. **Note:** Country code, Metropolitan area, Area and Zone are future functionality and will currently return a "null" value.
+        /// </summary>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.ListRegionsResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.ListRegionsResult>> ListRegionsAsync(CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.ListRegionsResult>()
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/regions")
+                  .WithAuth("global"))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
+                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ListRegionsResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// Returns a list of optimal MEC Platforms where you can register your deployed application. **Note:** If a query is sent with all of the parameters, it will fail with a "400" error. You can search based on the following parameter combinations - region plus Service Profile ID and subscriber density (density is optional but recommended), region plus UEIdentity(Including UEIdentity Type) or Service Profile ID plus UEIdentity(Including UEIdentity Type).
         /// </summary>
         /// <param name="region">Optional parameter: MEC region name. Current valid values are US_WEST_2 and US_EAST_1..</param>
@@ -84,30 +108,6 @@ namespace Verizon.Standard.Controllers
                   .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
                   .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ListMECPlatformsResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// List the geographical regions available, based on the user's bearer token. **Note:** Country code, Metropolitan area, Area and Zone are future functionality and will currently return a "null" value.
-        /// </summary>
-        /// <returns>Returns the ApiResponse of Models.ListRegionsResult response from the API call.</returns>
-        public ApiResponse<Models.ListRegionsResult> ListRegions()
-            => CoreHelper.RunTask(ListRegionsAsync());
-
-        /// <summary>
-        /// List the geographical regions available, based on the user's bearer token. **Note:** Country code, Metropolitan area, Area and Zone are future functionality and will currently return a "null" value.
-        /// </summary>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.ListRegionsResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.ListRegionsResult>> ListRegionsAsync(CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.ListRegionsResult>()
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/regions")
-                  .WithAuth("global"))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ListRegionsResult>(_response)))
               .ExecuteAsync(cancellationToken);
     }
 }

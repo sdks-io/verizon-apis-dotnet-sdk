@@ -36,37 +36,6 @@ namespace Verizon.Standard.Controllers
         internal DeviceMonitoringController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// Register for notification reports based on the request type.
-        /// </summary>
-        /// <param name="body">Required parameter: Create Reachability Report Request.</param>
-        /// <returns>Returns the ApiResponse of Models.RequestResponse response from the API call.</returns>
-        public ApiResponse<Models.RequestResponse> DeviceReachability(
-                Models.NotificationReportRequest body)
-            => CoreHelper.RunTask(DeviceReachabilityAsync(body));
-
-        /// <summary>
-        /// Register for notification reports based on the request type.
-        /// </summary>
-        /// <param name="body">Required parameter: Create Reachability Report Request.</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.RequestResponse response from the API call.</returns>
-        public async Task<ApiResponse<Models.RequestResponse>> DeviceReachabilityAsync(
-                Models.NotificationReportRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.RequestResponse>()
-              .Server(Server.M2m)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v1/diagnostics/basic/devicereachability")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error Response", (_reason, _context) => new RestErrorResponseException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.RequestResponse>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Stop Device Reachability monitors.
         /// </summary>
         /// <param name="accountName">Required parameter: The numeric name of the account..</param>
@@ -96,6 +65,37 @@ namespace Verizon.Standard.Controllers
                   .Parameters(_parameters => _parameters
                       .Query(_query => _query.Setup("accountName", accountName))
                       .Query(_query => _query.Setup("monitorIds", monitorIds))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Error Response", (_reason, _context) => new RestErrorResponseException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.RequestResponse>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Register for notification reports based on the request type.
+        /// </summary>
+        /// <param name="body">Required parameter: Create Reachability Report Request.</param>
+        /// <returns>Returns the ApiResponse of Models.RequestResponse response from the API call.</returns>
+        public ApiResponse<Models.RequestResponse> DeviceReachability(
+                Models.NotificationReportRequest body)
+            => CoreHelper.RunTask(DeviceReachabilityAsync(body));
+
+        /// <summary>
+        /// Register for notification reports based on the request type.
+        /// </summary>
+        /// <param name="body">Required parameter: Create Reachability Report Request.</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.RequestResponse response from the API call.</returns>
+        public async Task<ApiResponse<Models.RequestResponse>> DeviceReachabilityAsync(
+                Models.NotificationReportRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.RequestResponse>()
+              .Server(Server.M2m)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/v1/diagnostics/basic/devicereachability")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Error Response", (_reason, _context) => new RestErrorResponseException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<Models.RequestResponse>(_response)))

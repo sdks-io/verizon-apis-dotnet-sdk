@@ -10,9 +10,71 @@ ServiceLaunchRequestsController serviceLaunchRequestsController = client.Service
 
 ## Methods
 
-* [Get Service Launch Request](../../doc/controllers/service-launch-requests.md#get-service-launch-request)
 * [Create Service Launch Request](../../doc/controllers/service-launch-requests.md#create-service-launch-request)
+* [Get Service Launch Request](../../doc/controllers/service-launch-requests.md#get-service-launch-request)
 * [Submit Service Launch Request](../../doc/controllers/service-launch-requests.md#submit-service-launch-request)
+
+
+# Create Service Launch Request
+
+Create a request for launching a service.
+
+```csharp
+CreateServiceLaunchRequestAsync(
+    string accountName,
+    string userName,
+    string correlationId = null,
+    Models.CreateServiceLaunchRequest body = null)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountName` | `string` | Header, Required | User account name.<br>**Constraints**: *Maximum Length*: `64`, *Pattern*: `^[\w\d_\.\#\$\%\|^\&\*\@\!\-]{1,64}$` |
+| `userName` | `string` | Header, Required | **Constraints**: *Maximum Length*: `64`, *Pattern*: `^[\w\d_\.\#\$\%\|^\&\*\@\!\-]{1,64}$` |
+| `correlationId` | `string` | Header, Optional | **Constraints**: *Maximum Length*: `64`, *Pattern*: `^[\w\d_\.\#\$\%\|^\&\*\@\!\-]{1,64}$` |
+| `body` | [`Models.CreateServiceLaunchRequest`](../../doc/models/create-service-launch-request.md) | Body, Optional | Request for launching a service. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.ServiceLaunchRequestResult>>`](../../doc/models/service-launch-request-result.md)
+
+## Example Usage
+
+```csharp
+string accountName = "test_account1";
+string userName = "acme-user";
+string correlationId = "eda2cb4e-50ef-4ae8-b304-7d2f0f7a21c1";
+CreateServiceLaunchRequest body = new CreateServiceLaunchRequest
+{
+    Name = "MdpTest3",
+    CspProfileId = "6789409c-12c3-4fc9-b64f-71d1611c4f09",
+    ServiceProfileId = "6789409c-12c3-4fc9-b64f-71d1611c4f09",
+    ServiceName = "mongodbdemo0710",
+    ServiceVersion = "2.5.6",
+};
+
+try
+{
+    ApiResponse<ServiceLaunchRequestResult> result = await serviceLaunchRequestsController.CreateServiceLaunchRequestAsync(accountName, userName, correlationId, body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | HTTP 400 Bad Request. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
+| 401 | HTTP 401 Unauthorized. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
+| 404 | HTTP 404 Not found. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
+| 500 | Internal Server Error. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
+| Default | HTTP 500 Internal Server Error. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
 
 
 # Get Service Launch Request
@@ -79,68 +141,6 @@ catch (ApiException e)
 | 429 | Too many requests. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
 | 500 | Internal Server Error. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
 | Default | Unexpected error. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
-
-
-# Create Service Launch Request
-
-Create a request for launching a service.
-
-```csharp
-CreateServiceLaunchRequestAsync(
-    string accountName,
-    string userName,
-    string correlationId = null,
-    Models.CreateServiceLaunchRequest body = null)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `accountName` | `string` | Header, Required | User account name.<br>**Constraints**: *Maximum Length*: `64`, *Pattern*: `^[\w\d_\.\#\$\%\|^\&\*\@\!\-]{1,64}$` |
-| `userName` | `string` | Header, Required | **Constraints**: *Maximum Length*: `64`, *Pattern*: `^[\w\d_\.\#\$\%\|^\&\*\@\!\-]{1,64}$` |
-| `correlationId` | `string` | Header, Optional | **Constraints**: *Maximum Length*: `64`, *Pattern*: `^[\w\d_\.\#\$\%\|^\&\*\@\!\-]{1,64}$` |
-| `body` | [`Models.CreateServiceLaunchRequest`](../../doc/models/create-service-launch-request.md) | Body, Optional | Request for launching a service. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.ServiceLaunchRequestResult>>`](../../doc/models/service-launch-request-result.md)
-
-## Example Usage
-
-```csharp
-string accountName = "test_account1";
-string userName = "acme-user";
-string correlationId = "eda2cb4e-50ef-4ae8-b304-7d2f0f7a21c1";
-CreateServiceLaunchRequest body = new CreateServiceLaunchRequest
-{
-    Name = "MdpTest3",
-    CspProfileId = "6789409c-12c3-4fc9-b64f-71d1611c4f09",
-    ServiceProfileId = "6789409c-12c3-4fc9-b64f-71d1611c4f09",
-    ServiceName = "mongodbdemo0710",
-    ServiceVersion = "2.5.6",
-};
-
-try
-{
-    ApiResponse<ServiceLaunchRequestResult> result = await serviceLaunchRequestsController.CreateServiceLaunchRequestAsync(accountName, userName, correlationId, body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | HTTP 400 Bad Request. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
-| 401 | HTTP 401 Unauthorized. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
-| 404 | HTTP 404 Not found. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
-| 500 | Internal Server Error. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
-| Default | HTTP 500 Internal Server Error. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
 
 
 # Submit Service Launch Request

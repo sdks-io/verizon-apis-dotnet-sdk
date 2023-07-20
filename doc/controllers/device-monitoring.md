@@ -10,8 +10,57 @@ DeviceMonitoringController deviceMonitoringController = client.DeviceMonitoringC
 
 ## Methods
 
-* [Device Reachability](../../doc/controllers/device-monitoring.md#device-reachability)
 * [Stop Device Reachability](../../doc/controllers/device-monitoring.md#stop-device-reachability)
+* [Device Reachability](../../doc/controllers/device-monitoring.md#device-reachability)
+
+
+# Stop Device Reachability
+
+Stop Device Reachability monitors.
+
+```csharp
+StopDeviceReachabilityAsync(
+    string accountName,
+    List<string> monitorIds)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountName` | `string` | Query, Required | The numeric name of the account. |
+| `monitorIds` | `List<string>` | Query, Required | The array contains the monitorIDs (UUID) for which the monitor is to be deleted. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.RequestResponse>>`](../../doc/models/request-response.md)
+
+## Example Usage
+
+```csharp
+string accountName = "0242123520-00001";
+List<string> monitorIds = new List<string>
+{
+    "35596ca6-bab4-4333-a914-42b4fc2da54c",
+    "35596ca6-bab4-4333-a914-42b4fc2da54b",
+};
+
+try
+{
+    ApiResponse<RequestResponse> result = await deviceMonitoringController.StopDeviceReachabilityAsync(accountName, monitorIds);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error Response | [`RestErrorResponseException`](../../doc/models/rest-error-response-exception.md) |
 
 
 # Device Reachability
@@ -65,55 +114,6 @@ NotificationReportRequest body = new NotificationReportRequest
 try
 {
     ApiResponse<RequestResponse> result = await deviceMonitoringController.DeviceReachabilityAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error Response | [`RestErrorResponseException`](../../doc/models/rest-error-response-exception.md) |
-
-
-# Stop Device Reachability
-
-Stop Device Reachability monitors.
-
-```csharp
-StopDeviceReachabilityAsync(
-    string accountName,
-    List<string> monitorIds)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `accountName` | `string` | Query, Required | The numeric name of the account. |
-| `monitorIds` | `List<string>` | Query, Required | The array contains the monitorIDs (UUID) for which the monitor is to be deleted. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.RequestResponse>>`](../../doc/models/request-response.md)
-
-## Example Usage
-
-```csharp
-string accountName = "0242123520-00001";
-List<string> monitorIds = new List<string>
-{
-    "35596ca6-bab4-4333-a914-42b4fc2da54c",
-    "35596ca6-bab4-4333-a914-42b4fc2da54b",
-};
-
-try
-{
-    ApiResponse<RequestResponse> result = await deviceMonitoringController.StopDeviceReachabilityAsync(accountName, monitorIds);
 }
 catch (ApiException e)
 {

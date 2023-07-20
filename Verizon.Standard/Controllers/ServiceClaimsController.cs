@@ -36,6 +36,60 @@ namespace Verizon.Standard.Controllers
         internal ServiceClaimsController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
+        /// Associate an existing cloud credential with a service's claim which will be used to connect to user's cloud provider.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="serviceId">Required parameter: System generated unique identifier of the service which user is using..</param>
+        /// <param name="claimId">Required parameter: System generated unique identifier for the claim which user is using..</param>
+        /// <param name="body">Required parameter: Example: .</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <returns>Returns the ApiResponse of Models.AssociateCloudCredentialResult response from the API call.</returns>
+        public ApiResponse<Models.AssociateCloudCredentialResult> AssociateCloudCredentialWithServiceClaim(
+                string accountName,
+                string serviceId,
+                string claimId,
+                Models.CSPProfileIdRequest body,
+                string correlationId = null)
+            => CoreHelper.RunTask(AssociateCloudCredentialWithServiceClaimAsync(accountName, serviceId, claimId, body, correlationId));
+
+        /// <summary>
+        /// Associate an existing cloud credential with a service's claim which will be used to connect to user's cloud provider.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="serviceId">Required parameter: System generated unique identifier of the service which user is using..</param>
+        /// <param name="claimId">Required parameter: System generated unique identifier for the claim which user is using..</param>
+        /// <param name="body">Required parameter: Example: .</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.AssociateCloudCredentialResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.AssociateCloudCredentialResult>> AssociateCloudCredentialWithServiceClaimAsync(
+                string accountName,
+                string serviceId,
+                string claimId,
+                Models.CSPProfileIdRequest body,
+                string correlationId = null,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.AssociateCloudCredentialResult>()
+              .Server(Server.Services)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/v1/services/{serviceId}/claims/{claimId}/associateCspProfile")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("AccountName", accountName))
+                      .Template(_template => _template.Setup("serviceId", serviceId))
+                      .Template(_template => _template.Setup("claimId", claimId))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))
+                      .Header(_header => _header.Setup("correlationId", correlationId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Bad request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("404", CreateErrorCase("Not Found.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AssociateCloudCredentialResult>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// Fetch all service's claim(s) associated with a service. Service claims are generated based on service's compatibility with different cloud service provider.
         /// </summary>
         /// <param name="accountName">Required parameter: User account name..</param>
@@ -114,107 +168,6 @@ namespace Verizon.Standard.Controllers
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
-        /// Associate an existing cloud credential with a service's claim which will be used to connect to user's cloud provider.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="serviceId">Required parameter: System generated unique identifier of the service which user is using..</param>
-        /// <param name="claimId">Required parameter: System generated unique identifier for the claim which user is using..</param>
-        /// <param name="body">Required parameter: Example: .</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <returns>Returns the ApiResponse of Models.AssociateCloudCredentialResult response from the API call.</returns>
-        public ApiResponse<Models.AssociateCloudCredentialResult> AssociateCloudCredentialWithServiceClaim(
-                string accountName,
-                string serviceId,
-                string claimId,
-                Models.CSPProfileIdRequest body,
-                string correlationId = null)
-            => CoreHelper.RunTask(AssociateCloudCredentialWithServiceClaimAsync(accountName, serviceId, claimId, body, correlationId));
-
-        /// <summary>
-        /// Associate an existing cloud credential with a service's claim which will be used to connect to user's cloud provider.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="serviceId">Required parameter: System generated unique identifier of the service which user is using..</param>
-        /// <param name="claimId">Required parameter: System generated unique identifier for the claim which user is using..</param>
-        /// <param name="body">Required parameter: Example: .</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.AssociateCloudCredentialResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.AssociateCloudCredentialResult>> AssociateCloudCredentialWithServiceClaimAsync(
-                string accountName,
-                string serviceId,
-                string claimId,
-                Models.CSPProfileIdRequest body,
-                string correlationId = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.AssociateCloudCredentialResult>()
-              .Server(Server.Services)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v1/services/{serviceId}/claims/{claimId}/associateCspProfile")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("AccountName", accountName))
-                      .Template(_template => _template.Setup("serviceId", serviceId))
-                      .Template(_template => _template.Setup("claimId", claimId))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))
-                      .Header(_header => _header.Setup("correlationId", correlationId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Bad request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("Not Found.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AssociateCloudCredentialResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Mark a service's claim status as complete post successful verification of sandbox testing in the respective sandbox environment.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="serviceId">Required parameter: System generated unique identifier of the service which user is using..</param>
-        /// <param name="claimId">Required parameter: System generated unique identifier of the claim which user is using..</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        public void MarkServiceClaimStatusAsCompleted(
-                string accountName,
-                string serviceId,
-                string claimId,
-                string correlationId = null)
-            => CoreHelper.RunVoidTask(MarkServiceClaimStatusAsCompletedAsync(accountName, serviceId, claimId, correlationId));
-
-        /// <summary>
-        /// Mark a service's claim status as complete post successful verification of sandbox testing in the respective sandbox environment.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="serviceId">Required parameter: System generated unique identifier of the service which user is using..</param>
-        /// <param name="claimId">Required parameter: System generated unique identifier of the claim which user is using..</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the void response from the API call.</returns>
-        public async Task MarkServiceClaimStatusAsCompletedAsync(
-                string accountName,
-                string serviceId,
-                string claimId,
-                string correlationId = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<VoidType>()
-              .Server(Server.Services)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v1/services/{serviceId}/claims/{claimId}/claimStatusCompleted")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Header(_header => _header.Setup("AccountName", accountName))
-                      .Template(_template => _template.Setup("serviceId", serviceId))
-                      .Template(_template => _template.Setup("claimId", claimId))
-                      .Header(_header => _header.Setup("correlationId", correlationId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Bad request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("Not Found.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-)
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Using this API user can update service's claim status as complete/verified etc.
         /// </summary>
         /// <param name="accountName">Required parameter: User account name..</param>
@@ -258,6 +211,53 @@ namespace Verizon.Standard.Controllers
                       .Template(_template => _template.Setup("serviceId", serviceId))
                       .Template(_template => _template.Setup("claimId", claimId))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))
+                      .Header(_header => _header.Setup("correlationId", correlationId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Bad request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("404", CreateErrorCase("Not Found.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+)
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Mark a service's claim status as complete post successful verification of sandbox testing in the respective sandbox environment.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="serviceId">Required parameter: System generated unique identifier of the service which user is using..</param>
+        /// <param name="claimId">Required parameter: System generated unique identifier of the claim which user is using..</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        public void MarkServiceClaimStatusAsCompleted(
+                string accountName,
+                string serviceId,
+                string claimId,
+                string correlationId = null)
+            => CoreHelper.RunVoidTask(MarkServiceClaimStatusAsCompletedAsync(accountName, serviceId, claimId, correlationId));
+
+        /// <summary>
+        /// Mark a service's claim status as complete post successful verification of sandbox testing in the respective sandbox environment.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="serviceId">Required parameter: System generated unique identifier of the service which user is using..</param>
+        /// <param name="claimId">Required parameter: System generated unique identifier of the claim which user is using..</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the void response from the API call.</returns>
+        public async Task MarkServiceClaimStatusAsCompletedAsync(
+                string accountName,
+                string serviceId,
+                string claimId,
+                string correlationId = null,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<VoidType>()
+              .Server(Server.Services)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/v1/services/{serviceId}/claims/{claimId}/claimStatusCompleted")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Header(_header => _header.Setup("AccountName", accountName))
+                      .Template(_template => _template.Setup("serviceId", serviceId))
+                      .Template(_template => _template.Setup("claimId", claimId))
                       .Header(_header => _header.Setup("correlationId", correlationId))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Bad request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))

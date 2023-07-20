@@ -36,50 +36,6 @@ namespace Verizon.Standard.Controllers
         internal ServiceMetadataController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// Create a new category within user's organization.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="body">Required parameter: Example: .</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <returns>Returns the ApiResponse of List<Models.Category> response from the API call.</returns>
-        public ApiResponse<List<Models.Category>> CreateServiceCategory(
-                string accountName,
-                List<Models.Category> body,
-                string correlationId = null)
-            => CoreHelper.RunTask(CreateServiceCategoryAsync(accountName, body, correlationId));
-
-        /// <summary>
-        /// Create a new category within user's organization.
-        /// </summary>
-        /// <param name="accountName">Required parameter: User account name..</param>
-        /// <param name="body">Required parameter: Example: .</param>
-        /// <param name="correlationId">Optional parameter: Example: .</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of List<Models.Category> response from the API call.</returns>
-        public async Task<ApiResponse<List<Models.Category>>> CreateServiceCategoryAsync(
-                string accountName,
-                List<Models.Category> body,
-                string correlationId = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<List<Models.Category>>()
-              .Server(Server.Services)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v1/category")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("AccountName", accountName))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))
-                      .Header(_header => _header.Setup("correlationId", correlationId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Bad Request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("Not found.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.Category>>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
         /// Create a new Tag within user's organization.
         /// </summary>
         /// <param name="accountName">Required parameter: User account name..</param>
@@ -121,6 +77,50 @@ namespace Verizon.Standard.Controllers
                   .ErrorCase("415", CreateErrorCase("Unsupported media type.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
                   .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
                   .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.Tag>>(_response)))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Create a new category within user's organization.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="body">Required parameter: Example: .</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <returns>Returns the ApiResponse of List<Models.Category> response from the API call.</returns>
+        public ApiResponse<List<Models.Category>> CreateServiceCategory(
+                string accountName,
+                List<Models.Category> body,
+                string correlationId = null)
+            => CoreHelper.RunTask(CreateServiceCategoryAsync(accountName, body, correlationId));
+
+        /// <summary>
+        /// Create a new category within user's organization.
+        /// </summary>
+        /// <param name="accountName">Required parameter: User account name..</param>
+        /// <param name="body">Required parameter: Example: .</param>
+        /// <param name="correlationId">Optional parameter: Example: .</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of List<Models.Category> response from the API call.</returns>
+        public async Task<ApiResponse<List<Models.Category>>> CreateServiceCategoryAsync(
+                string accountName,
+                List<Models.Category> body,
+                string correlationId = null,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<List<Models.Category>>()
+              .Server(Server.Services)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/v1/category")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("AccountName", accountName))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))
+                      .Header(_header => _header.Setup("correlationId", correlationId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Bad Request.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("Unauthorized.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("404", CreateErrorCase("Not found.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new EdgeServiceOnboardingResultErrorException(_reason, _context)))
+                  .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.Category>>(_response)))
               .ExecuteAsync(cancellationToken);
     }
 }
