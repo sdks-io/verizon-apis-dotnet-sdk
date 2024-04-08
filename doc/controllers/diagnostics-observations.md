@@ -27,7 +27,7 @@ StartDiagnosticsObservationAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.ObservationRequest`](../../doc/models/observation-request.md) | Body, Required | Request for device observation information. |
+| `body` | [`ObservationRequest`](../../doc/models/observation-request.md) | Body, Required | Request for device observation information. |
 
 ## Response Type
 
@@ -134,7 +134,10 @@ string transactionId = "5f4bd2ff-5d7f-444d-af17-3f6a80bb2a94";
 string accountName = "0000123456-00001";
 try
 {
-    ApiResponse<DiagnosticsObservationResult> result = await diagnosticsObservationsController.StopDiagnosticsObservationAsync(transactionId, accountName);
+    ApiResponse<DiagnosticsObservationResult> result = await diagnosticsObservationsController.StopDiagnosticsObservationAsync(
+        transactionId,
+        accountName
+    );
 }
 catch (ApiException e)
 {

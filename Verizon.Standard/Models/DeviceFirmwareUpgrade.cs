@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -165,16 +166,16 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId == string.Empty ? "" : this.DeviceId)}");
-            toStringOutput.Add($"this.CampaignId = {(this.CampaignId == null ? "null" : this.CampaignId == string.Empty ? "" : this.CampaignId)}");
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
-            toStringOutput.Add($"this.FirmwareName = {(this.FirmwareName == null ? "null" : this.FirmwareName == string.Empty ? "" : this.FirmwareName)}");
-            toStringOutput.Add($"this.FirmwareFrom = {(this.FirmwareFrom == null ? "null" : this.FirmwareFrom == string.Empty ? "" : this.FirmwareFrom)}");
-            toStringOutput.Add($"this.FirmwareTo = {(this.FirmwareTo == null ? "null" : this.FirmwareTo == string.Empty ? "" : this.FirmwareTo)}");
+            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId)}");
+            toStringOutput.Add($"this.CampaignId = {(this.CampaignId == null ? "null" : this.CampaignId)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
+            toStringOutput.Add($"this.FirmwareName = {(this.FirmwareName == null ? "null" : this.FirmwareName)}");
+            toStringOutput.Add($"this.FirmwareFrom = {(this.FirmwareFrom == null ? "null" : this.FirmwareFrom)}");
+            toStringOutput.Add($"this.FirmwareTo = {(this.FirmwareTo == null ? "null" : this.FirmwareTo)}");
             toStringOutput.Add($"this.StartDate = {this.StartDate}");
-            toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status == string.Empty ? "" : this.Status)}");
-            toStringOutput.Add($"this.Reason = {(this.Reason == null ? "null" : this.Reason == string.Empty ? "" : this.Reason)}");
-            toStringOutput.Add($"this.ReportUpdatedTime = {(this.ReportUpdatedTime == null ? "null" : this.ReportUpdatedTime == string.Empty ? "" : this.ReportUpdatedTime)}");
+            toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status)}");
+            toStringOutput.Add($"this.Reason = {(this.Reason == null ? "null" : this.Reason)}");
+            toStringOutput.Add($"this.ReportUpdatedTime = {(this.ReportUpdatedTime == null ? "null" : this.ReportUpdatedTime)}");
         }
     }
 }

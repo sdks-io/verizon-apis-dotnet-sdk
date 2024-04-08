@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -32,7 +33,7 @@ namespace Verizon.Standard.Models
         /// </summary>
         /// <param name="deviceIdentifierFilters">deviceIdentifierFilters.</param>
         public AccountDeviceListFilter(
-            List<Models.DeviceIdSearch> deviceIdentifierFilters = null)
+            List<Models.DeviceIdSearch> deviceIdentifierFilters)
         {
             this.DeviceIdentifierFilters = deviceIdentifierFilters;
         }
@@ -40,7 +41,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Specify the kind of the device identifier, the type of match, and the string that you want to match.
         /// </summary>
-        [JsonProperty("deviceIdentifierFilters", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("deviceIdentifierFilters")]
         public List<Models.DeviceIdSearch> DeviceIdentifierFilters { get; set; }
 
         /// <inheritdoc/>

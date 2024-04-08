@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -65,15 +64,14 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/reports/{acc}/firmware/campaigns")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("acc", acc))
                       .Query(_query => _query.Setup("campaignStatus", ApiHelper.JsonSerialize(campaignStatus).Trim('\"')))
                       .Query(_query => _query.Setup("lastSeenCampaignId", lastSeenCampaignId))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.V3CampaignHistory>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// Retrieve campaign history for a specific device.
@@ -101,14 +99,13 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/reports/{acc}/devices/{deviceId}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("acc", acc))
                       .Template(_template => _template.Setup("deviceId", deviceId))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.DeviceFirmwareUpgrade>>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// Retrieve a list of all devices in a campaign and the status of each device.
@@ -140,14 +137,13 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/reports/{acc}/campaigns/{campaignId}/devices")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("acc", acc))
                       .Template(_template => _template.Setup("campaignId", campaignId))
                       .Query(_query => _query.Setup("lastSeenDeviceId", lastSeenDeviceId))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.V3CampaignDevice>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

@@ -10,65 +10,9 @@ DiagnosticsCallbacksController diagnosticsCallbacksController = client.Diagnosti
 
 ## Methods
 
-* [Unregister Diagnostics Callback](../../doc/controllers/diagnostics-callbacks.md#unregister-diagnostics-callback)
 * [Get Diagnostics Subscription Callback Info](../../doc/controllers/diagnostics-callbacks.md#get-diagnostics-subscription-callback-info)
 * [Register Diagnostics Callback URL](../../doc/controllers/diagnostics-callbacks.md#register-diagnostics-callback-url)
-
-
-# Unregister Diagnostics Callback
-
-This endpoint allows user to delete a registered callback URL and credential.
-
-```csharp
-UnregisterDiagnosticsCallbackAsync(
-    string accountName,
-    string serviceName)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `accountName` | `string` | Query, Required | Account identifier. |
-| `serviceName` | `string` | Query, Required | Service name for callback notification. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceDiagnosticsCallback>>`](../../doc/models/device-diagnostics-callback.md)
-
-## Example Usage
-
-```csharp
-string accountName = "0000123456-00001";
-string serviceName = "string";
-try
-{
-    ApiResponse<DeviceDiagnosticsCallback> result = await diagnosticsCallbacksController.UnregisterDiagnosticsCallbackAsync(accountName, serviceName);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "accountName": "TestQAAccount",
-  "serviceName": "string",
-  "endpoint": "https://yourwebsite.com",
-  "httpHeaders": {},
-  "createdOn": "2019-09-07T23:57:53.292Z"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`DeviceDiagnosticsResultException`](../../doc/models/device-diagnostics-result-exception.md) |
+* [Unregister Diagnostics Callback](../../doc/controllers/diagnostics-callbacks.md#unregister-diagnostics-callback)
 
 
 # Get Diagnostics Subscription Callback Info
@@ -139,7 +83,7 @@ RegisterDiagnosticsCallbackURLAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.CallbackRegistrationRequest`](../../doc/models/callback-registration-request.md) | Body, Required | Callback URL registration request. |
+| `body` | [`CallbackRegistrationRequest`](../../doc/models/callback-registration-request.md) | Body, Required | Callback URL registration request. |
 
 ## Response Type
 
@@ -159,6 +103,65 @@ CallbackRegistrationRequest body = new CallbackRegistrationRequest
 try
 {
     ApiResponse<DeviceDiagnosticsCallback> result = await diagnosticsCallbacksController.RegisterDiagnosticsCallbackURLAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "accountName": "TestQAAccount",
+  "serviceName": "string",
+  "endpoint": "https://yourwebsite.com",
+  "httpHeaders": {},
+  "createdOn": "2019-09-07T23:57:53.292Z"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`DeviceDiagnosticsResultException`](../../doc/models/device-diagnostics-result-exception.md) |
+
+
+# Unregister Diagnostics Callback
+
+This endpoint allows user to delete a registered callback URL and credential.
+
+```csharp
+UnregisterDiagnosticsCallbackAsync(
+    string accountName,
+    string serviceName)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountName` | `string` | Query, Required | Account identifier. |
+| `serviceName` | `string` | Query, Required | Service name for callback notification. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceDiagnosticsCallback>>`](../../doc/models/device-diagnostics-callback.md)
+
+## Example Usage
+
+```csharp
+string accountName = "0000123456-00001";
+string serviceName = "string";
+try
+{
+    ApiResponse<DeviceDiagnosticsCallback> result = await diagnosticsCallbacksController.UnregisterDiagnosticsCallbackAsync(
+        accountName,
+        serviceName
+    );
 }
 catch (ApiException e)
 {

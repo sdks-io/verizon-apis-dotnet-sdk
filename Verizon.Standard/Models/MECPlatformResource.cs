@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -92,7 +93,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Status of the MEC Platform (default is 'unknown')
         /// </summary>
-        [JsonProperty("status", ItemConverterType = typeof(StringEnumConverter), NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
         public Models.MECPlatformStatusEnum? Status { get; set; }
 
         /// <summary>
@@ -153,9 +154,9 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Ern = {(this.Ern == null ? "null" : this.Ern == string.Empty ? "" : this.Ern)}");
-            toStringOutput.Add($"this.Zone = {(this.Zone == null ? "null" : this.Zone == string.Empty ? "" : this.Zone)}");
-            toStringOutput.Add($"this.Region = {(this.Region == null ? "null" : this.Region == string.Empty ? "" : this.Region)}");
+            toStringOutput.Add($"this.Ern = {(this.Ern == null ? "null" : this.Ern)}");
+            toStringOutput.Add($"this.Zone = {(this.Zone == null ? "null" : this.Zone)}");
+            toStringOutput.Add($"this.Region = {(this.Region == null ? "null" : this.Region)}");
             toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status.ToString())}");
             toStringOutput.Add($"Properties = {(this.Properties == null ? "null" : this.Properties.ToString())}");
         }

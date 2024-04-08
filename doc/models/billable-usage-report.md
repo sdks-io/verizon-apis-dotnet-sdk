@@ -16,8 +16,8 @@ Bill usage report.
 | `SkuName` | `string` | Optional | SKU Name of the service subscription. |
 | `TransactionsAllowed` | `string` | Optional | The number of location requests included with the subscription type. |
 | `TotalTransactionCount` | `string` | Optional | The total number of billable device location requests during the reporting period from all included accounts. |
-| `PrimaryAccount` | [`Models.ServiceUsage`](../../doc/models/service-usage.md) | Optional | - |
-| `ManagedAccounts` | [`List<Models.ServiceUsage>`](../../doc/models/service-usage.md) | Optional | Zero or more managed accounts. |
+| `PrimaryAccount` | [`ServiceUsage`](../../doc/models/service-usage.md) | Optional | - |
+| `ManagedAccounts` | [`List<ServiceUsage>`](../../doc/models/service-usage.md) | Optional | Zero or more managed accounts. |
 
 ## Example (as JSON)
 

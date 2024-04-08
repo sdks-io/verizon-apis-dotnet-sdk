@@ -10,63 +10,11 @@ CampaignsV3Controller campaignsV3Controller = client.CampaignsV3Controller;
 
 ## Methods
 
-* [Cancel Campaign](../../doc/controllers/campaigns-v3.md#cancel-campaign)
 * [Schedule Campaign Firmware Upgrade](../../doc/controllers/campaigns-v3.md#schedule-campaign-firmware-upgrade)
 * [Update Campaign Firmware Devices](../../doc/controllers/campaigns-v3.md#update-campaign-firmware-devices)
 * [Update Campaign Dates](../../doc/controllers/campaigns-v3.md#update-campaign-dates)
 * [Get Campaign Information](../../doc/controllers/campaigns-v3.md#get-campaign-information)
-
-
-# Cancel Campaign
-
-This endpoint allows user to cancel a firmware campaign. A firmware campaign already started can not be cancelled.
-
-```csharp
-CancelCampaignAsync(
-    string acc,
-    string campaignId)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `acc` | `string` | Template, Required | Account identifier. |
-| `campaignId` | `string` | Template, Required | Firmware upgrade information. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.FotaV3SuccessResult>>`](../../doc/models/fota-v3-success-result.md)
-
-## Example Usage
-
-```csharp
-string acc = "0000123456-00001";
-string campaignId = "f858b8c4-2153-11ec-8c44-aeb16d1aa652";
-try
-{
-    ApiResponse<FotaV3SuccessResult> result = await campaignsV3Controller.CancelCampaignAsync(acc, campaignId);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "success": true
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV3ResultException`](../../doc/models/fota-v3-result-exception.md) |
+* [Cancel Campaign](../../doc/controllers/campaigns-v3.md#cancel-campaign)
 
 
 # Schedule Campaign Firmware Upgrade
@@ -84,7 +32,7 @@ ScheduleCampaignFirmwareUpgradeAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `acc` | `string` | Template, Required | Account identifier. |
-| `body` | [`Models.CampaignFirmwareUpgrade`](../../doc/models/campaign-firmware-upgrade.md) | Body, Required | Firmware upgrade information. |
+| `body` | [`CampaignFirmwareUpgrade`](../../doc/models/campaign-firmware-upgrade.md) | Body, Required | Firmware upgrade information. |
 
 ## Response Type
 
@@ -119,7 +67,10 @@ CampaignFirmwareUpgrade body = new CampaignFirmwareUpgrade
 
 try
 {
-    ApiResponse<FirmwareCampaign> result = await campaignsV3Controller.ScheduleCampaignFirmwareUpgradeAsync(acc, body);
+    ApiResponse<FirmwareCampaign> result = await campaignsV3Controller.ScheduleCampaignFirmwareUpgradeAsync(
+        acc,
+        body
+    );
 }
 catch (ApiException e)
 {
@@ -177,7 +128,7 @@ UpdateCampaignFirmwareDevicesAsync(
 |  --- | --- | --- | --- |
 | `acc` | `string` | Template, Required | Account identifier. |
 | `campaignId` | `string` | Template, Required | Unique identifier of a campaign. |
-| `body` | [`Models.V3AddOrRemoveDeviceRequest`](../../doc/models/v3-add-or-remove-device-request.md) | Body, Required | Add or remove device to existing upgrade information. |
+| `body` | [`V3AddOrRemoveDeviceRequest`](../../doc/models/v3-add-or-remove-device-request.md) | Body, Required | Add or remove device to existing upgrade information. |
 
 ## Response Type
 
@@ -199,7 +150,11 @@ V3AddOrRemoveDeviceRequest body = new V3AddOrRemoveDeviceRequest
 
 try
 {
-    ApiResponse<V3AddOrRemoveDeviceResult> result = await campaignsV3Controller.UpdateCampaignFirmwareDevicesAsync(acc, campaignId, body);
+    ApiResponse<V3AddOrRemoveDeviceResult> result = await campaignsV3Controller.UpdateCampaignFirmwareDevicesAsync(
+        acc,
+        campaignId,
+        body
+    );
 }
 catch (ApiException e)
 {
@@ -248,7 +203,7 @@ UpdateCampaignDatesAsync(
 |  --- | --- | --- | --- |
 | `acc` | `string` | Template, Required | Account identifier. |
 | `campaignId` | `string` | Template, Required | Firmware upgrade information. |
-| `body` | [`Models.V3ChangeCampaignDatesRequest`](../../doc/models/v3-change-campaign-dates-request.md) | Body, Required | New dates and time windows. |
+| `body` | [`V3ChangeCampaignDatesRequest`](../../doc/models/v3-change-campaign-dates-request.md) | Body, Required | New dates and time windows. |
 
 ## Response Type
 
@@ -275,7 +230,11 @@ V3ChangeCampaignDatesRequest body = new V3ChangeCampaignDatesRequest
 
 try
 {
-    ApiResponse<FirmwareCampaign> result = await campaignsV3Controller.UpdateCampaignDatesAsync(acc, campaignId, body);
+    ApiResponse<FirmwareCampaign> result = await campaignsV3Controller.UpdateCampaignDatesAsync(
+        acc,
+        campaignId,
+        body
+    );
 }
 catch (ApiException e)
 {
@@ -344,7 +303,10 @@ string acc = "0000123456-00001";
 string campaignId = "f858b8c4-2153-11ec-8c44-aeb16d1aa652";
 try
 {
-    ApiResponse<Campaign> result = await campaignsV3Controller.GetCampaignInformationAsync(acc, campaignId);
+    ApiResponse<Campaign> result = await campaignsV3Controller.GetCampaignInformationAsync(
+        acc,
+        campaignId
+    );
 }
 catch (ApiException e)
 {
@@ -375,6 +337,61 @@ catch (ApiException e)
       "endTime": 22
     }
   ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV3ResultException`](../../doc/models/fota-v3-result-exception.md) |
+
+
+# Cancel Campaign
+
+This endpoint allows user to cancel a firmware campaign. A firmware campaign already started can not be cancelled.
+
+```csharp
+CancelCampaignAsync(
+    string acc,
+    string campaignId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `acc` | `string` | Template, Required | Account identifier. |
+| `campaignId` | `string` | Template, Required | Firmware upgrade information. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.FotaV3SuccessResult>>`](../../doc/models/fota-v3-success-result.md)
+
+## Example Usage
+
+```csharp
+string acc = "0000123456-00001";
+string campaignId = "f858b8c4-2153-11ec-8c44-aeb16d1aa652";
+try
+{
+    ApiResponse<FotaV3SuccessResult> result = await campaignsV3Controller.CancelCampaignAsync(
+        acc,
+        campaignId
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "success": true
 }
 ```
 

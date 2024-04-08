@@ -11,9 +11,9 @@ Request to return the provisioning history of a specified device during a specif
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `DeviceId` | [`Models.DeviceId`](../../doc/models/device-id.md) | Optional | An identifier for a single device. |
-| `Earliest` | `string` | Optional | The earliest date and time for which you want provisioning data. |
-| `Latest` | `string` | Optional | The last date and time for which you want provisioning data. |
+| `DeviceId` | [`DeviceId`](../../doc/models/device-id.md) | Required | An identifier for a single device. |
+| `Earliest` | `string` | Required | The earliest date and time for which you want provisioning data. |
+| `Latest` | `string` | Required | The last date and time for which you want provisioning data. |
 
 ## Example (as JSON)
 

@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -43,7 +44,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Possible values are `append` or `remove`
         /// </summary>
-        [JsonProperty("type", ItemConverterType = typeof(StringEnumConverter))]
+        [JsonProperty("type")]
         public Models.FirmwareTypeListEnum Type { get; set; }
 
         /// <summary>

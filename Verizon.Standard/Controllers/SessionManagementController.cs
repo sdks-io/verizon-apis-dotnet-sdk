@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -34,37 +33,6 @@ namespace Verizon.Standard.Controllers
         /// Initializes a new instance of the <see cref="SessionManagementController"/> class.
         /// </summary>
         internal SessionManagementController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
-
-        /// <summary>
-        /// The new password is effective immediately. Passwords do not expire, but Verizon recommends changing your password every 90 days.
-        /// </summary>
-        /// <param name="body">Required parameter: Request with current password that needs to be reset..</param>
-        /// <returns>Returns the ApiResponse of Models.SessionResetPasswordResult response from the API call.</returns>
-        public ApiResponse<Models.SessionResetPasswordResult> ResetConnectivityManagementPassword(
-                Models.SessionResetPasswordRequest body)
-            => CoreHelper.RunTask(ResetConnectivityManagementPasswordAsync(body));
-
-        /// <summary>
-        /// The new password is effective immediately. Passwords do not expire, but Verizon recommends changing your password every 90 days.
-        /// </summary>
-        /// <param name="body">Required parameter: Request with current password that needs to be reset..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.SessionResetPasswordResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.SessionResetPasswordResult>> ResetConnectivityManagementPasswordAsync(
-                Models.SessionResetPasswordRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.SessionResetPasswordResult>()
-              .Server(Server.M2m)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Put, "/v1/session/password/actions/reset")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.SessionResetPasswordResult>(_response)))
-              .ExecuteAsync(cancellationToken);
 
         /// <summary>
         /// Initiates a Connectivity Management session and returns a VZ-M2M session token that is required in subsequent API requests.
@@ -85,17 +53,16 @@ namespace Verizon.Standard.Controllers
                 Models.LogInRequest body = null,
                 CancellationToken cancellationToken = default)
             => await CreateApiCall<Models.LogInResult>()
-              .Server(Server.M2m)
+              .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v1/session/login")
-                  .WithAuth("global")
+                  .Setup(HttpMethod.Post, "/m2m/v1/session/login")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.LogInResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// Ends a Connectivity Management session.
@@ -111,13 +78,42 @@ namespace Verizon.Standard.Controllers
         /// <returns>Returns the ApiResponse of Models.LogOutRequest response from the API call.</returns>
         public async Task<ApiResponse<Models.LogOutRequest>> EndConnectivityManagementSessionAsync(CancellationToken cancellationToken = default)
             => await CreateApiCall<Models.LogOutRequest>()
-              .Server(Server.M2m)
+              .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v1/session/logout")
-                  .WithAuth("global"))
+                  .Setup(HttpMethod.Post, "/m2m/v1/session/logout")
+                  .WithAuth("oAuth2"))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.LogOutRequest>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// The new password is effective immediately. Passwords do not expire, but Verizon recommends changing your password every 90 days.
+        /// </summary>
+        /// <param name="body">Required parameter: Request with current password that needs to be reset..</param>
+        /// <returns>Returns the ApiResponse of Models.SessionResetPasswordResult response from the API call.</returns>
+        public ApiResponse<Models.SessionResetPasswordResult> ResetConnectivityManagementPassword(
+                Models.SessionResetPasswordRequest body)
+            => CoreHelper.RunTask(ResetConnectivityManagementPasswordAsync(body));
+
+        /// <summary>
+        /// The new password is effective immediately. Passwords do not expire, but Verizon recommends changing your password every 90 days.
+        /// </summary>
+        /// <param name="body">Required parameter: Request with current password that needs to be reset..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.SessionResetPasswordResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.SessionResetPasswordResult>> ResetConnectivityManagementPasswordAsync(
+                Models.SessionResetPasswordRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.SessionResetPasswordResult>()
+              .Server(Server.Thingspace)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Put, "/m2m/v1/session/password/actions/reset")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

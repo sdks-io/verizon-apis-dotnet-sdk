@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -30,18 +31,24 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactInfoUpdateRequest"/> class.
         /// </summary>
+        /// <param name="primaryPlaceOfUse">primaryPlaceOfUse.</param>
         /// <param name="accountName">accountName.</param>
         /// <param name="devices">devices.</param>
-        /// <param name="primaryPlaceOfUse">primaryPlaceOfUse.</param>
         public ContactInfoUpdateRequest(
+            Models.PlaceOfUse primaryPlaceOfUse,
             string accountName = null,
-            List<Models.AccountDeviceList> devices = null,
-            object primaryPlaceOfUse = null)
+            List<Models.AccountDeviceList> devices = null)
         {
+            this.PrimaryPlaceOfUse = primaryPlaceOfUse;
             this.AccountName = accountName;
             this.Devices = devices;
-            this.PrimaryPlaceOfUse = primaryPlaceOfUse;
         }
+
+        /// <summary>
+        /// The customer name and the address of the device's primary place of use. Leave these fields empty to use the account profile address as the primary place of use. These values will be applied to all devices in the request.If the account is enabled for non-geographic MDNs and the device supports it, the primaryPlaceOfUse address will also be used to derive the MDN for the device.
+        /// </summary>
+        [JsonProperty("primaryPlaceOfUse")]
+        public Models.PlaceOfUse PrimaryPlaceOfUse { get; set; }
 
         /// <summary>
         /// The name of the billing account that the devices belong to. An account name is usually numeric, and must include any leading zeros.
@@ -54,12 +61,6 @@ namespace Verizon.Standard.Models
         /// </summary>
         [JsonProperty("devices", NullValueHandling = NullValueHandling.Ignore)]
         public List<Models.AccountDeviceList> Devices { get; set; }
-
-        /// <summary>
-        /// The customer name and the address of the device's primary place of use. These values are applied to all devices in the request.The Primary Place of Use location may affect taxation or have other legal implications. You may want to speak with legal and/or financial advisers before entering values for these fields.
-        /// </summary>
-        [JsonProperty("primaryPlaceOfUse", NullValueHandling = NullValueHandling.Ignore)]
-        public object PrimaryPlaceOfUse { get; set; }
 
         /// <inheritdoc/>
         public override string ToString()
@@ -83,9 +84,9 @@ namespace Verizon.Standard.Models
             {
                 return true;
             }
-            return obj is ContactInfoUpdateRequest other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.Devices == null && other.Devices == null) || (this.Devices?.Equals(other.Devices) == true)) &&
-                ((this.PrimaryPlaceOfUse == null && other.PrimaryPlaceOfUse == null) || (this.PrimaryPlaceOfUse?.Equals(other.PrimaryPlaceOfUse) == true));
+            return obj is ContactInfoUpdateRequest other &&                ((this.PrimaryPlaceOfUse == null && other.PrimaryPlaceOfUse == null) || (this.PrimaryPlaceOfUse?.Equals(other.PrimaryPlaceOfUse) == true)) &&
+                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
+                ((this.Devices == null && other.Devices == null) || (this.Devices?.Equals(other.Devices) == true));
         }
         
         /// <summary>
@@ -94,9 +95,9 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
+            toStringOutput.Add($"this.PrimaryPlaceOfUse = {(this.PrimaryPlaceOfUse == null ? "null" : this.PrimaryPlaceOfUse.ToString())}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
             toStringOutput.Add($"this.Devices = {(this.Devices == null ? "null" : $"[{string.Join(", ", this.Devices)} ]")}");
-            toStringOutput.Add($"PrimaryPlaceOfUse = {(this.PrimaryPlaceOfUse == null ? "null" : this.PrimaryPlaceOfUse.ToString())}");
         }
     }
 }

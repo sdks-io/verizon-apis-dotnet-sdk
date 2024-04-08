@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -128,8 +129,8 @@ namespace Verizon.Standard.Models
             toStringOutput.Add($"this.LicenseAssigned = {(this.LicenseAssigned == null ? "null" : this.LicenseAssigned.ToString())}");
             toStringOutput.Add($"this.LicenseAvailable = {(this.LicenseAvailable == null ? "null" : this.LicenseAvailable.ToString())}");
             toStringOutput.Add($"this.LicensePurchased = {(this.LicensePurchased == null ? "null" : this.LicensePurchased.ToString())}");
-            toStringOutput.Add($"this.LicenseType = {(this.LicenseType == null ? "null" : this.LicenseType == string.Empty ? "" : this.LicenseType)}");
-            toStringOutput.Add($"this.SkuNumber = {(this.SkuNumber == null ? "null" : this.SkuNumber == string.Empty ? "" : this.SkuNumber)}");
+            toStringOutput.Add($"this.LicenseType = {(this.LicenseType == null ? "null" : this.LicenseType)}");
+            toStringOutput.Add($"this.SkuNumber = {(this.SkuNumber == null ? "null" : this.SkuNumber)}");
         }
     }
 }

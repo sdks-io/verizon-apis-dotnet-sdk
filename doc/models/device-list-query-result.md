@@ -14,7 +14,7 @@ List of devices.
 | `AccountName` | `string` | Optional | Account identifier in "##########-#####". |
 | `HasMoreData` | `bool?` | Optional | True if there are more devices to retrieve. |
 | `LastSeenDeviceId` | `long?` | Optional | If hasMoreData=true, the startIndex to use for the next request. 0 if hasMoreData=false. |
-| `DeviceList` | [`List<Models.DeviceListQueryItem>`](../../doc/models/device-list-query-item.md) | Optional | The list of devices in the account. |
+| `DeviceList` | [`List<DeviceListQueryItem>`](../../doc/models/device-list-query-item.md) | Optional | The list of devices in the account. |
 
 ## Example (as JSON)
 

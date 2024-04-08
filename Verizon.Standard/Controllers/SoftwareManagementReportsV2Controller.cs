@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -61,54 +60,13 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/software/{account}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Query(_query => _query.Setup("distributionType", distributionType))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.SoftwarePackage>>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// The report endpoint allows user to get campaign history of an account for specified status.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier..</param>
-        /// <param name="campaignStatus">Required parameter: Status of the campaign..</param>
-        /// <param name="lastSeenCampaignId">Optional parameter: Last seen campaign Id..</param>
-        /// <returns>Returns the ApiResponse of Models.V2CampaignHistory response from the API call.</returns>
-        public ApiResponse<Models.V2CampaignHistory> GetCampaignHistoryByStatus(
-                string account,
-                string campaignStatus,
-                string lastSeenCampaignId = null)
-            => CoreHelper.RunTask(GetCampaignHistoryByStatusAsync(account, campaignStatus, lastSeenCampaignId));
-
-        /// <summary>
-        /// The report endpoint allows user to get campaign history of an account for specified status.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier..</param>
-        /// <param name="campaignStatus">Required parameter: Status of the campaign..</param>
-        /// <param name="lastSeenCampaignId">Optional parameter: Last seen campaign Id..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.V2CampaignHistory response from the API call.</returns>
-        public async Task<ApiResponse<Models.V2CampaignHistory>> GetCampaignHistoryByStatusAsync(
-                string account,
-                string campaignStatus,
-                string lastSeenCampaignId = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.V2CampaignHistory>()
-              .Server(Server.SoftwareManagementV2)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/reports/{account}/campaigns")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("account", account))
-                      .Query(_query => _query.Setup("campaignStatus", campaignStatus))
-                      .Query(_query => _query.Setup("lastSeenCampaignId", lastSeenCampaignId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.V2CampaignHistory>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// The device endpoint gets devices information of an account.
@@ -140,15 +98,14 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/devices/{account}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Query(_query => _query.Setup("lastSeenDeviceId", lastSeenDeviceId))
                       .Query(_query => _query.Setup("distributionType", distributionType))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.V2AccountDeviceList>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// The endpoint allows user to get software upgrade history of a device based on device IMEI.
@@ -176,14 +133,52 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/reports/{account}/devices/{deviceId}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("deviceId", deviceId))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.DeviceSoftwareUpgrade>>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// The report endpoint allows user to get campaign history of an account for specified status.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier..</param>
+        /// <param name="campaignStatus">Required parameter: Status of the campaign..</param>
+        /// <param name="lastSeenCampaignId">Optional parameter: Last seen campaign Id..</param>
+        /// <returns>Returns the ApiResponse of Models.V2CampaignHistory response from the API call.</returns>
+        public ApiResponse<Models.V2CampaignHistory> GetCampaignHistoryByStatus(
+                string account,
+                string campaignStatus,
+                string lastSeenCampaignId = null)
+            => CoreHelper.RunTask(GetCampaignHistoryByStatusAsync(account, campaignStatus, lastSeenCampaignId));
+
+        /// <summary>
+        /// The report endpoint allows user to get campaign history of an account for specified status.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier..</param>
+        /// <param name="campaignStatus">Required parameter: Status of the campaign..</param>
+        /// <param name="lastSeenCampaignId">Optional parameter: Last seen campaign Id..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.V2CampaignHistory response from the API call.</returns>
+        public async Task<ApiResponse<Models.V2CampaignHistory>> GetCampaignHistoryByStatusAsync(
+                string account,
+                string campaignStatus,
+                string lastSeenCampaignId = null,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.V2CampaignHistory>()
+              .Server(Server.SoftwareManagementV2)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/reports/{account}/campaigns")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("account", account))
+                      .Query(_query => _query.Setup("campaignStatus", campaignStatus))
+                      .Query(_query => _query.Setup("lastSeenCampaignId", lastSeenCampaignId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// The report endpoint allows user to get the full list of device of a campaign.
@@ -215,14 +210,13 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/reports/{account}/campaigns/{campaignId}/devices")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("campaignId", campaignId))
                       .Query(_query => _query.Setup("lastSeenDeviceId", lastSeenDeviceId))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.V2CampaignDevice>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

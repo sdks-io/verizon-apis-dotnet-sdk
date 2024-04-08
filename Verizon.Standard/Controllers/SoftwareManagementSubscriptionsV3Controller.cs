@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -57,12 +56,11 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/subscriptions/{acc}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("acc", acc))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.FotaV3Subscription>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

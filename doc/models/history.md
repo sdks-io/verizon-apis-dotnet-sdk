@@ -12,8 +12,8 @@ History data for a selected device and its attributes at a specific time.
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `AccountName` | `string` | Required | The name of the billing account for which you want retrieve history data. An account name is usually numeric, and must include any leading zeros. |
-| `Device` | [`Models.Device`](../../doc/models/device.md) | Required | Identifies a particular IoT device. |
-| `Attributes` | [`Models.HistoryAttributeValue`](../../doc/models/history-attribute-value.md) | Optional | Streaming RF parameter for which you want to retrieve history data. |
+| `Device` | [`Device`](../../doc/models/device.md) | Required | Identifies a particular IoT device. |
+| `Attributes` | [`HistoryAttributeValue`](../../doc/models/history-attribute-value.md) | Optional | Streaming RF parameter for which you want to retrieve history data. |
 
 ## Example (as JSON)
 

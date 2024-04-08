@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -57,13 +56,12 @@ namespace Verizon.Standard.Controllers
               .Server(Server.DeviceLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/callbacks/{account}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new DeviceLocationResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.DeviceLocationCallback>>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new DeviceLocationResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// Provide a URL to receive messages from a ThingSpace callback service.
@@ -91,15 +89,14 @@ namespace Verizon.Standard.Controllers
               .Server(Server.DeviceLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/callbacks/{account}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("account", account))
                       .Header(_header => _header.Setup("Content-Type", "*/*"))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new DeviceLocationResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.CallbackRegistrationResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new DeviceLocationResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// Deregister a URL to stop receiving callback messages.
@@ -127,13 +124,12 @@ namespace Verizon.Standard.Controllers
               .Server(Server.DeviceLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/callbacks/{account}/name/{service}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("service", ApiHelper.JsonSerialize(service).Trim('\"')))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new DeviceLocationResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceLocationSuccessResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new DeviceLocationResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

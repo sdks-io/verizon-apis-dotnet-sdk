@@ -12,7 +12,7 @@ The time period for which a request should retrieve data, beginning with the lim
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `StartOn` | `DateTime?` | Optional | The starting date-time for this request. |
-| `Duration` | [`Models.NumericalData`](../../doc/models/numerical-data.md) | Optional | Describes value and unit of time. |
+| `Duration` | [`NumericalData`](../../doc/models/numerical-data.md) | Optional | Describes value and unit of time. |
 
 ## Example (as JSON)
 

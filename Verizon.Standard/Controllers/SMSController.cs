@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -34,6 +33,36 @@ namespace Verizon.Standard.Controllers
         /// Initializes a new instance of the <see cref="SMSController"/> class.
         /// </summary>
         internal SMSController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
+
+        /// <summary>
+        /// The messages are queued on the ThingSpace Platform and sent as soon as possible, but they may be delayed due to traffic and routing considerations.
+        /// </summary>
+        /// <param name="body">Required parameter: Request to send SMS..</param>
+        /// <returns>Returns the ApiResponse of Models.DeviceManagementResult response from the API call.</returns>
+        public ApiResponse<Models.DeviceManagementResult> SendSMSToDevice(
+                Models.SMSSendRequest body)
+            => CoreHelper.RunTask(SendSMSToDeviceAsync(body));
+
+        /// <summary>
+        /// The messages are queued on the ThingSpace Platform and sent as soon as possible, but they may be delayed due to traffic and routing considerations.
+        /// </summary>
+        /// <param name="body">Required parameter: Request to send SMS..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.DeviceManagementResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.DeviceManagementResult>> SendSMSToDeviceAsync(
+                Models.SMSSendRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.DeviceManagementResult>()
+              .Server(Server.Thingspace)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/m2m/v1/sms")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// When HTTP status is 202, a URL will be returned in the Location header of the form /sms/{aname}/history?next={token}. This URL can be used to request the next set of messages.
@@ -58,48 +87,16 @@ namespace Verizon.Standard.Controllers
                 long? next = null,
                 CancellationToken cancellationToken = default)
             => await CreateApiCall<Models.SMSMessagesQueryResult>()
-              .Server(Server.M2m)
+              .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/v1/sms/{aname}/history")
-                  .WithAuth("global")
+                  .Setup(HttpMethod.Get, "/m2m/v1/sms/{aname}/history")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("aname", aname))
                       .Query(_query => _query.Setup("next", next))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.SMSMessagesQueryResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// The messages are queued on the ThingSpace Platform and sent as soon as possible, but they may be delayed due to traffic and routing considerations.
-        /// </summary>
-        /// <param name="body">Required parameter: Request to send SMS..</param>
-        /// <returns>Returns the ApiResponse of Models.DeviceManagementResult response from the API call.</returns>
-        public ApiResponse<Models.DeviceManagementResult> SendSMSToDevice(
-                Models.SMSSendRequest body)
-            => CoreHelper.RunTask(SendSMSToDeviceAsync(body));
-
-        /// <summary>
-        /// The messages are queued on the ThingSpace Platform and sent as soon as possible, but they may be delayed due to traffic and routing considerations.
-        /// </summary>
-        /// <param name="body">Required parameter: Request to send SMS..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.DeviceManagementResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.DeviceManagementResult>> SendSMSToDeviceAsync(
-                Models.SMSSendRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.DeviceManagementResult>()
-              .Server(Server.M2m)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v1/sms")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceManagementResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// Tells the ThingSpace Platform to start sending mobile-originated SMS messages through the EnhancedConnectivityService callback service. SMS messages from devices are queued until they are retrieved by your application, either by callback or synchronously with GET /sms/{accountName}/history.
@@ -120,15 +117,14 @@ namespace Verizon.Standard.Controllers
                 string aname,
                 CancellationToken cancellationToken = default)
             => await CreateApiCall<Models.ConnectivityManagementSuccessResult>()
-              .Server(Server.M2m)
+              .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Put, "/v1/sms/{aname}/startCallbacks")
-                  .WithAuth("global")
+                  .Setup(HttpMethod.Put, "/m2m/v1/sms/{aname}/startCallbacks")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("aname", aname))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ConnectivityManagementSuccessResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

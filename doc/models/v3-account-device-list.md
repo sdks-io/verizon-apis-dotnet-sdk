@@ -15,7 +15,7 @@ Array of devices.
 | `HasMoreData` | `bool` | Required | Has more device flag? |
 | `LastSeenDeviceId` | `string` | Optional | Last seen device identifier. |
 | `MaxPageSize` | `int` | Required | Maximum page size. |
-| `DeviceList` | [`List<Models.V3AccountDevice>`](../../doc/models/v3-account-device.md) | Required | Account device list. |
+| `DeviceList` | [`List<V3AccountDevice>`](../../doc/models/v3-account-device.md) | Required | Account device list. |
 
 ## Example (as JSON)
 

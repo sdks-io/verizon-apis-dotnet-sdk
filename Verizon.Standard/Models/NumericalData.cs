@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -49,7 +50,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Unit of time.
         /// </summary>
-        [JsonProperty("unit", ItemConverterType = typeof(StringEnumConverter), NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("unit", NullValueHandling = NullValueHandling.Ignore)]
         public Models.NumericalDataUnitEnum? Unit { get; set; }
 
         /// <inheritdoc/>

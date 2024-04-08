@@ -11,7 +11,7 @@ List of fields affected by the event.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Configuration` | [`Models.Configuration`](../../doc/models/configuration.md) | Optional | List of the field names and values to set. |
+| `Configuration` | [`Configuration`](../../doc/models/configuration.md) | Optional | List of the field names and values to set. |
 
 ## Example (as JSON)
 

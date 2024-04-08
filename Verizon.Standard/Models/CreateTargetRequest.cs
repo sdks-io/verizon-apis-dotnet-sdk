@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -185,16 +186,16 @@ namespace Verizon.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"this.Accountidentifier = {(this.Accountidentifier == null ? "null" : this.Accountidentifier.ToString())}");
-            toStringOutput.Add($"this.Billingaccountid = {(this.Billingaccountid == null ? "null" : this.Billingaccountid == string.Empty ? "" : this.Billingaccountid)}");
-            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind == string.Empty ? "" : this.Kind)}");
-            toStringOutput.Add($"this.Address = {(this.Address == null ? "null" : this.Address == string.Empty ? "" : this.Address)}");
-            toStringOutput.Add($"this.Addressscheme = {(this.Addressscheme == null ? "null" : this.Addressscheme == string.Empty ? "" : this.Addressscheme)}");
+            toStringOutput.Add($"this.Billingaccountid = {(this.Billingaccountid == null ? "null" : this.Billingaccountid)}");
+            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind)}");
+            toStringOutput.Add($"this.Address = {(this.Address == null ? "null" : this.Address)}");
+            toStringOutput.Add($"this.Addressscheme = {(this.Addressscheme == null ? "null" : this.Addressscheme)}");
             toStringOutput.Add($"this.Fields = {(this.Fields == null ? "null" : this.Fields.ToString())}");
-            toStringOutput.Add($"this.Description = {(this.Description == null ? "null" : this.Description == string.Empty ? "" : this.Description)}");
-            toStringOutput.Add($"this.Externalid = {(this.Externalid == null ? "null" : this.Externalid == string.Empty ? "" : this.Externalid)}");
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name == string.Empty ? "" : this.Name)}");
-            toStringOutput.Add($"this.Region = {(this.Region == null ? "null" : this.Region == string.Empty ? "" : this.Region)}");
-            toStringOutput.Add($"this.Key1 = {(this.Key1 == null ? "null" : this.Key1 == string.Empty ? "" : this.Key1)}");
+            toStringOutput.Add($"this.Description = {(this.Description == null ? "null" : this.Description)}");
+            toStringOutput.Add($"this.Externalid = {(this.Externalid == null ? "null" : this.Externalid)}");
+            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
+            toStringOutput.Add($"this.Region = {(this.Region == null ? "null" : this.Region)}");
+            toStringOutput.Add($"this.Key1 = {(this.Key1 == null ? "null" : this.Key1)}");
             toStringOutput.Add($"this.Oauth = {(this.Oauth == null ? "null" : this.Oauth.ToString())}");
         }
     }

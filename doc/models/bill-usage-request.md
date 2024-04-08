@@ -11,9 +11,9 @@ Bill usage request.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `AccountName` | `string` | Optional | Account identifier. |
-| `StartDate` | `string` | Optional | Start date to search for billable usage, mm-dd-yyyy. |
-| `EndDate` | `string` | Optional | End date to search for billable usage, mm-dd-yyyy. |
+| `AccountName` | `string` | Required | Account identifier. |
+| `StartDate` | `string` | Required | Start date to search for billable usage, mm-dd-yyyy. |
+| `EndDate` | `string` | Required | End date to search for billable usage, mm-dd-yyyy. |
 | `UsageForAllAccounts` | `bool?` | Optional | Request usage for single or multiple accounts. |
 
 ## Example (as JSON)

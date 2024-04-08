@@ -10,61 +10,11 @@ ServiceProfilesController serviceProfilesController = client.ServiceProfilesCont
 
 ## Methods
 
-* [List Service Profiles](../../doc/controllers/service-profiles.md#list-service-profiles)
 * [Create Service Profile](../../doc/controllers/service-profiles.md#create-service-profile)
-* [Update Service Profile](../../doc/controllers/service-profiles.md#update-service-profile)
+* [List Service Profiles](../../doc/controllers/service-profiles.md#list-service-profiles)
 * [Get Service Profile](../../doc/controllers/service-profiles.md#get-service-profile)
+* [Update Service Profile](../../doc/controllers/service-profiles.md#update-service-profile)
 * [Delete Service Profile](../../doc/controllers/service-profiles.md#delete-service-profile)
-
-
-# List Service Profiles
-
-List all service profiles registered under your API key.
-
-```csharp
-ListServiceProfilesAsync()
-```
-
-## Requires scope
-
-`EDGEDISCOVERYREAD`, `EDGESERVICEPROFILEREAD`, `EDGESERVICEPROFILEWRITE`, `EDGESERVICEREGISTRYREAD`, `EDGESERVICEREGISTRYWRITE`, `TS.APPLICATION.RO`, `TS.MEC.FULLACCESS`, `TS.MEC.LIMITACCESS`
-
-## Response Type
-
-[`Task<ApiResponse<Models.ListServiceProfilesResult>>`](../../doc/models/list-service-profiles-result.md)
-
-## Example Usage
-
-```csharp
-try
-{
-    ApiResponse<ListServiceProfilesResult> result = await serviceProfilesController.ListServiceProfilesAsync();
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "status": "Success",
-  "data": [
-    "serviceProfileId"
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | HTTP 400 Bad Request. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
-| 401 | HTTP 401 Unauthorized. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
-| Default | HTTP 500 Internal Server Error. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
 
 
 # Create Service Profile
@@ -80,11 +30,13 @@ CreateServiceProfileAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.ResourcesServiceProfile`](../../doc/models/resources-service-profile.md) | Body, Required | The request body passes all of the needed parameters to create a service profile. Parameters will be edited here rather than the **Parameters** section above. The `maxLatencyMs` and `clientType` parameters are both required in the request body. **Note:** The `maxLatencyMs` value must be submitted in multiples of 5. Additionally, "GPU" is future functionality and the values are not captured. |
+| `body` | [`ResourcesServiceProfile`](../../doc/models/resources-service-profile.md) | Body, Required | The request body passes all of the needed parameters to create a service profile. Parameters will be edited here rather than the **Parameters** section above. The `maxLatencyMs` and `clientType` parameters are both required in the request body. **Note:** The `maxLatencyMs` value must be submitted in multiples of 5. Additionally, "GPU" is future functionality and the values are not captured. |
 
 ## Requires scope
 
-`EDGEDISCOVERYREAD`, `EDGESERVICEPROFILEREAD`, `EDGESERVICEPROFILEWRITE`, `EDGESERVICEREGISTRYREAD`, `EDGESERVICEREGISTRYWRITE`, `TS.APPLICATION.RO`, `TS.MEC.FULLACCESS`, `TS.MEC.LIMITACCESS`
+### oAuth2
+
+`discovery:read`, `serviceprofile:read`, `serviceprofile:write`, `serviceregistry:read`, `serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
 
 ## Response Type
 
@@ -141,63 +93,30 @@ catch (ApiException e)
 | Default | HTTP 500 Internal Server Error. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
 
 
-# Update Service Profile
+# List Service Profiles
 
-Update the definition of a Service Profile.
+List all service profiles registered under your API key.
 
 ```csharp
-UpdateServiceProfileAsync(
-    string serviceProfileId,
-    Models.ResourcesServiceProfile body)
+ListServiceProfilesAsync()
 ```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `serviceProfileId` | `string` | Template, Required | **Constraints**: *Maximum Length*: `36`, *Pattern*: `^[a-zA-Z0-9!@#$&()\-`.+,/"]{3,36}$` |
-| `body` | [`Models.ResourcesServiceProfile`](../../doc/models/resources-service-profile.md) | Body, Required | The request body passes the rest of the needed parameters to create a service profile. The `maxLatencyMs` and `clientType` parameters are both required in the request body. **Note:** The `maxLatencyMs` value must be submitted in multiples of 5. Additionally, "GPU" is future functionality and the values are not captured. Default values to use are shown. |
 
 ## Requires scope
 
-`EDGEDISCOVERYREAD`, `EDGESERVICEPROFILEREAD`, `EDGESERVICEPROFILEWRITE`, `EDGESERVICEREGISTRYREAD`, `EDGESERVICEREGISTRYWRITE`, `TS.APPLICATION.RO`, `TS.MEC.FULLACCESS`, `TS.MEC.LIMITACCESS`
+### oAuth2
+
+`discovery:read`, `serviceprofile:read`, `serviceprofile:write`, `serviceregistry:read`, `serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
 
 ## Response Type
 
-[`Task<ApiResponse<Models.UpdateServiceProfileResult>>`](../../doc/models/update-service-profile-result.md)
+[`Task<ApiResponse<Models.ListServiceProfilesResult>>`](../../doc/models/list-service-profiles-result.md)
 
 ## Example Usage
 
 ```csharp
-string serviceProfileId = "serviceProfileId2";
-ResourcesServiceProfile body = new ResourcesServiceProfile
-{
-    ClientType = ClientTypeEnum.V2X,
-    EcspFilter = "Verizon",
-    ClientSchedule = "time windows",
-    ClientServiceArea = "BAY AREA",
-    NetworkResources = new NetworkResourcesType
-    {
-        MaxLatencyMs = 20,
-        MinBandwidthKbits = 1,
-        ServiceContinuitySupport = true,
-        MaxRequestRate = 15,
-        MinAvailability = 1,
-    },
-    ComputeResources = new ComputeResourcesType
-    {
-        GPU = new GPU
-        {
-            MinCoreClockMHz = 1,
-        },
-        MinRAMGB = 1,
-        MinStorageGB = 1,
-    },
-};
-
 try
 {
-    ApiResponse<UpdateServiceProfileResult> result = await serviceProfilesController.UpdateServiceProfileAsync(serviceProfileId, body);
+    ApiResponse<ListServiceProfilesResult> result = await serviceProfilesController.ListServiceProfilesAsync();
 }
 catch (ApiException e)
 {
@@ -211,7 +130,9 @@ catch (ApiException e)
 ```json
 {
   "status": "Success",
-  "message": "Service Profile Updated"
+  "data": [
+    "serviceProfileId"
+  ]
 }
 ```
 
@@ -237,11 +158,13 @@ GetServiceProfileAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `serviceProfileId` | `string` | Template, Required | **Constraints**: *Maximum Length*: `36`, *Pattern*: `^[a-zA-Z0-9!@#$&()\-`.+,/"]{3,36}$` |
+| `serviceProfileId` | `string` | Template, Required | - |
 
 ## Requires scope
 
-`EDGEDISCOVERYREAD`, `EDGESERVICEPROFILEREAD`, `EDGESERVICEPROFILEWRITE`, `EDGESERVICEREGISTRYREAD`, `EDGESERVICEREGISTRYWRITE`, `TS.APPLICATION.RO`, `TS.MEC.FULLACCESS`, `TS.MEC.LIMITACCESS`
+### oAuth2
+
+`discovery:read`, `serviceprofile:read`, `serviceprofile:write`, `serviceregistry:read`, `serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
 
 ## Response Type
 
@@ -300,6 +223,94 @@ catch (ApiException e)
 | Default | HTTP 500 Internal Server Error. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
 
 
+# Update Service Profile
+
+Update the definition of a Service Profile.
+
+```csharp
+UpdateServiceProfileAsync(
+    string serviceProfileId,
+    Models.ResourcesServiceProfile body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `serviceProfileId` | `string` | Template, Required | - |
+| `body` | [`ResourcesServiceProfile`](../../doc/models/resources-service-profile.md) | Body, Required | The request body passes the rest of the needed parameters to create a service profile. The `maxLatencyMs` and `clientType` parameters are both required in the request body. **Note:** The `maxLatencyMs` value must be submitted in multiples of 5. Additionally, "GPU" is future functionality and the values are not captured. Default values to use are shown. |
+
+## Requires scope
+
+### oAuth2
+
+`discovery:read`, `serviceprofile:read`, `serviceprofile:write`, `serviceregistry:read`, `serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
+
+## Response Type
+
+[`Task<ApiResponse<Models.UpdateServiceProfileResult>>`](../../doc/models/update-service-profile-result.md)
+
+## Example Usage
+
+```csharp
+string serviceProfileId = "serviceProfileId2";
+ResourcesServiceProfile body = new ResourcesServiceProfile
+{
+    ClientType = ClientTypeEnum.V2X,
+    EcspFilter = "Verizon",
+    ClientSchedule = "time windows",
+    ClientServiceArea = "BAY AREA",
+    NetworkResources = new NetworkResourcesType
+    {
+        MaxLatencyMs = 20,
+        MinBandwidthKbits = 1,
+        ServiceContinuitySupport = true,
+        MaxRequestRate = 15,
+        MinAvailability = 1,
+    },
+    ComputeResources = new ComputeResourcesType
+    {
+        GPU = new GPU
+        {
+            MinCoreClockMHz = 1,
+        },
+        MinRAMGB = 1,
+        MinStorageGB = 1,
+    },
+};
+
+try
+{
+    ApiResponse<UpdateServiceProfileResult> result = await serviceProfilesController.UpdateServiceProfileAsync(
+        serviceProfileId,
+        body
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "status": "Success",
+  "message": "Service Profile Updated"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | HTTP 400 Bad Request. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
+| 401 | HTTP 401 Unauthorized. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
+| Default | HTTP 500 Internal Server Error. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
+
+
 # Delete Service Profile
 
 Delete Service Profile based on unique service profile ID.
@@ -313,11 +324,13 @@ DeleteServiceProfileAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `serviceProfileId` | `string` | Template, Required | **Constraints**: *Maximum Length*: `36`, *Pattern*: `^[a-zA-Z0-9!@#$&()\-`.+,/"]{3,36}$` |
+| `serviceProfileId` | `string` | Template, Required | - |
 
 ## Requires scope
 
-`EDGEDISCOVERYREAD`, `EDGESERVICEPROFILEREAD`, `EDGESERVICEPROFILEWRITE`, `EDGESERVICEREGISTRYREAD`, `EDGESERVICEREGISTRYWRITE`, `TS.APPLICATION.RO`, `TS.MEC.FULLACCESS`, `TS.MEC.LIMITACCESS`
+### oAuth2
+
+`discovery:read`, `serviceprofile:read`, `serviceprofile:write`, `serviceregistry:read`, `serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
 
 ## Response Type
 

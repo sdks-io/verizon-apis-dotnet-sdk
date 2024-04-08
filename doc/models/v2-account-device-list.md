@@ -15,7 +15,7 @@ List of device information for an account.
 | `HasMoreData` | `bool` | Required | Has more device flag? |
 | `LastSeenDeviceId` | `string` | Optional | Last seen device identifier. |
 | `MaxPageSize` | `int` | Required | Maximum page size. |
-| `DeviceList` | [`List<Models.V2AccountDevice>`](../../doc/models/v2-account-device.md) | Required | Account device list. |
+| `DeviceList` | [`List<V2AccountDevice>`](../../doc/models/v2-account-device.md) | Required | Account device list. |
 
 ## Example (as JSON)
 

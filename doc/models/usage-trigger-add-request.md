@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- |
 | `TriggerName` | `string` | Optional | Usage trigger name |
 | `AccountName` | `string` | Required | Account name |
-| `ServiceName` | [`Models.ServiceNameEnum`](../../doc/models/service-name-enum.md) | Required | Service name<br>**Default**: `ServiceNameEnum.Location` |
+| `ServiceName` | [`ServiceNameEnum`](../../doc/models/service-name-enum.md) | Required | Service name<br>**Default**: `ServiceNameEnum.Location` |
 | `ThresholdValue` | `string` | Required | The percent of subscribed usage required to activate the trigger, such as 90 or 100. |
 | `AllowExcess` | `bool?` | Optional | Allow additional requests after thresholdValue is reached. (currently not functional) |
 | `SendSmsNotification` | `bool?` | Optional | Send SMS (text) alerts when the thresholdValue is reached. |

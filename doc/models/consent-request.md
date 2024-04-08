@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `AccountName` | `string` | Optional | Account identifier in "##########-#####". |
+| `AccountName` | `string` | Required | Account identifier in "##########-#####". |
 | `AllDevice` | `bool?` | Optional | Exclude all devices or not. |
 | `Type` | `string` | Optional | The change to make: append or replace. |
 | `Exclusion` | `List<string>` | Optional | Device ID list. |

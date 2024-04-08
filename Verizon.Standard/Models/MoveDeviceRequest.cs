@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -38,7 +39,7 @@ namespace Verizon.Standard.Models
         /// <param name="carrierIpPoolName">carrierIpPoolName.</param>
         /// <param name="servicePlan">servicePlan.</param>
         public MoveDeviceRequest(
-            string accountName = null,
+            string accountName,
             Models.DeviceFilter filter = null,
             List<Models.CustomFields> customFields = null,
             List<Models.AccountDeviceList> devices = null,
@@ -58,7 +59,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// The name of the billing account that you want to move the devices to.
         /// </summary>
-        [JsonProperty("accountName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("accountName")]
         public string AccountName { get; set; }
 
         /// <summary>
@@ -134,13 +135,13 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
             toStringOutput.Add($"this.Filter = {(this.Filter == null ? "null" : this.Filter.ToString())}");
             toStringOutput.Add($"this.CustomFields = {(this.CustomFields == null ? "null" : $"[{string.Join(", ", this.CustomFields)} ]")}");
             toStringOutput.Add($"this.Devices = {(this.Devices == null ? "null" : $"[{string.Join(", ", this.Devices)} ]")}");
-            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName == string.Empty ? "" : this.GroupName)}");
-            toStringOutput.Add($"this.CarrierIpPoolName = {(this.CarrierIpPoolName == null ? "null" : this.CarrierIpPoolName == string.Empty ? "" : this.CarrierIpPoolName)}");
-            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan == string.Empty ? "" : this.ServicePlan)}");
+            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName)}");
+            toStringOutput.Add($"this.CarrierIpPoolName = {(this.CarrierIpPoolName == null ? "null" : this.CarrierIpPoolName)}");
+            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan)}");
         }
     }
 }

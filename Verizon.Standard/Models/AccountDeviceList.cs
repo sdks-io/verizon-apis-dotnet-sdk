@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -31,17 +32,26 @@ namespace Verizon.Standard.Models
         /// Initializes a new instance of the <see cref="AccountDeviceList"/> class.
         /// </summary>
         /// <param name="deviceIds">deviceIds.</param>
+        /// <param name="ipAddress">ipAddress.</param>
         public AccountDeviceList(
-            List<Models.DeviceId> deviceIds = null)
+            List<Models.DeviceId> deviceIds,
+            string ipAddress = null)
         {
             this.DeviceIds = deviceIds;
+            this.IpAddress = ipAddress;
         }
 
         /// <summary>
         /// All identifiers for the device.
         /// </summary>
-        [JsonProperty("deviceIds", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("deviceIds")]
         public List<Models.DeviceId> DeviceIds { get; set; }
+
+        /// <summary>
+        /// Gets or sets IpAddress.
+        /// </summary>
+        [JsonProperty("ipAddress", NullValueHandling = NullValueHandling.Ignore)]
+        public string IpAddress { get; set; }
 
         /// <inheritdoc/>
         public override string ToString()
@@ -65,7 +75,8 @@ namespace Verizon.Standard.Models
             {
                 return true;
             }
-            return obj is AccountDeviceList other &&                ((this.DeviceIds == null && other.DeviceIds == null) || (this.DeviceIds?.Equals(other.DeviceIds) == true));
+            return obj is AccountDeviceList other &&                ((this.DeviceIds == null && other.DeviceIds == null) || (this.DeviceIds?.Equals(other.DeviceIds) == true)) &&
+                ((this.IpAddress == null && other.IpAddress == null) || (this.IpAddress?.Equals(other.IpAddress) == true));
         }
         
         /// <summary>
@@ -75,6 +86,7 @@ namespace Verizon.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"this.DeviceIds = {(this.DeviceIds == null ? "null" : $"[{string.Join(", ", this.DeviceIds)} ]")}");
+            toStringOutput.Add($"this.IpAddress = {(this.IpAddress == null ? "null" : this.IpAddress)}");
         }
     }
 }

@@ -11,7 +11,7 @@ Streaming RF parameter that you want to observe.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Name` | [`Models.AttributeIdentifierEnum?`](../../doc/models/attribute-identifier-enum.md) | Optional | Attribute identifier. |
+| `Name` | [`AttributeIdentifierEnum?`](../../doc/models/attribute-identifier-enum.md) | Optional | Attribute identifier. |
 
 ## Example (as JSON)
 

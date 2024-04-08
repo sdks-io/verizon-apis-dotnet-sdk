@@ -11,8 +11,8 @@ UsageTriggerManagementController usageTriggerManagementController = client.Usage
 ## Methods
 
 * [Create New Trigger](../../doc/controllers/usage-trigger-management.md#create-new-trigger)
-* [Delete Trigger](../../doc/controllers/usage-trigger-management.md#delete-trigger)
 * [Update Trigger](../../doc/controllers/usage-trigger-management.md#update-trigger)
+* [Delete Trigger](../../doc/controllers/usage-trigger-management.md#delete-trigger)
 
 
 # Create New Trigger
@@ -28,7 +28,7 @@ CreateNewTriggerAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.UsageTriggerAddRequest`](../../doc/models/usage-trigger-add-request.md) | Body, Optional | License assignment. |
+| `body` | [`UsageTriggerAddRequest`](../../doc/models/usage-trigger-add-request.md) | Body, Optional | License assignment. |
 
 ## Response Type
 
@@ -53,6 +53,77 @@ UsageTriggerAddRequest body = new UsageTriggerAddRequest
 try
 {
     ApiResponse<UsageTriggerResponse> result = await usageTriggerManagementController.CreateNewTriggerAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "triggerId": "595f5c44-c31c-4552-8670-020a1545a84d",
+  "triggerName": "90 percent",
+  "accountName": "1000012345-00001",
+  "serviceName": "Location",
+  "thresholdValue": "90",
+  "allowExcess": true,
+  "sendSmsNotification": true,
+  "smsPhoneNumbers": "5558794321",
+  "sendEmailNotification": false,
+  "emailAddresses": "",
+  "createDate": "2018-08-11",
+  "updateDate": "2018-08-12"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
+
+
+# Update Trigger
+
+Update an existing usage trigger
+
+```csharp
+UpdateTriggerAsync(
+    string triggerId,
+    Models.UsageTriggerUpdateRequest body = null)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `triggerId` | `string` | Template, Required | Usage trigger ID |
+| `body` | [`UsageTriggerUpdateRequest`](../../doc/models/usage-trigger-update-request.md) | Body, Optional | New trigger values |
+
+## Response Type
+
+[`Task<ApiResponse<Models.UsageTriggerResponse>>`](../../doc/models/usage-trigger-response.md)
+
+## Example Usage
+
+```csharp
+string triggerId = "595f5c44-c31c-4552-8670-020a1545a84d";
+UsageTriggerUpdateRequest body = new UsageTriggerUpdateRequest
+{
+    AccountName = "1000012345-00001",
+    ThresholdValue = "95",
+};
+
+try
+{
+    ApiResponse<UsageTriggerResponse> result = await usageTriggerManagementController.UpdateTriggerAsync(
+        triggerId,
+        body
+    );
 }
 catch (ApiException e)
 {
@@ -115,7 +186,10 @@ string accountName = "0212312345-00001";
 string triggerId = "595f5c44-c31c-4552-8670-020a1545a84d";
 try
 {
-    ApiResponse<DeviceLocationSuccessResult> result = await usageTriggerManagementController.DeleteTriggerAsync(accountName, triggerId);
+    ApiResponse<DeviceLocationSuccessResult> result = await usageTriggerManagementController.DeleteTriggerAsync(
+        accountName,
+        triggerId
+    );
 }
 catch (ApiException e)
 {
@@ -129,74 +203,6 @@ catch (ApiException e)
 ```json
 {
   "success": true
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
-
-
-# Update Trigger
-
-Update an existing usage trigger
-
-```csharp
-UpdateTriggerAsync(
-    string triggerId,
-    Models.UsageTriggerUpdateRequest body = null)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `triggerId` | `string` | Template, Required | Usage trigger ID |
-| `body` | [`Models.UsageTriggerUpdateRequest`](../../doc/models/usage-trigger-update-request.md) | Body, Optional | New trigger values |
-
-## Response Type
-
-[`Task<ApiResponse<Models.UsageTriggerResponse>>`](../../doc/models/usage-trigger-response.md)
-
-## Example Usage
-
-```csharp
-string triggerId = "595f5c44-c31c-4552-8670-020a1545a84d";
-UsageTriggerUpdateRequest body = new UsageTriggerUpdateRequest
-{
-    AccountName = "1000012345-00001",
-    ThresholdValue = "95",
-};
-
-try
-{
-    ApiResponse<UsageTriggerResponse> result = await usageTriggerManagementController.UpdateTriggerAsync(triggerId, body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "triggerId": "595f5c44-c31c-4552-8670-020a1545a84d",
-  "triggerName": "90 percent",
-  "accountName": "1000012345-00001",
-  "serviceName": "Location",
-  "thresholdValue": "90",
-  "allowExcess": true,
-  "sendSmsNotification": true,
-  "smsPhoneNumbers": "5558794321",
-  "sendEmailNotification": false,
-  "emailAddresses": "",
-  "createDate": "2018-08-11",
-  "updateDate": "2018-08-12"
 }
 ```
 

@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -134,11 +135,11 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
             toStringOutput.Add($"this.TotalLicenses = {(this.TotalLicenses == null ? "null" : this.TotalLicenses.ToString())}");
             toStringOutput.Add($"this.AssignedLicenses = {this.AssignedLicenses}");
             toStringOutput.Add($"this.HasMoreData = {this.HasMoreData}");
-            toStringOutput.Add($"this.LastSeenDeviceId = {(this.LastSeenDeviceId == null ? "null" : this.LastSeenDeviceId == string.Empty ? "" : this.LastSeenDeviceId)}");
+            toStringOutput.Add($"this.LastSeenDeviceId = {(this.LastSeenDeviceId == null ? "null" : this.LastSeenDeviceId)}");
             toStringOutput.Add($"this.MaxPageSize = {this.MaxPageSize}");
             toStringOutput.Add($"this.DeviceList = {(this.DeviceList == null ? "null" : $"[{string.Join(", ", this.DeviceList)} ]")}");
         }

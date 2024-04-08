@@ -12,8 +12,8 @@ The selected device and attributes for which a request should retrieve data.
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `AccountName` | `string` | Required | Account name identifier. |
-| `Device` | [`Models.Device`](../../doc/models/device.md) | Required | Identifies a particular IoT device. |
-| `Attributes` | [`Models.HistorySearchFilterAttributes`](../../doc/models/history-search-filter-attributes.md) | Optional | Streaming RF parameters for which you want to retrieve history data. |
+| `Device` | [`Device`](../../doc/models/device.md) | Required | Identifies a particular IoT device. |
+| `Attributes` | [`HistorySearchFilterAttributes`](../../doc/models/history-search-filter-attributes.md) | Optional | Streaming RF parameters for which you want to retrieve history data. |
 
 ## Example (as JSON)
 

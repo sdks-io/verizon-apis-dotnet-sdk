@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -57,49 +56,13 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SubscriptionServer)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/usage/triggers")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error", (_reason, _context) => new DeviceLocationResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.UsageTriggerResponse>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// eletes the specified usage trigger from the given account.
-        /// </summary>
-        /// <param name="accountName">Required parameter: Account name.</param>
-        /// <param name="triggerId">Required parameter: Usage trigger ID.</param>
-        /// <returns>Returns the ApiResponse of Models.DeviceLocationSuccessResult response from the API call.</returns>
-        public ApiResponse<Models.DeviceLocationSuccessResult> DeleteTrigger(
-                string accountName,
-                string triggerId)
-            => CoreHelper.RunTask(DeleteTriggerAsync(accountName, triggerId));
-
-        /// <summary>
-        /// eletes the specified usage trigger from the given account.
-        /// </summary>
-        /// <param name="accountName">Required parameter: Account name.</param>
-        /// <param name="triggerId">Required parameter: Usage trigger ID.</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.DeviceLocationSuccessResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.DeviceLocationSuccessResult>> DeleteTriggerAsync(
-                string accountName,
-                string triggerId,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.DeviceLocationSuccessResult>()
-              .Server(Server.SubscriptionServer)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Delete, "/usage/accounts/{accountName}/triggers/{triggerId}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("accountName", accountName))
-                      .Template(_template => _template.Setup("triggerId", triggerId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error", (_reason, _context) => new DeviceLocationResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceLocationSuccessResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error", (_reason, _context) => new DeviceLocationResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// Update an existing usage trigger.
@@ -127,14 +90,47 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SubscriptionServer)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/usage/triggers/{triggerId}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("triggerId", triggerId))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error", (_reason, _context) => new DeviceLocationResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.UsageTriggerResponse>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error", (_reason, _context) => new DeviceLocationResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// eletes the specified usage trigger from the given account.
+        /// </summary>
+        /// <param name="accountName">Required parameter: Account name.</param>
+        /// <param name="triggerId">Required parameter: Usage trigger ID.</param>
+        /// <returns>Returns the ApiResponse of Models.DeviceLocationSuccessResult response from the API call.</returns>
+        public ApiResponse<Models.DeviceLocationSuccessResult> DeleteTrigger(
+                string accountName,
+                string triggerId)
+            => CoreHelper.RunTask(DeleteTriggerAsync(accountName, triggerId));
+
+        /// <summary>
+        /// eletes the specified usage trigger from the given account.
+        /// </summary>
+        /// <param name="accountName">Required parameter: Account name.</param>
+        /// <param name="triggerId">Required parameter: Usage trigger ID.</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.DeviceLocationSuccessResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.DeviceLocationSuccessResult>> DeleteTriggerAsync(
+                string accountName,
+                string triggerId,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.DeviceLocationSuccessResult>()
+              .Server(Server.SubscriptionServer)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Delete, "/usage/accounts/{accountName}/triggers/{triggerId}")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("accountName", accountName))
+                      .Template(_template => _template.Setup("triggerId", triggerId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error", (_reason, _context) => new DeviceLocationResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

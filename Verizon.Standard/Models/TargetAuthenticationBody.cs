@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -114,9 +115,9 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.GrantType = {(this.GrantType == null ? "null" : this.GrantType == string.Empty ? "" : this.GrantType)}");
-            toStringOutput.Add($"this.RefreshToken = {(this.RefreshToken == null ? "null" : this.RefreshToken == string.Empty ? "" : this.RefreshToken)}");
-            toStringOutput.Add($"this.Scope = {(this.Scope == null ? "null" : this.Scope == string.Empty ? "" : this.Scope)}");
+            toStringOutput.Add($"this.GrantType = {(this.GrantType == null ? "null" : this.GrantType)}");
+            toStringOutput.Add($"this.RefreshToken = {(this.RefreshToken == null ? "null" : this.RefreshToken)}");
+            toStringOutput.Add($"this.Scope = {(this.Scope == null ? "null" : this.Scope)}");
             toStringOutput.Add($"this.Headers = {(this.Headers == null ? "null" : this.Headers.ToString())}");
             toStringOutput.Add($"this.Host = {(this.Host == null ? "null" : this.Host.ToString())}");
         }

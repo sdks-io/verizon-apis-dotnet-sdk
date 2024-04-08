@@ -12,8 +12,8 @@ Status of Hyper Precise Location on the device.
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `AccountNumber` | `string` | Optional | The account the device belongs to. |
-| `DeviceList` | [`List<Models.DeviceServiceInformation>`](../../doc/models/device-service-information.md) | Optional | List of devices. |
-| `ResponseType` | [`Models.ApiResponseCode`](../../doc/models/api-response-code.md) | Optional | ResponseCode and/or a message indicating success or failure of the request. |
+| `DeviceList` | [`List<DeviceServiceInformation>`](../../doc/models/device-service-information.md) | Optional | List of devices. |
+| `ResponseType` | [`ApiResponseCode`](../../doc/models/api-response-code.md) | Optional | ResponseCode and/or a message indicating success or failure of the request. |
 
 ## Example (as JSON)
 
@@ -25,8 +25,8 @@ Status of Hyper Precise Location on the device.
       "imei": "709312034493372",
       "BullseyeEnable": true,
       "responseType": {
-        "responseCode": "INVALID_ACCESS",
-        "message": "message4"
+        "responseCode": "INTERNAL_ERROR",
+        "message": "message8"
       }
     }
   ],

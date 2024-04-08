@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -57,7 +56,7 @@ namespace Verizon.Standard.Controllers
               .Server(Server.HyperPreciseLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/report/aggregate")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
@@ -67,45 +66,8 @@ namespace Verizon.Standard.Controllers
                   .ErrorCase("403", CreateErrorCase("Forbidden request.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
                   .ErrorCase("404", CreateErrorCase("Bad request. Not found.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
                   .ErrorCase("409", CreateErrorCase("Bad request. Conflict state.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
-                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AggregateSessionReport>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Detailed report of session duration and number of bytes transferred per day.
-        /// </summary>
-        /// <param name="body">Required parameter: Request for sessions report..</param>
-        /// <returns>Returns the ApiResponse of Models.SessionReport response from the API call.</returns>
-        public ApiResponse<Models.SessionReport> GetSessionsReport(
-                Models.SessionReportRequest body)
-            => CoreHelper.RunTask(GetSessionsReportAsync(body));
-
-        /// <summary>
-        /// Detailed report of session duration and number of bytes transferred per day.
-        /// </summary>
-        /// <param name="body">Required parameter: Request for sessions report..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.SessionReport response from the API call.</returns>
-        public async Task<ApiResponse<Models.SessionReport>> GetSessionsReportAsync(
-                Models.SessionReportRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.SessionReport>()
-              .Server(Server.HyperPreciseLocation)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/report/sessions")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Bad request.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("Unauthorized request. Access token is missing or invalid.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
-                  .ErrorCase("403", CreateErrorCase("Forbidden request.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("Bad request. Not found.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
-                  .ErrorCase("409", CreateErrorCase("Bad request. Conflict state.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
-                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.SessionReport>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// Calculate aggregated report per day with number of sessions and usage information. User will receive an asynchronous callback for the specified list of devices (Max 10000) and date range (Max 180 days).
@@ -129,7 +91,7 @@ namespace Verizon.Standard.Controllers
               .Server(Server.HyperPreciseLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/report/async/aggregate")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
@@ -139,8 +101,42 @@ namespace Verizon.Standard.Controllers
                   .ErrorCase("403", CreateErrorCase("Forbidden request.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
                   .ErrorCase("404", CreateErrorCase("Bad request. Not found.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
                   .ErrorCase("409", CreateErrorCase("Bad request. Conflict state.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
-                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AggregatedReportCallbackResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// Detailed report of session duration and number of bytes transferred per day.
+        /// </summary>
+        /// <param name="body">Required parameter: Request for sessions report..</param>
+        /// <returns>Returns the ApiResponse of Models.SessionReport response from the API call.</returns>
+        public ApiResponse<Models.SessionReport> GetSessionsReport(
+                Models.SessionReportRequest body)
+            => CoreHelper.RunTask(GetSessionsReportAsync(body));
+
+        /// <summary>
+        /// Detailed report of session duration and number of bytes transferred per day.
+        /// </summary>
+        /// <param name="body">Required parameter: Request for sessions report..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.SessionReport response from the API call.</returns>
+        public async Task<ApiResponse<Models.SessionReport>> GetSessionsReportAsync(
+                Models.SessionReportRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.SessionReport>()
+              .Server(Server.HyperPreciseLocation)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/report/sessions")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Bad request.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("Unauthorized request. Access token is missing or invalid.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
+                  .ErrorCase("403", CreateErrorCase("Forbidden request.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
+                  .ErrorCase("404", CreateErrorCase("Bad request. Not found.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
+                  .ErrorCase("409", CreateErrorCase("Bad request. Conflict state.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context)))
+                  .ErrorCase("500", CreateErrorCase("Internal Server Error.", (_reason, _context) => new HyperPreciseLocationResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

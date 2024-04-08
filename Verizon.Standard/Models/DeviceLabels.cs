@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -33,8 +34,8 @@ namespace Verizon.Standard.Models
         /// <param name="name">name.</param>
         /// <param name="mValue">value.</param>
         public DeviceLabels(
-            string name = null,
-            string mValue = null)
+            string name,
+            string mValue)
         {
             this.Name = name;
             this.MValue = mValue;
@@ -43,13 +44,13 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// The label you want to associate with the device.
         /// </summary>
-        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("name")]
         public string Name { get; set; }
 
         /// <summary>
         /// The value of label
         /// </summary>
-        [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("value")]
         public string MValue { get; set; }
 
         /// <inheritdoc/>
@@ -84,8 +85,8 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name == string.Empty ? "" : this.Name)}");
-            toStringOutput.Add($"this.MValue = {(this.MValue == null ? "null" : this.MValue == string.Empty ? "" : this.MValue)}");
+            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
+            toStringOutput.Add($"this.MValue = {(this.MValue == null ? "null" : this.MValue)}");
         }
     }
 }

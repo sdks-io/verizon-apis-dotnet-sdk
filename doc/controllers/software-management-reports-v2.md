@@ -11,9 +11,9 @@ SoftwareManagementReportsV2Controller softwareManagementReportsV2Controller = cl
 ## Methods
 
 * [List Available Software](../../doc/controllers/software-management-reports-v2.md#list-available-software)
-* [Get Campaign History by Status](../../doc/controllers/software-management-reports-v2.md#get-campaign-history-by-status)
 * [List Account Devices](../../doc/controllers/software-management-reports-v2.md#list-account-devices)
 * [Get Device Firmware Upgrade History](../../doc/controllers/software-management-reports-v2.md#get-device-firmware-upgrade-history)
+* [Get Campaign History by Status](../../doc/controllers/software-management-reports-v2.md#get-campaign-history-by-status)
 * [Get Campaign Device Status](../../doc/controllers/software-management-reports-v2.md#get-campaign-device-status)
 
 
@@ -45,7 +45,10 @@ string account = "0000123456-00001";
 string distributionType = "HTTP";
 try
 {
-    ApiResponse<List<SoftwarePackage>> result = await softwareManagementReportsV2Controller.ListAvailableSoftwareAsync(account, distributionType);
+    ApiResponse<List<SoftwarePackage>> result = await softwareManagementReportsV2Controller.ListAvailableSoftwareAsync(
+        account,
+        distributionType
+    );
 }
 catch (ApiException e)
 {
@@ -68,92 +71,6 @@ catch (ApiException e)
     "devicePlatformId": "IoT"
   }
 ]
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
-
-
-# Get Campaign History by Status
-
-The report endpoint allows user to get campaign history of an account for specified status.
-
-```csharp
-GetCampaignHistoryByStatusAsync(
-    string account,
-    string campaignStatus,
-    string lastSeenCampaignId = null)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier. |
-| `campaignStatus` | `string` | Query, Required | Status of the campaign. |
-| `lastSeenCampaignId` | `string` | Query, Optional | Last seen campaign Id. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.V2CampaignHistory>>`](../../doc/models/v2-campaign-history.md)
-
-## Example Usage
-
-```csharp
-string account = "0000123456-00001";
-string campaignStatus = "campaignStatus6";
-string lastSeenCampaignId = "60b5d639-ccdc-4db8-8824-069bd94c95bf";
-try
-{
-    ApiResponse<V2CampaignHistory> result = await softwareManagementReportsV2Controller.GetCampaignHistoryByStatusAsync(account, campaignStatus, lastSeenCampaignId);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "hasMoreData": true,
-  "lastSeenCampaignId": "60b5d639-ccdc-4db8-8824-069bd94c95bf",
-  "campaignList": [
-    {
-      "accountName": "0402196254-00001",
-      "id": "60b5d639-ccdc-4db8-8824-069bd94c95bf",
-      "campaignName": "FOTA_Verizon_Upgrade",
-      "softwareName": "FOTA_Verizon_Model-A_02To03_HF",
-      "distributionType": "HTTP",
-      "softwareFrom": "FOTA_Verizon_Model-A_00To01_HF",
-      "softwareTo": "FOTA_Verizon_Model-A_02To03_HF",
-      "make": "Verizon",
-      "model": "Model-A",
-      "startDate": "2020-08-21",
-      "endDate": "2020-08-22",
-      "downloadAfterDate": "2020-08-21",
-      "downloadTimeWindowList": [
-        {
-          "startTime": 20,
-          "endTime": 21
-        }
-      ],
-      "installAfterDate": "2020-08-21",
-      "installTimeWindowList": [
-        {
-          "startTime": 22,
-          "endTime": 23
-        }
-      ],
-      "status": "CampaignEnded"
-    }
-  ]
-}
 ```
 
 ## Errors
@@ -194,7 +111,11 @@ string lastSeenDeviceId = "15-digit IMEI";
 string distributionType = "HTTP";
 try
 {
-    ApiResponse<V2AccountDeviceList> result = await softwareManagementReportsV2Controller.ListAccountDevicesAsync(account, lastSeenDeviceId, distributionType);
+    ApiResponse<V2AccountDeviceList> result = await softwareManagementReportsV2Controller.ListAccountDevicesAsync(
+        account,
+        lastSeenDeviceId,
+        distributionType
+    );
 }
 catch (ApiException e)
 {
@@ -314,7 +235,10 @@ string account = "0000123456-00001";
 string deviceId = "990013907835573";
 try
 {
-    ApiResponse<List<DeviceSoftwareUpgrade>> result = await softwareManagementReportsV2Controller.GetDeviceFirmwareUpgradeHistoryAsync(account, deviceId);
+    ApiResponse<List<DeviceSoftwareUpgrade>> result = await softwareManagementReportsV2Controller.GetDeviceFirmwareUpgradeHistoryAsync(
+        account,
+        deviceId
+    );
 }
 catch (ApiException e)
 {
@@ -355,6 +279,96 @@ catch (ApiException e)
 | 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
 
 
+# Get Campaign History by Status
+
+The report endpoint allows user to get campaign history of an account for specified status.
+
+```csharp
+GetCampaignHistoryByStatusAsync(
+    string account,
+    string campaignStatus,
+    string lastSeenCampaignId = null)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account` | `string` | Template, Required | Account identifier. |
+| `campaignStatus` | `string` | Query, Required | Status of the campaign. |
+| `lastSeenCampaignId` | `string` | Query, Optional | Last seen campaign Id. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.V2CampaignHistory>>`](../../doc/models/v2-campaign-history.md)
+
+## Example Usage
+
+```csharp
+string account = "0000123456-00001";
+string campaignStatus = "campaignStatus6";
+string lastSeenCampaignId = "60b5d639-ccdc-4db8-8824-069bd94c95bf";
+try
+{
+    ApiResponse<V2CampaignHistory> result = await softwareManagementReportsV2Controller.GetCampaignHistoryByStatusAsync(
+        account,
+        campaignStatus,
+        lastSeenCampaignId
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "hasMoreData": true,
+  "lastSeenCampaignId": "60b5d639-ccdc-4db8-8824-069bd94c95bf",
+  "campaignList": [
+    {
+      "accountName": "0402196254-00001",
+      "id": "60b5d639-ccdc-4db8-8824-069bd94c95bf",
+      "campaignName": "FOTA_Verizon_Upgrade",
+      "softwareName": "FOTA_Verizon_Model-A_02To03_HF",
+      "distributionType": "HTTP",
+      "softwareFrom": "FOTA_Verizon_Model-A_00To01_HF",
+      "softwareTo": "FOTA_Verizon_Model-A_02To03_HF",
+      "make": "Verizon",
+      "model": "Model-A",
+      "startDate": "2020-08-21",
+      "endDate": "2020-08-22",
+      "downloadAfterDate": "2020-08-21",
+      "downloadTimeWindowList": [
+        {
+          "startTime": 20,
+          "endTime": 21
+        }
+      ],
+      "installAfterDate": "2020-08-21",
+      "installTimeWindowList": [
+        {
+          "startTime": 22,
+          "endTime": 23
+        }
+      ],
+      "status": "CampaignEnded"
+    }
+  ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
+
+
 # Get Campaign Device Status
 
 The report endpoint allows user to get the full list of device of a campaign.
@@ -386,7 +400,11 @@ string campaignId = "60b5d639-ccdc-4db8-8824-069bd94c95bf";
 string lastSeenDeviceId = "15-digit IMEI";
 try
 {
-    ApiResponse<V2CampaignDevice> result = await softwareManagementReportsV2Controller.GetCampaignDeviceStatusAsync(account, campaignId, lastSeenDeviceId);
+    ApiResponse<V2CampaignDevice> result = await softwareManagementReportsV2Controller.GetCampaignDeviceStatusAsync(
+        account,
+        campaignId,
+        lastSeenDeviceId
+    );
 }
 catch (ApiException e)
 {

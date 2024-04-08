@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -30,27 +31,39 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ServicePlanUpdateRequest"/> class.
         /// </summary>
+        /// <param name="servicePlan">servicePlan.</param>
         /// <param name="accountName">accountName.</param>
         /// <param name="currentServicePlan">currentServicePlan.</param>
         /// <param name="customFields">customFields.</param>
         /// <param name="devices">devices.</param>
         /// <param name="groupName">groupName.</param>
-        /// <param name="servicePlan">servicePlan.</param>
+        /// <param name="carrierIpPoolName">carrierIpPoolName.</param>
+        /// <param name="takeEffect">takeEffect.</param>
         public ServicePlanUpdateRequest(
+            string servicePlan,
             string accountName = null,
             string currentServicePlan = null,
             List<Models.CustomFields> customFields = null,
             List<Models.AccountDeviceList> devices = null,
             string groupName = null,
-            string servicePlan = null)
+            string carrierIpPoolName = null,
+            DateTime? takeEffect = null)
         {
+            this.ServicePlan = servicePlan;
             this.AccountName = accountName;
             this.CurrentServicePlan = currentServicePlan;
             this.CustomFields = customFields;
             this.Devices = devices;
             this.GroupName = groupName;
-            this.ServicePlan = servicePlan;
+            this.CarrierIpPoolName = carrierIpPoolName;
+            this.TakeEffect = takeEffect;
         }
+
+        /// <summary>
+        /// The service plan code that you want to assign to all specified devices.
+        /// </summary>
+        [JsonProperty("servicePlan")]
+        public string ServicePlan { get; set; }
 
         /// <summary>
         /// The name of a billing account.
@@ -83,10 +96,17 @@ namespace Verizon.Standard.Models
         public string GroupName { get; set; }
 
         /// <summary>
-        /// The service plan code that you want to assign to all specified devices.
+        /// Gets or sets CarrierIpPoolName.
         /// </summary>
-        [JsonProperty("servicePlan", NullValueHandling = NullValueHandling.Ignore)]
-        public string ServicePlan { get; set; }
+        [JsonProperty("carrierIpPoolName", NullValueHandling = NullValueHandling.Ignore)]
+        public string CarrierIpPoolName { get; set; }
+
+        /// <summary>
+        /// Gets or sets TakeEffect.
+        /// </summary>
+        [JsonConverter(typeof(IsoDateTimeConverter))]
+        [JsonProperty("takeEffect", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTime? TakeEffect { get; set; }
 
         /// <inheritdoc/>
         public override string ToString()
@@ -110,12 +130,14 @@ namespace Verizon.Standard.Models
             {
                 return true;
             }
-            return obj is ServicePlanUpdateRequest other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
+            return obj is ServicePlanUpdateRequest other &&                ((this.ServicePlan == null && other.ServicePlan == null) || (this.ServicePlan?.Equals(other.ServicePlan) == true)) &&
+                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
                 ((this.CurrentServicePlan == null && other.CurrentServicePlan == null) || (this.CurrentServicePlan?.Equals(other.CurrentServicePlan) == true)) &&
                 ((this.CustomFields == null && other.CustomFields == null) || (this.CustomFields?.Equals(other.CustomFields) == true)) &&
                 ((this.Devices == null && other.Devices == null) || (this.Devices?.Equals(other.Devices) == true)) &&
                 ((this.GroupName == null && other.GroupName == null) || (this.GroupName?.Equals(other.GroupName) == true)) &&
-                ((this.ServicePlan == null && other.ServicePlan == null) || (this.ServicePlan?.Equals(other.ServicePlan) == true));
+                ((this.CarrierIpPoolName == null && other.CarrierIpPoolName == null) || (this.CarrierIpPoolName?.Equals(other.CarrierIpPoolName) == true)) &&
+                ((this.TakeEffect == null && other.TakeEffect == null) || (this.TakeEffect?.Equals(other.TakeEffect) == true));
         }
         
         /// <summary>
@@ -124,12 +146,14 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
-            toStringOutput.Add($"this.CurrentServicePlan = {(this.CurrentServicePlan == null ? "null" : this.CurrentServicePlan == string.Empty ? "" : this.CurrentServicePlan)}");
+            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
+            toStringOutput.Add($"this.CurrentServicePlan = {(this.CurrentServicePlan == null ? "null" : this.CurrentServicePlan)}");
             toStringOutput.Add($"this.CustomFields = {(this.CustomFields == null ? "null" : $"[{string.Join(", ", this.CustomFields)} ]")}");
             toStringOutput.Add($"this.Devices = {(this.Devices == null ? "null" : $"[{string.Join(", ", this.Devices)} ]")}");
-            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName == string.Empty ? "" : this.GroupName)}");
-            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan == string.Empty ? "" : this.ServicePlan)}");
+            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName)}");
+            toStringOutput.Add($"this.CarrierIpPoolName = {(this.CarrierIpPoolName == null ? "null" : this.CarrierIpPoolName)}");
+            toStringOutput.Add($"this.TakeEffect = {(this.TakeEffect == null ? "null" : this.TakeEffect.ToString())}");
         }
     }
 }

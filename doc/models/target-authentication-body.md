@@ -12,8 +12,8 @@
 | `GrantType` | `string` | Optional | Authentication grant type. |
 | `RefreshToken` | `string` | Optional | Refresh token. |
 | `Scope` | `string` | Optional | Authentication scopes. |
-| `Headers` | [`Models.TargetAuthenticationBodyHeaders`](../../doc/models/target-authentication-body-headers.md) | Optional | Authentication headers. |
-| `Host` | [`Models.TargetAuthenticationBodyHost`](../../doc/models/target-authentication-body-host.md) | Optional | Host information. |
+| `Headers` | [`TargetAuthenticationBodyHeaders`](../../doc/models/target-authentication-body-headers.md) | Optional | Authentication headers. |
+| `Host` | [`TargetAuthenticationBodyHost`](../../doc/models/target-authentication-body-host.md) | Optional | Host information. |
 
 ## Example (as JSON)
 
@@ -28,7 +28,7 @@
   "host": {
     "hostandpath": "https:// myhost.com:1825"
   },
-  "scope": "scope2"
+  "scope": "scope0"
 }
 ```
 

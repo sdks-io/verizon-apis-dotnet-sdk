@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -104,9 +105,9 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.QueryStatus = {(this.QueryStatus == null ? "null" : this.QueryStatus == string.Empty ? "" : this.QueryStatus)}");
-            toStringOutput.Add($"this.Start = {(this.Start == null ? "null" : this.Start == string.Empty ? "" : this.Start)}");
-            toStringOutput.Add($"this.End = {(this.End == null ? "null" : this.End == string.Empty ? "" : this.End)}");
+            toStringOutput.Add($"this.QueryStatus = {(this.QueryStatus == null ? "null" : this.QueryStatus)}");
+            toStringOutput.Add($"this.Start = {(this.Start == null ? "null" : this.Start)}");
+            toStringOutput.Add($"this.End = {(this.End == null ? "null" : this.End)}");
             toStringOutput.Add($"this.QueryResult = {(this.QueryResult == null ? "null" : $"[{string.Join(", ", this.QueryResult)} ]")}");
         }
     }

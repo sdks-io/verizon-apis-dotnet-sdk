@@ -43,7 +43,10 @@ string acc = "0000123456-00001";
 string lastSeenDeviceId = "0";
 try
 {
-    ApiResponse<V3LicenseSummary> result = await softwareManagementLicensesV3Controller.GetAccountLicensesStatusAsync(acc, lastSeenDeviceId);
+    ApiResponse<V3LicenseSummary> result = await softwareManagementLicensesV3Controller.GetAccountLicensesStatusAsync(
+        acc,
+        lastSeenDeviceId
+    );
 }
 catch (ApiException e)
 {
@@ -96,7 +99,7 @@ AssignLicensesToDevicesAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `acc` | `string` | Template, Required | Account identifier. |
-| `body` | [`Models.V3LicenseIMEI`](../../doc/models/v3-license-imei.md) | Body, Required | License assignment. |
+| `body` | [`V3LicenseIMEI`](../../doc/models/v3-license-imei.md) | Body, Required | License assignment. |
 
 ## Response Type
 
@@ -117,7 +120,10 @@ V3LicenseIMEI body = new V3LicenseIMEI
 
 try
 {
-    ApiResponse<V3LicenseAssignedRemovedResult> result = await softwareManagementLicensesV3Controller.AssignLicensesToDevicesAsync(acc, body);
+    ApiResponse<V3LicenseAssignedRemovedResult> result = await softwareManagementLicensesV3Controller.AssignLicensesToDevicesAsync(
+        acc,
+        body
+    );
 }
 catch (ApiException e)
 {
@@ -168,7 +174,7 @@ RemoveLicensesFromDevicesAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `acc` | `string` | Template, Required | Account identifier. |
-| `body` | [`Models.V3LicenseIMEI`](../../doc/models/v3-license-imei.md) | Body, Required | License removal. |
+| `body` | [`V3LicenseIMEI`](../../doc/models/v3-license-imei.md) | Body, Required | License removal. |
 
 ## Response Type
 
@@ -190,7 +196,10 @@ V3LicenseIMEI body = new V3LicenseIMEI
 
 try
 {
-    ApiResponse<V3LicenseAssignedRemovedResult> result = await softwareManagementLicensesV3Controller.RemoveLicensesFromDevicesAsync(acc, body);
+    ApiResponse<V3LicenseAssignedRemovedResult> result = await softwareManagementLicensesV3Controller.RemoveLicensesFromDevicesAsync(
+        acc,
+        body
+    );
 }
 catch (ApiException e)
 {

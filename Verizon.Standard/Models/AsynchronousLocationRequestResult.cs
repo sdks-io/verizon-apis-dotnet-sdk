@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -52,7 +53,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Status of the report.
         /// </summary>
-        [JsonProperty("status", ItemConverterType = typeof(StringEnumConverter), NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
         public Models.ReportStatusEnum? Status { get; set; }
 
         /// <summary>
@@ -94,9 +95,9 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Txid = {(this.Txid == null ? "null" : this.Txid == string.Empty ? "" : this.Txid)}");
+            toStringOutput.Add($"this.Txid = {(this.Txid == null ? "null" : this.Txid)}");
             toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status.ToString())}");
-            toStringOutput.Add($"this.EstimatedDuration = {(this.EstimatedDuration == null ? "null" : this.EstimatedDuration == string.Empty ? "" : this.EstimatedDuration)}");
+            toStringOutput.Add($"this.EstimatedDuration = {(this.EstimatedDuration == null ? "null" : this.EstimatedDuration)}");
         }
     }
 }

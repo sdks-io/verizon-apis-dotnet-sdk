@@ -8,7 +8,6 @@ namespace Verizon.Standard.Authentication
     using System.Text;
     using System.Threading.Tasks;
     using Verizon.Standard.Controllers;
-    using Verizon.Standard.Http.Request;
         using Verizon.Standard.Http.Response;using Verizon.Standard.Models;
     using Verizon.Standard.Utilities;
     using Verizon.Standard.Exceptions;
@@ -20,28 +19,23 @@ namespace Verizon.Standard.Authentication
     /// </summary>
     public class ClientCredentialsAuthManager : AuthManager, IClientCredentialsAuth
     {
-        private OauthAuthorizationController oAuthApi;
+        private Func<OauthAuthorizationController> oAuthApi;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClientCredOAuthManager"/> class.
+        /// Initializes a new instance of the <see cref="ClientCredentialsAuthManager"/> class.
         /// </summary>
-        /// <param name="oauthClientId"> OAuth 2 Client ID.</param>
-        /// <param name="oauthClientSecret"> OAuth 2 Client Secret.</param>
-        /// <param name="oauthToken"> OAuth 2 token.</param>
-        /// <param name="oauthScopes"> List of OAuth 2 scopes.</param>
-        public ClientCredentialsAuthManager(
-            string oauthClientId,
-            string oauthClientSecret,
-            OauthToken oauthToken,
-            List<Models.OauthScopeEnum> oauthScopes)
+        /// <param name="clientCredentialsAuth"> OAuth 2 Client Cridentials Model.</param>
+        internal ClientCredentialsAuthManager(ClientCredentialsAuthModel clientCredentialsAuth)
         {
-            this.OauthClientId = oauthClientId;
-            this.OauthClientSecret = oauthClientSecret;
-            this.OauthToken = oauthToken;
-            this.OauthScopes = oauthScopes;
+            OauthClientId = clientCredentialsAuth?.OauthClientId;
+            OauthClientSecret = clientCredentialsAuth?.OauthClientSecret;
+            OauthToken = clientCredentialsAuth?.OauthToken;
+            OauthScopes = clientCredentialsAuth?.OauthScopes;
             Parameters(authParameter => authParameter
                 .Header(headerParameter => headerParameter
-                    .Setup("Authorization", $"Bearer {OauthToken?.AccessToken}")));
+                    .Setup("Authorization",
+                        OauthToken?.AccessToken == null ? null : $"Bearer {OauthToken?.AccessToken}"
+                    ).Required()));
         }
 
         /// <summary>
@@ -96,7 +90,7 @@ namespace Verizon.Standard.Authentication
         /// <returns>Models.OauthToken.</returns>
         public async Task<Models.OauthToken> FetchTokenAsync(Dictionary<string, object> additionalParameters = null)
         {
-            var token = await oAuthApi.RequestTokenAsync(BuildBasicAuthheader(),
+            var token = await oAuthApi?.Invoke().RequestTokenAsync(BuildBasicAuthheader(),
                 scope: this.OauthScopes.GetValues(),
                 fieldParameters: additionalParameters);
 
@@ -123,10 +117,11 @@ namespace Verizon.Standard.Authentication
                && this.OauthToken.Expiry < (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
         }
 
-        public void ApplyGlobalConfiguration(GlobalConfiguration globalConfiguration)
+        public void ApplyGlobalConfiguration(Func<OauthAuthorizationController> controllerGetter)
         {
-            oAuthApi = new OauthAuthorizationController(globalConfiguration);
+            oAuthApi = controllerGetter;
         }
+
         /// <summary>
         /// Validates the authentication parameters for the HTTP Request.
         /// </summary>
@@ -155,6 +150,112 @@ namespace Verizon.Standard.Authentication
         {
             var plainTextBytes = Encoding.UTF8.GetBytes(this.OauthClientId + ':' + this.OauthClientSecret);
             return "Basic " + Convert.ToBase64String(plainTextBytes);
+        }
+    }
+
+    public sealed class ClientCredentialsAuthModel
+    {
+        internal ClientCredentialsAuthModel()
+        {
+        }
+
+        internal string OauthClientId { get; set; }
+
+        internal string OauthClientSecret { get; set; }
+
+        internal Models.OauthToken OauthToken { get; set; }
+
+        internal List<Models.OauthScopeEnum> OauthScopes { get; set; }
+
+        /// <summary>
+        /// Creates an object of the ClientCredentialsAuthModel using the values provided for the builder.
+        /// </summary>
+        /// <returns>Builder.</returns>
+        public Builder ToBuilder()
+        {
+            return new Builder(OauthClientId, OauthClientSecret)
+                .OauthToken(OauthToken)
+                .OauthScopes(OauthScopes);
+        }
+
+        /// <summary>
+        /// Builder class for ClientCredentialsAuthModel.
+        /// </summary>
+        public class Builder
+        {
+            private string oauthClientId;
+            private string oauthClientSecret;
+            private Models.OauthToken oauthToken;
+            private List<Models.OauthScopeEnum> oauthScopes;
+
+            public Builder(string oauthClientId, string oauthClientSecret)
+            {
+                this.oauthClientId = oauthClientId ?? throw new ArgumentNullException(nameof(oauthClientId));
+                this.oauthClientSecret = oauthClientSecret ?? throw new ArgumentNullException(nameof(oauthClientSecret));
+            }
+
+            /// <summary>
+            /// Sets OauthClientId.
+            /// </summary>
+            /// <param name="oauthClientId">OauthClientId.</param>
+            /// <returns>Builder.</returns>
+            public Builder OauthClientId(string oauthClientId)
+            {
+                this.oauthClientId = oauthClientId ?? throw new ArgumentNullException(nameof(oauthClientId));
+                return this;
+            }
+
+
+            /// <summary>
+            /// Sets OauthClientSecret.
+            /// </summary>
+            /// <param name="oauthClientSecret">OauthClientSecret.</param>
+            /// <returns>Builder.</returns>
+            public Builder OauthClientSecret(string oauthClientSecret)
+            {
+                this.oauthClientSecret = oauthClientSecret ?? throw new ArgumentNullException(nameof(oauthClientSecret));
+                return this;
+            }
+
+
+            /// <summary>
+            /// Sets OauthToken.
+            /// </summary>
+            /// <param name="oauthToken">OauthToken.</param>
+            /// <returns>Builder.</returns>
+            public Builder OauthToken(Models.OauthToken oauthToken)
+            {
+                this.oauthToken = oauthToken;
+                return this;
+            }
+
+
+            /// <summary>
+            /// Sets OauthScopes.
+            /// </summary>
+            /// <param name="oauthScopes">OauthScopes.</param>
+            /// <returns>Builder.</returns>
+            public Builder OauthScopes(List<Models.OauthScopeEnum> oauthScopes)
+            {
+                this.oauthScopes = oauthScopes;
+                return this;
+            }
+
+
+            /// <summary>
+            /// Creates an object of the ClientCredentialsAuthModel using the values provided for the builder.
+            /// </summary>
+            /// <returns>ClientCredentialsAuthModel.</returns>
+            public ClientCredentialsAuthModel Build()
+            {
+                return new ClientCredentialsAuthModel()
+                {
+                    OauthClientId = this.oauthClientId,
+                    OauthClientSecret = this.oauthClientSecret,
+                    OauthToken = this.oauthToken,
+                    OauthScopes = this.oauthScopes
+                };
+            }
         }
     }
 }

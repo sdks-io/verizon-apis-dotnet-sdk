@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -33,18 +34,21 @@ namespace Verizon.Standard.Models
         /// <param name="accountName">accountName.</param>
         /// <param name="customFields">customFields.</param>
         /// <param name="devices">devices.</param>
+        /// <param name="withBilling">withBilling.</param>
         /// <param name="groupName">groupName.</param>
         /// <param name="servicePlan">servicePlan.</param>
         public CarrierActionsRequest(
             string accountName = null,
             List<Models.CustomFields> customFields = null,
             List<Models.AccountDeviceList> devices = null,
+            bool? withBilling = null,
             string groupName = null,
             string servicePlan = null)
         {
             this.AccountName = accountName;
             this.CustomFields = customFields;
             this.Devices = devices;
+            this.WithBilling = withBilling;
             this.GroupName = groupName;
             this.ServicePlan = servicePlan;
         }
@@ -66,6 +70,12 @@ namespace Verizon.Standard.Models
         /// </summary>
         [JsonProperty("devices", NullValueHandling = NullValueHandling.Ignore)]
         public List<Models.AccountDeviceList> Devices { get; set; }
+
+        /// <summary>
+        /// set to "true" to suspend with billing, set to "false" to suspend without billing
+        /// </summary>
+        [JsonProperty("withBilling", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? WithBilling { get; set; }
 
         /// <summary>
         /// The name of a device group, if you want to restore service for all devices in that group.
@@ -104,6 +114,7 @@ namespace Verizon.Standard.Models
             return obj is CarrierActionsRequest other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
                 ((this.CustomFields == null && other.CustomFields == null) || (this.CustomFields?.Equals(other.CustomFields) == true)) &&
                 ((this.Devices == null && other.Devices == null) || (this.Devices?.Equals(other.Devices) == true)) &&
+                ((this.WithBilling == null && other.WithBilling == null) || (this.WithBilling?.Equals(other.WithBilling) == true)) &&
                 ((this.GroupName == null && other.GroupName == null) || (this.GroupName?.Equals(other.GroupName) == true)) &&
                 ((this.ServicePlan == null && other.ServicePlan == null) || (this.ServicePlan?.Equals(other.ServicePlan) == true));
         }
@@ -114,11 +125,12 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
             toStringOutput.Add($"this.CustomFields = {(this.CustomFields == null ? "null" : $"[{string.Join(", ", this.CustomFields)} ]")}");
             toStringOutput.Add($"this.Devices = {(this.Devices == null ? "null" : $"[{string.Join(", ", this.Devices)} ]")}");
-            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName == string.Empty ? "" : this.GroupName)}");
-            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan == string.Empty ? "" : this.ServicePlan)}");
+            toStringOutput.Add($"this.WithBilling = {(this.WithBilling == null ? "null" : this.WithBilling.ToString())}");
+            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName)}");
+            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan)}");
         }
     }
 }

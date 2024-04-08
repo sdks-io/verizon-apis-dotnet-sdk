@@ -11,7 +11,7 @@ Compute resources of a service profile.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `GPU` | [`Models.GPU`](../../doc/models/gpu.md) | Optional | GPU resources of a service profile. |
+| `GPU` | [`GPU`](../../doc/models/gpu.md) | Optional | GPU resources of a service profile. |
 | `MinRAMGB` | `int?` | Optional | Minimum RAM required in Gigabytes.<br>**Constraints**: `>= 1`, `<= 100` |
 | `MinStorageGB` | `int?` | Optional | Minimum storage requirement in Gigabytes.<br>**Constraints**: `>= 1`, `<= 100` |
 

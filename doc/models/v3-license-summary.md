@@ -17,7 +17,7 @@ Information for FOTA licenses assigned to devices.
 | `HasMoreData` | `bool` | Required | True if there are more devices to retrieve. |
 | `LastSeenDeviceId` | `string` | Optional | Last seen device identifier. |
 | `MaxPageSize` | `int` | Required | Maximum page size. |
-| `DeviceList` | [`List<Models.V3LicenseDevice>`](../../doc/models/v3-license-device.md) | Optional | Device IMEI list. |
+| `DeviceList` | [`List<V3LicenseDevice>`](../../doc/models/v3-license-device.md) | Optional | Device IMEI list. |
 
 ## Example (as JSON)
 

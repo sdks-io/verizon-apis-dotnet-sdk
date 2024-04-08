@@ -83,7 +83,7 @@ RegisterCallbackAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `account` | `string` | Template, Required | Account identifier in "##########-#####". |
-| `body` | [`Models.FotaV1CallbackRegistrationRequest`](../../doc/models/fota-v1-callback-registration-request.md) | Body, Required | Callback details. |
+| `body` | [`FotaV1CallbackRegistrationRequest`](../../doc/models/fota-v1-callback-registration-request.md) | Body, Required | Callback details. |
 
 ## Response Type
 
@@ -101,7 +101,10 @@ FotaV1CallbackRegistrationRequest body = new FotaV1CallbackRegistrationRequest
 
 try
 {
-    ApiResponse<FotaV1CallbackRegistrationResult> result = await softwareManagementCallbacksV1Controller.RegisterCallbackAsync(account, body);
+    ApiResponse<FotaV1CallbackRegistrationResult> result = await softwareManagementCallbacksV1Controller.RegisterCallbackAsync(
+        account,
+        body
+    );
 }
 catch (ApiException e)
 {
@@ -141,7 +144,7 @@ DeregisterCallbackAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `account` | `string` | Template, Required | Account identifier in "##########-#####". |
-| `service` | [`Models.CallbackServiceEnum`](../../doc/models/callback-service-enum.md) | Template, Required | Callback type. Must be 'Fota' for Software Management Services API. |
+| `service` | [`CallbackServiceEnum`](../../doc/models/callback-service-enum.md) | Template, Required | Callback type. Must be 'Fota' for Software Management Services API. |
 
 ## Response Type
 
@@ -151,10 +154,13 @@ DeregisterCallbackAsync(
 
 ```csharp
 string account = "0242078689-00001";
-Models.CallbackServiceEnum service = CallbackServiceEnum.Fota;
+CallbackServiceEnum service = CallbackServiceEnum.Fota;
 try
 {
-    ApiResponse<FotaV1SuccessResult> result = await softwareManagementCallbacksV1Controller.DeregisterCallbackAsync(account, service);
+    ApiResponse<FotaV1SuccessResult> result = await softwareManagementCallbacksV1Controller.DeregisterCallbackAsync(
+        account,
+        service
+    );
 }
 catch (ApiException e)
 {

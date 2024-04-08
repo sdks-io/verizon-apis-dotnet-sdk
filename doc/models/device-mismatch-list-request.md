@@ -11,8 +11,8 @@ Request to list of all 4G devices with an ICCID (SIM) that was not activated wit
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Devices` | [`List<Models.AccountDeviceList>`](../../doc/models/account-device-list.md) | Optional | A list of specific devices that you want to check, specified by ICCID or MDN. |
-| `Filter` | [`Models.DateFilter`](../../doc/models/date-filter.md) | Optional | Filter out the dates. |
+| `Filter` | [`DateFilter`](../../doc/models/date-filter.md) | Required | Filter out the dates. |
+| `Devices` | [`List<AccountDeviceList>`](../../doc/models/account-device-list.md) | Optional | A list of specific devices that you want to check, specified by ICCID or MDN. |
 | `AccountName` | `string` | Optional | The account that you want to search for mismatched devices. If you don't specify an accountName, the search includes all devices to which you have access. |
 | `GroupName` | `string` | Optional | The name of a device group, to only include devices in that group. |
 
@@ -32,14 +32,15 @@ Request to list of all 4G devices with an ICCID (SIM) that was not activated wit
           "kind": "MDN",
           "id": "5096300587"
         }
-      ]
+      ],
+      "ipAddress": "ipAddress4"
     }
   ],
   "filter": {
     "earliest": "2020-05-01T15:00:00-08:00Z",
     "latest": "2020-07-30T15:00:00-08:00Z"
   },
-  "groupName": "groupName0"
+  "groupName": "groupName8"
 }
 ```
 

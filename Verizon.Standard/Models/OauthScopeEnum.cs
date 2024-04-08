@@ -7,8 +7,8 @@ namespace Verizon.Standard.Models
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.Serialization;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
     using System.Reflection;
     using Verizon.Standard;
     using Verizon.Standard.Utilities;
@@ -16,6 +16,7 @@ namespace Verizon.Standard.Models
     /// <summary>
     /// OauthScopeEnum.
     /// </summary>
+
     [JsonConverter(typeof(StringEnumConverter))]
     public enum OauthScopeEnum
     {
@@ -73,36 +74,6 @@ namespace Verizon.Standard.Models
         /// </summary>
         [EnumMember(Value = "ts.application.ro")]
         TsApplicationRo,
-
-        /// <summary>
-        /// Edgediscoveryread.
-        /// </summary>
-        [EnumMember(Value = "edge:discovery:read")]
-        Edgediscoveryread,
-
-        /// <summary>
-        /// Edgeserviceprofileread.
-        /// </summary>
-        [EnumMember(Value = "edge:serviceprofile:read")]
-        Edgeserviceprofileread,
-
-        /// <summary>
-        /// Edgeserviceprofilewrite.
-        /// </summary>
-        [EnumMember(Value = "edge:serviceprofile:write")]
-        Edgeserviceprofilewrite,
-
-        /// <summary>
-        /// Edgeserviceregistryread.
-        /// </summary>
-        [EnumMember(Value = "edge:serviceregistry:read")]
-        Edgeserviceregistryread,
-
-        /// <summary>
-        /// Edgeserviceregistrywrite.
-        /// </summary>
-        [EnumMember(Value = "edge:serviceregistry:write")]
-        Edgeserviceregistrywrite,
 
         /// <summary>
         ///read access

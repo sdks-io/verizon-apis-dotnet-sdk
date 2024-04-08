@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -145,12 +146,12 @@ namespace Verizon.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"this.Acceleration = {(this.Acceleration == null ? "null" : this.Acceleration.ToString())}");
-            toStringOutput.Add($"this.Battery = {(this.Battery == null ? "null" : this.Battery == string.Empty ? "" : this.Battery)}");
-            toStringOutput.Add($"this.Humidity = {(this.Humidity == null ? "null" : this.Humidity == string.Empty ? "" : this.Humidity)}");
-            toStringOutput.Add($"this.Light = {(this.Light == null ? "null" : this.Light == string.Empty ? "" : this.Light)}");
-            toStringOutput.Add($"this.Pressure = {(this.Pressure == null ? "null" : this.Pressure == string.Empty ? "" : this.Pressure)}");
-            toStringOutput.Add($"this.SignalStrength = {(this.SignalStrength == null ? "null" : this.SignalStrength == string.Empty ? "" : this.SignalStrength)}");
-            toStringOutput.Add($"this.Temperature = {(this.Temperature == null ? "null" : this.Temperature == string.Empty ? "" : this.Temperature)}");
+            toStringOutput.Add($"this.Battery = {(this.Battery == null ? "null" : this.Battery)}");
+            toStringOutput.Add($"this.Humidity = {(this.Humidity == null ? "null" : this.Humidity)}");
+            toStringOutput.Add($"this.Light = {(this.Light == null ? "null" : this.Light)}");
+            toStringOutput.Add($"this.Pressure = {(this.Pressure == null ? "null" : this.Pressure)}");
+            toStringOutput.Add($"this.SignalStrength = {(this.SignalStrength == null ? "null" : this.SignalStrength)}");
+            toStringOutput.Add($"this.Temperature = {(this.Temperature == null ? "null" : this.Temperature)}");
             toStringOutput.Add($"this.DevicePropertylocation = {(this.DevicePropertylocation == null ? "null" : this.DevicePropertylocation.ToString())}");
         }
     }

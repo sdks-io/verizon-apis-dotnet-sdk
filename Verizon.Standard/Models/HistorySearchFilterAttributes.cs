@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -40,7 +41,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Attribute identifier.
         /// </summary>
-        [JsonProperty("name", ItemConverterType = typeof(StringEnumConverter), NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
         public Models.AttributeIdentifierEnum? Name { get; set; }
 
         /// <inheritdoc/>

@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -36,36 +35,38 @@ namespace Verizon.Standard.Controllers
         internal SoftwareManagementLicensesV2Controller(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// This endpoint allows user to delete a created cancel candidate device list.
+        /// The endpoint allows user to list license usage.
         /// </summary>
         /// <param name="account">Required parameter: Account identifier..</param>
-        /// <returns>Returns the ApiResponse of Models.FotaV2SuccessResult response from the API call.</returns>
-        [Obsolete]
-        public ApiResponse<Models.FotaV2SuccessResult> DeleteListOfLicensesToRemove(
-                string account)
-            => CoreHelper.RunTask(DeleteListOfLicensesToRemoveAsync(account));
+        /// <param name="lastSeenDeviceId">Optional parameter: Last seen device identifier..</param>
+        /// <returns>Returns the ApiResponse of Models.V2LicenseSummary response from the API call.</returns>
+        public ApiResponse<Models.V2LicenseSummary> GetAccountLicenseStatus(
+                string account,
+                string lastSeenDeviceId = null)
+            => CoreHelper.RunTask(GetAccountLicenseStatusAsync(account, lastSeenDeviceId));
 
         /// <summary>
-        /// This endpoint allows user to delete a created cancel candidate device list.
+        /// The endpoint allows user to list license usage.
         /// </summary>
         /// <param name="account">Required parameter: Account identifier..</param>
+        /// <param name="lastSeenDeviceId">Optional parameter: Last seen device identifier..</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.FotaV2SuccessResult response from the API call.</returns>
-        [Obsolete]
-        public async Task<ApiResponse<Models.FotaV2SuccessResult>> DeleteListOfLicensesToRemoveAsync(
+        /// <returns>Returns the ApiResponse of Models.V2LicenseSummary response from the API call.</returns>
+        public async Task<ApiResponse<Models.V2LicenseSummary>> GetAccountLicenseStatusAsync(
                 string account,
+                string lastSeenDeviceId = null,
                 CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.FotaV2SuccessResult>()
+            => await CreateApiCall<Models.V2LicenseSummary>()
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Delete, "/licenses/{account}/cancel")
-                  .WithAuth("global")
+                  .Setup(HttpMethod.Get, "/licenses/{account}")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("account", account))))
+                      .Template(_template => _template.Setup("account", account))
+                      .Query(_query => _query.Setup("lastSeenDeviceId", lastSeenDeviceId))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.FotaV2SuccessResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// This endpoint allows user to assign licenses to a list of devices.
@@ -95,50 +96,14 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/licenses/{account}/assign")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("account", account))
                       .Header(_header => _header.Setup("Content-Type", "*/*"))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.V2LicensesAssignedRemovedResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// The endpoint allows user to list license usage.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier..</param>
-        /// <param name="lastSeenDeviceId">Optional parameter: Last seen device identifier..</param>
-        /// <returns>Returns the ApiResponse of Models.V2LicenseSummary response from the API call.</returns>
-        public ApiResponse<Models.V2LicenseSummary> GetAccountLicenseStatus(
-                string account,
-                string lastSeenDeviceId = null)
-            => CoreHelper.RunTask(GetAccountLicenseStatusAsync(account, lastSeenDeviceId));
-
-        /// <summary>
-        /// The endpoint allows user to list license usage.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier..</param>
-        /// <param name="lastSeenDeviceId">Optional parameter: Last seen device identifier..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.V2LicenseSummary response from the API call.</returns>
-        public async Task<ApiResponse<Models.V2LicenseSummary>> GetAccountLicenseStatusAsync(
-                string account,
-                string lastSeenDeviceId = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.V2LicenseSummary>()
-              .Server(Server.SoftwareManagementV2)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/licenses/{account}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("account", account))
-                      .Query(_query => _query.Setup("lastSeenDeviceId", lastSeenDeviceId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.V2LicenseSummary>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// This endpoint allows user to remove licenses from a list of devices.
@@ -168,15 +133,14 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/licenses/{account}/remove")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("account", account))
                       .Header(_header => _header.Setup("Content-Type", "*/*"))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.V2LicensesAssignedRemovedResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// The license cancel endpoint allows user to list registered license cancellation candidate devices.
@@ -206,14 +170,13 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/licenses/{account}/cancel")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Query(_query => _query.Setup("startIndex", startIndex))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.V2ListOfLicensesToRemove>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// The license cancel endpoint allows user to create a list of license cancellation candidate devices.
@@ -243,14 +206,44 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/licenses/{account}/cancel")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("account", account))
                       .Header(_header => _header.Setup("Content-Type", "*/*"))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.V2ListOfLicensesToRemoveResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// This endpoint allows user to delete a created cancel candidate device list.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier..</param>
+        /// <returns>Returns the ApiResponse of Models.FotaV2SuccessResult response from the API call.</returns>
+        [Obsolete]
+        public ApiResponse<Models.FotaV2SuccessResult> DeleteListOfLicensesToRemove(
+                string account)
+            => CoreHelper.RunTask(DeleteListOfLicensesToRemoveAsync(account));
+
+        /// <summary>
+        /// This endpoint allows user to delete a created cancel candidate device list.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.FotaV2SuccessResult response from the API call.</returns>
+        [Obsolete]
+        public async Task<ApiResponse<Models.FotaV2SuccessResult>> DeleteListOfLicensesToRemoveAsync(
+                string account,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.FotaV2SuccessResult>()
+              .Server(Server.SoftwareManagementV2)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Delete, "/licenses/{account}/cancel")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("account", account))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

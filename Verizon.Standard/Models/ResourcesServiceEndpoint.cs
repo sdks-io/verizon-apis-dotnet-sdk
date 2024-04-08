@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -114,10 +115,10 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.URI = {(this.URI == null ? "null" : this.URI == string.Empty ? "" : this.URI)}");
-            toStringOutput.Add($"this.FQDN = {(this.FQDN == null ? "null" : this.FQDN == string.Empty ? "" : this.FQDN)}");
-            toStringOutput.Add($"this.IPv4Address = {(this.IPv4Address == null ? "null" : this.IPv4Address == string.Empty ? "" : this.IPv4Address)}");
-            toStringOutput.Add($"this.IPv6Address = {(this.IPv6Address == null ? "null" : this.IPv6Address == string.Empty ? "" : this.IPv6Address)}");
+            toStringOutput.Add($"this.URI = {(this.URI == null ? "null" : this.URI)}");
+            toStringOutput.Add($"this.FQDN = {(this.FQDN == null ? "null" : this.FQDN)}");
+            toStringOutput.Add($"this.IPv4Address = {(this.IPv4Address == null ? "null" : this.IPv4Address)}");
+            toStringOutput.Add($"this.IPv6Address = {(this.IPv6Address == null ? "null" : this.IPv6Address)}");
             toStringOutput.Add($"this.Port = {(this.Port == null ? "null" : this.Port.ToString())}");
         }
     }

@@ -22,8 +22,8 @@ Device information.
 | `Status` | `string` | Optional | Device status. |
 | `LicenseAssigned` | `bool?` | Optional | License assigned device. |
 | `Protocol` | `string` | Optional | Firmware protocol. Valid values include: LWM2M, OMADM, HTTP or NONE. |
-| `SoftwareList` | [`List<Models.V3SoftwareInfo>`](../../doc/models/v3-software-info.md) | Optional | List of sofware.<br>**Constraints**: *Maximum Items*: `1000` |
-| `FileList` | [`List<Models.V3SoftwareInfo>`](../../doc/models/v3-software-info.md) | Optional | List of files.<br>**Constraints**: *Maximum Items*: `1000` |
+| `SoftwareList` | [`List<V3SoftwareInfo>`](../../doc/models/v3-software-info.md) | Optional | List of sofware.<br>**Constraints**: *Maximum Items*: `1000` |
+| `FileList` | [`List<V3SoftwareInfo>`](../../doc/models/v3-software-info.md) | Optional | List of files.<br>**Constraints**: *Maximum Items*: `1000` |
 | `CreateTime` | `string` | Optional | The date and time of when the device is created. |
 | `StatusTime` | `string` | Optional | The date and time of when the device firmware or software is updated. |
 | `UpdateTime` | `string` | Optional | The date and time of when the device is updated. |
@@ -47,8 +47,8 @@ Device information.
   "statusTime": "2021-06-03 00:03:56.079 +0000 UTC",
   "refreshTime": "2021-06-03 00:03:56.079 +0000 UTC",
   "lastConnectionTime": "2012-04-23T18:25:43.511Z",
-  "requestStatus": "requestStatus0",
-  "resultReason": "resultReason0"
+  "requestStatus": "requestStatus6",
+  "resultReason": "resultReason6"
 }
 ```
 

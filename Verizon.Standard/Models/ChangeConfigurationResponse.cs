@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -184,18 +185,18 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Action = {(this.Action == null ? "null" : this.Action == string.Empty ? "" : this.Action)}");
-            toStringOutput.Add($"this.Createdon = {(this.Createdon == null ? "null" : this.Createdon == string.Empty ? "" : this.Createdon)}");
-            toStringOutput.Add($"this.Deviceid = {(this.Deviceid == null ? "null" : this.Deviceid == string.Empty ? "" : this.Deviceid)}");
+            toStringOutput.Add($"this.Action = {(this.Action == null ? "null" : this.Action)}");
+            toStringOutput.Add($"this.Createdon = {(this.Createdon == null ? "null" : this.Createdon)}");
+            toStringOutput.Add($"this.Deviceid = {(this.Deviceid == null ? "null" : this.Deviceid)}");
             toStringOutput.Add($"this.Fields = {(this.Fields == null ? "null" : this.Fields.ToString())}");
-            toStringOutput.Add($"this.Foreignid = {(this.Foreignid == null ? "null" : this.Foreignid == string.Empty ? "" : this.Foreignid)}");
-            toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id == string.Empty ? "" : this.Id)}");
-            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind == string.Empty ? "" : this.Kind)}");
-            toStringOutput.Add($"this.Lastupdated = {(this.Lastupdated == null ? "null" : this.Lastupdated == string.Empty ? "" : this.Lastupdated)}");
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name == string.Empty ? "" : this.Name)}");
-            toStringOutput.Add($"this.State = {(this.State == null ? "null" : this.State == string.Empty ? "" : this.State)}");
-            toStringOutput.Add($"this.Transactionid = {(this.Transactionid == null ? "null" : this.Transactionid == string.Empty ? "" : this.Transactionid)}");
-            toStringOutput.Add($"this.Version = {(this.Version == null ? "null" : this.Version == string.Empty ? "" : this.Version)}");
+            toStringOutput.Add($"this.Foreignid = {(this.Foreignid == null ? "null" : this.Foreignid)}");
+            toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id)}");
+            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind)}");
+            toStringOutput.Add($"this.Lastupdated = {(this.Lastupdated == null ? "null" : this.Lastupdated)}");
+            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
+            toStringOutput.Add($"this.State = {(this.State == null ? "null" : this.State)}");
+            toStringOutput.Add($"this.Transactionid = {(this.Transactionid == null ? "null" : this.Transactionid)}");
+            toStringOutput.Add($"this.Version = {(this.Version == null ? "null" : this.Version)}");
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -30,27 +31,42 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="AddDevicesRequest"/> class.
         /// </summary>
+        /// <param name="state">state.</param>
+        /// <param name="devicesToAdd">devicesToAdd.</param>
         /// <param name="accountName">accountName.</param>
         /// <param name="customFields">customFields.</param>
-        /// <param name="devicesToAdd">devicesToAdd.</param>
         /// <param name="groupName">groupName.</param>
         /// <param name="skuNumber">skuNumber.</param>
-        /// <param name="state">state.</param>
+        /// <param name="smsrOid">smsrOid.</param>
         public AddDevicesRequest(
+            string state,
+            List<Models.AccountDeviceList> devicesToAdd,
             string accountName = null,
             List<Models.CustomFields> customFields = null,
-            List<Models.AccountDeviceList> devicesToAdd = null,
             string groupName = null,
             string skuNumber = null,
-            string state = null)
+            string smsrOid = null)
         {
+            this.State = state;
+            this.DevicesToAdd = devicesToAdd;
             this.AccountName = accountName;
             this.CustomFields = customFields;
-            this.DevicesToAdd = devicesToAdd;
             this.GroupName = groupName;
             this.SkuNumber = skuNumber;
-            this.State = state;
+            this.SmsrOid = smsrOid;
         }
+
+        /// <summary>
+        /// The initial service state for the devices. The only valid state is “Preactive.”
+        /// </summary>
+        [JsonProperty("state")]
+        public string State { get; set; }
+
+        /// <summary>
+        /// The devices that you want to add.
+        /// </summary>
+        [JsonProperty("devicesToAdd")]
+        public List<Models.AccountDeviceList> DevicesToAdd { get; set; }
 
         /// <summary>
         /// The billing account to which the devices are added.
@@ -65,12 +81,6 @@ namespace Verizon.Standard.Models
         public List<Models.CustomFields> CustomFields { get; set; }
 
         /// <summary>
-        /// The devices that you want to add.
-        /// </summary>
-        [JsonProperty("devicesToAdd", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Models.AccountDeviceList> DevicesToAdd { get; set; }
-
-        /// <summary>
         /// The name of a device group to add the devices to. They are added to the default device group if you don't include this parameter.
         /// </summary>
         [JsonProperty("groupName", NullValueHandling = NullValueHandling.Ignore)]
@@ -83,10 +93,10 @@ namespace Verizon.Standard.Models
         public string SkuNumber { get; set; }
 
         /// <summary>
-        /// The initial service state for the devices. The only valid state is “Preactive.”
+        /// Gets or sets SmsrOid.
         /// </summary>
-        [JsonProperty("state", NullValueHandling = NullValueHandling.Ignore)]
-        public string State { get; set; }
+        [JsonProperty("smsrOid", NullValueHandling = NullValueHandling.Ignore)]
+        public string SmsrOid { get; set; }
 
         /// <inheritdoc/>
         public override string ToString()
@@ -110,12 +120,13 @@ namespace Verizon.Standard.Models
             {
                 return true;
             }
-            return obj is AddDevicesRequest other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.CustomFields == null && other.CustomFields == null) || (this.CustomFields?.Equals(other.CustomFields) == true)) &&
+            return obj is AddDevicesRequest other &&                ((this.State == null && other.State == null) || (this.State?.Equals(other.State) == true)) &&
                 ((this.DevicesToAdd == null && other.DevicesToAdd == null) || (this.DevicesToAdd?.Equals(other.DevicesToAdd) == true)) &&
+                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
+                ((this.CustomFields == null && other.CustomFields == null) || (this.CustomFields?.Equals(other.CustomFields) == true)) &&
                 ((this.GroupName == null && other.GroupName == null) || (this.GroupName?.Equals(other.GroupName) == true)) &&
                 ((this.SkuNumber == null && other.SkuNumber == null) || (this.SkuNumber?.Equals(other.SkuNumber) == true)) &&
-                ((this.State == null && other.State == null) || (this.State?.Equals(other.State) == true));
+                ((this.SmsrOid == null && other.SmsrOid == null) || (this.SmsrOid?.Equals(other.SmsrOid) == true));
         }
         
         /// <summary>
@@ -124,12 +135,13 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
-            toStringOutput.Add($"this.CustomFields = {(this.CustomFields == null ? "null" : $"[{string.Join(", ", this.CustomFields)} ]")}");
+            toStringOutput.Add($"this.State = {(this.State == null ? "null" : this.State)}");
             toStringOutput.Add($"this.DevicesToAdd = {(this.DevicesToAdd == null ? "null" : $"[{string.Join(", ", this.DevicesToAdd)} ]")}");
-            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName == string.Empty ? "" : this.GroupName)}");
-            toStringOutput.Add($"this.SkuNumber = {(this.SkuNumber == null ? "null" : this.SkuNumber == string.Empty ? "" : this.SkuNumber)}");
-            toStringOutput.Add($"this.State = {(this.State == null ? "null" : this.State == string.Empty ? "" : this.State)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
+            toStringOutput.Add($"this.CustomFields = {(this.CustomFields == null ? "null" : $"[{string.Join(", ", this.CustomFields)} ]")}");
+            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName)}");
+            toStringOutput.Add($"this.SkuNumber = {(this.SkuNumber == null ? "null" : this.SkuNumber)}");
+            toStringOutput.Add($"this.SmsrOid = {(this.SmsrOid == null ? "null" : this.SmsrOid)}");
         }
     }
 }

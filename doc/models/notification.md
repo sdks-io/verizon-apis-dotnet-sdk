@@ -19,7 +19,7 @@ The notification details of the trigger.
 | `NotificationFrequencyInterval` | `string` | Optional | Frequency interval for notification. |
 | `ExternalEmailRecipients` | `string` | Optional | E-mail address(es) where the notification should be delivered. |
 | `SmsNotification` | `bool?` | Optional | SMS notification. |
-| `SmsNumbers` | [`List<Models.SMSNumber>`](../../doc/models/sms-number.md) | Optional | List of SMS numbers.<br>**Constraints**: *Maximum Items*: `10` |
+| `SmsNumbers` | [`List<SMSNumber>`](../../doc/models/sms-number.md) | Optional | List of SMS numbers.<br>**Constraints**: *Maximum Items*: `10` |
 | `Reminder` | `bool?` | Optional | - |
 | `Severity` | `string` | Optional | Severity level associated with the notification. Examples would be:<br />Major<br />Minor<br />Critical<br />NotApplicable. |
 

@@ -10,56 +10,9 @@ SoftwareManagementReportsV1Controller softwareManagementReportsV1Controller = cl
 
 ## Methods
 
-* [List Upgrades for Specified Status](../../doc/controllers/software-management-reports-v1.md#list-upgrades-for-specified-status)
 * [List Account Devices](../../doc/controllers/software-management-reports-v1.md#list-account-devices)
+* [List Upgrades for Specified Status](../../doc/controllers/software-management-reports-v1.md#list-upgrades-for-specified-status)
 * [Get Device Firmware Upgrade History](../../doc/controllers/software-management-reports-v1.md#get-device-firmware-upgrade-history)
-
-
-# List Upgrades for Specified Status
-
-Returns a list of all upgrades with a specified status.
-
-```csharp
-ListUpgradesForSpecifiedStatusAsync(
-    string account,
-    Models.UpgradeStatusEnum upgradeStatus,
-    string startIndex)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier in "##########-#####". |
-| `upgradeStatus` | [`Models.UpgradeStatusEnum`](../../doc/models/upgrade-status-enum.md) | Template, Required | The status of the upgrades that you want to retrieve. |
-| `startIndex` | `string` | Template, Required | The zero-based number of the first record to return. Set startIndex=0 for the first request. If `hasMoreFlag`=true in the response, use the `lastSeenUpgradeId` value from the response as the startIndex in the next request. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.UpgradeListQueryResult>>`](../../doc/models/upgrade-list-query-result.md)
-
-## Example Usage
-
-```csharp
-string account = "0242078689-00001";
-Models.UpgradeStatusEnum upgradeStatus = UpgradeStatusEnum.RequestPending;
-string startIndex = "startIndex4";
-try
-{
-    ApiResponse<UpgradeListQueryResult> result = await softwareManagementReportsV1Controller.ListUpgradesForSpecifiedStatusAsync(account, upgradeStatus, startIndex);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV1ResultException`](../../doc/models/fota-v1-result-exception.md) |
 
 
 # List Account Devices
@@ -90,7 +43,10 @@ string account = "0242078689-00001";
 string startIndex = "startIndex4";
 try
 {
-    ApiResponse<DeviceListQueryResult> result = await softwareManagementReportsV1Controller.ListAccountDevicesAsync(account, startIndex);
+    ApiResponse<DeviceListQueryResult> result = await softwareManagementReportsV1Controller.ListAccountDevicesAsync(
+        account,
+        startIndex
+    );
 }
 catch (ApiException e)
 {
@@ -148,6 +104,57 @@ catch (ApiException e)
 | 400 | Unexpected error. | [`FotaV1ResultException`](../../doc/models/fota-v1-result-exception.md) |
 
 
+# List Upgrades for Specified Status
+
+Returns a list of all upgrades with a specified status.
+
+```csharp
+ListUpgradesForSpecifiedStatusAsync(
+    string account,
+    Models.UpgradeStatusEnum upgradeStatus,
+    string startIndex)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account` | `string` | Template, Required | Account identifier in "##########-#####". |
+| `upgradeStatus` | [`UpgradeStatusEnum`](../../doc/models/upgrade-status-enum.md) | Template, Required | The status of the upgrades that you want to retrieve. |
+| `startIndex` | `string` | Template, Required | The zero-based number of the first record to return. Set startIndex=0 for the first request. If `hasMoreFlag`=true in the response, use the `lastSeenUpgradeId` value from the response as the startIndex in the next request. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.UpgradeListQueryResult>>`](../../doc/models/upgrade-list-query-result.md)
+
+## Example Usage
+
+```csharp
+string account = "0242078689-00001";
+UpgradeStatusEnum upgradeStatus = UpgradeStatusEnum.RequestPending;
+string startIndex = "startIndex4";
+try
+{
+    ApiResponse<UpgradeListQueryResult> result = await softwareManagementReportsV1Controller.ListUpgradesForSpecifiedStatusAsync(
+        account,
+        upgradeStatus,
+        startIndex
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV1ResultException`](../../doc/models/fota-v1-result-exception.md) |
+
+
 # Get Device Firmware Upgrade History
 
 Returns the upgrade history of the specified device from the previous six months.
@@ -176,7 +183,10 @@ string account = "0242078689-00001";
 string deviceId = "900000000000001";
 try
 {
-    ApiResponse<List<DeviceUpgradeHistory>> result = await softwareManagementReportsV1Controller.GetDeviceFirmwareUpgradeHistoryAsync(account, deviceId);
+    ApiResponse<List<DeviceUpgradeHistory>> result = await softwareManagementReportsV1Controller.GetDeviceFirmwareUpgradeHistoryAsync(
+        account,
+        deviceId
+    );
 }
 catch (ApiException e)
 {

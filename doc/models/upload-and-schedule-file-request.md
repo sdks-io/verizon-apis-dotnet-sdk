@@ -16,9 +16,9 @@
 | `StartDate` | `string` | Optional | Campaign start date. |
 | `EndDate` | `string` | Optional | Campaign end date. |
 | `DownloadAfterDate` | `string` | Optional | Specifies the starting date the client should download the package. If null, client downloads as soon as possible. |
-| `DownloadTimeWindowList` | [`List<Models.DownloadTimeWindow>`](../../doc/models/download-time-window.md) | Optional | List of allowed download time windows. |
+| `DownloadTimeWindowList` | [`List<DownloadTimeWindow>`](../../doc/models/download-time-window.md) | Optional | List of allowed download time windows. |
 | `InstallAfterDate` | `string` | Optional | The date after which you install the package. If null, install as soon as possible. |
-| `InstallTimeWindowList` | [`List<Models.DownloadTimeWindow>`](../../doc/models/download-time-window.md) | Optional | List of allowed install time windows. |
+| `InstallTimeWindowList` | [`List<DownloadTimeWindow>`](../../doc/models/download-time-window.md) | Optional | List of allowed install time windows. |
 | `DeviceList` | `List<string>` | Optional | Device IMEI list. |
 
 ## Example (as JSON)

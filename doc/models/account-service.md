@@ -13,7 +13,7 @@ Service associated with the account.
 |  --- | --- | --- | --- |
 | `Name` | `string` | Optional | The name of the service plan. |
 | `Description` | `string` | Optional | The description of the service plan. |
-| `States` | [`List<Models.State>`](../../doc/models/state.md) | Optional | The state of the service plan. |
+| `States` | [`List<State>`](../../doc/models/state.md) | Optional | The state of the service plan. |
 
 ## Example (as JSON)
 

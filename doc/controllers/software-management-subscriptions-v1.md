@@ -95,7 +95,10 @@ string account = "0402196254-00001";
 string startIndex = "0";
 try
 {
-    ApiResponse<AccountLicenseInfo> result = await softwareManagementSubscriptionsV1Controller.GetAccountLicenseStatusAsync(account, startIndex);
+    ApiResponse<AccountLicenseInfo> result = await softwareManagementSubscriptionsV1Controller.GetAccountLicenseStatusAsync(
+        account,
+        startIndex
+    );
 }
 catch (ApiException e)
 {

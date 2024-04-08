@@ -45,7 +45,11 @@ Dictionary<string, object> fieldParameters = new Dictionary<string, object>
 
 try
 {
-    ApiResponse<OauthToken> result = await oauthAuthorizationController.RequestTokenAsync(authorization, null, fieldParameters);
+    ApiResponse<OauthToken> result = await oauthAuthorizationController.RequestTokenAsync(
+        authorization,
+        null,
+        fieldParameters
+    );
 }
 catch (ApiException e)
 {

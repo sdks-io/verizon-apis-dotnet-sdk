@@ -12,7 +12,7 @@
 | `TriggerId` | `string` | Required | Unique usage triggerId |
 | `TriggerName` | `string` | Required | Usage trigger name |
 | `AccountName` | `string` | Required | Account name |
-| `ServiceName` | [`Models.ServiceNameEnum`](../../doc/models/service-name-enum.md) | Required | Service name<br>**Default**: `ServiceNameEnum.Location` |
+| `ServiceName` | [`ServiceNameEnum`](../../doc/models/service-name-enum.md) | Required | Service name<br>**Default**: `ServiceNameEnum.Location` |
 | `ThresholdValue` | `string` | Required | Percent of subscription at which trigger will send an alert |
 | `AllowExcess` | `bool` | Required | allowExcess determines whether to restrict usage after exceeds limits |
 | `SendSmsNotification` | `bool` | Required | Send SMS (text) alerts when the thresholdValue is reached. |

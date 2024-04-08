@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `Account` | `string` | Optional | The name of the account that registered the callback URL. |
-| `Name` | [`Models.CallbackServiceNameEnum?`](../../doc/models/callback-service-name-enum.md) | Optional | The name of the callback service. |
+| `Name` | [`CallbackServiceNameEnum?`](../../doc/models/callback-service-name-enum.md) | Optional | The name of the callback service. |
 
 ## Example (as JSON)
 

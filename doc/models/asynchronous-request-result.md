@@ -12,7 +12,7 @@ A successful request returns the request ID and the current status.
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `RequestId` | `string` | Optional | The unique ID of the asynchronous request. |
-| `Status` | [`Models.RequestStatusEnum?`](../../doc/models/request-status-enum.md) | Optional | The current status of the callback response. |
+| `Status` | [`RequestStatusEnum?`](../../doc/models/request-status-enum.md) | Optional | The current status of the callback response. |
 
 ## Example (as JSON)
 

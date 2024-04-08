@@ -11,18 +11,20 @@ Changes the provisioning state of one or more devices to a specified customer-de
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Devices` | [`List<Models.AccountDeviceList>`](../../doc/models/account-device-list.md) | Optional | Up to 10,000 devices that you want to push to a different state, specified by device identifier. |
-| `Filter` | [`Models.DeviceFilter`](../../doc/models/device-filter.md) | Optional | Specify the kind of the device identifier, the type of match, and the string that you want to match. |
-| `ServiceName` | `string` | Optional | The name of a customer-defined service to push the devices to. |
-| `StateName` | `string` | Optional | The name of a customer-defined stage state to push the devices to. |
-| `ServicePlan` | `string` | Optional | The service plan code that you want to assign to all specified devices in the new state. |
-| `MdnZipCode` | `string` | Optional | The Zip code of the location where the line of service will primarily be used, or a Zip code that you have been told to use with these devices. For accounts that are configured for geographic numbering, this is the ZIP code from which the MDN will be derived. |
+| `ServiceName` | `string` | Required | The name of a customer-defined service to push the devices to. |
+| `StateName` | `string` | Required | The name of a customer-defined stage state to push the devices to. |
+| `ServicePlan` | `string` | Required | The service plan code that you want to assign to all specified devices in the new state. |
+| `MdnZipCode` | `string` | Required | The Zip code of the location where the line of service will primarily be used, or a Zip code that you have been told to use with these devices. For accounts that are configured for geographic numbering, this is the ZIP code from which the MDN will be derived. |
+| `Devices` | [`List<AccountDeviceList>`](../../doc/models/account-device-list.md) | Optional | Up to 10,000 devices that you want to push to a different state, specified by device identifier. |
+| `Filter` | [`DeviceFilter`](../../doc/models/device-filter.md) | Optional | Specify the kind of the device identifier, the type of match, and the string that you want to match. |
 | `CarrierIpPoolName` | `string` | Optional | The pool from which your device IP addresses will be derived if the service or state change requires new IP addresses.If you do not include this element, the default pool will be used. |
 | `PublicIpRestriction` | `string` | Optional | For devices with static IP addresses on the public network, this specifies whether the devices have general access to the Internet. Valid values are “restricted” or “unrestricted”. |
 | `SkuNumber` | `string` | Optional | The Stock Keeping Unit (SKU) number of a 4G device type with an embedded SIM. Can be used with ICCID or EID device identifiers in lieu of an IMEI when activating 4G devices. The SkuNumber will be used with all devices in the request, so all devices must be of the same type. |
-| `CustomFields` | [`List<Models.CustomFields>`](../../doc/models/custom-fields.md) | Optional | The names and values of any custom fields that you want to set for the devices. |
+| `CustomFields` | [`List<CustomFields>`](../../doc/models/custom-fields.md) | Optional | The names and values of any custom fields that you want to set for the devices. |
+| `DevicesWithServiceAddress` | `object` | Optional | This is an array that associates an IP address with a device identifier. This variable is only relevant for Business Internet/Fixed Wireless Access |
+| `IpAddress` | `string` | Optional | The IP address of the device. |
 | `GroupName` | `string` | Optional | The name of a device group that the devices should be added to. |
-| `PrimaryPlaceOfUse` | [`Models.PlaceOfUse`](../../doc/models/place-of-use.md) | Optional | The customer name and the address of the device's primary place of use. Leave these fields empty to use the account profile address as the primary place of use. These values will be applied to all devices in the request.If the account is enabled for non-geographic MDNs and the device supports it, the primaryPlaceOfUse address will also be used to derive the MDN for the device. |
+| `PrimaryPlaceOfUse` | [`PlaceOfUse`](../../doc/models/place-of-use.md) | Optional | The customer name and the address of the device's primary place of use. Leave these fields empty to use the account profile address as the primary place of use. These values will be applied to all devices in the request.If the account is enabled for non-geographic MDNs and the device supports it, the primaryPlaceOfUse address will also be used to derive the MDN for the device. |
 
 ## Example (as JSON)
 
@@ -39,7 +41,8 @@ Changes the provisioning state of one or more devices to a specified customer-de
           "kind": "iccid",
           "id": "89141390780800784259"
         }
-      ]
+      ],
+      "ipAddress": "ipAddress4"
     },
     {
       "deviceIds": [
@@ -51,7 +54,8 @@ Changes the provisioning state of one or more devices to a specified customer-de
           "kind": "iccid",
           "id": "89141390780800735573"
         }
-      ]
+      ],
+      "ipAddress": "ipAddress4"
     }
   ],
   "serviceName": "My Service",
@@ -80,19 +84,21 @@ Changes the provisioning state of one or more devices to a specified customer-de
     "servicePlan": "servicePlan6",
     "customFields": [
       {
-        "key": "key4",
-        "value": "value6"
+        "key": "key0",
+        "value": "value2"
       },
       {
-        "key": "key5",
-        "value": "value7"
+        "key": "key0",
+        "value": "value2"
       },
       {
-        "key": "key6",
-        "value": "value8"
+        "key": "key0",
+        "value": "value2"
       }
     ]
-  }
+  },
+  "carrierIpPoolName": "carrierIpPoolName8",
+  "skuNumber": "skuNumber6"
 }
 ```
 

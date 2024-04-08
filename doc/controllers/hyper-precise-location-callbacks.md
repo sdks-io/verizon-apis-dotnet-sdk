@@ -88,7 +88,7 @@ RegisterCallbackAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `accountNumber` | `string` | Query, Required | A unique identifier for an account. |
-| `body` | [`Models.HyperPreciseLocationCallback`](../../doc/models/hyper-precise-location-callback.md) | Body, Required | - |
+| `body` | [`HyperPreciseLocationCallback`](../../doc/models/hyper-precise-location-callback.md) | Body, Required | - |
 
 ## Response Type
 
@@ -106,7 +106,10 @@ HyperPreciseLocationCallback body = new HyperPreciseLocationCallback
 
 try
 {
-    ApiResponse<CallbackRegistered> result = await hyperPreciseLocationCallbacksController.RegisterCallbackAsync(accountNumber, body);
+    ApiResponse<CallbackRegistered> result = await hyperPreciseLocationCallbacksController.RegisterCallbackAsync(
+        accountNumber,
+        body
+    );
 }
 catch (ApiException e)
 {
@@ -164,7 +167,10 @@ string accountNumber = "0844021539-00001";
 string service = "BullseyeReporting";
 try
 {
-    await hyperPreciseLocationCallbacksController.DeregisterCallbackAsync(accountNumber, service);
+    await hyperPreciseLocationCallbacksController.DeregisterCallbackAsync(
+        accountNumber,
+        service
+    );
 }
 catch (ApiException e)
 {

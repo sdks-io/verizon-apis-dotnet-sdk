@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -67,7 +68,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// The category of application client.
         /// </summary>
-        [JsonProperty("clientType", ItemConverterType = typeof(StringEnumConverter))]
+        [JsonProperty("clientType")]
         public Models.ClientTypeEnum ClientType { get; set; }
 
         /// <summary>
@@ -144,11 +145,11 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.ServiceProfileId = {(this.ServiceProfileId == null ? "null" : this.ServiceProfileId == string.Empty ? "" : this.ServiceProfileId)}");
+            toStringOutput.Add($"this.ServiceProfileId = {(this.ServiceProfileId == null ? "null" : this.ServiceProfileId)}");
             toStringOutput.Add($"this.ClientType = {this.ClientType}");
-            toStringOutput.Add($"this.EcspFilter = {(this.EcspFilter == null ? "null" : this.EcspFilter == string.Empty ? "" : this.EcspFilter)}");
-            toStringOutput.Add($"this.ClientSchedule = {(this.ClientSchedule == null ? "null" : this.ClientSchedule == string.Empty ? "" : this.ClientSchedule)}");
-            toStringOutput.Add($"this.ClientServiceArea = {(this.ClientServiceArea == null ? "null" : this.ClientServiceArea == string.Empty ? "" : this.ClientServiceArea)}");
+            toStringOutput.Add($"this.EcspFilter = {(this.EcspFilter == null ? "null" : this.EcspFilter)}");
+            toStringOutput.Add($"this.ClientSchedule = {(this.ClientSchedule == null ? "null" : this.ClientSchedule)}");
+            toStringOutput.Add($"this.ClientServiceArea = {(this.ClientServiceArea == null ? "null" : this.ClientServiceArea)}");
             toStringOutput.Add($"this.NetworkResources = {(this.NetworkResources == null ? "null" : this.NetworkResources.ToString())}");
             toStringOutput.Add($"this.ComputeResources = {(this.ComputeResources == null ? "null" : this.ComputeResources.ToString())}");
             toStringOutput.Add($"this.Properties = {(this.Properties == null ? "null" : this.Properties.ToString())}");

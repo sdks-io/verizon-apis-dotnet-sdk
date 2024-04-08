@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -33,8 +34,8 @@ namespace Verizon.Standard.Models
         /// <param name="id">id.</param>
         /// <param name="kind">kind.</param>
         public DeviceId(
-            string id = null,
-            string kind = null)
+            string id,
+            string kind)
         {
             this.Id = id;
             this.Kind = kind;
@@ -43,13 +44,13 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// The value of the device identifier.
         /// </summary>
-        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("id")]
         public string Id { get; set; }
 
         /// <summary>
         /// The type of the device identifier. Valid types of identifiers are:ESN (decimal),EID,ICCID (up to 20 digits),IMEI (up to 16 digits),MDN,MEID (hexadecimal),MSISDN.
         /// </summary>
-        [JsonProperty("kind", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("kind")]
         public string Kind { get; set; }
 
         /// <inheritdoc/>
@@ -84,8 +85,8 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id == string.Empty ? "" : this.Id)}");
-            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind == string.Empty ? "" : this.Kind)}");
+            toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id)}");
+            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind)}");
         }
     }
 }

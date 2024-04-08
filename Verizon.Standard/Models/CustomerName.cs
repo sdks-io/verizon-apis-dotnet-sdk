@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -114,11 +115,11 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Title = {(this.Title == null ? "null" : this.Title == string.Empty ? "" : this.Title)}");
-            toStringOutput.Add($"this.FirstName = {(this.FirstName == null ? "null" : this.FirstName == string.Empty ? "" : this.FirstName)}");
-            toStringOutput.Add($"this.MiddleName = {(this.MiddleName == null ? "null" : this.MiddleName == string.Empty ? "" : this.MiddleName)}");
-            toStringOutput.Add($"this.LastName = {(this.LastName == null ? "null" : this.LastName == string.Empty ? "" : this.LastName)}");
-            toStringOutput.Add($"this.Suffix = {(this.Suffix == null ? "null" : this.Suffix == string.Empty ? "" : this.Suffix)}");
+            toStringOutput.Add($"this.Title = {(this.Title == null ? "null" : this.Title)}");
+            toStringOutput.Add($"this.FirstName = {(this.FirstName == null ? "null" : this.FirstName)}");
+            toStringOutput.Add($"this.MiddleName = {(this.MiddleName == null ? "null" : this.MiddleName)}");
+            toStringOutput.Add($"this.LastName = {(this.LastName == null ? "null" : this.LastName)}");
+            toStringOutput.Add($"this.Suffix = {(this.Suffix == null ? "null" : this.Suffix)}");
         }
     }
 }

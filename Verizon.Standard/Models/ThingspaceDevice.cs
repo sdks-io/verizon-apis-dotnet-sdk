@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -194,19 +195,19 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
-            toStringOutput.Add($"this.BillingCycleEndDate = {(this.BillingCycleEndDate == null ? "null" : this.BillingCycleEndDate == string.Empty ? "" : this.BillingCycleEndDate)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
+            toStringOutput.Add($"this.BillingCycleEndDate = {(this.BillingCycleEndDate == null ? "null" : this.BillingCycleEndDate)}");
             toStringOutput.Add($"this.CarrierInformations = {(this.CarrierInformations == null ? "null" : $"[{string.Join(", ", this.CarrierInformations)} ]")}");
             toStringOutput.Add($"this.Connected = {(this.Connected == null ? "null" : this.Connected.ToString())}");
-            toStringOutput.Add($"this.CreatedAt = {(this.CreatedAt == null ? "null" : this.CreatedAt == string.Empty ? "" : this.CreatedAt)}");
+            toStringOutput.Add($"this.CreatedAt = {(this.CreatedAt == null ? "null" : this.CreatedAt)}");
             toStringOutput.Add($"this.CustomFields = {(this.CustomFields == null ? "null" : $"[{string.Join(", ", this.CustomFields)} ]")}");
             toStringOutput.Add($"this.DeviceIds = {(this.DeviceIds == null ? "null" : $"[{string.Join(", ", this.DeviceIds)} ]")}");
             toStringOutput.Add($"this.ExtendedAttributes = {(this.ExtendedAttributes == null ? "null" : $"[{string.Join(", ", this.ExtendedAttributes)} ]")}");
             toStringOutput.Add($"this.GroupNames = {(this.GroupNames == null ? "null" : $"[{string.Join(", ", this.GroupNames)} ]")}");
-            toStringOutput.Add($"this.IpAddress = {(this.IpAddress == null ? "null" : this.IpAddress == string.Empty ? "" : this.IpAddress)}");
-            toStringOutput.Add($"this.LastActivationBy = {(this.LastActivationBy == null ? "null" : this.LastActivationBy == string.Empty ? "" : this.LastActivationBy)}");
-            toStringOutput.Add($"this.LastActivationDate = {(this.LastActivationDate == null ? "null" : this.LastActivationDate == string.Empty ? "" : this.LastActivationDate)}");
-            toStringOutput.Add($"this.LastConnectionDate = {(this.LastConnectionDate == null ? "null" : this.LastConnectionDate == string.Empty ? "" : this.LastConnectionDate)}");
+            toStringOutput.Add($"this.IpAddress = {(this.IpAddress == null ? "null" : this.IpAddress)}");
+            toStringOutput.Add($"this.LastActivationBy = {(this.LastActivationBy == null ? "null" : this.LastActivationBy)}");
+            toStringOutput.Add($"this.LastActivationDate = {(this.LastActivationDate == null ? "null" : this.LastActivationDate)}");
+            toStringOutput.Add($"this.LastConnectionDate = {(this.LastConnectionDate == null ? "null" : this.LastConnectionDate)}");
         }
     }
 }

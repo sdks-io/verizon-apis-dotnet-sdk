@@ -14,7 +14,7 @@ The device identifier and fields to match in the search.
 | `Billingaccountid` | `string` | Optional | Billing account ID of the resource. |
 | `Createdon` | `string` | Optional | The date the resource was created. |
 | `Eventretention` | `string` | Optional | - |
-| `Fields` | [`Models.Fields1`](../../doc/models/fields-1.md) | Optional | - |
+| `Fields` | [`Fields1`](../../doc/models/fields-1.md) | Optional | - |
 | `Iccid` | `string` | Optional | Cellular SIM card identifier. |
 | `Id` | `string` | Optional | ThingSpace unique ID for the device that was added. |
 | `Imei` | `string` | Optional | 4G hardware device identifier. |
@@ -52,10 +52,10 @@ The device identifier and fields to match in the search.
         "y": "y4",
         "z": "z6"
       },
-      "battery": "battery8",
-      "humidity": "humidity2",
-      "light": "light4",
-      "pressure": "pressure0"
+      "battery": "battery0",
+      "humidity": "humidity4",
+      "light": "light6",
+      "pressure": "pressure2"
     }
   }
 }

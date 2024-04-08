@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -33,17 +34,14 @@ namespace Verizon.Standard.Models
         /// <param name="id">id.</param>
         /// <param name="sessions">sessions.</param>
         /// <param name="txid">txid.</param>
-        /// <param name="example">example.</param>
         public SessionReport(
             string id,
             List<Models.DailyUsageItem> sessions = null,
-            string txid = null,
-            object example = null)
+            string txid = null)
         {
             this.Sessions = sessions;
             this.Id = id;
             this.Txid = txid;
-            this.Example = example;
         }
 
         /// <summary>
@@ -63,12 +61,6 @@ namespace Verizon.Standard.Models
         /// </summary>
         [JsonProperty("txid", NullValueHandling = NullValueHandling.Include)]
         public string Txid { get; set; }
-
-        /// <summary>
-        /// Gets or sets Example.
-        /// </summary>
-        [JsonProperty("example", NullValueHandling = NullValueHandling.Ignore)]
-        public object Example { get; set; }
 
         /// <inheritdoc/>
         public override string ToString()
@@ -94,8 +86,7 @@ namespace Verizon.Standard.Models
             }
             return obj is SessionReport other &&                ((this.Sessions == null && other.Sessions == null) || (this.Sessions?.Equals(other.Sessions) == true)) &&
                 ((this.Id == null && other.Id == null) || (this.Id?.Equals(other.Id) == true)) &&
-                ((this.Txid == null && other.Txid == null) || (this.Txid?.Equals(other.Txid) == true)) &&
-                ((this.Example == null && other.Example == null) || (this.Example?.Equals(other.Example) == true));
+                ((this.Txid == null && other.Txid == null) || (this.Txid?.Equals(other.Txid) == true));
         }
         
         /// <summary>
@@ -105,9 +96,8 @@ namespace Verizon.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"this.Sessions = {(this.Sessions == null ? "null" : $"[{string.Join(", ", this.Sessions)} ]")}");
-            toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id == string.Empty ? "" : this.Id)}");
-            toStringOutput.Add($"this.Txid = {(this.Txid == null ? "null" : this.Txid == string.Empty ? "" : this.Txid)}");
-            toStringOutput.Add($"Example = {(this.Example == null ? "null" : this.Example.ToString())}");
+            toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id)}");
+            toStringOutput.Add($"this.Txid = {(this.Txid == null ? "null" : this.Txid)}");
         }
     }
 }

@@ -18,7 +18,7 @@ Firmware upgrade for devices.
 | `Protocol` | `string` | Required | Valid values include: LWM2M, OMA and HTTP.<br>**Default**: `"LWM2M"` |
 | `StartDate` | `DateTime` | Required | Campaign start date. |
 | `EndDate` | `DateTime` | Required | Campaign end date. |
-| `CampaignTimeWindowList` | [`List<Models.V3TimeWindow>`](../../doc/models/v3-time-window.md) | Optional | List of allowed campaign time windows. |
+| `CampaignTimeWindowList` | [`List<V3TimeWindow>`](../../doc/models/v3-time-window.md) | Optional | List of allowed campaign time windows. |
 | `DeviceList` | `List<string>` | Required | Device IMEI list. |
 
 ## Example (as JSON)

@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -174,17 +175,17 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.NotificationType = {(this.NotificationType == null ? "null" : this.NotificationType == string.Empty ? "" : this.NotificationType)}");
+            toStringOutput.Add($"this.NotificationType = {(this.NotificationType == null ? "null" : this.NotificationType)}");
             toStringOutput.Add($"this.Callback = {(this.Callback == null ? "null" : this.Callback.ToString())}");
             toStringOutput.Add($"this.EmailNotification = {(this.EmailNotification == null ? "null" : this.EmailNotification.ToString())}");
-            toStringOutput.Add($"this.NotificationGroupName = {(this.NotificationGroupName == null ? "null" : this.NotificationGroupName == string.Empty ? "" : this.NotificationGroupName)}");
+            toStringOutput.Add($"this.NotificationGroupName = {(this.NotificationGroupName == null ? "null" : this.NotificationGroupName)}");
             toStringOutput.Add($"this.NotificationFrequencyFactor = {(this.NotificationFrequencyFactor == null ? "null" : this.NotificationFrequencyFactor.ToString())}");
-            toStringOutput.Add($"this.NotificationFrequencyInterval = {(this.NotificationFrequencyInterval == null ? "null" : this.NotificationFrequencyInterval == string.Empty ? "" : this.NotificationFrequencyInterval)}");
-            toStringOutput.Add($"this.ExternalEmailRecipients = {(this.ExternalEmailRecipients == null ? "null" : this.ExternalEmailRecipients == string.Empty ? "" : this.ExternalEmailRecipients)}");
+            toStringOutput.Add($"this.NotificationFrequencyInterval = {(this.NotificationFrequencyInterval == null ? "null" : this.NotificationFrequencyInterval)}");
+            toStringOutput.Add($"this.ExternalEmailRecipients = {(this.ExternalEmailRecipients == null ? "null" : this.ExternalEmailRecipients)}");
             toStringOutput.Add($"this.SmsNotification = {(this.SmsNotification == null ? "null" : this.SmsNotification.ToString())}");
             toStringOutput.Add($"this.SmsNumbers = {(this.SmsNumbers == null ? "null" : $"[{string.Join(", ", this.SmsNumbers)} ]")}");
             toStringOutput.Add($"this.Reminder = {(this.Reminder == null ? "null" : this.Reminder.ToString())}");
-            toStringOutput.Add($"this.Severity = {(this.Severity == null ? "null" : this.Severity == string.Empty ? "" : this.Severity)}");
+            toStringOutput.Add($"this.Severity = {(this.Severity == null ? "null" : this.Severity)}");
         }
     }
 }

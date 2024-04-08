@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -34,61 +33,6 @@ namespace Verizon.Standard.Controllers
         /// Initializes a new instance of the <see cref="ServiceEndpointsController"/> class.
         /// </summary>
         internal ServiceEndpointsController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
-
-        /// <summary>
-        /// Returns a list of all registered service endpoints.
-        /// </summary>
-        /// <returns>Returns the ApiResponse of Models.ListAllServiceEndpointsResult response from the API call.</returns>
-        public ApiResponse<Models.ListAllServiceEndpointsResult> ListAllServiceEndpoints()
-            => CoreHelper.RunTask(ListAllServiceEndpointsAsync());
-
-        /// <summary>
-        /// Returns a list of all registered service endpoints.
-        /// </summary>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.ListAllServiceEndpointsResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.ListAllServiceEndpointsResult>> ListAllServiceEndpointsAsync(CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.ListAllServiceEndpointsResult>()
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/serviceendpointsall")
-                  .WithAuth("global"))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ListAllServiceEndpointsResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Returns endpoint information for all Service Endpoints registered to a specified serviceEndpointId.
-        /// </summary>
-        /// <param name="serviceEndpointsId">Required parameter: A system-defined string identifier representing one or more registered Service Endpoints..</param>
-        /// <returns>Returns the ApiResponse of List<Models.ResourcesEdgeHostedServiceWithProfileId> response from the API call.</returns>
-        public ApiResponse<List<Models.ResourcesEdgeHostedServiceWithProfileId>> GetServiceEndpoint(
-                string serviceEndpointsId)
-            => CoreHelper.RunTask(GetServiceEndpointAsync(serviceEndpointsId));
-
-        /// <summary>
-        /// Returns endpoint information for all Service Endpoints registered to a specified serviceEndpointId.
-        /// </summary>
-        /// <param name="serviceEndpointsId">Required parameter: A system-defined string identifier representing one or more registered Service Endpoints..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of List<Models.ResourcesEdgeHostedServiceWithProfileId> response from the API call.</returns>
-        public async Task<ApiResponse<List<Models.ResourcesEdgeHostedServiceWithProfileId>>> GetServiceEndpointAsync(
-                string serviceEndpointsId,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<List<Models.ResourcesEdgeHostedServiceWithProfileId>>()
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/serviceendpoints/{serviceEndpointsId}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("serviceEndpointsId", serviceEndpointsId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.ResourcesEdgeHostedServiceWithProfileId>>(_response)))
-              .ExecuteAsync(cancellationToken);
 
         /// <summary>
         /// Returns a list of optimal Service Endpoints that client devices can connect to. **Note:** If a query is sent with all of the parameters, it will fail with a "400" error. You can search based on the following parameter combinations - Region plus Service Endpoints IDs and Subscriber density (density is optional but recommended), Region plus Service Endpoints IDs and UEIdentity(Including UEIdentity Type) and Service Endpoints IDs plus UEIdentity(Including UEIdentity Type).
@@ -127,7 +71,7 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<Models.ListOptimalServiceEndpointsResult>()
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/serviceendpoints")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Query(_query => _query.Setup("region", region))
                       .Query(_query => _query.Setup("subscriberDensity", subscriberDensity))
@@ -137,9 +81,92 @@ namespace Verizon.Standard.Controllers
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
                   .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ListOptimalServiceEndpointsResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// Register Service Endpoints of a deployed application to specified MEC Platforms.
+        /// </summary>
+        /// <param name="body">Required parameter: An array of Service Endpoint data for a deployed application. The request body passes all of the needed parameters to create a service endpoint. Parameters will be edited here rather than the **Parameters** section above. The `ern`,`applicationServerProviderId`, `applicationId` and `serviceProfileID` parameters are required. **Note:** Currently, the only valid value for `applicationServerProviderId`is **AWS**. Also, if you do not know one of the optional values (i.e. URI), you can erase the line from the query by back-spacing over it..</param>
+        /// <returns>Returns the ApiResponse of Models.RegisterServiceEndpointResult response from the API call.</returns>
+        public ApiResponse<Models.RegisterServiceEndpointResult> RegisterServiceEndpoints(
+                List<Models.ResourcesEdgeHostedServiceWithProfileId> body)
+            => CoreHelper.RunTask(RegisterServiceEndpointsAsync(body));
+
+        /// <summary>
+        /// Register Service Endpoints of a deployed application to specified MEC Platforms.
+        /// </summary>
+        /// <param name="body">Required parameter: An array of Service Endpoint data for a deployed application. The request body passes all of the needed parameters to create a service endpoint. Parameters will be edited here rather than the **Parameters** section above. The `ern`,`applicationServerProviderId`, `applicationId` and `serviceProfileID` parameters are required. **Note:** Currently, the only valid value for `applicationServerProviderId`is **AWS**. Also, if you do not know one of the optional values (i.e. URI), you can erase the line from the query by back-spacing over it..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.RegisterServiceEndpointResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.RegisterServiceEndpointResult>> RegisterServiceEndpointsAsync(
+                List<Models.ResourcesEdgeHostedServiceWithProfileId> body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.RegisterServiceEndpointResult>()
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/serviceendpoints")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
+                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// Returns a list of all registered service endpoints.
+        /// </summary>
+        /// <returns>Returns the ApiResponse of Models.ListAllServiceEndpointsResult response from the API call.</returns>
+        public ApiResponse<Models.ListAllServiceEndpointsResult> ListAllServiceEndpoints()
+            => CoreHelper.RunTask(ListAllServiceEndpointsAsync());
+
+        /// <summary>
+        /// Returns a list of all registered service endpoints.
+        /// </summary>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.ListAllServiceEndpointsResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.ListAllServiceEndpointsResult>> ListAllServiceEndpointsAsync(CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.ListAllServiceEndpointsResult>()
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/serviceendpointsall")
+                  .WithAuth("oAuth2"))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
+                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// Returns endpoint information for all Service Endpoints registered to a specified serviceEndpointId.
+        /// </summary>
+        /// <param name="serviceEndpointsId">Required parameter: A system-defined string identifier representing one or more registered Service Endpoints..</param>
+        /// <returns>Returns the ApiResponse of List<Models.ResourcesEdgeHostedServiceWithProfileId> response from the API call.</returns>
+        public ApiResponse<List<Models.ResourcesEdgeHostedServiceWithProfileId>> GetServiceEndpoint(
+                string serviceEndpointsId)
+            => CoreHelper.RunTask(GetServiceEndpointAsync(serviceEndpointsId));
+
+        /// <summary>
+        /// Returns endpoint information for all Service Endpoints registered to a specified serviceEndpointId.
+        /// </summary>
+        /// <param name="serviceEndpointsId">Required parameter: A system-defined string identifier representing one or more registered Service Endpoints..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of List<Models.ResourcesEdgeHostedServiceWithProfileId> response from the API call.</returns>
+        public async Task<ApiResponse<List<Models.ResourcesEdgeHostedServiceWithProfileId>>> GetServiceEndpointAsync(
+                string serviceEndpointsId,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<List<Models.ResourcesEdgeHostedServiceWithProfileId>>()
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/serviceendpoints/{serviceEndpointsId}")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("serviceEndpointsId", serviceEndpointsId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
+                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// Update registered Service Endpoint information.
@@ -166,7 +193,7 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<Models.UpdateServiceEndpointResult>()
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Put, "/serviceendpoints/{serviceEndpointsId}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("serviceEndpointsId", serviceEndpointsId))
@@ -174,9 +201,8 @@ namespace Verizon.Standard.Controllers
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
                   .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.UpdateServiceEndpointResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// Deregister an application's Service Endpoint from the MEC Platform(s).
@@ -199,46 +225,13 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<Models.DeregisterServiceEndpointResult>()
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/serviceendpoints/{serviceEndpointsId}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("serviceEndpointsId", serviceEndpointsId))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
                   .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeregisterServiceEndpointResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Register Service Endpoints of a deployed application to specified MEC Platforms.
-        /// </summary>
-        /// <param name="body">Required parameter: An array of Service Endpoint data for a deployed application. The request body passes all of the needed parameters to create a service endpoint. Parameters will be edited here rather than the **Parameters** section above. The `ern`,`applicationServerProviderId`, `applicationId` and `serviceProfileID` parameters are required. **Note:** Currently, the only valid value for `applicationServerProviderId`is **AWS**. Also, if you do not know one of the optional values (i.e. URI), you can erase the line from the query by back-spacing over it..</param>
-        /// <returns>Returns the ApiResponse of Models.RegisterServiceEndpointResult response from the API call.</returns>
-        public ApiResponse<Models.RegisterServiceEndpointResult> RegisterServiceEndpoints(
-                List<Models.ResourcesEdgeHostedServiceWithProfileId> body)
-            => CoreHelper.RunTask(RegisterServiceEndpointsAsync(body));
-
-        /// <summary>
-        /// Register Service Endpoints of a deployed application to specified MEC Platforms.
-        /// </summary>
-        /// <param name="body">Required parameter: An array of Service Endpoint data for a deployed application. The request body passes all of the needed parameters to create a service endpoint. Parameters will be edited here rather than the **Parameters** section above. The `ern`,`applicationServerProviderId`, `applicationId` and `serviceProfileID` parameters are required. **Note:** Currently, the only valid value for `applicationServerProviderId`is **AWS**. Also, if you do not know one of the optional values (i.e. URI), you can erase the line from the query by back-spacing over it..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.RegisterServiceEndpointResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.RegisterServiceEndpointResult>> RegisterServiceEndpointsAsync(
-                List<Models.ResourcesEdgeHostedServiceWithProfileId> body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.RegisterServiceEndpointResult>()
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/serviceendpoints")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.RegisterServiceEndpointResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("0", CreateErrorCase("HTTP 500 Internal Server Error.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

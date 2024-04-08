@@ -18,7 +18,7 @@ The request body identifies the devices to upload.
 | `ServicePlan` | `string` | Required | The service plan code that you want to assign to all specified devices. |
 | `CarrierIpPoolName` | `string` | Optional | The pool from which your device IP addresses is derived. |
 | `MdnZipCode` | `string` | Required | The Zip code of the location where the line of service is primarily used, or a Zip code that you have been told to use with these devices. |
-| `Devices` | [`List<Models.DeviceList>`](../../doc/models/device-list.md) | Required | The devices to upload, specified by device IDs in a format matching uploadType. |
+| `Devices` | [`List<DeviceList>`](../../doc/models/device-list.md) | Required | The devices to upload, specified by device IDs in a format matching uploadType. |
 
 ## Example (as JSON)
 
@@ -35,16 +35,8 @@ The request body identifies the devices to upload.
     {
       "deviceIds": [
         {
-          "id": "id6",
-          "kind": "imei"
-        },
-        {
-          "id": "id7",
-          "kind": "eid"
-        },
-        {
-          "id": "id8",
-          "kind": "esn"
+          "id": "id0",
+          "kind": "kind8"
         }
       ]
     }

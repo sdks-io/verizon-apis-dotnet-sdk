@@ -30,7 +30,7 @@ ExcludeDevicesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.ConsentRequest`](../../doc/models/consent-request.md) | Body, Required | Request to update account consent exclusion list. |
+| `body` | [`ConsentRequest`](../../doc/models/consent-request.md) | Body, Required | Request to update account consent exclusion list. |
 
 ## Response Type
 
@@ -98,7 +98,10 @@ string accountName = "0000123456-00001";
 string deviceList = "IMEI";
 try
 {
-    ApiResponse<DeviceLocationSuccessResult> result = await exclusionsController.RemoveDevicesFromExclusionListAsync(accountName, deviceList);
+    ApiResponse<DeviceLocationSuccessResult> result = await exclusionsController.RemoveDevicesFromExclusionListAsync(
+        accountName,
+        deviceList
+    );
 }
 catch (ApiException e)
 {
@@ -150,7 +153,10 @@ string account = "0252012345-00001";
 string startIndex = "0";
 try
 {
-    ApiResponse<DevicesConsentResult> result = await exclusionsController.ListExcludedDevicesAsync(account, startIndex);
+    ApiResponse<DevicesConsentResult> result = await exclusionsController.ListExcludedDevicesAsync(
+        account,
+        startIndex
+    );
 }
 catch (ApiException e)
 {

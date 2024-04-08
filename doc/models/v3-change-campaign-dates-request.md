@@ -13,7 +13,7 @@ Campaign dates and time windows.
 |  --- | --- | --- | --- |
 | `StartDate` | `DateTime` | Required | Campaign start date. |
 | `EndDate` | `DateTime` | Required | Campaign end date. |
-| `CampaignTimeWindowList` | [`List<Models.V3TimeWindow>`](../../doc/models/v3-time-window.md) | Optional | List of allowed campaign time windows. |
+| `CampaignTimeWindowList` | [`List<V3TimeWindow>`](../../doc/models/v3-time-window.md) | Optional | List of allowed campaign time windows. |
 
 ## Example (as JSON)
 

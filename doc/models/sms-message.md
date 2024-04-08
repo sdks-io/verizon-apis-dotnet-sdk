@@ -11,7 +11,7 @@ SMS messages sent by all M2M devices associated with a billing account.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `DeviceIds` | [`List<Models.DeviceId>`](../../doc/models/device-id.md) | Optional | One or more IDs of the device that sent the message. |
+| `DeviceIds` | [`List<DeviceId>`](../../doc/models/device-id.md) | Optional | One or more IDs of the device that sent the message. |
 | `Message` | `string` | Optional | The contents of the SMS message. |
 | `Timestamp` | `string` | Optional | The date and time that the message was received by the Verizon ThingSpace Platform. |
 

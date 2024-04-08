@@ -15,8 +15,8 @@ Trigger details.
 | `TriggerName` | `string` | Optional | Trigger name. |
 | `TriggerCategory` | `string` | Optional | This is the value to use in the request body to detect anomalous behaivior. The values in this table will only be relevant when this parameter is set to this value. |
 | `AccountName` | `string` | Optional | Account name.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32` |
-| `AnomalyTriggerRequest` | [`Models.AnomalyTriggerRequest`](../../doc/models/anomaly-trigger-request.md) | Optional | The details of the UsageAnomaly trigger. |
-| `Notification` | [`Models.Notification`](../../doc/models/notification.md) | Optional | The notification details of the trigger. |
+| `AnomalyTriggerRequest` | [`AnomalyTriggerRequest`](../../doc/models/anomaly-trigger-request.md) | Optional | The details of the UsageAnomaly trigger. |
+| `Notification` | [`Notification`](../../doc/models/notification.md) | Optional | The notification details of the trigger. |
 
 ## Example (as JSON)
 

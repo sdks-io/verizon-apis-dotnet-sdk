@@ -22,7 +22,7 @@ GetDiagnosticsHistoryAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.HistorySearchRequest`](../../doc/models/history-search-request.md) | Body, Required | History data information. |
+| `body` | [`HistorySearchRequest`](../../doc/models/history-search-request.md) | Body, Required | History data information. |
 
 ## Response Type
 

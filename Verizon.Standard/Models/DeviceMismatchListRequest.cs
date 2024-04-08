@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -30,33 +31,33 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="DeviceMismatchListRequest"/> class.
         /// </summary>
-        /// <param name="devices">devices.</param>
         /// <param name="filter">filter.</param>
+        /// <param name="devices">devices.</param>
         /// <param name="accountName">accountName.</param>
         /// <param name="groupName">groupName.</param>
         public DeviceMismatchListRequest(
+            Models.DateFilter filter,
             List<Models.AccountDeviceList> devices = null,
-            Models.DateFilter filter = null,
             string accountName = null,
             string groupName = null)
         {
-            this.Devices = devices;
             this.Filter = filter;
+            this.Devices = devices;
             this.AccountName = accountName;
             this.GroupName = groupName;
         }
+
+        /// <summary>
+        /// Filter out the dates.
+        /// </summary>
+        [JsonProperty("filter")]
+        public Models.DateFilter Filter { get; set; }
 
         /// <summary>
         /// A list of specific devices that you want to check, specified by ICCID or MDN.
         /// </summary>
         [JsonProperty("devices", NullValueHandling = NullValueHandling.Ignore)]
         public List<Models.AccountDeviceList> Devices { get; set; }
-
-        /// <summary>
-        /// Filter out the dates.
-        /// </summary>
-        [JsonProperty("filter", NullValueHandling = NullValueHandling.Ignore)]
-        public Models.DateFilter Filter { get; set; }
 
         /// <summary>
         /// The account that you want to search for mismatched devices. If you don't specify an accountName, the search includes all devices to which you have access.
@@ -92,8 +93,8 @@ namespace Verizon.Standard.Models
             {
                 return true;
             }
-            return obj is DeviceMismatchListRequest other &&                ((this.Devices == null && other.Devices == null) || (this.Devices?.Equals(other.Devices) == true)) &&
-                ((this.Filter == null && other.Filter == null) || (this.Filter?.Equals(other.Filter) == true)) &&
+            return obj is DeviceMismatchListRequest other &&                ((this.Filter == null && other.Filter == null) || (this.Filter?.Equals(other.Filter) == true)) &&
+                ((this.Devices == null && other.Devices == null) || (this.Devices?.Equals(other.Devices) == true)) &&
                 ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
                 ((this.GroupName == null && other.GroupName == null) || (this.GroupName?.Equals(other.GroupName) == true));
         }
@@ -104,10 +105,10 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Devices = {(this.Devices == null ? "null" : $"[{string.Join(", ", this.Devices)} ]")}");
             toStringOutput.Add($"this.Filter = {(this.Filter == null ? "null" : this.Filter.ToString())}");
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
-            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName == string.Empty ? "" : this.GroupName)}");
+            toStringOutput.Add($"this.Devices = {(this.Devices == null ? "null" : $"[{string.Join(", ", this.Devices)} ]")}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
+            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName)}");
         }
     }
 }

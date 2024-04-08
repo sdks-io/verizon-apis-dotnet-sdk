@@ -13,7 +13,7 @@ Upgrade information.
 |  --- | --- | --- | --- |
 | `AccountName` | `string` | Optional | Account identifier in "##########-#####". |
 | `Id` | `string` | Optional | The unique identifier for this upgrade. |
-| `DeviceList` | [`List<Models.V1DeviceListItem>`](../../doc/models/v1-device-list-item.md) | Optional | A JSON object for each device that was included in the request, showing the device IMEI, the status of the addition or removal, and additional information about the status. |
+| `DeviceList` | [`List<V1DeviceListItem>`](../../doc/models/v1-device-list-item.md) | Optional | A JSON object for each device that was included in the request, showing the device IMEI, the status of the addition or removal, and additional information about the status. |
 
 ## Example (as JSON)
 

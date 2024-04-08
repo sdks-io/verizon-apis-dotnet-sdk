@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -194,19 +195,19 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Address = {(this.Address == null ? "null" : this.Address == string.Empty ? "" : this.Address)}");
-            toStringOutput.Add($"this.Addressscheme = {(this.Addressscheme == null ? "null" : this.Addressscheme == string.Empty ? "" : this.Addressscheme)}");
-            toStringOutput.Add($"this.Billingaccountid = {(this.Billingaccountid == null ? "null" : this.Billingaccountid == string.Empty ? "" : this.Billingaccountid)}");
-            toStringOutput.Add($"this.Createdon = {(this.Createdon == null ? "null" : this.Createdon == string.Empty ? "" : this.Createdon)}");
-            toStringOutput.Add($"this.Externalid = {(this.Externalid == null ? "null" : this.Externalid == string.Empty ? "" : this.Externalid)}");
-            toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id == string.Empty ? "" : this.Id)}");
-            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind == string.Empty ? "" : this.Kind)}");
-            toStringOutput.Add($"this.Lastupdated = {(this.Lastupdated == null ? "null" : this.Lastupdated == string.Empty ? "" : this.Lastupdated)}");
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name == string.Empty ? "" : this.Name)}");
-            toStringOutput.Add($"this.Region = {(this.Region == null ? "null" : this.Region == string.Empty ? "" : this.Region)}");
-            toStringOutput.Add($"this.Version = {(this.Version == null ? "null" : this.Version == string.Empty ? "" : this.Version)}");
-            toStringOutput.Add($"this.Versionid = {(this.Versionid == null ? "null" : this.Versionid == string.Empty ? "" : this.Versionid)}");
-            toStringOutput.Add($"this.Description = {(this.Description == null ? "null" : this.Description == string.Empty ? "" : this.Description)}");
+            toStringOutput.Add($"this.Address = {(this.Address == null ? "null" : this.Address)}");
+            toStringOutput.Add($"this.Addressscheme = {(this.Addressscheme == null ? "null" : this.Addressscheme)}");
+            toStringOutput.Add($"this.Billingaccountid = {(this.Billingaccountid == null ? "null" : this.Billingaccountid)}");
+            toStringOutput.Add($"this.Createdon = {(this.Createdon == null ? "null" : this.Createdon)}");
+            toStringOutput.Add($"this.Externalid = {(this.Externalid == null ? "null" : this.Externalid)}");
+            toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id)}");
+            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind)}");
+            toStringOutput.Add($"this.Lastupdated = {(this.Lastupdated == null ? "null" : this.Lastupdated)}");
+            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
+            toStringOutput.Add($"this.Region = {(this.Region == null ? "null" : this.Region)}");
+            toStringOutput.Add($"this.Version = {(this.Version == null ? "null" : this.Version)}");
+            toStringOutput.Add($"this.Versionid = {(this.Versionid == null ? "null" : this.Versionid)}");
+            toStringOutput.Add($"this.Description = {(this.Description == null ? "null" : this.Description)}");
         }
     }
 }

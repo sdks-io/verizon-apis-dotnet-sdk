@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -33,8 +34,8 @@ namespace Verizon.Standard.Models
         /// <param name="accountName">accountName.</param>
         /// <param name="labels">labels.</param>
         public AssociateLabelRequest(
-            string accountName = null,
-            Models.AccountLabels labels = null)
+            string accountName,
+            Models.AccountLabels labels)
         {
             this.AccountName = accountName;
             this.Labels = labels;
@@ -43,13 +44,13 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// The name of a billing account. An account name is usually numeric, and must include any leading zeros.
         /// </summary>
-        [JsonProperty("accountName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("accountName")]
         public string AccountName { get; set; }
 
         /// <summary>
         /// Maximum of 2,000 objects are allowed in the array.
         /// </summary>
-        [JsonProperty("labels", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("labels")]
         public Models.AccountLabels Labels { get; set; }
 
         /// <inheritdoc/>
@@ -84,7 +85,7 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
             toStringOutput.Add($"this.Labels = {(this.Labels == null ? "null" : this.Labels.ToString())}");
         }
     }

@@ -11,8 +11,8 @@ FirmwareV3Controller firmwareV3Controller = client.FirmwareV3Controller;
 ## Methods
 
 * [List Available Firmware](../../doc/controllers/firmware-v3.md#list-available-firmware)
-* [Report Device Firmware](../../doc/controllers/firmware-v3.md#report-device-firmware)
 * [Synchronize Device Firmware](../../doc/controllers/firmware-v3.md#synchronize-device-firmware)
+* [Report Device Firmware](../../doc/controllers/firmware-v3.md#report-device-firmware)
 
 
 # List Available Firmware
@@ -30,7 +30,7 @@ ListAvailableFirmwareAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `acc` | `string` | Template, Required | Account identifier. |
-| `protocol` | [`Models.FirmwareProtocolEnum`](../../doc/models/firmware-protocol-enum.md) | Query, Required | Filter to retrieve a specific protocol type used. |
+| `protocol` | [`FirmwareProtocolEnum`](../../doc/models/firmware-protocol-enum.md) | Query, Required | Filter to retrieve a specific protocol type used. |
 
 ## Response Type
 
@@ -40,10 +40,13 @@ ListAvailableFirmwareAsync(
 
 ```csharp
 string acc = "0000123456-00001";
-Models.FirmwareProtocolEnum protocol = FirmwareProtocolEnum.LWM2m;
+FirmwareProtocolEnum protocol = FirmwareProtocolEnum.LWM2m;
 try
 {
-    ApiResponse<List<FirmwarePackage>> result = await firmwareV3Controller.ListAvailableFirmwareAsync(acc, protocol);
+    ApiResponse<List<FirmwarePackage>> result = await firmwareV3Controller.ListAvailableFirmwareAsync(
+        acc,
+        protocol
+    );
 }
 catch (ApiException e)
 {
@@ -67,6 +70,75 @@ catch (ApiException e)
     "protocol": "LWM2M"
   }
 ]
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV3ResultException`](../../doc/models/fota-v3-result-exception.md) |
+
+
+# Synchronize Device Firmware
+
+Synchronize ThingSpace with the FOTA server for up to 100 devices.
+
+```csharp
+SynchronizeDeviceFirmwareAsync(
+    string acc,
+    Models.FirmwareIMEI body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `acc` | `string` | Template, Required | Account identifier. |
+| `body` | [`FirmwareIMEI`](../../doc/models/firmware-imei.md) | Body, Required | DeviceIds to get firmware info synchronously. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceFirmwareList>>`](../../doc/models/device-firmware-list.md)
+
+## Example Usage
+
+```csharp
+string acc = "0000123456-00001";
+FirmwareIMEI body = new FirmwareIMEI
+{
+    DeviceList = new List<string>
+    {
+        "15-digit IMEI",
+    },
+};
+
+try
+{
+    ApiResponse<DeviceFirmwareList> result = await firmwareV3Controller.SynchronizeDeviceFirmwareAsync(
+        acc,
+        body
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "accountName": "0000123456-00001",
+  "deviceFirmwarVersionList": [
+    {
+      "deviceId": "15-digit IMEI",
+      "status": "FirmwareVersionUpdateSuccess",
+      "firmwareVersion": "SR1.2.0.0-10657"
+    }
+  ]
+}
 ```
 
 ## Errors
@@ -104,78 +176,15 @@ string acc = "0000123456-00001";
 string deviceId = "15-digit IMEI";
 try
 {
-    ApiResponse<DeviceFirmwareVersionUpdateResult> result = await firmwareV3Controller.ReportDeviceFirmwareAsync(acc, deviceId);
+    ApiResponse<DeviceFirmwareVersionUpdateResult> result = await firmwareV3Controller.ReportDeviceFirmwareAsync(
+        acc,
+        deviceId
+    );
 }
 catch (ApiException e)
 {
     // TODO: Handle exception here
     Console.WriteLine(e.Message);
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV3ResultException`](../../doc/models/fota-v3-result-exception.md) |
-
-
-# Synchronize Device Firmware
-
-Synchronize ThingSpace with the FOTA server for up to 100 devices.
-
-```csharp
-SynchronizeDeviceFirmwareAsync(
-    string acc,
-    Models.FirmwareIMEI body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `acc` | `string` | Template, Required | Account identifier. |
-| `body` | [`Models.FirmwareIMEI`](../../doc/models/firmware-imei.md) | Body, Required | DeviceIds to get firmware info synchronously. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceFirmwareList>>`](../../doc/models/device-firmware-list.md)
-
-## Example Usage
-
-```csharp
-string acc = "0000123456-00001";
-FirmwareIMEI body = new FirmwareIMEI
-{
-    DeviceList = new List<string>
-    {
-        "15-digit IMEI",
-    },
-};
-
-try
-{
-    ApiResponse<DeviceFirmwareList> result = await firmwareV3Controller.SynchronizeDeviceFirmwareAsync(acc, body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "accountName": "0000123456-00001",
-  "deviceFirmwarVersionList": [
-    {
-      "deviceId": "15-digit IMEI",
-      "status": "FirmwareVersionUpdateSuccess",
-      "firmwareVersion": "SR1.2.0.0-10657"
-    }
-  ]
 }
 ```
 

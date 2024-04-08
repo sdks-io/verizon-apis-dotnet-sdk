@@ -10,11 +10,90 @@ SoftwareManagementLicensesV1Controller softwareManagementLicensesV1Controller = 
 
 ## Methods
 
-* [Remove Licenses From Devices](../../doc/controllers/software-management-licenses-v1.md#remove-licenses-from-devices)
-* [Delete List of Licenses to Remove](../../doc/controllers/software-management-licenses-v1.md#delete-list-of-licenses-to-remove)
 * [Assign Licenses to Devices](../../doc/controllers/software-management-licenses-v1.md#assign-licenses-to-devices)
+* [Remove Licenses From Devices](../../doc/controllers/software-management-licenses-v1.md#remove-licenses-from-devices)
 * [Create List of Licenses to Remove](../../doc/controllers/software-management-licenses-v1.md#create-list-of-licenses-to-remove)
+* [Delete List of Licenses to Remove](../../doc/controllers/software-management-licenses-v1.md#delete-list-of-licenses-to-remove)
 * [List Licenses to Remove](../../doc/controllers/software-management-licenses-v1.md#list-licenses-to-remove)
+
+
+# Assign Licenses to Devices
+
+**This endpoint is deprecated.**
+
+Assigns licenses to a specified list of devices so that firmware upgrades can be scheduled for those devices.
+
+```csharp
+AssignLicensesToDevicesAsync(
+    string account,
+    Models.V1LicensesAssignedRemovedRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account` | `string` | Template, Required | Account identifier in "##########-#####". |
+| `body` | [`V1LicensesAssignedRemovedRequest`](../../doc/models/v1-licenses-assigned-removed-request.md) | Body, Required | IMEIs of the devices to assign licenses to. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.V1LicensesAssignedRemovedResult>>`](../../doc/models/v1-licenses-assigned-removed-result.md)
+
+## Example Usage
+
+```csharp
+string account = "0242078689-00001";
+V1LicensesAssignedRemovedRequest body = new V1LicensesAssignedRemovedRequest
+{
+    DeviceList = new List<string>
+    {
+        "990003425730535",
+        "990000473475989",
+    },
+};
+
+try
+{
+    ApiResponse<V1LicensesAssignedRemovedResult> result = await softwareManagementLicensesV1Controller.AssignLicensesToDevicesAsync(
+        account,
+        body
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "accountName": "0242078689-00001",
+  "licCount": 9000,
+  "licUsedCount": 1000,
+  "deviceList": [
+    {
+      "deviceId": "900000000000001",
+      "status": "LicenseAssignSuccess",
+      "Reason": "Success"
+    },
+    {
+      "deviceId": "900000000000999",
+      "status": "LicenseAssignSuccess",
+      "Reason": "Success"
+    }
+  ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV1ResultException`](../../doc/models/fota-v1-result-exception.md) |
 
 
 # Remove Licenses From Devices
@@ -34,7 +113,7 @@ RemoveLicensesFromDevicesAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `account` | `string` | Template, Required | Account identifier in "##########-#####". |
-| `body` | [`Models.V1LicensesAssignedRemovedRequest`](../../doc/models/v1-licenses-assigned-removed-request.md) | Body, Required | IMEIs of the devices to remove licenses from. |
+| `body` | [`V1LicensesAssignedRemovedRequest`](../../doc/models/v1-licenses-assigned-removed-request.md) | Body, Required | IMEIs of the devices to remove licenses from. |
 
 ## Response Type
 
@@ -56,7 +135,10 @@ V1LicensesAssignedRemovedRequest body = new V1LicensesAssignedRemovedRequest
 
 try
 {
-    ApiResponse<V1LicensesAssignedRemovedResult> result = await softwareManagementLicensesV1Controller.RemoveLicensesFromDevicesAsync(account, body);
+    ApiResponse<V1LicensesAssignedRemovedResult> result = await softwareManagementLicensesV1Controller.RemoveLicensesFromDevicesAsync(
+        account,
+        body
+    );
 }
 catch (ApiException e)
 {
@@ -88,6 +170,76 @@ catch (ApiException e)
       "status": "LicenseRemoveFailed",
       "Reason": "No license attached to device"
     }
+  ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV1ResultException`](../../doc/models/fota-v1-result-exception.md) |
+
+
+# Create List of Licenses to Remove
+
+**This endpoint is deprecated.**
+
+Creates a list of devices from which licenses will be removed if the number of MRC licenses becomes less than the number of assigned licenses.
+
+```csharp
+CreateListOfLicensesToRemoveAsync(
+    string account,
+    Models.V1ListOfLicensesToRemoveRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account` | `string` | Template, Required | Account identifier in "##########-#####". |
+| `body` | [`V1ListOfLicensesToRemoveRequest`](../../doc/models/v1-list-of-licenses-to-remove-request.md) | Body, Required | Cancellation candidate device list. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.V1ListOfLicensesToRemoveResult>>`](../../doc/models/v1-list-of-licenses-to-remove-result.md)
+
+## Example Usage
+
+```csharp
+string account = "0242078689-00001";
+V1ListOfLicensesToRemoveRequest body = new V1ListOfLicensesToRemoveRequest
+{
+    DeviceList = new List<string>
+    {
+        "990003425730535",
+        "990000473475989",
+    },
+    Type = "append",
+};
+
+try
+{
+    ApiResponse<V1ListOfLicensesToRemoveResult> result = await softwareManagementLicensesV1Controller.CreateListOfLicensesToRemoveAsync(
+        account,
+        body
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "count": 2,
+  "deviceList": [
+    "900000000000001",
+    "900000000000999"
   ]
 }
 ```
@@ -150,149 +302,6 @@ catch (ApiException e)
 | 400 | Unexpected error. | [`FotaV1ResultException`](../../doc/models/fota-v1-result-exception.md) |
 
 
-# Assign Licenses to Devices
-
-**This endpoint is deprecated.**
-
-Assigns licenses to a specified list of devices so that firmware upgrades can be scheduled for those devices.
-
-```csharp
-AssignLicensesToDevicesAsync(
-    string account,
-    Models.V1LicensesAssignedRemovedRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier in "##########-#####". |
-| `body` | [`Models.V1LicensesAssignedRemovedRequest`](../../doc/models/v1-licenses-assigned-removed-request.md) | Body, Required | IMEIs of the devices to assign licenses to. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.V1LicensesAssignedRemovedResult>>`](../../doc/models/v1-licenses-assigned-removed-result.md)
-
-## Example Usage
-
-```csharp
-string account = "0242078689-00001";
-V1LicensesAssignedRemovedRequest body = new V1LicensesAssignedRemovedRequest
-{
-    DeviceList = new List<string>
-    {
-        "990003425730535",
-        "990000473475989",
-    },
-};
-
-try
-{
-    ApiResponse<V1LicensesAssignedRemovedResult> result = await softwareManagementLicensesV1Controller.AssignLicensesToDevicesAsync(account, body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "accountName": "0242078689-00001",
-  "licCount": 9000,
-  "licUsedCount": 1000,
-  "deviceList": [
-    {
-      "deviceId": "900000000000001",
-      "status": "LicenseAssignSuccess",
-      "Reason": "Success"
-    },
-    {
-      "deviceId": "900000000000999",
-      "status": "LicenseAssignSuccess",
-      "Reason": "Success"
-    }
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV1ResultException`](../../doc/models/fota-v1-result-exception.md) |
-
-
-# Create List of Licenses to Remove
-
-**This endpoint is deprecated.**
-
-Creates a list of devices from which licenses will be removed if the number of MRC licenses becomes less than the number of assigned licenses.
-
-```csharp
-CreateListOfLicensesToRemoveAsync(
-    string account,
-    Models.V1ListOfLicensesToRemoveRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier in "##########-#####". |
-| `body` | [`Models.V1ListOfLicensesToRemoveRequest`](../../doc/models/v1-list-of-licenses-to-remove-request.md) | Body, Required | Cancellation candidate device list. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.V1ListOfLicensesToRemoveResult>>`](../../doc/models/v1-list-of-licenses-to-remove-result.md)
-
-## Example Usage
-
-```csharp
-string account = "0242078689-00001";
-V1ListOfLicensesToRemoveRequest body = new V1ListOfLicensesToRemoveRequest
-{
-    DeviceList = new List<string>
-    {
-        "990003425730535",
-        "990000473475989",
-    },
-    Type = "append",
-};
-
-try
-{
-    ApiResponse<V1ListOfLicensesToRemoveResult> result = await softwareManagementLicensesV1Controller.CreateListOfLicensesToRemoveAsync(account, body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "count": 2,
-  "deviceList": [
-    "900000000000001",
-    "900000000000999"
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV1ResultException`](../../doc/models/fota-v1-result-exception.md) |
-
-
 # List Licenses to Remove
 
 **This endpoint is deprecated.**
@@ -323,7 +332,10 @@ string account = "0242078689-00001";
 string startIndex = "startIndex4";
 try
 {
-    ApiResponse<V1ListOfLicensesToRemove> result = await softwareManagementLicensesV1Controller.ListLicensesToRemoveAsync(account, startIndex);
+    ApiResponse<V1ListOfLicensesToRemove> result = await softwareManagementLicensesV1Controller.ListLicensesToRemoveAsync(
+        account,
+        startIndex
+    );
 }
 catch (ApiException e)
 {

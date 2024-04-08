@@ -10,56 +10,12 @@ ClientLoggingController clientLoggingController = client.ClientLoggingController
 
 ## Methods
 
-* [Disable Device Logging](../../doc/controllers/client-logging.md#disable-device-logging)
 * [List Devices With Logging Enabled](../../doc/controllers/client-logging.md#list-devices-with-logging-enabled)
 * [Enable Logging for Devices](../../doc/controllers/client-logging.md#enable-logging-for-devices)
-* [List Device Logs](../../doc/controllers/client-logging.md#list-device-logs)
 * [Disable Logging for Devices](../../doc/controllers/client-logging.md#disable-logging-for-devices)
 * [Enable Device Logging](../../doc/controllers/client-logging.md#enable-device-logging)
-
-
-# Disable Device Logging
-
-Disables logging for a specific device.
-
-```csharp
-DisableDeviceLoggingAsync(
-    string account,
-    string deviceId)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier. |
-| `deviceId` | `string` | Template, Required | Device IMEI identifier. |
-
-## Response Type
-
-`Task`
-
-## Example Usage
-
-```csharp
-string account = "0000123456-00001";
-string deviceId = "990013907835573";
-try
-{
-    await clientLoggingController.DisableDeviceLoggingAsync(account, deviceId);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
+* [Disable Device Logging](../../doc/controllers/client-logging.md#disable-device-logging)
+* [List Device Logs](../../doc/controllers/client-logging.md#list-device-logs)
 
 
 # List Devices With Logging Enabled
@@ -145,7 +101,7 @@ EnableLoggingForDevicesAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `account` | `string` | Template, Required | Account identifier. |
-| `body` | [`Models.DeviceLoggingRequest`](../../doc/models/device-logging-request.md) | Body, Required | Device logging information. |
+| `body` | [`DeviceLoggingRequest`](../../doc/models/device-logging-request.md) | Body, Required | Device logging information. |
 
 ## Response Type
 
@@ -169,7 +125,10 @@ DeviceLoggingRequest body = new DeviceLoggingRequest
 
 try
 {
-    ApiResponse<List<DeviceLoggingStatus>> result = await clientLoggingController.EnableLoggingForDevicesAsync(account, body);
+    ApiResponse<List<DeviceLoggingStatus>> result = await clientLoggingController.EnableLoggingForDevicesAsync(
+        account,
+        body
+    );
 }
 catch (ApiException e)
 {
@@ -212,65 +171,6 @@ catch (ApiException e)
 | 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
 
 
-# List Device Logs
-
-Gets logs for a specific device.
-
-```csharp
-ListDeviceLogsAsync(
-    string account,
-    string deviceId)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier. |
-| `deviceId` | `string` | Template, Required | Device IMEI identifier. |
-
-## Response Type
-
-[`Task<ApiResponse<List<Models.DeviceLog>>>`](../../doc/models/device-log.md)
-
-## Example Usage
-
-```csharp
-string account = "0000123456-00001";
-string deviceId = "990013907835573";
-try
-{
-    ApiResponse<List<DeviceLog>> result = await clientLoggingController.ListDeviceLogsAsync(account, deviceId);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-[
-  {
-    "deviceId": "990013907835573",
-    "logTime": "2020-10-22T19:29:50.901Z",
-    "logType": "string",
-    "eventLog": "string",
-    "binaryLogFileBase64": "string",
-    "binaryLogFilename": "string"
-  }
-]
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
-
-
 # Disable Logging for Devices
 
 Turn logging off for a list of devices.
@@ -299,7 +199,10 @@ string account = "0000123456-00001";
 string deviceIds = "990013907835573";
 try
 {
-    await clientLoggingController.DisableLoggingForDevicesAsync(account, deviceIds);
+    await clientLoggingController.DisableLoggingForDevicesAsync(
+        account,
+        deviceIds
+    );
 }
 catch (ApiException e)
 {
@@ -343,7 +246,10 @@ string account = "0000123456-00001";
 string deviceId = "990013907835573";
 try
 {
-    ApiResponse<DeviceLoggingStatus> result = await clientLoggingController.EnableDeviceLoggingAsync(account, deviceId);
+    ApiResponse<DeviceLoggingStatus> result = await clientLoggingController.EnableDeviceLoggingAsync(
+        account,
+        deviceId
+    );
 }
 catch (ApiException e)
 {
@@ -359,6 +265,115 @@ catch (ApiException e)
   "deviceId": "990013907835573",
   "expiryDate": "2020-10-19"
 }
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
+
+
+# Disable Device Logging
+
+Disables logging for a specific device.
+
+```csharp
+DisableDeviceLoggingAsync(
+    string account,
+    string deviceId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account` | `string` | Template, Required | Account identifier. |
+| `deviceId` | `string` | Template, Required | Device IMEI identifier. |
+
+## Response Type
+
+`Task`
+
+## Example Usage
+
+```csharp
+string account = "0000123456-00001";
+string deviceId = "990013907835573";
+try
+{
+    await clientLoggingController.DisableDeviceLoggingAsync(
+        account,
+        deviceId
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
+
+
+# List Device Logs
+
+Gets logs for a specific device.
+
+```csharp
+ListDeviceLogsAsync(
+    string account,
+    string deviceId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account` | `string` | Template, Required | Account identifier. |
+| `deviceId` | `string` | Template, Required | Device IMEI identifier. |
+
+## Response Type
+
+[`Task<ApiResponse<List<Models.DeviceLog>>>`](../../doc/models/device-log.md)
+
+## Example Usage
+
+```csharp
+string account = "0000123456-00001";
+string deviceId = "990013907835573";
+try
+{
+    ApiResponse<List<DeviceLog>> result = await clientLoggingController.ListDeviceLogsAsync(
+        account,
+        deviceId
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+[
+  {
+    "deviceId": "990013907835573",
+    "logTime": "2020-10-22T19:29:50.901Z",
+    "logType": "string",
+    "eventLog": "string",
+    "binaryLogFileBase64": "string",
+    "binaryLogFilename": "string"
+  }
+]
 ```
 
 ## Errors

@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -265,25 +266,25 @@ namespace Verizon.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"this.Configurationfailures = {(this.Configurationfailures == null ? "null" : this.Configurationfailures.ToString())}");
-            toStringOutput.Add($"this.Createdon = {(this.Createdon == null ? "null" : this.Createdon == string.Empty ? "" : this.Createdon)}");
-            toStringOutput.Add($"this.Delegateid = {(this.Delegateid == null ? "null" : this.Delegateid == string.Empty ? "" : this.Delegateid)}");
-            toStringOutput.Add($"this.Description = {(this.Description == null ? "null" : this.Description == string.Empty ? "" : this.Description)}");
+            toStringOutput.Add($"this.Createdon = {(this.Createdon == null ? "null" : this.Createdon)}");
+            toStringOutput.Add($"this.Delegateid = {(this.Delegateid == null ? "null" : this.Delegateid)}");
+            toStringOutput.Add($"this.Description = {(this.Description == null ? "null" : this.Description)}");
             toStringOutput.Add($"this.Disabled = {(this.Disabled == null ? "null" : this.Disabled.ToString())}");
-            toStringOutput.Add($"this.Email = {(this.Email == null ? "null" : this.Email == string.Empty ? "" : this.Email)}");
-            toStringOutput.Add($"this.Filter = {(this.Filter == null ? "null" : this.Filter == string.Empty ? "" : this.Filter)}");
-            toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id == string.Empty ? "" : this.Id)}");
-            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind == string.Empty ? "" : this.Kind)}");
-            toStringOutput.Add($"this.Laststreamingstatus = {(this.Laststreamingstatus == null ? "null" : this.Laststreamingstatus == string.Empty ? "" : this.Laststreamingstatus)}");
-            toStringOutput.Add($"this.Laststreamingtime = {(this.Laststreamingtime == null ? "null" : this.Laststreamingtime == string.Empty ? "" : this.Laststreamingtime)}");
-            toStringOutput.Add($"this.Lastupdated = {(this.Lastupdated == null ? "null" : this.Lastupdated == string.Empty ? "" : this.Lastupdated)}");
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name == string.Empty ? "" : this.Name)}");
+            toStringOutput.Add($"this.Email = {(this.Email == null ? "null" : this.Email)}");
+            toStringOutput.Add($"this.Filter = {(this.Filter == null ? "null" : this.Filter)}");
+            toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id)}");
+            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind)}");
+            toStringOutput.Add($"this.Laststreamingstatus = {(this.Laststreamingstatus == null ? "null" : this.Laststreamingstatus)}");
+            toStringOutput.Add($"this.Laststreamingtime = {(this.Laststreamingtime == null ? "null" : this.Laststreamingtime)}");
+            toStringOutput.Add($"this.Lastupdated = {(this.Lastupdated == null ? "null" : this.Lastupdated)}");
+            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
             toStringOutput.Add($"this.Networkfailures = {(this.Networkfailures == null ? "null" : this.Networkfailures.ToString())}");
             toStringOutput.Add($"this.Streamfailures = {(this.Streamfailures == null ? "null" : this.Streamfailures.ToString())}");
-            toStringOutput.Add($"this.Streamkind = {(this.Streamkind == null ? "null" : this.Streamkind == string.Empty ? "" : this.Streamkind)}");
-            toStringOutput.Add($"this.Targetid = {(this.Targetid == null ? "null" : this.Targetid == string.Empty ? "" : this.Targetid)}");
-            toStringOutput.Add($"this.Targettype = {(this.Targettype == null ? "null" : this.Targettype == string.Empty ? "" : this.Targettype)}");
-            toStringOutput.Add($"this.Version = {(this.Version == null ? "null" : this.Version == string.Empty ? "" : this.Version)}");
-            toStringOutput.Add($"this.Versionid = {(this.Versionid == null ? "null" : this.Versionid == string.Empty ? "" : this.Versionid)}");
+            toStringOutput.Add($"this.Streamkind = {(this.Streamkind == null ? "null" : this.Streamkind)}");
+            toStringOutput.Add($"this.Targetid = {(this.Targetid == null ? "null" : this.Targetid)}");
+            toStringOutput.Add($"this.Targettype = {(this.Targettype == null ? "null" : this.Targettype)}");
+            toStringOutput.Add($"this.Version = {(this.Version == null ? "null" : this.Version)}");
+            toStringOutput.Add($"this.Versionid = {(this.Versionid == null ? "null" : this.Versionid)}");
         }
     }
 }

@@ -19,7 +19,7 @@ Account device information.
 | `AppFotaEligible` | `bool` | Required | Device application FOTA capable. |
 | `LicenseAssigned` | `bool` | Required | License assigned device. |
 | `DistributionType` | `string` | Required | LWM2M, OMD-DM or HTTP. |
-| `SoftwareList` | [`List<Models.V2SoftwareInfo>`](../../doc/models/v2-software-info.md) | Required | List of sofware. |
+| `SoftwareList` | [`List<V2SoftwareInfo>`](../../doc/models/v2-software-info.md) | Required | List of sofware. |
 | `CreateTime` | `string` | Optional | The date and time of when the device is created. |
 | `UpgradeTime` | `string` | Optional | The date and time of when the device firmware or software is upgraded. |
 | `UpdateTime` | `string` | Optional | The date and time of when the device is updated. |

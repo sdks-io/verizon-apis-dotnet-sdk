@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -32,7 +33,7 @@ namespace Verizon.Standard.Models
         /// </summary>
         /// <param name="oldPassword">oldPassword.</param>
         public SessionResetPasswordRequest(
-            string oldPassword = null)
+            string oldPassword)
         {
             this.OldPassword = oldPassword;
         }
@@ -40,7 +41,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// The current password for the username.
         /// </summary>
-        [JsonProperty("oldPassword", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("oldPassword")]
         public string OldPassword { get; set; }
 
         /// <inheritdoc/>
@@ -74,7 +75,7 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.OldPassword = {(this.OldPassword == null ? "null" : this.OldPassword == string.Empty ? "" : this.OldPassword)}");
+            toStringOutput.Add($"this.OldPassword = {(this.OldPassword == null ? "null" : this.OldPassword)}");
         }
     }
 }

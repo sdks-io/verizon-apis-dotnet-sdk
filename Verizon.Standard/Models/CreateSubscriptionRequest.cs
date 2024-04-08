@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -165,14 +166,14 @@ namespace Verizon.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"this.Accountidentifier = {(this.Accountidentifier == null ? "null" : this.Accountidentifier.ToString())}");
-            toStringOutput.Add($"this.Description = {(this.Description == null ? "null" : this.Description == string.Empty ? "" : this.Description)}");
+            toStringOutput.Add($"this.Description = {(this.Description == null ? "null" : this.Description)}");
             toStringOutput.Add($"this.Disabled = {(this.Disabled == null ? "null" : this.Disabled.ToString())}");
-            toStringOutput.Add($"this.Email = {(this.Email == null ? "null" : this.Email == string.Empty ? "" : this.Email)}");
-            toStringOutput.Add($"this.Filter = {(this.Filter == null ? "null" : this.Filter == string.Empty ? "" : this.Filter)}");
-            toStringOutput.Add($"this.Billingaccountid = {(this.Billingaccountid == null ? "null" : this.Billingaccountid == string.Empty ? "" : this.Billingaccountid)}");
-            toStringOutput.Add($"this.Streamkind = {(this.Streamkind == null ? "null" : this.Streamkind == string.Empty ? "" : this.Streamkind)}");
-            toStringOutput.Add($"this.Targetid = {(this.Targetid == null ? "null" : this.Targetid == string.Empty ? "" : this.Targetid)}");
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name == string.Empty ? "" : this.Name)}");
+            toStringOutput.Add($"this.Email = {(this.Email == null ? "null" : this.Email)}");
+            toStringOutput.Add($"this.Filter = {(this.Filter == null ? "null" : this.Filter)}");
+            toStringOutput.Add($"this.Billingaccountid = {(this.Billingaccountid == null ? "null" : this.Billingaccountid)}");
+            toStringOutput.Add($"this.Streamkind = {(this.Streamkind == null ? "null" : this.Streamkind)}");
+            toStringOutput.Add($"this.Targetid = {(this.Targetid == null ? "null" : this.Targetid)}");
+            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
             toStringOutput.Add($"this.Allowaggregation = {(this.Allowaggregation == null ? "null" : this.Allowaggregation.ToString())}");
         }
     }

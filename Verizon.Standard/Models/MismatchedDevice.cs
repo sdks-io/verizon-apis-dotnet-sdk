@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -134,13 +135,13 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
-            toStringOutput.Add($"this.Mdn = {(this.Mdn == null ? "null" : this.Mdn == string.Empty ? "" : this.Mdn)}");
-            toStringOutput.Add($"this.ActivationDate = {(this.ActivationDate == null ? "null" : this.ActivationDate == string.Empty ? "" : this.ActivationDate)}");
-            toStringOutput.Add($"this.Iccid = {(this.Iccid == null ? "null" : this.Iccid == string.Empty ? "" : this.Iccid)}");
-            toStringOutput.Add($"this.PreImei = {(this.PreImei == null ? "null" : this.PreImei == string.Empty ? "" : this.PreImei)}");
-            toStringOutput.Add($"this.PostImei = {(this.PostImei == null ? "null" : this.PostImei == string.Empty ? "" : this.PostImei)}");
-            toStringOutput.Add($"this.SimOtaDate = {(this.SimOtaDate == null ? "null" : this.SimOtaDate == string.Empty ? "" : this.SimOtaDate)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
+            toStringOutput.Add($"this.Mdn = {(this.Mdn == null ? "null" : this.Mdn)}");
+            toStringOutput.Add($"this.ActivationDate = {(this.ActivationDate == null ? "null" : this.ActivationDate)}");
+            toStringOutput.Add($"this.Iccid = {(this.Iccid == null ? "null" : this.Iccid)}");
+            toStringOutput.Add($"this.PreImei = {(this.PreImei == null ? "null" : this.PreImei)}");
+            toStringOutput.Add($"this.PostImei = {(this.PostImei == null ? "null" : this.PostImei)}");
+            toStringOutput.Add($"this.SimOtaDate = {(this.SimOtaDate == null ? "null" : this.SimOtaDate)}");
         }
     }
 }

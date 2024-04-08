@@ -86,7 +86,7 @@ RegisterCallbackAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `account` | `string` | Template, Required | Account number. |
-| `body` | [`Models.DeviceLocationCallback`](../../doc/models/device-location-callback.md) | Body, Required | Request to register a callback. |
+| `body` | [`DeviceLocationCallback`](../../doc/models/device-location-callback.md) | Body, Required | Request to register a callback. |
 
 ## Response Type
 
@@ -104,7 +104,10 @@ DeviceLocationCallback body = new DeviceLocationCallback
 
 try
 {
-    ApiResponse<CallbackRegistrationResult> result = await deviceLocationCallbacksController.RegisterCallbackAsync(account, body);
+    ApiResponse<CallbackRegistrationResult> result = await deviceLocationCallbacksController.RegisterCallbackAsync(
+        account,
+        body
+    );
 }
 catch (ApiException e)
 {
@@ -144,7 +147,7 @@ DeregisterCallbackAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `account` | `string` | Template, Required | Account number. |
-| `service` | [`Models.CallbackServiceNameEnum`](../../doc/models/callback-service-name-enum.md) | Template, Required | Callback service name. |
+| `service` | [`CallbackServiceNameEnum`](../../doc/models/callback-service-name-enum.md) | Template, Required | Callback service name. |
 
 ## Response Type
 
@@ -154,10 +157,13 @@ DeregisterCallbackAsync(
 
 ```csharp
 string account = "0252012345-00001";
-Models.CallbackServiceNameEnum service = CallbackServiceNameEnum.Location;
+CallbackServiceNameEnum service = CallbackServiceNameEnum.Location;
 try
 {
-    ApiResponse<DeviceLocationSuccessResult> result = await deviceLocationCallbacksController.DeregisterCallbackAsync(account, service);
+    ApiResponse<DeviceLocationSuccessResult> result = await deviceLocationCallbacksController.DeregisterCallbackAsync(
+        account,
+        service
+    );
 }
 catch (ApiException e)
 {

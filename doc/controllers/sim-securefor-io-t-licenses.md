@@ -28,8 +28,8 @@ AssignLicenseToDevicesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.AssignLicenseRequest`](../../doc/models/assign-license-request.md) | Body, Required | Request to assign license to devices. |
-| `xRequestID` | `string` | Header, Optional | Transaction Id.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9]-[0-9]{3,32}$` |
+| `body` | [`AssignLicenseRequest`](../../doc/models/assign-license-request.md) | Body, Required | Request to assign license to devices. |
+| `xRequestID` | `string` | Header, Optional | Transaction Id. |
 
 ## Response Type
 
@@ -60,7 +60,7 @@ AssignLicenseRequest body = new AssignLicenseRequest
 
 try
 {
-    ApiResponse<SecuritySuccessResult> result = await sIMSecureForIoTLicensesController.AssignLicenseToDevicesAsync(body, null);
+    ApiResponse<SecuritySuccessResult> result = await sIMSecureForIoTLicensesController.AssignLicenseToDevicesAsync(body);
 }
 catch (ApiException e)
 {
@@ -103,7 +103,7 @@ UnassignLicenseToDevicesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `xRequestID` | `string` | Header, Required | Transaction Id.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9]-[0-9]{3,32}$` |
+| `xRequestID` | `string` | Header, Required | Transaction Id. |
 
 ## Response Type
 

@@ -10,6 +10,7 @@ namespace Verizon.Standard.Exceptions
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -35,7 +36,7 @@ namespace Verizon.Standard.Exceptions
         /// <summary>
         /// Error Code.
         /// </summary>
-        [JsonProperty("responseCode", ItemConverterType = typeof(StringEnumConverter), NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("responseCode", NullValueHandling = NullValueHandling.Ignore)]
         public new Models.ErrorResponseCodeEnum? ResponseCode { get; set; }
 
         /// <summary>
@@ -49,11 +50,5 @@ namespace Verizon.Standard.Exceptions
         /// </summary>
         [JsonProperty("fault", NullValueHandling = NullValueHandling.Ignore)]
         public Models.HyperPreciseLocationFault Fault { get; set; }
-
-        /// <summary>
-        /// Gets or sets Example.
-        /// </summary>
-        [JsonProperty("example", NullValueHandling = NullValueHandling.Ignore)]
-        public object Example { get; set; }
     }
 }

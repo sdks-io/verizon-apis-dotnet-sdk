@@ -10,6 +10,7 @@ namespace Verizon.Standard.Exceptions
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -35,7 +36,7 @@ namespace Verizon.Standard.Exceptions
         /// <summary>
         /// Gets or sets error code.
         /// </summary>
-        [JsonProperty("error", ItemConverterType = typeof(StringEnumConverter))]
+        [JsonProperty("error")]
         public Models.OauthProviderErrorEnum Error { get; set; }
 
         /// <summary>

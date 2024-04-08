@@ -13,7 +13,7 @@ The engagements associated with the account.
 |  --- | --- | --- | --- |
 | `EngagementId` | `string` | Optional | The engagement ID. |
 | `ChargingGroup` | `string` | Optional | The charging group name. |
-| `Services` | [`List<Models.AccountService>`](../../doc/models/account-service.md) | Optional | The services associated with the account. |
+| `Services` | [`List<AccountService>`](../../doc/models/account-service.md) | Optional | The services associated with the account. |
 
 ## Example (as JSON)
 

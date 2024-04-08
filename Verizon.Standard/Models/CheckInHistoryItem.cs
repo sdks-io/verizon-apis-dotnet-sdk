@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -115,10 +116,10 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId == string.Empty ? "" : this.DeviceId)}");
-            toStringOutput.Add($"this.ClientType = {(this.ClientType == null ? "null" : this.ClientType == string.Empty ? "" : this.ClientType)}");
-            toStringOutput.Add($"this.Result = {(this.Result == null ? "null" : this.Result == string.Empty ? "" : this.Result)}");
-            toStringOutput.Add($"this.FailureType = {(this.FailureType == null ? "null" : this.FailureType == string.Empty ? "" : this.FailureType)}");
+            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId)}");
+            toStringOutput.Add($"this.ClientType = {(this.ClientType == null ? "null" : this.ClientType)}");
+            toStringOutput.Add($"this.Result = {(this.Result == null ? "null" : this.Result)}");
+            toStringOutput.Add($"this.FailureType = {(this.FailureType == null ? "null" : this.FailureType)}");
             toStringOutput.Add($"this.TimeCompleted = {this.TimeCompleted}");
         }
     }

@@ -11,8 +11,8 @@ Trigger details.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Anomalyattributes` | [`Models.UsageAnomalyAttributes`](../../doc/models/usage-anomaly-attributes.md) | Optional | The details of the UsageAnomaly trigger. |
-| `Notification` | [`Models.Notification`](../../doc/models/notification.md) | Optional | The notification details of the trigger. |
+| `Anomalyattributes` | [`UsageAnomalyAttributes`](../../doc/models/usage-anomaly-attributes.md) | Optional | The details of the UsageAnomaly trigger. |
+| `Notification` | [`Notification`](../../doc/models/notification.md) | Optional | The notification details of the trigger. |
 
 ## Example (as JSON)
 

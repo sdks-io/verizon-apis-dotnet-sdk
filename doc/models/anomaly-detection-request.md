@@ -13,7 +13,7 @@ Anomaly detection request.
 |  --- | --- | --- | --- |
 | `AccountName` | `string` | Optional | The name of a billing account. An account name is usually numeric, and must include any leading zeros.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32` |
 | `RequestType` | `string` | Optional | The type of request being made. anomaly is the request to activate anomaly detection. |
-| `SensitivityParameter` | [`Models.SensitivityParameters`](../../doc/models/sensitivity-parameters.md) | Optional | Details for sensitivity parameters. |
+| `SensitivityParameter` | [`SensitivityParameters`](../../doc/models/sensitivity-parameters.md) | Optional | Details for sensitivity parameters. |
 
 ## Example (as JSON)
 

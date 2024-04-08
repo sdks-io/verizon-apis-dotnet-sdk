@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -73,7 +74,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Service name
         /// </summary>
-        [JsonProperty("serviceName", ItemConverterType = typeof(StringEnumConverter), NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("serviceName", NullValueHandling = NullValueHandling.Ignore)]
         public Models.ServiceNameEnum? ServiceName { get; set; }
 
         /// <summary>
@@ -124,12 +125,12 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Txid = {(this.Txid == null ? "null" : this.Txid == string.Empty ? "" : this.Txid)}");
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
-            toStringOutput.Add($"this.PaccountName = {(this.PaccountName == null ? "null" : this.PaccountName == string.Empty ? "" : this.PaccountName)}");
+            toStringOutput.Add($"this.Txid = {(this.Txid == null ? "null" : this.Txid)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
+            toStringOutput.Add($"this.PaccountName = {(this.PaccountName == null ? "null" : this.PaccountName)}");
             toStringOutput.Add($"this.ServiceName = {(this.ServiceName == null ? "null" : this.ServiceName.ToString())}");
-            toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status == string.Empty ? "" : this.Status)}");
-            toStringOutput.Add($"this.Reason = {(this.Reason == null ? "null" : this.Reason == string.Empty ? "" : this.Reason)}");
+            toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status)}");
+            toStringOutput.Add($"this.Reason = {(this.Reason == null ? "null" : this.Reason)}");
         }
     }
 }

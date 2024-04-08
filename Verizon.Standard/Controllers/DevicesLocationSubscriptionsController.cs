@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -34,37 +33,6 @@ namespace Verizon.Standard.Controllers
         /// Initializes a new instance of the <see cref="DevicesLocationSubscriptionsController"/> class.
         /// </summary>
         internal DevicesLocationSubscriptionsController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
-
-        /// <summary>
-        /// This endpoint allows user to search for billable usage for accounts based on the provided date range.
-        /// </summary>
-        /// <param name="body">Required parameter: Request to obtain billable usage for accounts..</param>
-        /// <returns>Returns the ApiResponse of object response from the API call.</returns>
-        public ApiResponse<object> GetLocationServiceUsage(
-                Models.BillUsageRequest body)
-            => CoreHelper.RunTask(GetLocationServiceUsageAsync(body));
-
-        /// <summary>
-        /// This endpoint allows user to search for billable usage for accounts based on the provided date range.
-        /// </summary>
-        /// <param name="body">Required parameter: Request to obtain billable usage for accounts..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of object response from the API call.</returns>
-        public async Task<ApiResponse<object>> GetLocationServiceUsageAsync(
-                Models.BillUsageRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<object>()
-              .Server(Server.DeviceLocation)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/usage")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "*/*"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new DeviceLocationResultException(_reason, _context)))
-                  .Deserializer(_response => _response))
-              .ExecuteAsync(cancellationToken);
 
         /// <summary>
         /// This subscriptions endpoint retrieves an account's current location subscription status.
@@ -88,12 +56,42 @@ namespace Verizon.Standard.Controllers
               .Server(Server.DeviceLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/subscriptions/{account}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))))
               .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new DeviceLocationResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// This endpoint allows user to search for billable usage for accounts based on the provided date range.
+        /// </summary>
+        /// <param name="body">Required parameter: Request to obtain billable usage for accounts..</param>
+        /// <returns>Returns the ApiResponse of object response from the API call.</returns>
+        public ApiResponse<object> GetLocationServiceUsage(
+                Models.BillUsageRequest body)
+            => CoreHelper.RunTask(GetLocationServiceUsageAsync(body));
+
+        /// <summary>
+        /// This endpoint allows user to search for billable usage for accounts based on the provided date range.
+        /// </summary>
+        /// <param name="body">Required parameter: Request to obtain billable usage for accounts..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of object response from the API call.</returns>
+        public async Task<ApiResponse<object>> GetLocationServiceUsageAsync(
+                Models.BillUsageRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<object>()
+              .Server(Server.DeviceLocation)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/usage")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "*/*"))))
+              .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new DeviceLocationResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceLocationSubscription>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .Deserializer(_response => _response))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

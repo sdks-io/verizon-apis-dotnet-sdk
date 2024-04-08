@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -33,8 +34,8 @@ namespace Verizon.Standard.Models
         /// <param name="address">address.</param>
         /// <param name="customerName">customerName.</param>
         public PlaceOfUse(
-            Models.Address address = null,
-            Models.CustomerName customerName = null)
+            Models.Address address,
+            Models.CustomerName customerName)
         {
             this.Address = address;
             this.CustomerName = customerName;
@@ -43,13 +44,13 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// The customer address for the line's primary place of use, for line usage taxation.
         /// </summary>
-        [JsonProperty("address", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("address")]
         public Models.Address Address { get; set; }
 
         /// <summary>
         /// The customer name to be used for line usage taxation.
         /// </summary>
-        [JsonProperty("customerName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("customerName")]
         public Models.CustomerName CustomerName { get; set; }
 
         /// <inheritdoc/>

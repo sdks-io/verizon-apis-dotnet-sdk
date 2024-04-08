@@ -11,8 +11,8 @@ Request for device status to check availability of activation.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `AccountName` | `string` | Optional | The name of a billing account. |
-| `Devices` | [`List<Models.AccountDeviceList>`](../../doc/models/account-device-list.md) | Optional | Up to 10,000 devices that you want to move to a different account, specified by device identifier. |
+| `AccountName` | `string` | Required | The name of a billing account. |
+| `Devices` | [`List<AccountDeviceList>`](../../doc/models/account-device-list.md) | Required | Up to 10,000 devices that you want to move to a different account, specified by device identifier. |
 
 ## Example (as JSON)
 
@@ -26,7 +26,8 @@ Request for device status to check availability of activation.
           "kind": "meid",
           "id": "A100008385E561"
         }
-      ]
+      ],
+      "ipAddress": "ipAddress4"
     }
   ]
 }

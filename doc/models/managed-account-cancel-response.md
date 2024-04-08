@@ -12,7 +12,7 @@
 | `Txid` | `string` | Required | Transaction identifier |
 | `AccountName` | `string` | Required | Managed account identifier |
 | `PaccountName` | `string` | Required | Primary account identifier |
-| `ServiceName` | [`Models.ServiceNameEnum`](../../doc/models/service-name-enum.md) | Required | Service name<br>**Default**: `ServiceNameEnum.Location` |
+| `ServiceName` | [`ServiceNameEnum`](../../doc/models/service-name-enum.md) | Required | Service name<br>**Default**: `ServiceNameEnum.Location` |
 | `Status` | `string` | Required | Deactivate/cancel status, Success or Fail |
 | `Reason` | `string` | Required | Detailed reason |
 

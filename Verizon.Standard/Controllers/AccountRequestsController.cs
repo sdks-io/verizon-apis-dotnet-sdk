@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -58,16 +57,15 @@ namespace Verizon.Standard.Controllers
                 string requestId,
                 CancellationToken cancellationToken = default)
             => await CreateApiCall<Models.AsynchronousRequestResult>()
-              .Server(Server.M2m)
+              .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/v1/accounts/{aname}/requests/{requestId}/status")
-                  .WithAuth("global")
+                  .Setup(HttpMethod.Get, "/m2m/v1/accounts/{aname}/requests/{requestId}/status")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("aname", aname))
                       .Template(_template => _template.Setup("requestId", requestId))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AsynchronousRequestResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Error response.", (_reason, _context) => new ConnectivityManagementResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

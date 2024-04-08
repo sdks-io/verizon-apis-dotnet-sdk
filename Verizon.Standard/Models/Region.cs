@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -293,11 +294,11 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.RegionId = {(this.RegionId == null ? "null" : this.RegionId == string.Empty ? "" : this.RegionId)}");
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name == string.Empty ? "" : this.Name)}");
-            toStringOutput.Add($"this.CountryCode = {(this.CountryCode == null ? "null" : this.CountryCode == string.Empty ? "" : this.CountryCode)}");
-            toStringOutput.Add($"this.Metro = {(this.Metro == null ? "null" : this.Metro == string.Empty ? "" : this.Metro)}");
-            toStringOutput.Add($"this.Area = {(this.Area == null ? "null" : this.Area == string.Empty ? "" : this.Area)}");
+            toStringOutput.Add($"this.RegionId = {(this.RegionId == null ? "null" : this.RegionId)}");
+            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
+            toStringOutput.Add($"this.CountryCode = {(this.CountryCode == null ? "null" : this.CountryCode)}");
+            toStringOutput.Add($"this.Metro = {(this.Metro == null ? "null" : this.Metro)}");
+            toStringOutput.Add($"this.Area = {(this.Area == null ? "null" : this.Area)}");
         }
     }
 }

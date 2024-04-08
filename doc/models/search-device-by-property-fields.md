@@ -11,14 +11,14 @@ List of device sensors and their most recently reported values.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Acceleration` | [`Models.Acceleration`](../../doc/models/acceleration.md) | Optional | - |
+| `Acceleration` | [`Acceleration`](../../doc/models/acceleration.md) | Optional | - |
 | `Battery` | `string` | Optional | - |
 | `Humidity` | `string` | Optional | - |
 | `Light` | `string` | Optional | - |
 | `Pressure` | `string` | Optional | - |
 | `SignalStrength` | `string` | Optional | - |
 | `Temperature` | `string` | Optional | - |
-| `DevicePropertylocation` | [`Models.DevicePropertylocation`](../../doc/models/device-propertylocation.md) | Optional | - |
+| `DevicePropertylocation` | [`DevicePropertylocation`](../../doc/models/device-propertylocation.md) | Optional | - |
 
 ## Example (as JSON)
 

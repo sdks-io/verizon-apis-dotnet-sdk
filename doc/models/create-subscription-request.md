@@ -11,7 +11,7 @@ The details of the subscription that you want to create.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Accountidentifier` | [`Models.AccountIdentifier`](../../doc/models/account-identifier.md) | Optional | The ID of the authenticating billing account, in the format `{"billingaccountid":"1234567890-12345"}`. |
+| `Accountidentifier` | [`AccountIdentifier`](../../doc/models/account-identifier.md) | Optional | The ID of the authenticating billing account, in the format `{"billingaccountid":"1234567890-12345"}`. |
 | `Description` | `string` | Optional | Descriptive information about the subscription. |
 | `Disabled` | `bool?` | Optional | Enable or disable the subscription. A disabled subscription will not send any data. |
 | `Email` | `string` | Optional | The address to which any error reports should be delivered. |
@@ -33,10 +33,10 @@ The details of the subscription that you want to create.
   "streamkind": "ts.event",
   "targetid": "your target ID UUID such as ae110c40-2685-6c70-f46e-286f7370b8a9",
   "name": "name your subscription",
-  "description": "description0",
+  "description": "description8",
   "disabled": false,
-  "email": "email6",
-  "filter": "filter4"
+  "email": "email4",
+  "filter": "filter2"
 }
 ```
 

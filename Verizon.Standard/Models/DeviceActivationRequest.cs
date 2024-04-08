@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -33,8 +34,8 @@ namespace Verizon.Standard.Models
         /// <param name="accountName">accountName.</param>
         /// <param name="devices">devices.</param>
         public DeviceActivationRequest(
-            string accountName = null,
-            List<Models.AccountDeviceList> devices = null)
+            string accountName,
+            List<Models.AccountDeviceList> devices)
         {
             this.AccountName = accountName;
             this.Devices = devices;
@@ -43,13 +44,13 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// The name of a billing account.
         /// </summary>
-        [JsonProperty("accountName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("accountName")]
         public string AccountName { get; set; }
 
         /// <summary>
         /// Up to 10,000 devices that you want to move to a different account, specified by device identifier.
         /// </summary>
-        [JsonProperty("devices", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("devices")]
         public List<Models.AccountDeviceList> Devices { get; set; }
 
         /// <inheritdoc/>
@@ -84,7 +85,7 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
             toStringOutput.Add($"this.Devices = {(this.Devices == null ? "null" : $"[{string.Join(", ", this.Devices)} ]")}");
         }
     }

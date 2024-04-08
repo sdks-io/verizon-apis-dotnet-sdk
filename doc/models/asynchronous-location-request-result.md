@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `Txid` | `string` | Optional | The transaction ID of the report. |
-| `Status` | [`Models.ReportStatusEnum?`](../../doc/models/report-status-enum.md) | Optional | Status of the report. |
+| `Status` | [`ReportStatusEnum?`](../../doc/models/report-status-enum.md) | Optional | Status of the report. |
 | `EstimatedDuration` | `string` | Optional | Estimated number of minutes required to complete the report. |
 
 ## Example (as JSON)

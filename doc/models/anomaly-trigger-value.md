@@ -15,7 +15,7 @@ Trigger details.
 | `TriggerName` | `string` | Optional | The user defined name of the trigger. |
 | `OrganizationName` | `string` | Optional | The user assigned name of the organization associated with the trigger. |
 | `TriggerCategory` | `string` | Optional | This is the value to use in the request body to detect anomalous behaivior. The values in this table will only be relevant when this parameter is set to this value. |
-| `TriggerAttributes` | [`List<Models.TriggerAttributesOptions>`](../../doc/models/trigger-attributes-options.md) | Optional | Additional details and keys for the trigger. |
+| `TriggerAttributes` | [`List<TriggerAttributesOptions>`](../../doc/models/trigger-attributes-options.md) | Optional | Additional details and keys for the trigger. |
 | `CreatedAt` | `string` | Optional | Timestamp for whe the trigger was created. |
 | `ModifiedAt` | `string` | Optional | Timestamp for the most recent time the trigger was modified. |
 

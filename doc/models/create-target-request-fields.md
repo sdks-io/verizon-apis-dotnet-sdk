@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Httpheaders` | [`Models.FieldsHttpHeaders`](../../doc/models/fields-http-headers.md) | Optional | - |
+| `Httpheaders` | [`FieldsHttpHeaders`](../../doc/models/fields-http-headers.md) | Optional | - |
 | `Devicetypes` | `List<string>` | Optional | List of device types. |
 
 ## Example (as JSON)

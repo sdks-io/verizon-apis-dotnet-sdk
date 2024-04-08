@@ -11,7 +11,7 @@ Device service information.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `ResponseType` | [`Models.ApiResponseCode`](../../doc/models/api-response-code.md) | Optional | ResponseCode and/or a message indicating success or failure of the request. |
+| `ResponseType` | [`ApiResponseCode`](../../doc/models/api-response-code.md) | Optional | ResponseCode and/or a message indicating success or failure of the request. |
 | `Imei` | `string` | Required | The International Mobile Equipment Identifier of the device. |
 | `BullseyeEnable` | `bool` | Required | Shows if Hyper Precise is enabled (true) or disabled (false). |
 

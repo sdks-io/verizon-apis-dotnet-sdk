@@ -11,7 +11,7 @@ Contains the device identifiers and a success or failure response for each devic
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `DeviceIds` | [`List<Models.DeviceId>`](../../doc/models/device-id.md) | Optional | Identifiers for the device. |
+| `DeviceIds` | [`List<DeviceId>`](../../doc/models/device-id.md) | Optional | Identifiers for the device. |
 | `Response` | `string` | Optional | The success message or error message for the current device. |
 
 ## Example (as JSON)

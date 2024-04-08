@@ -12,10 +12,10 @@ Used to define callbacks including the device identity, the attribute names, cor
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `AccountName` | `string` | Required | Account identifier in "##########-#####". |
-| `Devices` | [`List<Models.Device>`](../../doc/models/device.md) | Required | List of devices. |
-| `Attributes` | [`List<Models.ObservationRequestAttribute>`](../../doc/models/observation-request-attribute.md) | Required | Attributes are streaming RF parameters that you want to observe. |
-| `Frequency` | [`Models.NumericalData`](../../doc/models/numerical-data.md) | Optional | Describes value and unit of time. |
-| `Duration` | [`Models.NumericalData`](../../doc/models/numerical-data.md) | Optional | Describes value and unit of time. |
+| `Devices` | [`List<Device>`](../../doc/models/device.md) | Required | List of devices. |
+| `Attributes` | [`List<ObservationRequestAttribute>`](../../doc/models/observation-request-attribute.md) | Required | Attributes are streaming RF parameters that you want to observe. |
+| `Frequency` | [`NumericalData`](../../doc/models/numerical-data.md) | Optional | Describes value and unit of time. |
+| `Duration` | [`NumericalData`](../../doc/models/numerical-data.md) | Optional | Describes value and unit of time. |
 
 ## Example (as JSON)
 

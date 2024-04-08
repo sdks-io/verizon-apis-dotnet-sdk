@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -76,7 +77,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Service name
         /// </summary>
-        [JsonProperty("serviceName", ItemConverterType = typeof(StringEnumConverter))]
+        [JsonProperty("serviceName")]
         public Models.ServiceNameEnum ServiceName { get; set; }
 
         /// <summary>
@@ -154,15 +155,15 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.TriggerName = {(this.TriggerName == null ? "null" : this.TriggerName == string.Empty ? "" : this.TriggerName)}");
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
+            toStringOutput.Add($"this.TriggerName = {(this.TriggerName == null ? "null" : this.TriggerName)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
             toStringOutput.Add($"this.ServiceName = {this.ServiceName}");
-            toStringOutput.Add($"this.ThresholdValue = {(this.ThresholdValue == null ? "null" : this.ThresholdValue == string.Empty ? "" : this.ThresholdValue)}");
+            toStringOutput.Add($"this.ThresholdValue = {(this.ThresholdValue == null ? "null" : this.ThresholdValue)}");
             toStringOutput.Add($"this.AllowExcess = {(this.AllowExcess == null ? "null" : this.AllowExcess.ToString())}");
             toStringOutput.Add($"this.SendSmsNotification = {(this.SendSmsNotification == null ? "null" : this.SendSmsNotification.ToString())}");
-            toStringOutput.Add($"this.SmsPhoneNumbers = {(this.SmsPhoneNumbers == null ? "null" : this.SmsPhoneNumbers == string.Empty ? "" : this.SmsPhoneNumbers)}");
+            toStringOutput.Add($"this.SmsPhoneNumbers = {(this.SmsPhoneNumbers == null ? "null" : this.SmsPhoneNumbers)}");
             toStringOutput.Add($"this.SendEmailNotification = {(this.SendEmailNotification == null ? "null" : this.SendEmailNotification.ToString())}");
-            toStringOutput.Add($"this.EmailAddresses = {(this.EmailAddresses == null ? "null" : this.EmailAddresses == string.Empty ? "" : this.EmailAddresses)}");
+            toStringOutput.Add($"this.EmailAddresses = {(this.EmailAddresses == null ? "null" : this.EmailAddresses)}");
         }
     }
 }

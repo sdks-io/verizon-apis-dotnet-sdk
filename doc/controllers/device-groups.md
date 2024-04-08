@@ -10,149 +10,11 @@ DeviceGroupsController deviceGroupsController = client.DeviceGroupsController;
 
 ## Methods
 
-* [Update Device Group](../../doc/controllers/device-groups.md#update-device-group)
-* [Get Device Group Information](../../doc/controllers/device-groups.md#get-device-group-information)
 * [Create Device Group](../../doc/controllers/device-groups.md#create-device-group)
 * [List Device Groups](../../doc/controllers/device-groups.md#list-device-groups)
+* [Get Device Group Information](../../doc/controllers/device-groups.md#get-device-group-information)
+* [Update Device Group](../../doc/controllers/device-groups.md#update-device-group)
 * [Delete Device Group](../../doc/controllers/device-groups.md#delete-device-group)
-
-
-# Update Device Group
-
-Make changes to a device group, including changing the name and description, and adding or removing devices.
-
-```csharp
-UpdateDeviceGroupAsync(
-    string aname,
-    string gname,
-    Models.DeviceGroupUpdateRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `aname` | `string` | Template, Required | Account name. |
-| `gname` | `string` | Template, Required | Group name. |
-| `body` | [`Models.DeviceGroupUpdateRequest`](../../doc/models/device-group-update-request.md) | Body, Required | Request to update device group. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.ConnectivityManagementSuccessResult>>`](../../doc/models/connectivity-management-success-result.md)
-
-## Example Usage
-
-```csharp
-string aname = "0252012345-00001";
-string gname = "gname2";
-DeviceGroupUpdateRequest body = new DeviceGroupUpdateRequest
-{
-    DevicesToAdd = new List<Models.DeviceId>
-    {
-        new DeviceId
-        {
-            Id = "990003420535537",
-            Kind = "imei",
-        },
-    },
-    NewGroupDescription = "All western region tank level monitors.",
-    NewGroupName = "Western region tanks",
-};
-
-try
-{
-    ApiResponse<ConnectivityManagementSuccessResult> result = await deviceGroupsController.UpdateDeviceGroupAsync(aname, gname, body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "success": true
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# Get Device Group Information
-
-When HTTP status is 202, a URL will be returned in the Location header of the form /groups/{aname}/name/{gname}/?next={token}. This URL can be used to request the next set of groups.
-
-```csharp
-GetDeviceGroupInformationAsync(
-    string aname,
-    string gname,
-    long? next = null)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `aname` | `string` | Template, Required | Account name. |
-| `gname` | `string` | Template, Required | Group name. |
-| `next` | `long?` | Query, Optional | Continue the previous query from the pageUrl pagetoken. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceGroupDevicesData>>`](../../doc/models/device-group-devices-data.md)
-
-## Example Usage
-
-```csharp
-string aname = "0252012345-00001";
-string gname = "gname2";
-try
-{
-    ApiResponse<DeviceGroupDevicesData> result = await deviceGroupsController.GetDeviceGroupInformationAsync(aname, gname, null);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "name": "Nebraska Trucks",
-  "description": "All service trucks in Nebraska.",
-  "hasMoreData": false,
-  "devices": [
-    {
-      "deviceIds": [
-        {
-          "id": "12345",
-          "kind": "meid"
-        },
-        {
-          "id": "54321",
-          "kind": "mdn"
-        }
-      ]
-    }
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
 # Create Device Group
@@ -168,7 +30,7 @@ CreateDeviceGroupAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.CreateDeviceGroupRequest`](../../doc/models/create-device-group-request.md) | Body, Required | A request to create a new device group. |
+| `body` | [`CreateDeviceGroupRequest`](../../doc/models/create-device-group-request.md) | Body, Required | A request to create a new device group. |
 
 ## Response Type
 
@@ -180,6 +42,8 @@ CreateDeviceGroupAsync(
 CreateDeviceGroupRequest body = new CreateDeviceGroupRequest
 {
     AccountName = "0000123456-00001",
+    GroupDescription = "descriptive string",
+    GroupName = "group name",
     DevicesToAdd = new List<Models.DeviceId>
     {
         new DeviceId
@@ -188,8 +52,6 @@ CreateDeviceGroupRequest body = new CreateDeviceGroupRequest
             Kind = "imei",
         },
     },
-    GroupDescription = "descriptive string",
-    GroupName = "group name",
 };
 
 try
@@ -278,6 +140,151 @@ catch (ApiException e)
 | 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
+# Get Device Group Information
+
+When HTTP status is 202, a URL will be returned in the Location header of the form /groups/{aname}/name/{gname}/?next={token}. This URL can be used to request the next set of groups.
+
+```csharp
+GetDeviceGroupInformationAsync(
+    string aname,
+    string gname,
+    long? next = null)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `aname` | `string` | Template, Required | Account name. |
+| `gname` | `string` | Template, Required | Group name. |
+| `next` | `long?` | Query, Optional | Continue the previous query from the pageUrl pagetoken. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceGroupDevicesData>>`](../../doc/models/device-group-devices-data.md)
+
+## Example Usage
+
+```csharp
+string aname = "0252012345-00001";
+string gname = "gname2";
+try
+{
+    ApiResponse<DeviceGroupDevicesData> result = await deviceGroupsController.GetDeviceGroupInformationAsync(
+        aname,
+        gname
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "name": "Nebraska Trucks",
+  "description": "All service trucks in Nebraska.",
+  "hasMoreData": false,
+  "devices": [
+    {
+      "deviceIds": [
+        {
+          "id": "12345",
+          "kind": "meid"
+        },
+        {
+          "id": "54321",
+          "kind": "mdn"
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# Update Device Group
+
+Make changes to a device group, including changing the name and description, and adding or removing devices.
+
+```csharp
+UpdateDeviceGroupAsync(
+    string aname,
+    string gname,
+    Models.DeviceGroupUpdateRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `aname` | `string` | Template, Required | Account name. |
+| `gname` | `string` | Template, Required | Group name. |
+| `body` | [`DeviceGroupUpdateRequest`](../../doc/models/device-group-update-request.md) | Body, Required | Request to update device group. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.ConnectivityManagementSuccessResult>>`](../../doc/models/connectivity-management-success-result.md)
+
+## Example Usage
+
+```csharp
+string aname = "0252012345-00001";
+string gname = "gname2";
+DeviceGroupUpdateRequest body = new DeviceGroupUpdateRequest
+{
+    DevicesToAdd = new List<Models.DeviceId>
+    {
+        new DeviceId
+        {
+            Id = "990003420535537",
+            Kind = "imei",
+        },
+    },
+    NewGroupDescription = "All western region tank level monitors.",
+    NewGroupName = "Western region tanks",
+};
+
+try
+{
+    ApiResponse<ConnectivityManagementSuccessResult> result = await deviceGroupsController.UpdateDeviceGroupAsync(
+        aname,
+        gname,
+        body
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "success": true
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
 # Delete Device Group
 
 Deletes a device group from the account. Devices in the group are moved to the default device group and are not deleted from the account.
@@ -306,7 +313,10 @@ string aname = "0252012345-00001";
 string gname = "gname2";
 try
 {
-    ApiResponse<ConnectivityManagementSuccessResult> result = await deviceGroupsController.DeleteDeviceGroupAsync(aname, gname);
+    ApiResponse<ConnectivityManagementSuccessResult> result = await deviceGroupsController.DeleteDeviceGroupAsync(
+        aname,
+        gname
+    );
 }
 catch (ApiException e)
 {

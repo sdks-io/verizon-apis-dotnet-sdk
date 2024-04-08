@@ -14,7 +14,7 @@ Response to query the most recent data for Key Performance Indicators (KPIs) lik
 | `QueryStatus` | `string` | Optional | Success or Failed. |
 | `Start` | `string` | Optional | Timestamp of the query's start, format:mm/dd/yyyy,hr:min:sec. |
 | `End` | `string` | Optional | Timestamp of the query's end , format:mm/dd/yyyy, hr:min:sec. |
-| `QueryResult` | [`List<Models.MECPerformanceQueryResult>`](../../doc/models/mec-performance-query-result.md) | Optional | MEC performance query result. |
+| `QueryResult` | [`List<MECPerformanceQueryResult>`](../../doc/models/mec-performance-query-result.md) | Optional | MEC performance query result. |
 
 ## Example (as JSON)
 

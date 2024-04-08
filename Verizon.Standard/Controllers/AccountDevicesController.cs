@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -34,42 +33,6 @@ namespace Verizon.Standard.Controllers
         /// Initializes a new instance of the <see cref="AccountDevicesController"/> class.
         /// </summary>
         internal AccountDevicesController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
-
-        /// <summary>
-        /// Retrieve device information for a list of devices on an account.
-        /// </summary>
-        /// <param name="acc">Required parameter: Account identifier..</param>
-        /// <param name="body">Required parameter: Request device list information..</param>
-        /// <returns>Returns the ApiResponse of Models.DeviceListResult response from the API call.</returns>
-        public ApiResponse<Models.DeviceListResult> ListAccountDevicesInformation(
-                string acc,
-                Models.DeviceIMEI body)
-            => CoreHelper.RunTask(ListAccountDevicesInformationAsync(acc, body));
-
-        /// <summary>
-        /// Retrieve device information for a list of devices on an account.
-        /// </summary>
-        /// <param name="acc">Required parameter: Account identifier..</param>
-        /// <param name="body">Required parameter: Request device list information..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.DeviceListResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.DeviceListResult>> ListAccountDevicesInformationAsync(
-                string acc,
-                Models.DeviceIMEI body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.DeviceListResult>()
-              .Server(Server.SoftwareManagementV3)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/devices/{acc}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Template(_template => _template.Setup("acc", acc))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceListResult>(_response)))
-              .ExecuteAsync(cancellationToken);
 
         /// <summary>
         /// Retrieve account device information such as reported firmware on the devices.
@@ -101,14 +64,48 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/devices/{acc}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("acc", acc))
                       .Query(_query => _query.Setup("lastSeenDeviceId", lastSeenDeviceId))
                       .Query(_query => _query.Setup("protocol", (protocol.HasValue) ? ApiHelper.JsonSerialize(protocol.Value).Trim('\"') : "LWM2M"))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.V3AccountDeviceList>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// Retrieve device information for a list of devices on an account.
+        /// </summary>
+        /// <param name="acc">Required parameter: Account identifier..</param>
+        /// <param name="body">Required parameter: Request device list information..</param>
+        /// <returns>Returns the ApiResponse of Models.DeviceListResult response from the API call.</returns>
+        public ApiResponse<Models.DeviceListResult> ListAccountDevicesInformation(
+                string acc,
+                Models.DeviceIMEI body)
+            => CoreHelper.RunTask(ListAccountDevicesInformationAsync(acc, body));
+
+        /// <summary>
+        /// Retrieve device information for a list of devices on an account.
+        /// </summary>
+        /// <param name="acc">Required parameter: Account identifier..</param>
+        /// <param name="body">Required parameter: Request device list information..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.DeviceListResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.DeviceListResult>> ListAccountDevicesInformationAsync(
+                string acc,
+                Models.DeviceIMEI body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.DeviceListResult>()
+              .Server(Server.SoftwareManagementV3)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/devices/{acc}")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Template(_template => _template.Setup("acc", acc))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

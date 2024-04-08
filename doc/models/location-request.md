@@ -12,16 +12,16 @@ The body contains the the account name and list of devices that you want to loca
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `AccountName` | `string` | Required | Account identifier in "##########-#####". |
-| `AccuracyMode` | `int` | Required, Constant | Accurary, currently only 0-coarse supported.<br>**Default**: `0` |
-| `CacheMode` | [`Models.CacheModeEnum`](../../doc/models/cache-mode-enum.md) | Required | Location cache mode. |
-| `DeviceList` | [`List<Models.DeviceInfo>`](../../doc/models/device-info.md) | Required | Device list. |
+| `DeviceList` | [`List<DeviceInfo>`](../../doc/models/device-info.md) | Required | Device list. |
+| `AccuracyMode` | [`AccuracyModeEnum?`](../../doc/models/accuracy-mode-enum.md) | Optional | Accurary, currently only 0-coarse supported. |
+| `CacheMode` | [`CacheModeEnum?`](../../doc/models/cache-mode-enum.md) | Optional | Location cache mode. |
 
 ## Example (as JSON)
 
 ```json
 {
   "accountName": "1234567890-00001",
-  "accuracyMode": 0,
+  "accuracyMode": "0",
   "cacheMode": "1",
   "deviceList": [
     {

@@ -16,7 +16,7 @@ Account license information.
 | `AssignedLicenses` | `int?` | Optional | Number of licenses currently assigned to devices. |
 | `HasMoreData` | `bool?` | Optional | True if there are more devices to retrieve. |
 | `LastSeenDeviceId` | `int?` | Optional | If hasMoreData=true, the startIndex to use for the next request. 0 if hasMoreData=false. |
-| `DeviceList` | [`List<Models.AccountLicenseDeviceListItem>`](../../doc/models/account-license-device-list-item.md) | Optional | The list of devices that have licenses assigned, including the date and time of when each license was assigned. |
+| `DeviceList` | [`List<AccountLicenseDeviceListItem>`](../../doc/models/account-license-device-list-item.md) | Optional | The list of devices that have licenses assigned, including the date and time of when each license was assigned. |
 
 ## Example (as JSON)
 

@@ -18,7 +18,7 @@ The provisioning history of a specified device during a specified time period.
 | `Mdn` | `string` | Optional | The MDN assigned to the device after the provisioning event. |
 | `Msisdn` | `string` | Optional | The MSISDN assigned to the device after the provisioning event. |
 | `ServicePlan` | `string` | Optional | The service plan of the device after the provisioning event occurred. |
-| `ExtendedAttributes` | [`List<Models.CustomFields>`](../../doc/models/custom-fields.md) | Optional | Any extended attributes for the event, as Key and Value pairs. |
+| `ExtendedAttributes` | [`List<CustomFields>`](../../doc/models/custom-fields.md) | Optional | Any extended attributes for the event, as Key and Value pairs. |
 
 ## Example (as JSON)
 

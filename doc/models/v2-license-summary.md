@@ -17,7 +17,7 @@ Summary of license assignment.
 | `HasMoreData` | `bool` | Required | True if there are more devices to retrieve. |
 | `LastSeenDeviceId` | `string` | Optional | Last seen device identifier. |
 | `MaxPageSize` | `int` | Required | Maximum page size. |
-| `DeviceList` | [`List<Models.V2LicenseDevice>`](../../doc/models/v2-license-device.md) | Optional | Device IMEI list. |
+| `DeviceList` | [`List<V2LicenseDevice>`](../../doc/models/v2-license-device.md) | Optional | Device IMEI list. |
 
 ## Example (as JSON)
 

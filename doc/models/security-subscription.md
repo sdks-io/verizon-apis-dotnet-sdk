@@ -11,7 +11,7 @@ Subscription of the device.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `ExtendedAttributes` | [`List<Models.ExtendedAttributes>`](../../doc/models/extended-attributes.md) | Optional | Attributes of the subscription.<br>**Constraints**: *Maximum Items*: `5` |
+| `ExtendedAttributes` | [`List<ExtendedAttributes>`](../../doc/models/extended-attributes.md) | Optional | Attributes of the subscription.<br>**Constraints**: *Maximum Items*: `5` |
 | `LicenseAssigned` | `int?` | Optional | The total number of licenses for this license type that are assigned to device SIMs.<br>**Constraints**: `>= 0`, `<= 10` |
 | `LicenseAvailable` | `int?` | Optional | The total number of licenses for this license type that are available to assign to device SIMs.<br>**Constraints**: `>= 0`, `<= 10` |
 | `LicensePurchased` | `int?` | Optional | The total number of licenses purchased for the license type.<br>**Constraints**: `>= 0`, `<= 10` |
@@ -29,12 +29,12 @@ Subscription of the device.
   "licenseAvailable": 1,
   "extendedAttributes": [
     {
-      "key": "key9",
-      "value": "value1"
+      "key": "key8",
+      "value": "value0"
     },
     {
-      "key": "key0",
-      "value": "value2"
+      "key": "key8",
+      "value": "value0"
     }
   ]
 }

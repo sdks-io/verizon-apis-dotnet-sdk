@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -61,49 +60,13 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/firmware/{acc}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("acc", acc))
                       .Query(_query => _query.Setup("protocol", ApiHelper.JsonSerialize(protocol).Trim('\"')))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.FirmwarePackage>>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Ask a device to report its firmware version asynchronously.
-        /// </summary>
-        /// <param name="acc">Required parameter: Account identifier..</param>
-        /// <param name="deviceId">Required parameter: Device identifier..</param>
-        /// <returns>Returns the ApiResponse of Models.DeviceFirmwareVersionUpdateResult response from the API call.</returns>
-        public ApiResponse<Models.DeviceFirmwareVersionUpdateResult> ReportDeviceFirmware(
-                string acc,
-                string deviceId)
-            => CoreHelper.RunTask(ReportDeviceFirmwareAsync(acc, deviceId));
-
-        /// <summary>
-        /// Ask a device to report its firmware version asynchronously.
-        /// </summary>
-        /// <param name="acc">Required parameter: Account identifier..</param>
-        /// <param name="deviceId">Required parameter: Device identifier..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.DeviceFirmwareVersionUpdateResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.DeviceFirmwareVersionUpdateResult>> ReportDeviceFirmwareAsync(
-                string acc,
-                string deviceId,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.DeviceFirmwareVersionUpdateResult>()
-              .Server(Server.SoftwareManagementV3)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Put, "/firmware/{acc}/async/{deviceId}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("acc", acc))
-                      .Template(_template => _template.Setup("deviceId", deviceId))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceFirmwareVersionUpdateResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// Synchronize ThingSpace with the FOTA server for up to 100 devices.
@@ -131,14 +94,47 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Put, "/firmware/{acc}/devices")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("acc", acc))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.DeviceFirmwareList>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// Ask a device to report its firmware version asynchronously.
+        /// </summary>
+        /// <param name="acc">Required parameter: Account identifier..</param>
+        /// <param name="deviceId">Required parameter: Device identifier..</param>
+        /// <returns>Returns the ApiResponse of Models.DeviceFirmwareVersionUpdateResult response from the API call.</returns>
+        public ApiResponse<Models.DeviceFirmwareVersionUpdateResult> ReportDeviceFirmware(
+                string acc,
+                string deviceId)
+            => CoreHelper.RunTask(ReportDeviceFirmwareAsync(acc, deviceId));
+
+        /// <summary>
+        /// Ask a device to report its firmware version asynchronously.
+        /// </summary>
+        /// <param name="acc">Required parameter: Account identifier..</param>
+        /// <param name="deviceId">Required parameter: Device identifier..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.DeviceFirmwareVersionUpdateResult response from the API call.</returns>
+        public async Task<ApiResponse<Models.DeviceFirmwareVersionUpdateResult>> ReportDeviceFirmwareAsync(
+                string acc,
+                string deviceId,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.DeviceFirmwareVersionUpdateResult>()
+              .Server(Server.SoftwareManagementV3)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Put, "/firmware/{acc}/async/{deviceId}")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("acc", acc))
+                      .Template(_template => _template.Setup("deviceId", deviceId))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

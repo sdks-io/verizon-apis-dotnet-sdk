@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -125,12 +126,12 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId == string.Empty ? "" : this.DeviceId)}");
+            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId)}");
             toStringOutput.Add($"this.LogTime = {this.LogTime}");
-            toStringOutput.Add($"this.LogType = {(this.LogType == null ? "null" : this.LogType == string.Empty ? "" : this.LogType)}");
-            toStringOutput.Add($"this.EventLog = {(this.EventLog == null ? "null" : this.EventLog == string.Empty ? "" : this.EventLog)}");
-            toStringOutput.Add($"this.BinaryLogFileBase64 = {(this.BinaryLogFileBase64 == null ? "null" : this.BinaryLogFileBase64 == string.Empty ? "" : this.BinaryLogFileBase64)}");
-            toStringOutput.Add($"this.BinaryLogFilename = {(this.BinaryLogFilename == null ? "null" : this.BinaryLogFilename == string.Empty ? "" : this.BinaryLogFilename)}");
+            toStringOutput.Add($"this.LogType = {(this.LogType == null ? "null" : this.LogType)}");
+            toStringOutput.Add($"this.EventLog = {(this.EventLog == null ? "null" : this.EventLog)}");
+            toStringOutput.Add($"this.BinaryLogFileBase64 = {(this.BinaryLogFileBase64 == null ? "null" : this.BinaryLogFileBase64)}");
+            toStringOutput.Add($"this.BinaryLogFilename = {(this.BinaryLogFilename == null ? "null" : this.BinaryLogFilename)}");
         }
     }
 }

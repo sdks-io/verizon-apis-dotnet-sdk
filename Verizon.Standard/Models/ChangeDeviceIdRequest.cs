@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -30,21 +31,23 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ChangeDeviceIdRequest"/> class.
         /// </summary>
+        /// <param name="deviceIds">deviceIds.</param>
         /// <param name="assignNonGeoMdn">assignNonGeoMdn.</param>
         /// <param name="change4gOption">change4gOption.</param>
-        /// <param name="deviceIds">deviceIds.</param>
         /// <param name="deviceIdsTo">deviceIdsTo.</param>
         /// <param name="npaNxx">npaNxx.</param>
         /// <param name="servicePlan">servicePlan.</param>
         /// <param name="zipCode">zipCode.</param>
+        /// <param name="smsrOid">smsrOid.</param>
         public ChangeDeviceIdRequest(
+            List<Models.DeviceId> deviceIds,
             bool? assignNonGeoMdn = null,
             string change4gOption = null,
-            List<Models.DeviceId> deviceIds = null,
             List<Models.DeviceId> deviceIdsTo = null,
             string npaNxx = null,
             string servicePlan = null,
-            string zipCode = null)
+            string zipCode = null,
+            string smsrOid = null)
         {
             this.AssignNonGeoMdn = assignNonGeoMdn;
             this.Change4gOption = change4gOption;
@@ -53,6 +56,7 @@ namespace Verizon.Standard.Models
             this.NpaNxx = npaNxx;
             this.ServicePlan = servicePlan;
             this.ZipCode = zipCode;
+            this.SmsrOid = smsrOid;
         }
 
         /// <summary>
@@ -70,7 +74,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// The device that you want to change, specified by a device identifier.
         /// </summary>
-        [JsonProperty("deviceIds", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("deviceIds")]
         public List<Models.DeviceId> DeviceIds { get; set; }
 
         /// <summary>
@@ -96,6 +100,12 @@ namespace Verizon.Standard.Models
         /// </summary>
         [JsonProperty("zipCode", NullValueHandling = NullValueHandling.Ignore)]
         public string ZipCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets SmsrOid.
+        /// </summary>
+        [JsonProperty("smsrOid", NullValueHandling = NullValueHandling.Ignore)]
+        public string SmsrOid { get; set; }
 
         /// <inheritdoc/>
         public override string ToString()
@@ -125,7 +135,8 @@ namespace Verizon.Standard.Models
                 ((this.DeviceIdsTo == null && other.DeviceIdsTo == null) || (this.DeviceIdsTo?.Equals(other.DeviceIdsTo) == true)) &&
                 ((this.NpaNxx == null && other.NpaNxx == null) || (this.NpaNxx?.Equals(other.NpaNxx) == true)) &&
                 ((this.ServicePlan == null && other.ServicePlan == null) || (this.ServicePlan?.Equals(other.ServicePlan) == true)) &&
-                ((this.ZipCode == null && other.ZipCode == null) || (this.ZipCode?.Equals(other.ZipCode) == true));
+                ((this.ZipCode == null && other.ZipCode == null) || (this.ZipCode?.Equals(other.ZipCode) == true)) &&
+                ((this.SmsrOid == null && other.SmsrOid == null) || (this.SmsrOid?.Equals(other.SmsrOid) == true));
         }
         
         /// <summary>
@@ -135,12 +146,13 @@ namespace Verizon.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"this.AssignNonGeoMdn = {(this.AssignNonGeoMdn == null ? "null" : this.AssignNonGeoMdn.ToString())}");
-            toStringOutput.Add($"this.Change4gOption = {(this.Change4gOption == null ? "null" : this.Change4gOption == string.Empty ? "" : this.Change4gOption)}");
+            toStringOutput.Add($"this.Change4gOption = {(this.Change4gOption == null ? "null" : this.Change4gOption)}");
             toStringOutput.Add($"this.DeviceIds = {(this.DeviceIds == null ? "null" : $"[{string.Join(", ", this.DeviceIds)} ]")}");
             toStringOutput.Add($"this.DeviceIdsTo = {(this.DeviceIdsTo == null ? "null" : $"[{string.Join(", ", this.DeviceIdsTo)} ]")}");
-            toStringOutput.Add($"this.NpaNxx = {(this.NpaNxx == null ? "null" : this.NpaNxx == string.Empty ? "" : this.NpaNxx)}");
-            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan == string.Empty ? "" : this.ServicePlan)}");
-            toStringOutput.Add($"this.ZipCode = {(this.ZipCode == null ? "null" : this.ZipCode == string.Empty ? "" : this.ZipCode)}");
+            toStringOutput.Add($"this.NpaNxx = {(this.NpaNxx == null ? "null" : this.NpaNxx)}");
+            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan)}");
+            toStringOutput.Add($"this.ZipCode = {(this.ZipCode == null ? "null" : this.ZipCode)}");
+            toStringOutput.Add($"this.SmsrOid = {(this.SmsrOid == null ? "null" : this.SmsrOid)}");
         }
     }
 }

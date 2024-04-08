@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Devices` | [`List<Models.DeviceList>`](../../doc/models/device-list.md) | Optional | **Constraints**: *Maximum Items*: `100` |
-| `AccountName` | `string` | Optional | - |
+| `Devices` | [`List<DeviceList>`](../../doc/models/device-list.md) | Required | **Constraints**: *Maximum Items*: `100` |
+| `AccountName` | `string` | Required | - |
 | `ServicePlan` | `string` | Optional | - |
 | `MdnZipCode` | `string` | Optional | - |
 
@@ -18,35 +18,19 @@
 
 ```json
 {
-  "accountName": "0000123456-00001",
-  "servicePlan": "The service plan name",
-  "mdnZipCode": "five digit zip code",
   "devices": [
     {
       "deviceIds": [
         {
-          "id": "id6",
-          "kind": "imei"
-        },
-        {
-          "id": "id7",
-          "kind": "eid"
-        },
-        {
-          "id": "id8",
-          "kind": "esn"
-        }
-      ]
-    },
-    {
-      "deviceIds": [
-        {
-          "id": "id7",
-          "kind": "eid"
+          "id": "id0",
+          "kind": "kind8"
         }
       ]
     }
-  ]
+  ],
+  "accountName": "0000123456-00001",
+  "servicePlan": "The service plan name",
+  "mdnZipCode": "five digit zip code"
 }
 ```
 

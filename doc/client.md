@@ -5,21 +5,28 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `VZM2mToken` | `string` | M2M Session Token |
-| `Environment` | Environment | The API environment. <br> **Default: `Environment.Production`** |
+| `VZM2mToken` | `string` | M2M Session Token ([How to generate an M2M session token?](page:getting-started/5g-edge-developer-creds-token#obtaining-a-vz-m2m-session-token-programmatically)) |
+| `Environment` | `Environment` | The API environment. <br> **Default: `Environment.Production`** |
 | `Timeout` | `TimeSpan` | Http client timeout.<br>*Default*: `TimeSpan.FromSeconds(100)` |
-| `OauthClientId` | `string` | OAuth 2 Client ID |
-| `OauthClientSecret` | `string` | OAuth 2 Client Secret |
-| `OauthToken` | `Models.OauthToken` | Object for storing information about the OAuth token |
-| `OauthScopes` | `List<Models.OauthScopeEnum>` |  |
+| `ClientCredentialsAuth` | [`ClientCredentialsAuth`]($a/oauth-2-client-credentials-grant.md) | The Credentials Setter for OAuth 2 Client Credentials Grant |
 
 The API client can be initialized as follows:
 
 ```csharp
 Verizon.Standard.VerizonClient client = new Verizon.Standard.VerizonClient.Builder()
-    .OauthScopes(new List<OauthScopeEnum>() { OauthScopeEnum.Discoveryread, OauthScopeEnum.Serviceprofileread })
-    .ClientCredentialsAuth("OAuthClientId", "OAuthClientSecret")
-    .VZM2MToken("VZ-M2M-Token")
+    .ClientCredentialsAuth(
+        new ClientCredentialsAuthModel.Builder(
+            "OAuthClientId",
+            "OAuthClientSecret"
+        )
+        .OauthScopes(
+            new List<OauthScopeEnum>
+            {
+                OauthScopeEnum.Discoveryread,
+                OauthScopeEnum.Serviceprofileread,
+            })
+        .Build())
+    .VZM2mToken("VZ-M2M-Token")
     .Environment(Verizon.Standard.Environment.Production)
     .Build();
 ```
@@ -51,9 +58,10 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | ConnectivityCallbacksController | Gets ConnectivityCallbacksController controller. |
 | AccountRequestsController | Gets AccountRequestsController controller. |
 | ServicePlansController | Gets ServicePlansController controller. |
+| DeviceDiagnosticsController | Gets DeviceDiagnosticsController controller. |
 | DeviceProfileManagementController | Gets DeviceProfileManagementController controller. |
 | DeviceMonitoringController | Gets DeviceMonitoringController controller. |
-| UICCDeviceProfileManagementController | Gets UICCDeviceProfileManagementController controller. |
+| EUICCDeviceProfileManagementController | Gets EUICCDeviceProfileManagementController controller. |
 | DevicesLocationsController | Gets DevicesLocationsController controller. |
 | ExclusionsController | Gets ExclusionsController controller. |
 | DevicesLocationSubscriptionsController | Gets DevicesLocationSubscriptionsController controller. |
@@ -97,27 +105,30 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | HyperPreciseLocationCallbacksController | Gets HyperPreciseLocationCallbacksController controller. |
 | AnomalySettingsController | Gets AnomalySettingsController controller. |
 | AnomalyTriggersController | Gets AnomalyTriggersController controller. |
-| MECSitesController | Gets MECSitesController controller. |
-| ServiceLaunchProfilesController | Gets ServiceLaunchProfilesController controller. |
-| ServiceLaunchRequestsController | Gets ServiceLaunchRequestsController controller. |
-| ServiceInstancesController | Gets ServiceInstancesController controller. |
-| ServiceInstanceOperationsController | Gets ServiceInstanceOperationsController controller. |
-| ServiceOnboardingController | Gets ServiceOnboardingController controller. |
-| ServiceMetadataController | Gets ServiceMetadataController controller. |
-| RepositoriesController | Gets RepositoriesController controller. |
-| CSPProfilesController | Gets CSPProfilesController controller. |
-| ServiceClaimsController | Gets ServiceClaimsController controller. |
+| AnomalyTriggersV2Controller | Gets AnomalyTriggersV2Controller controller. |
+| WirelessNetworkPerformanceController | Gets WirelessNetworkPerformanceController controller. |
+| FixedWirelessQualificationController | Gets FixedWirelessQualificationController controller. |
+| ManagingESIMProfilesController | Gets ManagingESIMProfilesController controller. |
+| DeviceSMSMessagingController | Gets DeviceSMSMessagingController controller. |
+| DeviceActionsController | Gets DeviceActionsController controller. |
+| ThingSpaceQualityOfServiceAPIActionsController | Gets ThingSpaceQualityOfServiceAPIActionsController controller. |
+| MECController | Gets MECController controller. |
+| PromotionPeriodInformationController | Gets PromotionPeriodInformationController controller. |
+| RetrieveTheTriggersController | Gets RetrieveTheTriggersController controller. |
+| UpdateTriggersController | Gets UpdateTriggersController controller. |
+| SIMActionsController | Gets SIMActionsController controller. |
+| GlobalReportingController | Gets GlobalReportingController controller. |
 | OauthAuthorizationController | Gets OauthAuthorizationController controller. |
 
 ### Properties
 
 | Name | Description | Type |
 |  --- | --- | --- |
-| Auth | Gets the AuthManager. | `AuthManager` |
 | HttpClientConfiguration | Gets the configuration of the Http Client associated with this client. | [`IHttpClientConfiguration`](http-client-configuration.md) |
 | Timeout | Http client timeout. | `TimeSpan` |
-| VZM2mToken | M2M Session Token | `string` |
+| VZM2mToken | M2M Session Token ([How to generate an M2M session token?](page:getting-started/5g-edge-developer-creds-token#obtaining-a-vz-m2m-session-token-programmatically)) | `string` |
 | Environment | Current API environment. | `Environment` |
+| ClientCredentialsAuth | Gets the credentials to use with ClientCredentialsAuth. | [`IClientCredentialsAuth`]($a/oauth-2-client-credentials-grant.md) |
 
 ### Methods
 
@@ -134,9 +145,9 @@ Class to build instances of VerizonClient.
 
 | Name | Description | Return Type |
 |  --- | --- | --- |
-| `Auth(AuthManager auth)` | Gets the AuthManager. | `Builder` |
 | `HttpClientConfiguration(Action<`[`HttpClientConfiguration.Builder`](http-client-configuration-builder.md)`> action)` | Gets the configuration of the Http Client associated with this client. | `Builder` |
 | `Timeout(TimeSpan timeout)` | Http client timeout. | `Builder` |
-| `VZM2mToken(string vZM2mToken)` | M2M Session Token | `Builder` |
+| `VZM2mToken(string vZM2mToken)` | M2M Session Token ([How to generate an M2M session token?](page:getting-started/5g-edge-developer-creds-token#obtaining-a-vz-m2m-session-token-programmatically)) | `Builder` |
 | `Environment(Environment environment)` | Current API environment. | `Builder` |
+| `ClientCredentialsAuth(Action<ClientCredentialsAuthModel.Builder> action)` | Sets credentials for ClientCredentialsAuth. | `Builder` |
 

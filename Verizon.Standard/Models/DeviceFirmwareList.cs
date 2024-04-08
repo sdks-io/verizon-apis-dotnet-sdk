@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -47,7 +48,9 @@ namespace Verizon.Standard.Models
         public string AccountName { get; set; }
 
         /// <summary>
+        /// <![CDATA[
         /// List of device & firmware.
+        /// ]]>
         /// </summary>
         [JsonProperty("deviceFirmwarVersionList", NullValueHandling = NullValueHandling.Ignore)]
         public List<Models.DeviceFirmwareVersion> DeviceFirmwarVersionList { get; set; }
@@ -84,7 +87,7 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
             toStringOutput.Add($"this.DeviceFirmwarVersionList = {(this.DeviceFirmwarVersionList == null ? "null" : $"[{string.Join(", ", this.DeviceFirmwarVersionList)} ]")}");
         }
     }

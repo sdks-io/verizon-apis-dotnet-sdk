@@ -13,9 +13,9 @@ DevicesLocationsController devicesLocationsController = client.DevicesLocationsC
 * [List Devices Locations Synchronous](../../doc/controllers/devices-locations.md#list-devices-locations-synchronous)
 * [List Devices Locations Asynchronous](../../doc/controllers/devices-locations.md#list-devices-locations-asynchronous)
 * [Cancel Device Location Request](../../doc/controllers/devices-locations.md#cancel-device-location-request)
+* [Create Location Report](../../doc/controllers/devices-locations.md#create-location-report)
 * [Retrieve Location Report](../../doc/controllers/devices-locations.md#retrieve-location-report)
 * [Get Location Report Status](../../doc/controllers/devices-locations.md#get-location-report-status)
-* [Create Location Report](../../doc/controllers/devices-locations.md#create-location-report)
 * [Cancel Queued Location Report Generation](../../doc/controllers/devices-locations.md#cancel-queued-location-report-generation)
 
 
@@ -32,7 +32,7 @@ ListDevicesLocationsSynchronousAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.LocationRequest`](../../doc/models/location-request.md) | Body, Required | Request to obtain location of devices. |
+| `body` | [`LocationRequest`](../../doc/models/location-request.md) | Body, Required | Request to obtain location of devices. |
 
 ## Response Type
 
@@ -44,8 +44,6 @@ ListDevicesLocationsSynchronousAsync(
 LocationRequest body = new LocationRequest
 {
     AccountName = "1234567890-00001",
-    AccuracyMode = 0,
-    CacheMode = CacheModeEnum.Enum1,
     DeviceList = new List<Models.DeviceInfo>
     {
         new DeviceInfo
@@ -67,6 +65,8 @@ LocationRequest body = new LocationRequest
             Mdn = "7897650914",
         },
     },
+    AccuracyMode = AccuracyModeEnum.Enum0,
+    CacheMode = CacheModeEnum.Enum1,
 };
 
 try
@@ -138,7 +138,7 @@ ListDevicesLocationsAsynchronousAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.LocationRequest`](../../doc/models/location-request.md) | Body, Required | An asynchronous request to obtain locations of devices. |
+| `body` | [`LocationRequest`](../../doc/models/location-request.md) | Body, Required | An asynchronous request to obtain locations of devices. |
 
 ## Response Type
 
@@ -150,8 +150,6 @@ ListDevicesLocationsAsynchronousAsync(
 LocationRequest body = new LocationRequest
 {
     AccountName = "2234434445-32333",
-    AccuracyMode = 0,
-    CacheMode = CacheModeEnum.Enum2,
     DeviceList = new List<Models.DeviceInfo>
     {
         new DeviceInfo
@@ -161,6 +159,8 @@ LocationRequest body = new LocationRequest
             Mdn = "5557337468",
         },
     },
+    AccuracyMode = AccuracyModeEnum.Enum0,
+    CacheMode = CacheModeEnum.Enum2,
 };
 
 try
@@ -218,7 +218,10 @@ string accountName = "1234567890-00001";
 string txid = "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33";
 try
 {
-    ApiResponse<TransactionID> result = await devicesLocationsController.CancelDeviceLocationRequestAsync(accountName, txid);
+    ApiResponse<TransactionID> result = await devicesLocationsController.CancelDeviceLocationRequestAsync(
+        accountName,
+        txid
+    );
 }
 catch (ApiException e)
 {
@@ -232,6 +235,83 @@ catch (ApiException e)
 ```json
 {
   "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | Unexpected error. | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
+
+
+# Create Location Report
+
+Request an asynchronous device location report.
+
+```csharp
+CreateLocationReportAsync(
+    Models.LocationRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`LocationRequest`](../../doc/models/location-request.md) | Body, Required | Request for device location report. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.AsynchronousLocationRequestResult>>`](../../doc/models/asynchronous-location-request-result.md)
+
+## Example Usage
+
+```csharp
+LocationRequest body = new LocationRequest
+{
+    AccountName = "1234567890-00001",
+    DeviceList = new List<Models.DeviceInfo>
+    {
+        new DeviceInfo
+        {
+            Id = "980003420535573",
+            Kind = "imei",
+            Mdn = "7892345678",
+        },
+        new DeviceInfo
+        {
+            Id = "375535024300089",
+            Kind = "imei",
+            Mdn = "7897654321",
+        },
+        new DeviceInfo
+        {
+            Id = "A100003861E585",
+            Kind = "meid",
+            Mdn = "7897650914",
+        },
+    },
+    AccuracyMode = AccuracyModeEnum.Enum0,
+    CacheMode = CacheModeEnum.Enum1,
+};
+
+try
+{
+    ApiResponse<AsynchronousLocationRequestResult> result = await devicesLocationsController.CreateLocationReportAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
+  "status": "QUEUED"
 }
 ```
 
@@ -273,7 +353,11 @@ string txid = "2017-12-11Te8b47da2-3a45-46cf-9903-61815e1e97e9";
 int startindex = 0;
 try
 {
-    ApiResponse<LocationReport> result = await devicesLocationsController.RetrieveLocationReportAsync(account, txid, startindex);
+    ApiResponse<LocationReport> result = await devicesLocationsController.RetrieveLocationReportAsync(
+        account,
+        txid,
+        startindex
+    );
 }
 catch (ApiException e)
 {
@@ -361,7 +445,10 @@ string account = "0252012345-00001";
 string txid = "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33";
 try
 {
-    ApiResponse<LocationReportStatus> result = await devicesLocationsController.GetLocationReportStatusAsync(account, txid);
+    ApiResponse<LocationReportStatus> result = await devicesLocationsController.GetLocationReportStatusAsync(
+        account,
+        txid
+    );
 }
 catch (ApiException e)
 {
@@ -376,83 +463,6 @@ catch (ApiException e)
 {
   "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
   "status": "INPROGRESS"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| Default | Unexpected error. | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
-
-
-# Create Location Report
-
-Request an asynchronous device location report.
-
-```csharp
-CreateLocationReportAsync(
-    Models.LocationRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.LocationRequest`](../../doc/models/location-request.md) | Body, Required | Request for device location report. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.AsynchronousLocationRequestResult>>`](../../doc/models/asynchronous-location-request-result.md)
-
-## Example Usage
-
-```csharp
-LocationRequest body = new LocationRequest
-{
-    AccountName = "1234567890-00001",
-    AccuracyMode = 0,
-    CacheMode = CacheModeEnum.Enum1,
-    DeviceList = new List<Models.DeviceInfo>
-    {
-        new DeviceInfo
-        {
-            Id = "980003420535573",
-            Kind = "imei",
-            Mdn = "7892345678",
-        },
-        new DeviceInfo
-        {
-            Id = "375535024300089",
-            Kind = "imei",
-            Mdn = "7897654321",
-        },
-        new DeviceInfo
-        {
-            Id = "A100003861E585",
-            Kind = "meid",
-            Mdn = "7897650914",
-        },
-    },
-};
-
-try
-{
-    ApiResponse<AsynchronousLocationRequestResult> result = await devicesLocationsController.CreateLocationReportAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
-  "status": "QUEUED"
 }
 ```
 
@@ -491,7 +501,10 @@ string account = "0252012345-00001";
 string txid = "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33";
 try
 {
-    ApiResponse<TransactionID> result = await devicesLocationsController.CancelQueuedLocationReportGenerationAsync(account, txid);
+    ApiResponse<TransactionID> result = await devicesLocationsController.CancelQueuedLocationReportGenerationAsync(
+        account,
+        txid
+    );
 }
 catch (ApiException e)
 {

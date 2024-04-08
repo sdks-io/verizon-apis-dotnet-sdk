@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -43,7 +44,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Possible response codes.
         /// </summary>
-        [JsonProperty("responseCode", ItemConverterType = typeof(StringEnumConverter))]
+        [JsonProperty("responseCode")]
         public Models.ResponseCodeEnum ResponseCode { get; set; }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace Verizon.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"this.ResponseCode = {this.ResponseCode}");
-            toStringOutput.Add($"this.Message = {(this.Message == null ? "null" : this.Message == string.Empty ? "" : this.Message)}");
+            toStringOutput.Add($"this.Message = {(this.Message == null ? "null" : this.Message)}");
         }
     }
 }

@@ -11,7 +11,7 @@ List of all devices.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `DeviceIds` | [`List<Models.LicenseDeviceId>`](../../doc/models/license-device-id.md) | Optional | For 4G devices, IMEI (decimal, up to 15 digits).<br>**Constraints**: *Maximum Items*: `100` |
+| `DeviceIds` | [`List<LicenseDeviceId>`](../../doc/models/license-device-id.md) | Optional | For 4G devices, IMEI (decimal, up to 15 digits).<br>**Constraints**: *Maximum Items*: `100` |
 | `IpAddress` | `string` | Optional | **Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9].[0-9].[0-9].[0-9]{3,32}$` |
 
 ## Example (as JSON)
@@ -24,7 +24,7 @@ List of all devices.
       "kind": "IMEI"
     }
   ],
-  "ipAddress": "ipAddress0"
+  "ipAddress": "ipAddress4"
 }
 ```
 

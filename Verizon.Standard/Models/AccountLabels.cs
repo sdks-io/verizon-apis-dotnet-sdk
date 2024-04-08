@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -33,7 +34,7 @@ namespace Verizon.Standard.Models
         /// <param name="devices">devices.</param>
         /// <param name="label">label.</param>
         public AccountLabels(
-            List<Models.DeviceList> devices = null,
+            List<Models.DeviceList> devices,
             List<Models.DeviceLabels> label = null)
         {
             this.Devices = devices;
@@ -43,7 +44,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Gets or sets Devices.
         /// </summary>
-        [JsonProperty("devices", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("devices")]
         public List<Models.DeviceList> Devices { get; set; }
 
         /// <summary>

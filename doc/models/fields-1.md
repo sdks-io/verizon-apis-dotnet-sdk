@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Item` | [`Models.SearchDeviceByPropertyFields`](../../doc/models/search-device-by-property-fields.md) | Optional | List of device sensors and their most recently reported values. |
+| `Item` | [`SearchDeviceByPropertyFields`](../../doc/models/search-device-by-property-fields.md) | Optional | List of device sensors and their most recently reported values. |
 
 ## Example (as JSON)
 
@@ -17,9 +17,9 @@
 {
   "item": {
     "acceleration": {
-      "x": "x2",
-      "y": "y6",
-      "z": "z2"
+      "x": "x6",
+      "y": "y4",
+      "z": "z6"
     },
     "battery": "battery0",
     "humidity": "humidity4",

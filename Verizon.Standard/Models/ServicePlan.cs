@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -114,10 +115,10 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.CarrierServicePlanCode = {(this.CarrierServicePlanCode == null ? "null" : this.CarrierServicePlanCode == string.Empty ? "" : this.CarrierServicePlanCode)}");
-            toStringOutput.Add($"this.Code = {(this.Code == null ? "null" : this.Code == string.Empty ? "" : this.Code)}");
+            toStringOutput.Add($"this.CarrierServicePlanCode = {(this.CarrierServicePlanCode == null ? "null" : this.CarrierServicePlanCode)}");
+            toStringOutput.Add($"this.Code = {(this.Code == null ? "null" : this.Code)}");
             toStringOutput.Add($"this.ExtendedAttributes = {(this.ExtendedAttributes == null ? "null" : $"[{string.Join(", ", this.ExtendedAttributes)} ]")}");
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name == string.Empty ? "" : this.Name)}");
+            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
             toStringOutput.Add($"this.SizeKb = {(this.SizeKb == null ? "null" : this.SizeKb.ToString())}");
         }
     }

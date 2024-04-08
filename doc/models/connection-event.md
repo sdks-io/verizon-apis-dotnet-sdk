@@ -11,8 +11,8 @@ Network connection events for a device during a specified time period.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `ConnectionEventAttributes` | [`List<Models.CustomFields>`](../../doc/models/custom-fields.md) | Optional | The attributes that describe the connection event. |
-| `ExtendedAttributes` | [`List<Models.CustomFields>`](../../doc/models/custom-fields.md) | Optional | Currently not used. |
+| `ConnectionEventAttributes` | [`List<CustomFields>`](../../doc/models/custom-fields.md) | Optional | The attributes that describe the connection event. |
+| `ExtendedAttributes` | [`List<CustomFields>`](../../doc/models/custom-fields.md) | Optional | Currently not used. |
 | `OccurredAt` | `string` | Optional | The date and time when the connection event occured. |
 
 ## Example (as JSON)

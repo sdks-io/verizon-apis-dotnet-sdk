@@ -20,8 +20,8 @@ Device information.
 | `Status` | `string` | Required | Device status. |
 | `LicenseAssigned` | `bool` | Required | License assigned device. |
 | `Protocol` | `string` | Required | Firmware protocol. Valid values include: LWM2M, OMADM, HTTP or NONE. |
-| `SoftwareList` | [`List<Models.V3SoftwareInfo>`](../../doc/models/v3-software-info.md) | Required | List of sofware. |
-| `FileList` | [`List<Models.V3SoftwareInfo>`](../../doc/models/v3-software-info.md) | Optional | List of files. |
+| `SoftwareList` | [`List<V3SoftwareInfo>`](../../doc/models/v3-software-info.md) | Required | List of sofware. |
+| `FileList` | [`List<V3SoftwareInfo>`](../../doc/models/v3-software-info.md) | Optional | List of files. |
 | `CreateTime` | `string` | Optional | The date and time of when the device is created. |
 | `UpgradeTime` | `string` | Optional | The date and time of when the device firmware or software is updated. |
 | `UpdateTime` | `string` | Optional | The date and time of when the device is updated. |

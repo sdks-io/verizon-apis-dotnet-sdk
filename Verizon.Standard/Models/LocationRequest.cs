@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -31,19 +32,19 @@ namespace Verizon.Standard.Models
         /// Initializes a new instance of the <see cref="LocationRequest"/> class.
         /// </summary>
         /// <param name="accountName">accountName.</param>
+        /// <param name="deviceList">deviceList.</param>
         /// <param name="accuracyMode">accuracyMode.</param>
         /// <param name="cacheMode">cacheMode.</param>
-        /// <param name="deviceList">deviceList.</param>
         public LocationRequest(
             string accountName,
-            int accuracyMode,
-            Models.CacheModeEnum cacheMode,
-            List<Models.DeviceInfo> deviceList)
+            List<Models.DeviceInfo> deviceList,
+            Models.AccuracyModeEnum? accuracyMode = null,
+            Models.CacheModeEnum? cacheMode = null)
         {
             this.AccountName = accountName;
+            this.DeviceList = deviceList;
             this.AccuracyMode = accuracyMode;
             this.CacheMode = cacheMode;
-            this.DeviceList = deviceList;
         }
 
         /// <summary>
@@ -53,22 +54,22 @@ namespace Verizon.Standard.Models
         public string AccountName { get; set; }
 
         /// <summary>
-        /// Accurary, currently only 0-coarse supported.
-        /// </summary>
-        [JsonProperty("accuracyMode")]
-        public int AccuracyMode { get; set; }
-
-        /// <summary>
-        /// Location cache mode.
-        /// </summary>
-        [JsonProperty("cacheMode", ItemConverterType = typeof(StringEnumConverter))]
-        public Models.CacheModeEnum CacheMode { get; set; }
-
-        /// <summary>
         /// Device list.
         /// </summary>
         [JsonProperty("deviceList")]
         public List<Models.DeviceInfo> DeviceList { get; set; }
+
+        /// <summary>
+        /// Accurary, currently only 0-coarse supported.
+        /// </summary>
+        [JsonProperty("accuracyMode", NullValueHandling = NullValueHandling.Ignore)]
+        public Models.AccuracyModeEnum? AccuracyMode { get; set; }
+
+        /// <summary>
+        /// Location cache mode.
+        /// </summary>
+        [JsonProperty("cacheMode", NullValueHandling = NullValueHandling.Ignore)]
+        public Models.CacheModeEnum? CacheMode { get; set; }
 
         /// <inheritdoc/>
         public override string ToString()
@@ -93,9 +94,9 @@ namespace Verizon.Standard.Models
                 return true;
             }
             return obj is LocationRequest other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                this.AccuracyMode.Equals(other.AccuracyMode) &&
-                this.CacheMode.Equals(other.CacheMode) &&
-                ((this.DeviceList == null && other.DeviceList == null) || (this.DeviceList?.Equals(other.DeviceList) == true));
+                ((this.DeviceList == null && other.DeviceList == null) || (this.DeviceList?.Equals(other.DeviceList) == true)) &&
+                ((this.AccuracyMode == null && other.AccuracyMode == null) || (this.AccuracyMode?.Equals(other.AccuracyMode) == true)) &&
+                ((this.CacheMode == null && other.CacheMode == null) || (this.CacheMode?.Equals(other.CacheMode) == true));
         }
         
         /// <summary>
@@ -104,10 +105,10 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
-            toStringOutput.Add($"this.AccuracyMode = {this.AccuracyMode}");
-            toStringOutput.Add($"this.CacheMode = {this.CacheMode}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
             toStringOutput.Add($"this.DeviceList = {(this.DeviceList == null ? "null" : $"[{string.Join(", ", this.DeviceList)} ]")}");
+            toStringOutput.Add($"this.AccuracyMode = {(this.AccuracyMode == null ? "null" : this.AccuracyMode.ToString())}");
+            toStringOutput.Add($"this.CacheMode = {(this.CacheMode == null ? "null" : this.CacheMode.ToString())}");
         }
     }
 }

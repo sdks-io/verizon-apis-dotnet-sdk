@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -94,8 +95,8 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.PoolName = {(this.PoolName == null ? "null" : this.PoolName == string.Empty ? "" : this.PoolName)}");
-            toStringOutput.Add($"this.PoolType = {(this.PoolType == null ? "null" : this.PoolType == string.Empty ? "" : this.PoolType)}");
+            toStringOutput.Add($"this.PoolName = {(this.PoolName == null ? "null" : this.PoolName)}");
+            toStringOutput.Add($"this.PoolType = {(this.PoolType == null ? "null" : this.PoolType)}");
             toStringOutput.Add($"this.IsDefaultPool = {(this.IsDefaultPool == null ? "null" : this.IsDefaultPool.ToString())}");
         }
     }

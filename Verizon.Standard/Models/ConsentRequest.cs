@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -35,7 +36,7 @@ namespace Verizon.Standard.Models
         /// <param name="type">type.</param>
         /// <param name="exclusion">exclusion.</param>
         public ConsentRequest(
-            string accountName = null,
+            string accountName,
             bool? allDevice = null,
             string type = null,
             List<string> exclusion = null)
@@ -49,7 +50,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Account identifier in "##########-#####".
         /// </summary>
-        [JsonProperty("accountName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("accountName")]
         public string AccountName { get; set; }
 
         /// <summary>
@@ -104,9 +105,9 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
             toStringOutput.Add($"this.AllDevice = {(this.AllDevice == null ? "null" : this.AllDevice.ToString())}");
-            toStringOutput.Add($"this.Type = {(this.Type == null ? "null" : this.Type == string.Empty ? "" : this.Type)}");
+            toStringOutput.Add($"this.Type = {(this.Type == null ? "null" : this.Type)}");
             toStringOutput.Add($"this.Exclusion = {(this.Exclusion == null ? "null" : $"[{string.Join(", ", this.Exclusion)} ]")}");
         }
     }

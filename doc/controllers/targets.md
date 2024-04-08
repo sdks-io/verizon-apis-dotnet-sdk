@@ -11,10 +11,10 @@ TargetsController targetsController = client.TargetsController;
 ## Methods
 
 * [Query Target](../../doc/controllers/targets.md#query-target)
+* [Delete Target](../../doc/controllers/targets.md#delete-target)
+* [Create Target](../../doc/controllers/targets.md#create-target)
 * [Generate Target External ID](../../doc/controllers/targets.md#generate-target-external-id)
 * [Create Azure Central Io T Application](../../doc/controllers/targets.md#create-azure-central-io-t-application)
-* [Create Target](../../doc/controllers/targets.md#create-target)
-* [Delete Target](../../doc/controllers/targets.md#delete-target)
 
 
 # Query Target
@@ -30,7 +30,7 @@ QueryTargetAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.QueryTargetRequest`](../../doc/models/query-target-request.md) | Body, Required | Search for targets by property values. |
+| `body` | [`QueryTargetRequest`](../../doc/models/query-target-request.md) | Body, Required | Search for targets by property values. |
 
 ## Response Type
 
@@ -94,114 +94,48 @@ catch (ApiException e)
 ```
 
 
-# Generate Target External ID
+# Delete Target
 
-Create a unique string that ThingSpace will pass to AWS for increased security.
-
-:information_source: **Note** This endpoint does not require authentication.
+Remove a target from a ThingSpace account.
 
 ```csharp
-GenerateTargetExternalIDAsync(
-    Models.GenerateExternalIDRequest body)
+DeleteTargetAsync(
+    Models.DeleteTargetRequest body)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.GenerateExternalIDRequest`](../../doc/models/generate-external-id-request.md) | Body, Required | The request body only contains the authenticating account. |
+| `body` | [`DeleteTargetRequest`](../../doc/models/delete-target-request.md) | Body, Required | The request body identifies the target to delete. |
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GenerateExternalIDResult>>`](../../doc/models/generate-external-id-result.md)
+`Task`
 
 ## Example Usage
 
 ```csharp
-GenerateExternalIDRequest body = new GenerateExternalIDRequest
+DeleteTargetRequest body = new DeleteTargetRequest
 {
     Accountidentifier = new AccountIdentifier
     {
         Billingaccountid = "0000000000-00001",
     },
+    Resourceidentifier = new ResourceIdentifier
+    {
+        Id = "2e61a17d-8fd1-6816-e995-e4c2528bf535",
+    },
 };
 
 try
 {
-    ApiResponse<GenerateExternalIDResult> result = await targetsController.GenerateTargetExternalIDAsync(body);
+    await targetsController.DeleteTargetAsync(body);
 }
 catch (ApiException e)
 {
     // TODO: Handle exception here
     Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "externalid": "ZlJnih8BfqsosZrEEkfPuR3aGOk2i-HIr6tXN275ioJF6bezIrQB9EbzpTRep8J7RmV7QH=="
-}
-```
-
-
-# Create Azure Central Io T Application
-
-Deploy a new Azure IoT Central application based on the Verizon ARM template within the specified Azure Active Directory account.
-
-```csharp
-CreateAzureCentralIoTApplicationAsync(
-    string billingaccountID,
-    Models.CreateIoTApplicationRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `billingaccountID` | `string` | Header, Required | TThe ThingSpace ID of the authenticating billing account. |
-| `body` | [`Models.CreateIoTApplicationRequest`](../../doc/models/create-io-t-application-request.md) | Body, Required | The request body must include the UUID of the subscription that you want to update plus any properties that you want to change. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.CreateIoTApplicationResponse>>`](../../doc/models/create-io-t-application-response.md)
-
-## Example Usage
-
-```csharp
-string billingaccountID = "BillingaccountID2";
-CreateIoTApplicationRequest body = new CreateIoTApplicationRequest
-{
-    AppName = "newarmapp1",
-    BillingAccountID = "0000123456-00001",
-    ClientID = "UUID",
-    ClientSecret = "client secret",
-    EmailIDs = "email@domain.com",
-    Resourcegroup = "Myresourcegroup",
-    SampleIOTcApp = "{app ID}",
-    SubscriptionID = "{subscription ID}",
-    TenantID = "{tenant ID}",
-};
-
-try
-{
-    ApiResponse<CreateIoTApplicationResponse> result = await targetsController.CreateAzureCentralIoTApplicationAsync(billingaccountID, body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "appName": "newarmapp1",
-  "sharedSecret": "SharedAccessSignaturesr={client secret}",
-  "url": "https://newarmapp1.azureiotcentral.com"
 }
 ```
 
@@ -219,7 +153,7 @@ CreateTargetAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.CreateTargetRequest`](../../doc/models/create-target-request.md) | Body, Required | The request body provides the details of the target that you want to create. |
+| `body` | [`CreateTargetRequest`](../../doc/models/create-target-request.md) | Body, Required | The request body provides the details of the target that you want to create. |
 
 ## Response Type
 
@@ -285,48 +219,117 @@ catch (ApiException e)
 ```
 
 
-# Delete Target
+# Generate Target External ID
 
-Remove a target from a ThingSpace account.
+Create a unique string that ThingSpace will pass to AWS for increased security.
+
+:information_source: **Note** This endpoint does not require authentication.
 
 ```csharp
-DeleteTargetAsync(
-    Models.DeleteTargetRequest body)
+GenerateTargetExternalIDAsync(
+    Models.GenerateExternalIDRequest body)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.DeleteTargetRequest`](../../doc/models/delete-target-request.md) | Body, Required | The request body identifies the target to delete. |
+| `body` | [`GenerateExternalIDRequest`](../../doc/models/generate-external-id-request.md) | Body, Required | The request body only contains the authenticating account. |
 
 ## Response Type
 
-`Task`
+[`Task<ApiResponse<Models.GenerateExternalIDResult>>`](../../doc/models/generate-external-id-result.md)
 
 ## Example Usage
 
 ```csharp
-DeleteTargetRequest body = new DeleteTargetRequest
+GenerateExternalIDRequest body = new GenerateExternalIDRequest
 {
     Accountidentifier = new AccountIdentifier
     {
         Billingaccountid = "0000000000-00001",
     },
-    Resourceidentifier = new ResourceIdentifier
-    {
-        Id = "2e61a17d-8fd1-6816-e995-e4c2528bf535",
-    },
 };
 
 try
 {
-    await targetsController.DeleteTargetAsync(body);
+    ApiResponse<GenerateExternalIDResult> result = await targetsController.GenerateTargetExternalIDAsync(body);
 }
 catch (ApiException e)
 {
     // TODO: Handle exception here
     Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "externalid": "ZlJnih8BfqsosZrEEkfPuR3aGOk2i-HIr6tXN275ioJF6bezIrQB9EbzpTRep8J7RmV7QH=="
+}
+```
+
+
+# Create Azure Central Io T Application
+
+Deploy a new Azure IoT Central application based on the Verizon ARM template within the specified Azure Active Directory account.
+
+```csharp
+CreateAzureCentralIoTApplicationAsync(
+    string billingaccountID,
+    Models.CreateIoTApplicationRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `billingaccountID` | `string` | Header, Required | TThe ThingSpace ID of the authenticating billing account. |
+| `body` | [`CreateIoTApplicationRequest`](../../doc/models/create-io-t-application-request.md) | Body, Required | The request body must include the UUID of the subscription that you want to update plus any properties that you want to change. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.CreateIoTApplicationResponse>>`](../../doc/models/create-io-t-application-response.md)
+
+## Example Usage
+
+```csharp
+string billingaccountID = "BillingaccountID2";
+CreateIoTApplicationRequest body = new CreateIoTApplicationRequest
+{
+    AppName = "newarmapp1",
+    BillingAccountID = "0000123456-00001",
+    ClientID = "UUID",
+    ClientSecret = "client secret",
+    EmailIDs = "email@domain.com",
+    Resourcegroup = "Myresourcegroup",
+    SampleIOTcApp = "{app ID}",
+    SubscriptionID = "{subscription ID}",
+    TenantID = "{tenant ID}",
+};
+
+try
+{
+    ApiResponse<CreateIoTApplicationResponse> result = await targetsController.CreateAzureCentralIoTApplicationAsync(
+        billingaccountID,
+        body
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "appName": "newarmapp1",
+  "sharedSecret": "SharedAccessSignaturesr={client secret}",
+  "url": "https://newarmapp1.azureiotcentral.com"
 }
 ```
 

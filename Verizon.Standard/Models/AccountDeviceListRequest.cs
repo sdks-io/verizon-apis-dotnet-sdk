@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -39,6 +40,8 @@ namespace Verizon.Standard.Models
         /// <param name="groupName">groupName.</param>
         /// <param name="latest">latest.</param>
         /// <param name="servicePlan">servicePlan.</param>
+        /// <param name="maxNumberOfDevices">maxNumberOfDevices.</param>
+        /// <param name="largestDeviceIdSeen">largestDeviceIdSeen.</param>
         public AccountDeviceListRequest(
             string accountName = null,
             Models.DeviceId deviceId = null,
@@ -48,7 +51,9 @@ namespace Verizon.Standard.Models
             string earliest = null,
             string groupName = null,
             string latest = null,
-            string servicePlan = null)
+            string servicePlan = null,
+            int? maxNumberOfDevices = null,
+            long? largestDeviceIdSeen = null)
         {
             this.AccountName = accountName;
             this.DeviceId = deviceId;
@@ -59,6 +64,8 @@ namespace Verizon.Standard.Models
             this.GroupName = groupName;
             this.Latest = latest;
             this.ServicePlan = servicePlan;
+            this.MaxNumberOfDevices = maxNumberOfDevices;
+            this.LargestDeviceIdSeen = largestDeviceIdSeen;
         }
 
         /// <summary>
@@ -115,6 +122,18 @@ namespace Verizon.Standard.Models
         [JsonProperty("servicePlan", NullValueHandling = NullValueHandling.Ignore)]
         public string ServicePlan { get; set; }
 
+        /// <summary>
+        /// Gets or sets MaxNumberOfDevices.
+        /// </summary>
+        [JsonProperty("maxNumberOfDevices", NullValueHandling = NullValueHandling.Ignore)]
+        public int? MaxNumberOfDevices { get; set; }
+
+        /// <summary>
+        /// Gets or sets LargestDeviceIdSeen.
+        /// </summary>
+        [JsonProperty("largestDeviceIdSeen", NullValueHandling = NullValueHandling.Ignore)]
+        public long? LargestDeviceIdSeen { get; set; }
+
         /// <inheritdoc/>
         public override string ToString()
         {
@@ -145,7 +164,9 @@ namespace Verizon.Standard.Models
                 ((this.Earliest == null && other.Earliest == null) || (this.Earliest?.Equals(other.Earliest) == true)) &&
                 ((this.GroupName == null && other.GroupName == null) || (this.GroupName?.Equals(other.GroupName) == true)) &&
                 ((this.Latest == null && other.Latest == null) || (this.Latest?.Equals(other.Latest) == true)) &&
-                ((this.ServicePlan == null && other.ServicePlan == null) || (this.ServicePlan?.Equals(other.ServicePlan) == true));
+                ((this.ServicePlan == null && other.ServicePlan == null) || (this.ServicePlan?.Equals(other.ServicePlan) == true)) &&
+                ((this.MaxNumberOfDevices == null && other.MaxNumberOfDevices == null) || (this.MaxNumberOfDevices?.Equals(other.MaxNumberOfDevices) == true)) &&
+                ((this.LargestDeviceIdSeen == null && other.LargestDeviceIdSeen == null) || (this.LargestDeviceIdSeen?.Equals(other.LargestDeviceIdSeen) == true));
         }
         
         /// <summary>
@@ -154,15 +175,17 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
             toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId.ToString())}");
             toStringOutput.Add($"this.Filter = {(this.Filter == null ? "null" : this.Filter.ToString())}");
-            toStringOutput.Add($"this.CurrentState = {(this.CurrentState == null ? "null" : this.CurrentState == string.Empty ? "" : this.CurrentState)}");
+            toStringOutput.Add($"this.CurrentState = {(this.CurrentState == null ? "null" : this.CurrentState)}");
             toStringOutput.Add($"this.CustomFields = {(this.CustomFields == null ? "null" : $"[{string.Join(", ", this.CustomFields)} ]")}");
-            toStringOutput.Add($"this.Earliest = {(this.Earliest == null ? "null" : this.Earliest == string.Empty ? "" : this.Earliest)}");
-            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName == string.Empty ? "" : this.GroupName)}");
-            toStringOutput.Add($"this.Latest = {(this.Latest == null ? "null" : this.Latest == string.Empty ? "" : this.Latest)}");
-            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan == string.Empty ? "" : this.ServicePlan)}");
+            toStringOutput.Add($"this.Earliest = {(this.Earliest == null ? "null" : this.Earliest)}");
+            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName)}");
+            toStringOutput.Add($"this.Latest = {(this.Latest == null ? "null" : this.Latest)}");
+            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan)}");
+            toStringOutput.Add($"this.MaxNumberOfDevices = {(this.MaxNumberOfDevices == null ? "null" : this.MaxNumberOfDevices.ToString())}");
+            toStringOutput.Add($"this.LargestDeviceIdSeen = {(this.LargestDeviceIdSeen == null ? "null" : this.LargestDeviceIdSeen.ToString())}");
         }
     }
 }

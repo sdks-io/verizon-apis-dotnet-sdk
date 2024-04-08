@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -43,7 +44,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// The name of the callback service.
         /// </summary>
-        [JsonProperty("name", ItemConverterType = typeof(StringEnumConverter))]
+        [JsonProperty("name")]
         public Models.CallbackServiceNameEnum Name { get; set; }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace Verizon.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"this.Name = {this.Name}");
-            toStringOutput.Add($"this.Url = {(this.Url == null ? "null" : this.Url == string.Empty ? "" : this.Url)}");
+            toStringOutput.Add($"this.Url = {(this.Url == null ? "null" : this.Url)}");
         }
     }
 }

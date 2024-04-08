@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -33,8 +34,8 @@ namespace Verizon.Standard.Models
         /// <param name="key">key.</param>
         /// <param name="mValue">value.</param>
         public CustomFields(
-            string key = null,
-            string mValue = null)
+            string key,
+            string mValue)
         {
             this.Key = key;
             this.MValue = mValue;
@@ -43,13 +44,13 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// The key for an extended attribute.
         /// </summary>
-        [JsonProperty("key", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("key")]
         public string Key { get; set; }
 
         /// <summary>
         /// The value of an extended attribute.
         /// </summary>
-        [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("value")]
         public string MValue { get; set; }
 
         /// <inheritdoc/>
@@ -84,8 +85,8 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Key = {(this.Key == null ? "null" : this.Key == string.Empty ? "" : this.Key)}");
-            toStringOutput.Add($"this.MValue = {(this.MValue == null ? "null" : this.MValue == string.Empty ? "" : this.MValue)}");
+            toStringOutput.Add($"this.Key = {(this.Key == null ? "null" : this.Key)}");
+            toStringOutput.Add($"this.MValue = {(this.MValue == null ? "null" : this.MValue)}");
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -33,8 +34,8 @@ namespace Verizon.Standard.Models
         /// <param name="username">username.</param>
         /// <param name="password">password.</param>
         public LogInRequest(
-            string username = null,
-            string password = null)
+            string username,
+            string password)
         {
             this.Username = username;
             this.Password = password;
@@ -43,13 +44,13 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// The username for authentication.
         /// </summary>
-        [JsonProperty("username", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("username")]
         public string Username { get; set; }
 
         /// <summary>
         /// The password for authentication.
         /// </summary>
-        [JsonProperty("password", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("password")]
         public string Password { get; set; }
 
         /// <inheritdoc/>
@@ -84,8 +85,8 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Username = {(this.Username == null ? "null" : this.Username == string.Empty ? "" : this.Username)}");
-            toStringOutput.Add($"this.Password = {(this.Password == null ? "null" : this.Password == string.Empty ? "" : this.Password)}");
+            toStringOutput.Add($"this.Username = {(this.Username == null ? "null" : this.Username)}");
+            toStringOutput.Add($"this.Password = {(this.Password == null ? "null" : this.Password)}");
         }
     }
 }

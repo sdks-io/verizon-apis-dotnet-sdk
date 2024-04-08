@@ -37,7 +37,10 @@ string account = "0000123456-00001";
 string deviceId = "990013907835573";
 try
 {
-    ApiResponse<List<CheckInHistoryItem>> result = await serverLoggingController.GetDeviceCheckInHistoryAsync(account, deviceId);
+    ApiResponse<List<CheckInHistoryItem>> result = await serverLoggingController.GetDeviceCheckInHistoryAsync(
+        account,
+        deviceId
+    );
 }
 catch (ApiException e)
 {

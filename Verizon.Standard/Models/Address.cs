@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -164,16 +165,16 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AddressLine1 = {(this.AddressLine1 == null ? "null" : this.AddressLine1 == string.Empty ? "" : this.AddressLine1)}");
-            toStringOutput.Add($"this.AddressLine2 = {(this.AddressLine2 == null ? "null" : this.AddressLine2 == string.Empty ? "" : this.AddressLine2)}");
-            toStringOutput.Add($"this.City = {(this.City == null ? "null" : this.City == string.Empty ? "" : this.City)}");
-            toStringOutput.Add($"this.State = {(this.State == null ? "null" : this.State == string.Empty ? "" : this.State)}");
-            toStringOutput.Add($"this.Zip = {(this.Zip == null ? "null" : this.Zip == string.Empty ? "" : this.Zip)}");
-            toStringOutput.Add($"this.Zip4 = {(this.Zip4 == null ? "null" : this.Zip4 == string.Empty ? "" : this.Zip4)}");
-            toStringOutput.Add($"this.Country = {(this.Country == null ? "null" : this.Country == string.Empty ? "" : this.Country)}");
-            toStringOutput.Add($"this.Phone = {(this.Phone == null ? "null" : this.Phone == string.Empty ? "" : this.Phone)}");
-            toStringOutput.Add($"this.PhoneType = {(this.PhoneType == null ? "null" : this.PhoneType == string.Empty ? "" : this.PhoneType)}");
-            toStringOutput.Add($"this.EmailAddress = {(this.EmailAddress == null ? "null" : this.EmailAddress == string.Empty ? "" : this.EmailAddress)}");
+            toStringOutput.Add($"this.AddressLine1 = {(this.AddressLine1 == null ? "null" : this.AddressLine1)}");
+            toStringOutput.Add($"this.AddressLine2 = {(this.AddressLine2 == null ? "null" : this.AddressLine2)}");
+            toStringOutput.Add($"this.City = {(this.City == null ? "null" : this.City)}");
+            toStringOutput.Add($"this.State = {(this.State == null ? "null" : this.State)}");
+            toStringOutput.Add($"this.Zip = {(this.Zip == null ? "null" : this.Zip)}");
+            toStringOutput.Add($"this.Zip4 = {(this.Zip4 == null ? "null" : this.Zip4)}");
+            toStringOutput.Add($"this.Country = {(this.Country == null ? "null" : this.Country)}");
+            toStringOutput.Add($"this.Phone = {(this.Phone == null ? "null" : this.Phone)}");
+            toStringOutput.Add($"this.PhoneType = {(this.PhoneType == null ? "null" : this.PhoneType)}");
+            toStringOutput.Add($"this.EmailAddress = {(this.EmailAddress == null ? "null" : this.EmailAddress)}");
         }
     }
 }

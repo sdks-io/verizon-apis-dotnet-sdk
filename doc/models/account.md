@@ -17,8 +17,8 @@ Returns information about a specified account.
 | `IsProvisioningAllowed` | `bool?` | Optional | True if devices can be added to the account and activated with a single request. False if devices must be added to the account before they can be activated. |
 | `Carriers` | `List<string>` | Optional | The names of all carriers for the account. |
 | `Features` | `List<string>` | Optional | The names of features that are enabled for the account. |
-| `IPPools` | [`List<Models.IPPool>`](../../doc/models/ip-pool.md) | Optional | Array of IP pools that are available to the account. |
-| `ServicePlans` | [`List<Models.ServicePlan>`](../../doc/models/service-plan.md) | Optional | Array of service plans that are available to the account. |
+| `IPPools` | [`List<IPPool>`](../../doc/models/ip-pool.md) | Optional | Array of IP pools that are available to the account. |
+| `ServicePlans` | [`List<ServicePlan>`](../../doc/models/service-plan.md) | Optional | Array of service plans that are available to the account. |
 
 ## Example (as JSON)
 

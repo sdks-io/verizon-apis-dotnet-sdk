@@ -11,7 +11,7 @@ Request to a new, randomly generated password for the current username.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `OldPassword` | `string` | Optional | The current password for the username. |
+| `OldPassword` | `string` | Required | The current password for the username. |
 
 ## Example (as JSON)
 

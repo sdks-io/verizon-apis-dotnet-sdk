@@ -1,4 +1,4 @@
-// <copyright file="IClientCredentialsAuthCredentials.cs" company="APIMatic">
+// <copyright file="IClientCredentialsAuth.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
 namespace Verizon.Standard.Authentication

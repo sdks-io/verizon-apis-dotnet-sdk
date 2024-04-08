@@ -31,7 +31,7 @@ GetCampaignHistoryByStatusAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `acc` | `string` | Template, Required | Account identifier. |
-| `campaignStatus` | [`Models.CampaignStatusEnum`](../../doc/models/campaign-status-enum.md) | Query, Required | Campaign status. |
+| `campaignStatus` | [`CampaignStatusEnum`](../../doc/models/campaign-status-enum.md) | Query, Required | Campaign status. |
 | `lastSeenCampaignId` | `string` | Query, Optional | Last seen campaign Id. |
 
 ## Response Type
@@ -42,11 +42,15 @@ GetCampaignHistoryByStatusAsync(
 
 ```csharp
 string acc = "0000123456-00001";
-Models.CampaignStatusEnum campaignStatus = CampaignStatusEnum.CampaignRequestPending;
+CampaignStatusEnum campaignStatus = CampaignStatusEnum.CampaignRequestPending;
 string lastSeenCampaignId = "60b5d639-ccdc-4db8-8824-069bd94c95bf";
 try
 {
-    ApiResponse<V3CampaignHistory> result = await softwareManagementReportsV3Controller.GetCampaignHistoryByStatusAsync(acc, campaignStatus, lastSeenCampaignId);
+    ApiResponse<V3CampaignHistory> result = await softwareManagementReportsV3Controller.GetCampaignHistoryByStatusAsync(
+        acc,
+        campaignStatus,
+        lastSeenCampaignId
+    );
 }
 catch (ApiException e)
 {
@@ -120,7 +124,10 @@ string acc = "0000123456-00001";
 string deviceId = "15-digit IMEI";
 try
 {
-    ApiResponse<List<DeviceFirmwareUpgrade>> result = await softwareManagementReportsV3Controller.GetDeviceFirmwareUpgradeHistoryAsync(acc, deviceId);
+    ApiResponse<List<DeviceFirmwareUpgrade>> result = await softwareManagementReportsV3Controller.GetDeviceFirmwareUpgradeHistoryAsync(
+        acc,
+        deviceId
+    );
 }
 catch (ApiException e)
 {
@@ -198,7 +205,11 @@ string campaignId = "f858b8c4-2153-11ec-8c44-aeb16d1aa652";
 string lastSeenDeviceId = "15-digit IMEI";
 try
 {
-    ApiResponse<V3CampaignDevice> result = await softwareManagementReportsV3Controller.GetCampaignDeviceStatusAsync(acc, campaignId, lastSeenDeviceId);
+    ApiResponse<V3CampaignDevice> result = await softwareManagementReportsV3Controller.GetCampaignDeviceStatusAsync(
+        acc,
+        campaignId,
+        lastSeenDeviceId
+    );
 }
 catch (ApiException e)
 {

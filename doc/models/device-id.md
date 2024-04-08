@@ -11,8 +11,8 @@ An identifier for a single device.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Id` | `string` | Optional | The value of the device identifier. |
-| `Kind` | `string` | Optional | The type of the device identifier. Valid types of identifiers are:ESN (decimal),EID,ICCID (up to 20 digits),IMEI (up to 16 digits),MDN,MEID (hexadecimal),MSISDN. |
+| `Id` | `string` | Required | The value of the device identifier. |
+| `Kind` | `string` | Required | The type of the device identifier. Valid types of identifiers are:ESN (decimal),EID,ICCID (up to 20 digits),IMEI (up to 16 digits),MDN,MEID (hexadecimal),MSISDN. |
 
 ## Example (as JSON)
 

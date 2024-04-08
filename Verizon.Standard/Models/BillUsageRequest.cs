@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -35,9 +36,9 @@ namespace Verizon.Standard.Models
         /// <param name="endDate">endDate.</param>
         /// <param name="usageForAllAccounts">usageForAllAccounts.</param>
         public BillUsageRequest(
-            string accountName = null,
-            string startDate = null,
-            string endDate = null,
+            string accountName,
+            string startDate,
+            string endDate,
             bool? usageForAllAccounts = null)
         {
             this.AccountName = accountName;
@@ -49,19 +50,19 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Account identifier.
         /// </summary>
-        [JsonProperty("accountName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("accountName")]
         public string AccountName { get; set; }
 
         /// <summary>
         /// Start date to search for billable usage, mm-dd-yyyy.
         /// </summary>
-        [JsonProperty("startDate", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("startDate")]
         public string StartDate { get; set; }
 
         /// <summary>
         /// End date to search for billable usage, mm-dd-yyyy.
         /// </summary>
-        [JsonProperty("endDate", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("endDate")]
         public string EndDate { get; set; }
 
         /// <summary>
@@ -104,9 +105,9 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
-            toStringOutput.Add($"this.StartDate = {(this.StartDate == null ? "null" : this.StartDate == string.Empty ? "" : this.StartDate)}");
-            toStringOutput.Add($"this.EndDate = {(this.EndDate == null ? "null" : this.EndDate == string.Empty ? "" : this.EndDate)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
+            toStringOutput.Add($"this.StartDate = {(this.StartDate == null ? "null" : this.StartDate)}");
+            toStringOutput.Add($"this.EndDate = {(this.EndDate == null ? "null" : this.EndDate)}");
             toStringOutput.Add($"this.UsageForAllAccounts = {(this.UsageForAllAccounts == null ? "null" : this.UsageForAllAccounts.ToString())}");
         }
     }

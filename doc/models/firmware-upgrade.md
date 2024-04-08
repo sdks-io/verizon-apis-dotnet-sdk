@@ -17,7 +17,7 @@ Array of upgrade objects with the specified status.
 | `FirmwareTo` | `string` | Optional | The name of the firmware version that will be on the devices after a successful upgrade. |
 | `StartDate` | `string` | Optional | The intended start date for the upgrade. |
 | `Status` | `string` | Optional | The current status of the upgrade. |
-| `DeviceList` | [`List<Models.FirmwareUpgradeDeviceListItem>`](../../doc/models/firmware-upgrade-device-list-item.md) | Optional | A JSON object for each device that was included in the upgrade, showing the device IMEI, the status of the upgrade, and additional information about the status. |
+| `DeviceList` | [`List<FirmwareUpgradeDeviceListItem>`](../../doc/models/firmware-upgrade-device-list-item.md) | Optional | A JSON object for each device that was included in the upgrade, showing the device IMEI, the status of the upgrade, and additional information about the status. |
 
 ## Example (as JSON)
 

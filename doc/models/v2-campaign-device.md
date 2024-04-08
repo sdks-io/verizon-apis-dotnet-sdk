@@ -15,7 +15,7 @@ List of devices in a campaign.
 | `HasMoreData` | `bool` | Required | Has more report flag. |
 | `LastSeenDeviceId` | `string` | Optional | Device identifier. |
 | `MaxPageSize` | `int` | Required | Maximum page size. |
-| `DeviceList` | [`List<Models.V2DeviceStatus>`](../../doc/models/v2-device-status.md) | Required | List of devices with id in IMEI. |
+| `DeviceList` | [`List<V2DeviceStatus>`](../../doc/models/v2-device-status.md) | Required | List of devices with id in IMEI. |
 
 ## Example (as JSON)
 

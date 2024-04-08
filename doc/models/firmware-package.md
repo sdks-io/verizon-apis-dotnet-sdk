@@ -18,7 +18,7 @@ Available firmware.
 | `ReleaseNote` | `string` | Required | Firmware release note. |
 | `Model` | `string` | Required | Firmware applicable device model. |
 | `Make` | `string` | Required | Firmware applicable device make. |
-| `Protocol` | [`Models.CampaignMetaInfoProtocolEnum`](../../doc/models/campaign-meta-info-protocol-enum.md) | Required | Firmware protocol. Valid values include: LWM2M, OMD-DM.<br>**Default**: `CampaignMetaInfoProtocolEnum.LWM2M` |
+| `Protocol` | [`CampaignMetaInfoProtocolEnum`](../../doc/models/campaign-meta-info-protocol-enum.md) | Required | Firmware protocol. Valid values include: LWM2M, OMD-DM.<br>**Default**: `CampaignMetaInfoProtocolEnum.LWM2M` |
 
 ## Example (as JSON)
 

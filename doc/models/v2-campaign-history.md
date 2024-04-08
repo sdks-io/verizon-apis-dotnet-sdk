@@ -13,7 +13,7 @@ Campaign history details.
 |  --- | --- | --- | --- |
 | `HasMoreData` | `bool` | Required | Has more report flag. |
 | `LastSeenCampaignId` | `string` | Optional | Campaign identifier. |
-| `CampaignList` | [`List<Models.V2CampaignMetaInfo>`](../../doc/models/v2-campaign-meta-info.md) | Required | Software upgrade list. |
+| `CampaignList` | [`List<V2CampaignMetaInfo>`](../../doc/models/v2-campaign-meta-info.md) | Required | Software upgrade list. |
 
 ## Example (as JSON)
 

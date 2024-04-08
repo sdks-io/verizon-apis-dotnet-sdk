@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -135,13 +136,13 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.SoftwareName = {(this.SoftwareName == null ? "null" : this.SoftwareName == string.Empty ? "" : this.SoftwareName)}");
+            toStringOutput.Add($"this.SoftwareName = {(this.SoftwareName == null ? "null" : this.SoftwareName)}");
             toStringOutput.Add($"this.LaunchDate = {this.LaunchDate}");
-            toStringOutput.Add($"this.ReleaseNote = {(this.ReleaseNote == null ? "null" : this.ReleaseNote == string.Empty ? "" : this.ReleaseNote)}");
-            toStringOutput.Add($"this.Model = {(this.Model == null ? "null" : this.Model == string.Empty ? "" : this.Model)}");
-            toStringOutput.Add($"this.Make = {(this.Make == null ? "null" : this.Make == string.Empty ? "" : this.Make)}");
-            toStringOutput.Add($"this.DistributionType = {(this.DistributionType == null ? "null" : this.DistributionType == string.Empty ? "" : this.DistributionType)}");
-            toStringOutput.Add($"this.DevicePlatformId = {(this.DevicePlatformId == null ? "null" : this.DevicePlatformId == string.Empty ? "" : this.DevicePlatformId)}");
+            toStringOutput.Add($"this.ReleaseNote = {(this.ReleaseNote == null ? "null" : this.ReleaseNote)}");
+            toStringOutput.Add($"this.Model = {(this.Model == null ? "null" : this.Model)}");
+            toStringOutput.Add($"this.Make = {(this.Make == null ? "null" : this.Make)}");
+            toStringOutput.Add($"this.DistributionType = {(this.DistributionType == null ? "null" : this.DistributionType)}");
+            toStringOutput.Add($"this.DevicePlatformId = {(this.DevicePlatformId == null ? "null" : this.DevicePlatformId)}");
         }
     }
 }

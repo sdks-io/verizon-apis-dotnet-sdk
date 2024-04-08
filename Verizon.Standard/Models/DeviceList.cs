@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -32,7 +33,7 @@ namespace Verizon.Standard.Models
         /// </summary>
         /// <param name="deviceIds">deviceIds.</param>
         public DeviceList(
-            List<Models.DeviceId1> deviceIds = null)
+            List<Models.DeviceId> deviceIds = null)
         {
             this.DeviceIds = deviceIds;
         }
@@ -41,7 +42,7 @@ namespace Verizon.Standard.Models
         /// Gets or sets DeviceIds.
         /// </summary>
         [JsonProperty("deviceIds", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Models.DeviceId1> DeviceIds { get; set; }
+        public List<Models.DeviceId> DeviceIds { get; set; }
 
         /// <inheritdoc/>
         public override string ToString()

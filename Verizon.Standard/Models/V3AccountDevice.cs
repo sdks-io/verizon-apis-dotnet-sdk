@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -214,21 +215,21 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId == string.Empty ? "" : this.DeviceId)}");
-            toStringOutput.Add($"this.Mdn = {(this.Mdn == null ? "null" : this.Mdn == string.Empty ? "" : this.Mdn)}");
-            toStringOutput.Add($"this.Model = {(this.Model == null ? "null" : this.Model == string.Empty ? "" : this.Model)}");
-            toStringOutput.Add($"this.Make = {(this.Make == null ? "null" : this.Make == string.Empty ? "" : this.Make)}");
-            toStringOutput.Add($"this.Firmware = {(this.Firmware == null ? "null" : this.Firmware == string.Empty ? "" : this.Firmware)}");
+            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId)}");
+            toStringOutput.Add($"this.Mdn = {(this.Mdn == null ? "null" : this.Mdn)}");
+            toStringOutput.Add($"this.Model = {(this.Model == null ? "null" : this.Model)}");
+            toStringOutput.Add($"this.Make = {(this.Make == null ? "null" : this.Make)}");
+            toStringOutput.Add($"this.Firmware = {(this.Firmware == null ? "null" : this.Firmware)}");
             toStringOutput.Add($"this.FotaEligible = {this.FotaEligible}");
-            toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status == string.Empty ? "" : this.Status)}");
+            toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status)}");
             toStringOutput.Add($"this.LicenseAssigned = {this.LicenseAssigned}");
-            toStringOutput.Add($"this.Protocol = {(this.Protocol == null ? "null" : this.Protocol == string.Empty ? "" : this.Protocol)}");
+            toStringOutput.Add($"this.Protocol = {(this.Protocol == null ? "null" : this.Protocol)}");
             toStringOutput.Add($"this.SoftwareList = {(this.SoftwareList == null ? "null" : $"[{string.Join(", ", this.SoftwareList)} ]")}");
             toStringOutput.Add($"this.FileList = {(this.FileList == null ? "null" : $"[{string.Join(", ", this.FileList)} ]")}");
-            toStringOutput.Add($"this.CreateTime = {(this.CreateTime == null ? "null" : this.CreateTime == string.Empty ? "" : this.CreateTime)}");
-            toStringOutput.Add($"this.UpgradeTime = {(this.UpgradeTime == null ? "null" : this.UpgradeTime == string.Empty ? "" : this.UpgradeTime)}");
-            toStringOutput.Add($"this.UpdateTime = {(this.UpdateTime == null ? "null" : this.UpdateTime == string.Empty ? "" : this.UpdateTime)}");
-            toStringOutput.Add($"this.RefreshTime = {(this.RefreshTime == null ? "null" : this.RefreshTime == string.Empty ? "" : this.RefreshTime)}");
+            toStringOutput.Add($"this.CreateTime = {(this.CreateTime == null ? "null" : this.CreateTime)}");
+            toStringOutput.Add($"this.UpgradeTime = {(this.UpgradeTime == null ? "null" : this.UpgradeTime)}");
+            toStringOutput.Add($"this.UpdateTime = {(this.UpdateTime == null ? "null" : this.UpdateTime)}");
+            toStringOutput.Add($"this.RefreshTime = {(this.RefreshTime == null ? "null" : this.RefreshTime)}");
         }
     }
 }

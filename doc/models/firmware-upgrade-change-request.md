@@ -11,7 +11,7 @@ List of devices to add or remove.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Type` | [`Models.FirmwareTypeListEnum`](../../doc/models/firmware-type-list-enum.md) | Required | Possible values are `append` or `remove` |
+| `Type` | [`FirmwareTypeListEnum`](../../doc/models/firmware-type-list-enum.md) | Required | Possible values are `append` or `remove` |
 | `DeviceList` | `List<string>` | Required | The IMEIs of the devices. |
 
 ## Example (as JSON)

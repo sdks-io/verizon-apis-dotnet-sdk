@@ -13,7 +13,7 @@ Add or remove devices to existing upgrade information.
 |  --- | --- | --- | --- |
 | `AccountName` | `string` | Required | Account identifier. |
 | `CampaignId` | `string` | Required | Campaign identifier. |
-| `DeviceList` | [`List<Models.V3DeviceListItem>`](../../doc/models/v3-device-list-item.md) | Required | Array of devices changed. |
+| `DeviceList` | [`List<V3DeviceListItem>`](../../doc/models/v3-device-list-item.md) | Required | Array of devices changed. |
 
 ## Example (as JSON)
 

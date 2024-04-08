@@ -11,9 +11,9 @@ Error message.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `ErrorCode` | [`Models.ErrorResponseCodeEnum?`](../../doc/models/error-response-code-enum.md) | Optional | Error Code. |
+| `ErrorCode` | [`ErrorResponseCodeEnum?`](../../doc/models/error-response-code-enum.md) | Optional | Error Code. |
 | `ErrorMessage` | `string` | Optional | Details and additional information about the error code. |
-| `HttpStatusCode` | [`Models.HttpStatusCodeEnum?`](../../doc/models/http-status-code-enum.md) | Optional | HTML error code and description. |
+| `HttpStatusCode` | [`HttpStatusCodeEnum?`](../../doc/models/http-status-code-enum.md) | Optional | HTML error code and description. |
 | `DetailErrorMessage` | `string` | Optional | More detail and information about the HTML error code. |
 
 ## Example (as JSON)
@@ -22,8 +22,8 @@ Error message.
 {
   "httpStatusCode": "200 OK",
   "errorCode": "INVALID_ACCESS",
-  "errorMessage": "errorMessage8",
-  "detailErrorMessage": "detailErrorMessage2"
+  "errorMessage": "errorMessage4",
+  "detailErrorMessage": "detailErrorMessage6"
 }
 ```
 

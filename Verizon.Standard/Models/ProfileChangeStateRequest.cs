@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -34,9 +35,9 @@ namespace Verizon.Standard.Models
         /// <param name="accountName">accountName.</param>
         /// <param name="smsrOid">smsrOid.</param>
         public ProfileChangeStateRequest(
-            List<Models.DeviceList> devices = null,
-            string accountName = null,
-            string smsrOid = null)
+            List<Models.DeviceList> devices,
+            string accountName,
+            string smsrOid)
         {
             this.Devices = devices;
             this.AccountName = accountName;
@@ -46,19 +47,19 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Gets or sets Devices.
         /// </summary>
-        [JsonProperty("devices", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("devices")]
         public List<Models.DeviceList> Devices { get; set; }
 
         /// <summary>
         /// Gets or sets AccountName.
         /// </summary>
-        [JsonProperty("accountName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("accountName")]
         public string AccountName { get; set; }
 
         /// <summary>
         /// Gets or sets SmsrOid.
         /// </summary>
-        [JsonProperty("smsrOid", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("smsrOid")]
         public string SmsrOid { get; set; }
 
         /// <inheritdoc/>
@@ -95,8 +96,8 @@ namespace Verizon.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"this.Devices = {(this.Devices == null ? "null" : $"[{string.Join(", ", this.Devices)} ]")}");
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
-            toStringOutput.Add($"this.SmsrOid = {(this.SmsrOid == null ? "null" : this.SmsrOid == string.Empty ? "" : this.SmsrOid)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
+            toStringOutput.Add($"this.SmsrOid = {(this.SmsrOid == null ? "null" : this.SmsrOid)}");
         }
     }
 }

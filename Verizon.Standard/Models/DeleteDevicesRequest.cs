@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -30,27 +31,27 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleteDevicesRequest"/> class.
         /// </summary>
-        /// <param name="accountName">accountName.</param>
         /// <param name="devicesToDelete">devicesToDelete.</param>
+        /// <param name="accountName">accountName.</param>
         public DeleteDevicesRequest(
-            string accountName = null,
-            List<Models.AccountDeviceList> devicesToDelete = null)
+            List<Models.AccountDeviceList> devicesToDelete,
+            string accountName = null)
         {
-            this.AccountName = accountName;
             this.DevicesToDelete = devicesToDelete;
+            this.AccountName = accountName;
         }
+
+        /// <summary>
+        /// A list of up to 100 devices that you want to delete, specified by device identifier. You only need to provide one identifier per device.
+        /// </summary>
+        [JsonProperty("devicesToDelete")]
+        public List<Models.AccountDeviceList> DevicesToDelete { get; set; }
 
         /// <summary>
         /// The Verizon billing account that the device group belongs to. An account name is usually numeric, and must include any leading zeros.
         /// </summary>
         [JsonProperty("accountName", NullValueHandling = NullValueHandling.Ignore)]
         public string AccountName { get; set; }
-
-        /// <summary>
-        /// A list of up to 100 devices that you want to delete, specified by device identifier. You only need to provide one identifier per device.
-        /// </summary>
-        [JsonProperty("devicesToDelete", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Models.AccountDeviceList> DevicesToDelete { get; set; }
 
         /// <inheritdoc/>
         public override string ToString()
@@ -74,8 +75,8 @@ namespace Verizon.Standard.Models
             {
                 return true;
             }
-            return obj is DeleteDevicesRequest other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.DevicesToDelete == null && other.DevicesToDelete == null) || (this.DevicesToDelete?.Equals(other.DevicesToDelete) == true));
+            return obj is DeleteDevicesRequest other &&                ((this.DevicesToDelete == null && other.DevicesToDelete == null) || (this.DevicesToDelete?.Equals(other.DevicesToDelete) == true)) &&
+                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true));
         }
         
         /// <summary>
@@ -84,8 +85,8 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
             toStringOutput.Add($"this.DevicesToDelete = {(this.DevicesToDelete == null ? "null" : $"[{string.Join(", ", this.DevicesToDelete)} ]")}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
         }
     }
 }

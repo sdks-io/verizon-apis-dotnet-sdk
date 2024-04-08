@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -34,9 +35,9 @@ namespace Verizon.Standard.Models
         /// <param name="earliest">earliest.</param>
         /// <param name="latest">latest.</param>
         public DeviceConnectionListRequest(
-            Models.DeviceId deviceId = null,
-            string earliest = null,
-            string latest = null)
+            Models.DeviceId deviceId,
+            string earliest,
+            string latest)
         {
             this.DeviceId = deviceId;
             this.Earliest = earliest;
@@ -46,19 +47,19 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// An identifier for a single device.
         /// </summary>
-        [JsonProperty("deviceId", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("deviceId")]
         public Models.DeviceId DeviceId { get; set; }
 
         /// <summary>
         /// The earliest date and time for which you want connection events.
         /// </summary>
-        [JsonProperty("earliest", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("earliest")]
         public string Earliest { get; set; }
 
         /// <summary>
         /// The last date and time for which you want connection events.
         /// </summary>
-        [JsonProperty("latest", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("latest")]
         public string Latest { get; set; }
 
         /// <inheritdoc/>
@@ -95,8 +96,8 @@ namespace Verizon.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId.ToString())}");
-            toStringOutput.Add($"this.Earliest = {(this.Earliest == null ? "null" : this.Earliest == string.Empty ? "" : this.Earliest)}");
-            toStringOutput.Add($"this.Latest = {(this.Latest == null ? "null" : this.Latest == string.Empty ? "" : this.Latest)}");
+            toStringOutput.Add($"this.Earliest = {(this.Earliest == null ? "null" : this.Earliest)}");
+            toStringOutput.Add($"this.Latest = {(this.Latest == null ? "null" : this.Latest)}");
         }
     }
 }

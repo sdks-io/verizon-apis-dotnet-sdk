@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -124,8 +125,8 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountNames = {(this.AccountNames == null ? "null" : this.AccountNames == string.Empty ? "" : this.AccountNames)}");
-            toStringOutput.Add($"this.DeviceGroup = {(this.DeviceGroup == null ? "null" : this.DeviceGroup == string.Empty ? "" : this.DeviceGroup)}");
+            toStringOutput.Add($"this.AccountNames = {(this.AccountNames == null ? "null" : this.AccountNames)}");
+            toStringOutput.Add($"this.DeviceGroup = {(this.DeviceGroup == null ? "null" : this.DeviceGroup)}");
             toStringOutput.Add($"this.IncludeAbnormal = {(this.IncludeAbnormal == null ? "null" : this.IncludeAbnormal.ToString())}");
             toStringOutput.Add($"this.IncludeVeryAbnormal = {(this.IncludeVeryAbnormal == null ? "null" : this.IncludeVeryAbnormal.ToString())}");
             toStringOutput.Add($"this.IncludeUnderExpectedUsage = {(this.IncludeUnderExpectedUsage == null ? "null" : this.IncludeUnderExpectedUsage.ToString())}");

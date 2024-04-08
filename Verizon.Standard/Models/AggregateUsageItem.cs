@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -33,17 +34,14 @@ namespace Verizon.Standard.Models
         /// <param name="imei">imei.</param>
         /// <param name="numberOfSessions">numberOfSessions.</param>
         /// <param name="bytesTransferred">bytesTransferred.</param>
-        /// <param name="example">example.</param>
         public AggregateUsageItem(
             string imei = null,
             int? numberOfSessions = null,
-            int? bytesTransferred = null,
-            object example = null)
+            int? bytesTransferred = null)
         {
             this.Imei = imei;
             this.NumberOfSessions = numberOfSessions;
             this.BytesTransferred = bytesTransferred;
-            this.Example = example;
         }
 
         /// <summary>
@@ -63,12 +61,6 @@ namespace Verizon.Standard.Models
         /// </summary>
         [JsonProperty("bytesTransferred", NullValueHandling = NullValueHandling.Ignore)]
         public int? BytesTransferred { get; set; }
-
-        /// <summary>
-        /// Gets or sets Example.
-        /// </summary>
-        [JsonProperty("example", NullValueHandling = NullValueHandling.Ignore)]
-        public object Example { get; set; }
 
         /// <inheritdoc/>
         public override string ToString()
@@ -94,8 +86,7 @@ namespace Verizon.Standard.Models
             }
             return obj is AggregateUsageItem other &&                ((this.Imei == null && other.Imei == null) || (this.Imei?.Equals(other.Imei) == true)) &&
                 ((this.NumberOfSessions == null && other.NumberOfSessions == null) || (this.NumberOfSessions?.Equals(other.NumberOfSessions) == true)) &&
-                ((this.BytesTransferred == null && other.BytesTransferred == null) || (this.BytesTransferred?.Equals(other.BytesTransferred) == true)) &&
-                ((this.Example == null && other.Example == null) || (this.Example?.Equals(other.Example) == true));
+                ((this.BytesTransferred == null && other.BytesTransferred == null) || (this.BytesTransferred?.Equals(other.BytesTransferred) == true));
         }
         
         /// <summary>
@@ -104,10 +95,9 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Imei = {(this.Imei == null ? "null" : this.Imei == string.Empty ? "" : this.Imei)}");
+            toStringOutput.Add($"this.Imei = {(this.Imei == null ? "null" : this.Imei)}");
             toStringOutput.Add($"this.NumberOfSessions = {(this.NumberOfSessions == null ? "null" : this.NumberOfSessions.ToString())}");
             toStringOutput.Add($"this.BytesTransferred = {(this.BytesTransferred == null ? "null" : this.BytesTransferred.ToString())}");
-            toStringOutput.Add($"Example = {(this.Example == null ? "null" : this.Example.ToString())}");
         }
     }
 }

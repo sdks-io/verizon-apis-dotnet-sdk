@@ -12,7 +12,7 @@
 | `Txid` | `string` | Optional | Transaction identifier |
 | `AccountName` | `string` | Optional | Account identifier |
 | `PaccountName` | `string` | Optional | Primary Account identifier |
-| `ServiceName` | [`Models.ServiceNameEnum?`](../../doc/models/service-name-enum.md) | Optional | Service name<br>**Default**: `ServiceNameEnum.Location` |
+| `ServiceName` | [`ServiceNameEnum?`](../../doc/models/service-name-enum.md) | Optional | Service name<br>**Default**: `ServiceNameEnum.Location` |
 | `Status` | `string` | Optional | Provision status. Success or Fail |
 | `Reason` | `string` | Optional | Detailed reason |
 

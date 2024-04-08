@@ -37,7 +37,10 @@ string aname = "0252012345-00001";
 string requestId = "86c83330-4bf5-4235-9c4e-a83f93aeae4c";
 try
 {
-    ApiResponse<AsynchronousRequestResult> result = await accountRequestsController.GetCurrentAsynchronousRequestStatusAsync(aname, requestId);
+    ApiResponse<AsynchronousRequestResult> result = await accountRequestsController.GetCurrentAsynchronousRequestStatusAsync(
+        aname,
+        requestId
+    );
 }
 catch (ApiException e)
 {

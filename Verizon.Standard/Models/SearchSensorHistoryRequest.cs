@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -107,7 +108,7 @@ namespace Verizon.Standard.Models
             toStringOutput.Add($"this.Accountidentifier = {(this.Accountidentifier == null ? "null" : this.Accountidentifier.ToString())}");
             toStringOutput.Add($"this.Resourceidentifier = {(this.Resourceidentifier == null ? "null" : this.Resourceidentifier.ToString())}");
             toStringOutput.Add($"this.Limitnumber = {(this.Limitnumber == null ? "null" : this.Limitnumber.ToString())}");
-            toStringOutput.Add($"this.Page = {(this.Page == null ? "null" : this.Page == string.Empty ? "" : this.Page)}");
+            toStringOutput.Add($"this.Page = {(this.Page == null ? "null" : this.Page)}");
         }
     }
 }

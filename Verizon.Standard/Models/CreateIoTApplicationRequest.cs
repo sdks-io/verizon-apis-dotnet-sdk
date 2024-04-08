@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -154,15 +155,15 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AppName = {(this.AppName == null ? "null" : this.AppName == string.Empty ? "" : this.AppName)}");
-            toStringOutput.Add($"this.BillingAccountID = {(this.BillingAccountID == null ? "null" : this.BillingAccountID == string.Empty ? "" : this.BillingAccountID)}");
-            toStringOutput.Add($"this.ClientID = {(this.ClientID == null ? "null" : this.ClientID == string.Empty ? "" : this.ClientID)}");
-            toStringOutput.Add($"this.ClientSecret = {(this.ClientSecret == null ? "null" : this.ClientSecret == string.Empty ? "" : this.ClientSecret)}");
-            toStringOutput.Add($"this.EmailIDs = {(this.EmailIDs == null ? "null" : this.EmailIDs == string.Empty ? "" : this.EmailIDs)}");
-            toStringOutput.Add($"this.Resourcegroup = {(this.Resourcegroup == null ? "null" : this.Resourcegroup == string.Empty ? "" : this.Resourcegroup)}");
-            toStringOutput.Add($"this.SampleIOTcApp = {(this.SampleIOTcApp == null ? "null" : this.SampleIOTcApp == string.Empty ? "" : this.SampleIOTcApp)}");
-            toStringOutput.Add($"this.SubscriptionID = {(this.SubscriptionID == null ? "null" : this.SubscriptionID == string.Empty ? "" : this.SubscriptionID)}");
-            toStringOutput.Add($"this.TenantID = {(this.TenantID == null ? "null" : this.TenantID == string.Empty ? "" : this.TenantID)}");
+            toStringOutput.Add($"this.AppName = {(this.AppName == null ? "null" : this.AppName)}");
+            toStringOutput.Add($"this.BillingAccountID = {(this.BillingAccountID == null ? "null" : this.BillingAccountID)}");
+            toStringOutput.Add($"this.ClientID = {(this.ClientID == null ? "null" : this.ClientID)}");
+            toStringOutput.Add($"this.ClientSecret = {(this.ClientSecret == null ? "null" : this.ClientSecret)}");
+            toStringOutput.Add($"this.EmailIDs = {(this.EmailIDs == null ? "null" : this.EmailIDs)}");
+            toStringOutput.Add($"this.Resourcegroup = {(this.Resourcegroup == null ? "null" : this.Resourcegroup)}");
+            toStringOutput.Add($"this.SampleIOTcApp = {(this.SampleIOTcApp == null ? "null" : this.SampleIOTcApp)}");
+            toStringOutput.Add($"this.SubscriptionID = {(this.SubscriptionID == null ? "null" : this.SubscriptionID)}");
+            toStringOutput.Add($"this.TenantID = {(this.TenantID == null ? "null" : this.TenantID)}");
         }
     }
 }

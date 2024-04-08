@@ -10,35 +10,151 @@ DeviceManagementController deviceManagementController = client.DeviceManagementC
 
 ## Methods
 
+* [Activate Service for Devices](../../doc/controllers/device-management.md#activate-service-for-devices)
 * [Add Devices](../../doc/controllers/device-management.md#add-devices)
+* [Update Devices Contact Information](../../doc/controllers/device-management.md#update-devices-contact-information)
+* [Update Devices Custom Fields](../../doc/controllers/device-management.md#update-devices-custom-fields)
+* [Deactivate Service for Devices](../../doc/controllers/device-management.md#deactivate-service-for-devices)
+* [Delete Deactivated Devices](../../doc/controllers/device-management.md#delete-deactivated-devices)
+* [List Devices Information](../../doc/controllers/device-management.md#list-devices-information)
+* [List Devices With Imei Iccid Mismatch](../../doc/controllers/device-management.md#list-devices-with-imei-iccid-mismatch)
+* [Move Devices Within Accounts of Profile](../../doc/controllers/device-management.md#move-devices-within-accounts-of-profile)
+* [Update Devices State](../../doc/controllers/device-management.md#update-devices-state)
+* [Change Devices Service Plan](../../doc/controllers/device-management.md#change-devices-service-plan)
+* [Suspend Service for Devices](../../doc/controllers/device-management.md#suspend-service-for-devices)
 * [Restore Service for Suspended Devices](../../doc/controllers/device-management.md#restore-service-for-suspended-devices)
+* [Check Devices Availability for Activation](../../doc/controllers/device-management.md#check-devices-availability-for-activation)
+* [Retrieve Device Connection History](../../doc/controllers/device-management.md#retrieve-device-connection-history)
 * [Update Devices Cost Center Code](../../doc/controllers/device-management.md#update-devices-cost-center-code)
+* [Get Device Extended Diagnostic Information](../../doc/controllers/device-management.md#get-device-extended-diagnostic-information)
 * [List Devices Provisioning History](../../doc/controllers/device-management.md#list-devices-provisioning-history)
+* [List Current Devices PRL Version](../../doc/controllers/device-management.md#list-current-devices-prl-version)
 * [Get Device Service Suspension Status](../../doc/controllers/device-management.md#get-device-service-suspension-status)
 * [List Devices Usage History](../../doc/controllers/device-management.md#list-devices-usage-history)
 * [Retrieve Aggregate Device Usage History](../../doc/controllers/device-management.md#retrieve-aggregate-device-usage-history)
-* [Update Devices Contact Information](../../doc/controllers/device-management.md#update-devices-contact-information)
-* [Update Devices Custom Fields](../../doc/controllers/device-management.md#update-devices-custom-fields)
-* [List Devices With Imei Iccid Mismatch](../../doc/controllers/device-management.md#list-devices-with-imei-iccid-mismatch)
-* [Update Devices State](../../doc/controllers/device-management.md#update-devices-state)
-* [Change Devices Service Plan](../../doc/controllers/device-management.md#change-devices-service-plan)
-* [Check Devices Availability for Activation](../../doc/controllers/device-management.md#check-devices-availability-for-activation)
-* [Retrieve Device Connection History](../../doc/controllers/device-management.md#retrieve-device-connection-history)
-* [Get Device Extended Diagnostic Information](../../doc/controllers/device-management.md#get-device-extended-diagnostic-information)
-* [Usage Segmentation Label Association](../../doc/controllers/device-management.md#usage-segmentation-label-association)
-* [Activation Order Status](../../doc/controllers/device-management.md#activation-order-status)
-* [Activate Service for Devices](../../doc/controllers/device-management.md#activate-service-for-devices)
-* [Deactivate Service for Devices](../../doc/controllers/device-management.md#deactivate-service-for-devices)
-* [List Current Devices PRL Version](../../doc/controllers/device-management.md#list-current-devices-prl-version)
 * [Update Device Id](../../doc/controllers/device-management.md#update-device-id)
 * [Device Upload](../../doc/controllers/device-management.md#device-upload)
 * [Billed Usage Info](../../doc/controllers/device-management.md#billed-usage-info)
-* [Delete Deactivated Devices](../../doc/controllers/device-management.md#delete-deactivated-devices)
-* [List Devices Information](../../doc/controllers/device-management.md#list-devices-information)
-* [Move Devices Within Accounts of Profile](../../doc/controllers/device-management.md#move-devices-within-accounts-of-profile)
-* [Suspend Service for Devices](../../doc/controllers/device-management.md#suspend-service-for-devices)
+* [Usage Segmentation Label Association](../../doc/controllers/device-management.md#usage-segmentation-label-association)
 * [Usage Segmentation Label Deletion](../../doc/controllers/device-management.md#usage-segmentation-label-deletion)
+* [Activation Order Status](../../doc/controllers/device-management.md#activation-order-status)
 * [Upload Device Identifier](../../doc/controllers/device-management.md#upload-device-identifier)
+
+
+# Activate Service for Devices
+
+If the devices do not already exist in the account, this API resource adds them before activation.
+
+```csharp
+ActivateServiceForDevicesAsync(
+    Models.CarrierActivateRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`CarrierActivateRequest`](../../doc/models/carrier-activate-request.md) | Body, Required | Request for activating a service on devices. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+
+## Example Usage
+
+```csharp
+CarrierActivateRequest body = new CarrierActivateRequest
+{
+    Devices = new List<Models.AccountDeviceList>
+    {
+        new AccountDeviceList
+        {
+            DeviceIds = new List<Models.DeviceId>
+            {
+                new DeviceId
+                {
+                    Id = "990013907835573",
+                    Kind = "imei",
+                },
+                new DeviceId
+                {
+                    Id = "89141390780800784259",
+                    Kind = "iccid",
+                },
+            },
+        },
+        new AccountDeviceList
+        {
+            DeviceIds = new List<Models.DeviceId>
+            {
+                new DeviceId
+                {
+                    Id = "990013907884259",
+                    Kind = "imei",
+                },
+                new DeviceId
+                {
+                    Id = "89141390780800735573",
+                    Kind = "iccid",
+                },
+            },
+        },
+    },
+    ServicePlan = "m2m_4G",
+    MdnZipCode = "98801",
+    AccountName = "0868924207-00001",
+    CustomFields = new List<Models.CustomFields>
+    {
+        new CustomFields
+        {
+            Key = "CustomField2",
+            MValue = "SuperVend",
+        },
+    },
+    GroupName = "4G West",
+    PrimaryPlaceOfUse = new PlaceOfUse
+    {
+        Address = new Address
+        {
+            AddressLine1 = "1600 Pennsylvania Ave NW",
+            City = "Washington",
+            State = "DC",
+            Zip = "20500",
+            Country = "USA",
+        },
+        CustomerName = new CustomerName
+        {
+            FirstName = "Zaffod",
+            LastName = "Beeblebrox",
+            Title = "President",
+        },
+    },
+};
+
+try
+{
+    ApiResponse<DeviceManagementResult> result = await deviceManagementController.ActivateServiceForDevicesAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
 # Add Devices
@@ -54,7 +170,7 @@ AddDevicesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.AddDevicesRequest`](../../doc/models/add-devices-request.md) | Body, Required | Devices to add. |
+| `body` | [`AddDevicesRequest`](../../doc/models/add-devices-request.md) | Body, Required | Devices to add. |
 
 ## Response Type
 
@@ -65,15 +181,7 @@ AddDevicesAsync(
 ```csharp
 AddDevicesRequest body = new AddDevicesRequest
 {
-    AccountName = "0868924207-00001",
-    CustomFields = new List<Models.CustomFields>
-    {
-        new CustomFields
-        {
-            Key = "CustomField2",
-            MValue = "SuperVend",
-        },
-    },
+    State = "preactive",
     DevicesToAdd = new List<Models.AccountDeviceList>
     {
         new AccountDeviceList
@@ -109,8 +217,16 @@ AddDevicesRequest body = new AddDevicesRequest
             },
         },
     },
+    AccountName = "0868924207-00001",
+    CustomFields = new List<Models.CustomFields>
+    {
+        new CustomFields
+        {
+            Key = "CustomField2",
+            MValue = "SuperVend",
+        },
+    },
     GroupName = "West Region",
-    State = "preactive",
 };
 
 try
@@ -147,400 +263,6 @@ catch (ApiException e)
 | 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
-# Restore Service for Suspended Devices
-
-Restores service to one or more suspended devices.
-
-```csharp
-RestoreServiceForSuspendedDevicesAsync(
-    Models.CarrierActionsRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.CarrierActionsRequest`](../../doc/models/carrier-actions-request.md) | Body, Required | Request to restore services of one or more suspended devices. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
-
-## Example Usage
-
-```csharp
-CarrierActionsRequest body = new CarrierActionsRequest
-{
-    Devices = new List<Models.AccountDeviceList>
-    {
-        new AccountDeviceList
-        {
-            DeviceIds = new List<Models.DeviceId>
-            {
-                new DeviceId
-                {
-                    Id = "89148000000800139708",
-                    Kind = "iccid",
-                },
-            },
-        },
-    },
-};
-
-try
-{
-    ApiResponse<DeviceManagementResult> result = await deviceManagementController.RestoreServiceForSuspendedDevicesAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# Update Devices Cost Center Code
-
-Changes or removes the CostCenterCode value or customer name and address (Primary Place of Use) for one or more devices.
-
-```csharp
-UpdateDevicesCostCenterCodeAsync(
-    Models.DeviceCostCenterRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.DeviceCostCenterRequest`](../../doc/models/device-cost-center-request.md) | Body, Required | Request to update cost center code value for one or more devices. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
-
-## Example Usage
-
-```csharp
-DeviceCostCenterRequest body = new DeviceCostCenterRequest
-{
-    CostCenter = "cc12345",
-    Devices = new List<Models.AccountDeviceList>
-    {
-        new AccountDeviceList
-        {
-            DeviceIds = new List<Models.DeviceId>
-            {
-                new DeviceId
-                {
-                    Id = "89148000000800139708",
-                    Kind = "iccid",
-                },
-            },
-        },
-    },
-};
-
-try
-{
-    ApiResponse<DeviceManagementResult> result = await deviceManagementController.UpdateDevicesCostCenterCodeAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# List Devices Provisioning History
-
-Returns the provisioning history of a specified device during a specified time period.
-
-```csharp
-ListDevicesProvisioningHistoryAsync(
-    Models.DeviceProvisioningHistoryListRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.DeviceProvisioningHistoryListRequest`](../../doc/models/device-provisioning-history-list-request.md) | Body, Required | Query to obtain device provisioning history. |
-
-## Response Type
-
-[`Task<ApiResponse<List<Models.DeviceProvisioningHistoryListResult>>>`](../../doc/models/device-provisioning-history-list-result.md)
-
-## Example Usage
-
-```csharp
-DeviceProvisioningHistoryListRequest body = new DeviceProvisioningHistoryListRequest
-{
-    DeviceId = new DeviceId
-    {
-        Id = "89141390780800784259",
-        Kind = "iccid",
-    },
-    Earliest = "2015-09-16T00:00:01Z",
-    Latest = "2015-09-18T00:00:01Z",
-};
-
-try
-{
-    ApiResponse<List<DeviceProvisioningHistoryListResult>> result = await deviceManagementController.ListDevicesProvisioningHistoryAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-[
-  {
-    "provisioningHistory": [
-      {
-        "occurredAt": "2015-12-17T13:56:13-05:00",
-        "status": "Success",
-        "eventBy": "Harry Potter",
-        "eventType": "Activation Confirmed",
-        "servicePlan": "Tablet5GB",
-        "mdn": "",
-        "msisdn": "15086303371",
-        "extendedAttributes": []
-      }
-    ],
-    "hasMoreData": false
-  }
-]
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# Get Device Service Suspension Status
-
-Returns DeviceSuspensionStatus callback messages containing the current device state and information on how many days a device has been suspended and can continue to be suspended.
-
-```csharp
-GetDeviceServiceSuspensionStatusAsync(
-    Models.DeviceSuspensionStatusRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.DeviceSuspensionStatusRequest`](../../doc/models/device-suspension-status-request.md) | Body, Required | Request to obtain service suspenstion status for a device. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
-
-## Example Usage
-
-```csharp
-DeviceSuspensionStatusRequest body = new DeviceSuspensionStatusRequest
-{
-    Filter = new DeviceFilterWithoutAccount
-    {
-        GroupName = "suspended devices",
-    },
-    AccountName = "1223334444-00001",
-};
-
-try
-{
-    ApiResponse<DeviceManagementResult> result = await deviceManagementController.GetDeviceServiceSuspensionStatusAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "requestId": "904dcdc6-a590-45e4-ac76-403306f6d883"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# List Devices Usage History
-
-Returns the network data usage history of a device during a specified time period.
-
-```csharp
-ListDevicesUsageHistoryAsync(
-    Models.DeviceUsageListRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.DeviceUsageListRequest`](../../doc/models/device-usage-list-request.md) | Body, Required | Request to obtain usage history for a specific device. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceUsageListResult>>`](../../doc/models/device-usage-list-result.md)
-
-## Example Usage
-
-```csharp
-DeviceUsageListRequest body = new DeviceUsageListRequest
-{
-    Earliest = "2018-03-20T00:00:01Z",
-    Latest = "2020-12-31T00:00:01Z",
-};
-
-try
-{
-    ApiResponse<DeviceUsageListResult> result = await deviceManagementController.ListDevicesUsageHistoryAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "hasMoreData": false,
-  "usageHistory": [
-    {
-      "bytesUsed": 4096,
-      "extendedAttributes": [
-        {
-          "key": "MoSms",
-          "value": "0"
-        }
-      ],
-      "smsUsed": 0,
-      "source": "Raw Usage",
-      "timestamp": "2020-12-01T00:00:00Z"
-    }
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# Retrieve Aggregate Device Usage History
-
-The information is returned in a callback response, so you must register a URL for DeviceUsage callback messages using the POST /callbacks API.
-
-```csharp
-RetrieveAggregateDeviceUsageHistoryAsync(
-    Models.DeviceAggregateUsageListRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.DeviceAggregateUsageListRequest`](../../doc/models/device-aggregate-usage-list-request.md) | Body, Required | A request to retrieve aggregated device usage history information. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
-
-## Example Usage
-
-```csharp
-DeviceAggregateUsageListRequest body = new DeviceAggregateUsageListRequest
-{
-    DeviceIds = new List<Models.DeviceId>
-    {
-        new DeviceId
-        {
-            Id = "84258000000891490087",
-            Kind = "ICCID",
-        },
-    },
-    AccountName = "9992330389-00001",
-    StartTime = "2021-08-01T06:00:00+00:00",
-    EndTime = "2021-08-30T06:00:00+00:00",
-};
-
-try
-{
-    ApiResponse<DeviceManagementResult> result = await deviceManagementController.RetrieveAggregateDeviceUsageHistoryAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "requestId": "1631e200-7398-4609-b1f8-398341229176"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
 # Update Devices Contact Information
 
 Sends a CarrierService callback message for each device in the request when the contact information has been changed, or if there was a problem and the change could not be completed.
@@ -554,7 +276,7 @@ UpdateDevicesContactInformationAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.ContactInfoUpdateRequest`](../../doc/models/contact-info-update-request.md) | Body, Required | Request to update contact information for devices. |
+| `body` | [`ContactInfoUpdateRequest`](../../doc/models/contact-info-update-request.md) | Body, Required | Request to update contact information for devices. |
 
 ## Response Type
 
@@ -565,6 +287,30 @@ UpdateDevicesContactInformationAsync(
 ```csharp
 ContactInfoUpdateRequest body = new ContactInfoUpdateRequest
 {
+    PrimaryPlaceOfUse = new PlaceOfUse
+    {
+        Address = new Address
+        {
+            AddressLine1 = "9868 Scranton Rd",
+            City = "San Diego",
+            State = "CA",
+            Zip = "92121",
+            Country = "USA",
+            AddressLine2 = "Suite A",
+            Zip4 = "0001",
+            Phone = "1234567890",
+            PhoneType = "H",
+            EmailAddress = "zaffod@theinternet.com",
+        },
+        CustomerName = new CustomerName
+        {
+            FirstName = "Zaffod",
+            LastName = "Beeblebrox",
+            Title = "President",
+            MiddleName = "P",
+            Suffix = "I",
+        },
+    },
     AccountName = "0212345678-00001",
     Devices = new List<Models.AccountDeviceList>
     {
@@ -585,7 +331,6 @@ ContactInfoUpdateRequest body = new ContactInfoUpdateRequest
             },
         },
     },
-    PrimaryPlaceOfUse = ApiHelper.JsonDeserialize<object>("{\"address\":{\"addressLine1\":\"9868 Scranton Rd\",\"addressLine2\":\"Suite A\",\"city\":\"San Diego\",\"state\":\"CA\",\"country\":\"USA\",\"zip\":\"92121\",\"zip4\":\"0001\",\"phone\":\"1234567890\",\"phoneType\":\"H\",\"emailAddress\":\"zaffod@theinternet.com\"},\"customerName\":{\"firstName\":\"Zaffod\",\"lastName\":\"Beeblebrox\",\"middleName\":\"P\",\"title\":\"President\",\"suffix\":\"I\"}}"),
 };
 
 try
@@ -627,7 +372,7 @@ UpdateDevicesCustomFieldsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.CustomFieldsUpdateRequest`](../../doc/models/custom-fields-update-request.md) | Body, Required | Request to update custom field of devices. |
+| `body` | [`CustomFieldsUpdateRequest`](../../doc/models/custom-fields-update-request.md) | Body, Required | Request to update custom field of devices. |
 
 ## Response Type
 
@@ -693,748 +438,6 @@ catch (ApiException e)
 | 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
-# List Devices With Imei Iccid Mismatch
-
-Returns a list of all 4G devices with an ICCID (SIM) that was not activated with the expected IMEI (hardware) during a specified time frame.
-
-```csharp
-ListDevicesWithImeiIccidMismatchAsync(
-    Models.DeviceMismatchListRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.DeviceMismatchListRequest`](../../doc/models/device-mismatch-list-request.md) | Body, Required | Request to list devices with mismatched IMEIs and ICCIDs. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceMismatchListResult>>`](../../doc/models/device-mismatch-list-result.md)
-
-## Example Usage
-
-```csharp
-DeviceMismatchListRequest body = new DeviceMismatchListRequest
-{
-    Devices = new List<Models.AccountDeviceList>
-    {
-        new AccountDeviceList
-        {
-            DeviceIds = new List<Models.DeviceId>
-            {
-                new DeviceId
-                {
-                    Id = "8914800000080078",
-                    Kind = "ICCID",
-                },
-                new DeviceId
-                {
-                    Id = "5096300587",
-                    Kind = "MDN",
-                },
-            },
-        },
-    },
-    Filter = new DateFilter
-    {
-        Earliest = "2020-05-01T15:00:00-08:00Z",
-        Latest = "2020-07-30T15:00:00-08:00Z",
-    },
-    AccountName = "0342077109-00001",
-};
-
-try
-{
-    ApiResponse<DeviceMismatchListResult> result = await deviceManagementController.ListDevicesWithImeiIccidMismatchAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "devices": [
-    {
-      "accountName": "0212398765-00001",
-      "mdn": "5096300587",
-      "activationDate": "2011-01-21T10:55:27-08:00",
-      "iccid": "89148000000800784259",
-      "preImei": "990003420535573",
-      "postImei": "987603420573553",
-      "simOtaDate": "2017-12-01T16:00:00-08:00"
-    }
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# Update Devices State
-
-Changes the provisioning state of one or more devices to a specified customer-defined service and state.
-
-```csharp
-UpdateDevicesStateAsync(
-    Models.GoToStateRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.GoToStateRequest`](../../doc/models/go-to-state-request.md) | Body, Required | Request to change device state to one defined by the user. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
-
-## Example Usage
-
-```csharp
-GoToStateRequest body = new GoToStateRequest
-{
-    Devices = new List<Models.AccountDeviceList>
-    {
-        new AccountDeviceList
-        {
-            DeviceIds = new List<Models.DeviceId>
-            {
-                new DeviceId
-                {
-                    Id = "990013907835573",
-                    Kind = "imei",
-                },
-                new DeviceId
-                {
-                    Id = "89141390780800784259",
-                    Kind = "iccid",
-                },
-            },
-        },
-        new AccountDeviceList
-        {
-            DeviceIds = new List<Models.DeviceId>
-            {
-                new DeviceId
-                {
-                    Id = "990013907884259",
-                    Kind = "imei",
-                },
-                new DeviceId
-                {
-                    Id = "89141390780800735573",
-                    Kind = "iccid",
-                },
-            },
-        },
-    },
-    ServiceName = "My Service",
-    StateName = "My State",
-    ServicePlan = "87641",
-    MdnZipCode = "94203",
-    PublicIpRestriction = "unrestricted",
-    GroupName = "4G West",
-    PrimaryPlaceOfUse = new PlaceOfUse
-    {
-        Address = new Address
-        {
-            AddressLine1 = "1600 Pennsylvania Ave NW",
-            City = "Washington",
-            State = "DC",
-            Zip = "20500",
-            Country = "USA",
-        },
-        CustomerName = new CustomerName
-        {
-            FirstName = "Zaffod",
-            LastName = "Beeblebrox",
-            Title = "President",
-        },
-    },
-};
-
-try
-{
-    ApiResponse<DeviceManagementResult> result = await deviceManagementController.UpdateDevicesStateAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# Change Devices Service Plan
-
-Changes the service plan for one or more devices.
-
-```csharp
-ChangeDevicesServicePlanAsync(
-    Models.ServicePlanUpdateRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.ServicePlanUpdateRequest`](../../doc/models/service-plan-update-request.md) | Body, Required | Request to change device service plan. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
-
-## Example Usage
-
-```csharp
-ServicePlanUpdateRequest body = new ServicePlanUpdateRequest
-{
-    Devices = new List<Models.AccountDeviceList>
-    {
-        new AccountDeviceList
-        {
-            DeviceIds = new List<Models.DeviceId>
-            {
-                new DeviceId
-                {
-                    Id = "A100003685E561",
-                    Kind = "meid",
-                },
-            },
-        },
-    },
-    ServicePlan = "new_service_plan_code",
-};
-
-try
-{
-    ApiResponse<DeviceManagementResult> result = await deviceManagementController.ChangeDevicesServicePlanAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "requestId": "c8de7c1d-59b9-4cf3-b969-db76cb2ce509"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# Check Devices Availability for Activation
-
-Checks whether specified devices are registered by the manufacturer with the Verizon network and are available to be activated.
-
-```csharp
-CheckDevicesAvailabilityForActivationAsync(
-    Models.DeviceActivationRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.DeviceActivationRequest`](../../doc/models/device-activation-request.md) | Body, Required | Request to check if devices can be activated or not. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
-
-## Example Usage
-
-```csharp
-DeviceActivationRequest body = new DeviceActivationRequest
-{
-    AccountName = "0212345678-00001",
-    Devices = new List<Models.AccountDeviceList>
-    {
-        new AccountDeviceList
-        {
-            DeviceIds = new List<Models.DeviceId>
-            {
-                new DeviceId
-                {
-                    Id = "A100008385E561",
-                    Kind = "meid",
-                },
-            },
-        },
-    },
-};
-
-try
-{
-    ApiResponse<DeviceManagementResult> result = await deviceManagementController.CheckDevicesAvailabilityForActivationAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# Retrieve Device Connection History
-
-Each response includes a maximum of 500 records. To obtain more records, you can call the API multiple times, adjusting the earliest value each time to start where the previous request finished.
-
-```csharp
-RetrieveDeviceConnectionHistoryAsync(
-    Models.DeviceConnectionListRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.DeviceConnectionListRequest`](../../doc/models/device-connection-list-request.md) | Body, Required | Query to retrieve device connection history. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.ConnectionHistoryResult>>`](../../doc/models/connection-history-result.md)
-
-## Example Usage
-
-```csharp
-DeviceConnectionListRequest body = new DeviceConnectionListRequest
-{
-    DeviceId = new DeviceId
-    {
-        Id = "89141390780800784259",
-        Kind = "iccid",
-    },
-    Earliest = "2015-09-16T00:00:01Z",
-    Latest = "2010-09-18T00:00:01Z",
-};
-
-try
-{
-    ApiResponse<ConnectionHistoryResult> result = await deviceManagementController.RetrieveDeviceConnectionHistoryAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "connectionHistory": [
-    {
-      "connectionEventAttributes": [
-        {
-          "key": "BytesUsed",
-          "value": "0"
-        },
-        {
-          "key": "Event",
-          "value": "Start"
-        }
-      ],
-      "extendedAttributes": [],
-      "occurredAt": "2015-12-17T14:12:36-05:00"
-    },
-    {
-      "connectionEventAttributes": [
-        {
-          "key": "BytesUsed",
-          "value": "419863234"
-        },
-        {
-          "key": "Event",
-          "value": "Stop"
-        },
-        {
-          "key": "Msisdn",
-          "value": "15086303371"
-        }
-      ],
-      "extendedAttributes": [],
-      "occurredAt": "2015-12-19T01:20:00-05:00"
-    }
-  ],
-  "hasMoreData": false
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# Get Device Extended Diagnostic Information
-
-Returns extended diagnostic information about a specified device, including connectivity, provisioning, billing and location status.
-
-```csharp
-GetDeviceExtendedDiagnosticInformationAsync(
-    Models.DeviceExtendedDiagnosticsRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.DeviceExtendedDiagnosticsRequest`](../../doc/models/device-extended-diagnostics-request.md) | Body, Required | Request to query extended diagnostics information for a device. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceExtendedDiagnosticsResult>>`](../../doc/models/device-extended-diagnostics-result.md)
-
-## Example Usage
-
-```csharp
-DeviceExtendedDiagnosticsRequest body = new DeviceExtendedDiagnosticsRequest
-{
-    AccountName = "1223334444-00001",
-    DeviceList = new List<Models.DeviceId>
-    {
-        new DeviceId
-        {
-            Id = "10-digit MDN",
-            Kind = "mdn",
-        },
-    },
-};
-
-try
-{
-    ApiResponse<DeviceExtendedDiagnosticsResult> result = await deviceManagementController.GetDeviceExtendedDiagnosticInformationAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "categories": [
-    {
-      "categoryName": "Connectivity",
-      "extendedAttributes": [
-        {
-          "key": "Connected",
-          "value": "false"
-        }
-      ]
-    }
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# Usage Segmentation Label Association
-
-Allows you to associate your own usage segmentation label with a device.
-
-```csharp
-UsageSegmentationLabelAssociationAsync(
-    Models.AssociateLabelRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.AssociateLabelRequest`](../../doc/models/associate-label-request.md) | Body, Required | Request to associate a label to a device. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
-
-## Example Usage
-
-```csharp
-AssociateLabelRequest body = new AssociateLabelRequest
-{
-    AccountName = "1223334444-00001",
-};
-
-try
-{
-    ApiResponse<DeviceManagementResult> result = await deviceManagementController.UsageSegmentationLabelAssociationAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "requestId": "ec682a8b-e288-4806-934d-24e7a59ed889"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# Activation Order Status
-
-Uploads and activates device identifiers and SKUs for new devices from OEMs to Verizon.
-
-```csharp
-ActivationOrderStatusAsync(
-    Models.UploadsActivatesDeviceRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.UploadsActivatesDeviceRequest`](../../doc/models/uploads-activates-device-request.md) | Body, Required | Request to Uploads and activates device. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
-
-## Example Usage
-
-```csharp
-UploadsActivatesDeviceRequest body = new UploadsActivatesDeviceRequest
-{
-    AccountName = "1223334444-00001",
-    EmailAddress = "bob@mycompany.com",
-    DeviceSku = "VZW123456",
-    UploadType = "IMEI ICCID Pair",
-    ServicePlan = "15MBShr",
-    MdnZipCode = "92222",
-    Devices = new List<Models.DeviceList>
-    {
-        new DeviceList
-        {
-            DeviceIds = new List<Models.DeviceId1>
-            {
-                new DeviceId1
-                {
-                    Id = "990013907835573",
-                    Kind = KindEnum.Imei,
-                },
-                new DeviceId1
-                {
-                    Id = "89141390780800784259",
-                    Kind = KindEnum.Iccid,
-                },
-            },
-        },
-    },
-    CarrierIpPoolName = "",
-};
-
-try
-{
-    ApiResponse<DeviceManagementResult> result = await deviceManagementController.ActivationOrderStatusAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "requestId": "ec682a8b-e288-4806-934d-24e7a59ed889"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# Activate Service for Devices
-
-If the devices do not already exist in the account, this API resource adds them before activation.
-
-```csharp
-ActivateServiceForDevicesAsync(
-    Models.CarrierActivateRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.CarrierActivateRequest`](../../doc/models/carrier-activate-request.md) | Body, Required | Request for activating a service on devices. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
-
-## Example Usage
-
-```csharp
-CarrierActivateRequest body = new CarrierActivateRequest
-{
-    AccountName = "0868924207-00001",
-    CustomFields = new List<Models.CustomFields>
-    {
-        new CustomFields
-        {
-            Key = "CustomField2",
-            MValue = "SuperVend",
-        },
-    },
-    Devices = new List<Models.AccountDeviceList>
-    {
-        new AccountDeviceList
-        {
-            DeviceIds = new List<Models.DeviceId>
-            {
-                new DeviceId
-                {
-                    Id = "990013907835573",
-                    Kind = "imei",
-                },
-                new DeviceId
-                {
-                    Id = "89141390780800784259",
-                    Kind = "iccid",
-                },
-            },
-        },
-        new AccountDeviceList
-        {
-            DeviceIds = new List<Models.DeviceId>
-            {
-                new DeviceId
-                {
-                    Id = "990013907884259",
-                    Kind = "imei",
-                },
-                new DeviceId
-                {
-                    Id = "89141390780800735573",
-                    Kind = "iccid",
-                },
-            },
-        },
-    },
-    GroupName = "4G West",
-    MdnZipCode = "98801",
-    PrimaryPlaceOfUse = new PlaceOfUse
-    {
-        Address = new Address
-        {
-            AddressLine1 = "1600 Pennsylvania Ave NW",
-            City = "Washington",
-            State = "DC",
-            Zip = "20500",
-            Country = "USA",
-        },
-        CustomerName = new CustomerName
-        {
-            FirstName = "Zaffod",
-            LastName = "Beeblebrox",
-            Title = "President",
-        },
-    },
-    ServicePlan = "m2m_4G",
-};
-
-try
-{
-    ApiResponse<DeviceManagementResult> result = await deviceManagementController.ActivateServiceForDevicesAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
 # Deactivate Service for Devices
 
 Deactivating service for a device may result in an early termination fee (ETF) being charged to the account, depending on the terms of the contract with Verizon. If your contract allows ETF waivers and if you want to use one for a particular deactivation, set the etfWaiver value to True.
@@ -1448,7 +451,7 @@ DeactivateServiceForDevicesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.CarrierDeactivateRequest`](../../doc/models/carrier-deactivate-request.md) | Body, Required | Request to deactivate service for one or more devices. |
+| `body` | [`CarrierDeactivateRequest`](../../doc/models/carrier-deactivate-request.md) | Body, Required | Request to deactivate service for one or more devices. |
 
 ## Response Type
 
@@ -1459,6 +462,7 @@ DeactivateServiceForDevicesAsync(
 ```csharp
 CarrierDeactivateRequest body = new CarrierDeactivateRequest
 {
+    AccountName = "0000123456-00001",
     Devices = new List<Models.AccountDeviceList>
     {
         new AccountDeviceList
@@ -1472,288 +476,25 @@ CarrierDeactivateRequest body = new CarrierDeactivateRequest
                 },
             },
         },
+        new AccountDeviceList
+        {
+            DeviceIds = new List<Models.DeviceId>
+            {
+                new DeviceId
+                {
+                    Id = "20-digit ICCID",
+                    Kind = "iccid",
+                },
+            },
+        },
     },
-    EtfWaiver = true,
     ReasonCode = "FF",
+    EtfWaiver = true,
 };
 
 try
 {
     ApiResponse<DeviceManagementResult> result = await deviceManagementController.DeactivateServiceForDevicesAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# List Current Devices PRL Version
-
-4G and GSM devices do not have a PRL.
-
-```csharp
-ListCurrentDevicesPRLVersionAsync(
-    Models.DevicePrlListRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.DevicePrlListRequest`](../../doc/models/device-prl-list-request.md) | Body, Required | Request to query device PRL. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
-
-## Example Usage
-
-```csharp
-DevicePrlListRequest body = new DevicePrlListRequest
-{
-    AccountName = "101234-0001",
-    GroupName = "West Region",
-    ServicePlan = "3G 2MB",
-};
-
-try
-{
-    ApiResponse<DeviceManagementResult> result = await deviceManagementController.ListCurrentDevicesPRLVersionAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# Update Device Id
-
-Changes the identifier of a 3G or 4G device to match hardware changes made for a line of service. Use this request to transfer the line of service and the MDN to new hardware, or to change the MDN.
-
-```csharp
-UpdateDeviceIdAsync(
-    string serviceType,
-    Models.ChangeDeviceIdRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `serviceType` | `string` | Template, Required | Identifier type. |
-| `body` | [`Models.ChangeDeviceIdRequest`](../../doc/models/change-device-id-request.md) | Body, Required | Request to update device id. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
-
-## Example Usage
-
-```csharp
-string serviceType = "serviceType6";
-ChangeDeviceIdRequest body = new ChangeDeviceIdRequest
-{
-    Change4gOption = "ChangeICCID",
-    DeviceIds = new List<Models.DeviceId>
-    {
-        new DeviceId
-        {
-            Id = "42590078891480000008",
-            Kind = "iccid",
-        },
-    },
-    DeviceIdsTo = new List<Models.DeviceId>
-    {
-        new DeviceId
-        {
-            Id = "89148000000842590078",
-            Kind = "iccid",
-        },
-    },
-    ServicePlan = "4G 2GB",
-    ZipCode = "98802",
-};
-
-try
-{
-    ApiResponse<DeviceManagementResult> result = await deviceManagementController.UpdateDeviceIdAsync(serviceType, body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "requestId": "a28892ea-6503-4aa7-bfa2-4cd45d42f61b"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# Device Upload
-
-This corresponds to the M2M-MC SOAP interface, `DeviceUploadService`.
-
-```csharp
-DeviceUploadAsync(
-    Models.DeviceUploadRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.DeviceUploadRequest`](../../doc/models/device-upload-request.md) | Body, Required | Device Upload Query |
-
-## Response Type
-
-[`Task<ApiResponse<Models.RequestResponse>>`](../../doc/models/request-response.md)
-
-## Example Usage
-
-```csharp
-DeviceUploadRequest body = new DeviceUploadRequest
-{
-    AccountName = "1223334444-00001",
-    Devices = new List<Models.DeviceList>
-    {
-        new DeviceList
-        {
-            DeviceIds = new List<Models.DeviceId1>
-            {
-                new DeviceId1
-                {
-                    Id = "15-digit IMEI",
-                    Kind = KindEnum.Imei,
-                },
-            },
-        },
-        new DeviceList
-        {
-            DeviceIds = new List<Models.DeviceId1>
-            {
-                new DeviceId1
-                {
-                    Id = "15-digit IMEI",
-                    Kind = KindEnum.Imei,
-                },
-            },
-        },
-    },
-    EmailAddress = "bob@mycompany.com",
-    DeviceSku = "VZW123456",
-    UploadType = "IMEI",
-};
-
-try
-{
-    ApiResponse<RequestResponse> result = await deviceManagementController.DeviceUploadAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error Response | [`RestErrorResponseException`](../../doc/models/rest-error-response-exception.md) |
-
-
-# Billed Usage Info
-
-Gets billed usage for for either multiple devices or an entire billing account.
-
-```csharp
-BilledUsageInfoAsync(
-    Models.BilledusageListRequest body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.BilledusageListRequest`](../../doc/models/billedusage-list-request.md) | Body, Required | Request to list devices with mismatched IMEIs and ICCIDs. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
-
-## Example Usage
-
-```csharp
-BilledusageListRequest body = new BilledusageListRequest
-{
-    AccountName = "0342077109-00001",
-    Devices = new List<Models.DeviceList>
-    {
-        new DeviceList
-        {
-            DeviceIds = new List<Models.DeviceId1>
-            {
-                new DeviceId1
-                {
-                    Id = "8914800000080078",
-                    Kind = KindEnum.Iccid,
-                },
-                new DeviceId1
-                {
-                    Id = "5096300587",
-                    Kind = KindEnum.Eid,
-                },
-            },
-        },
-    },
-};
-
-try
-{
-    ApiResponse<DeviceManagementResult> result = await deviceManagementController.BilledUsageInfoAsync(body);
 }
 catch (ApiException e)
 {
@@ -1790,7 +531,7 @@ DeleteDeactivatedDevicesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.DeleteDevicesRequest`](../../doc/models/delete-devices-request.md) | Body, Required | Devices to delete. |
+| `body` | [`DeleteDevicesRequest`](../../doc/models/delete-devices-request.md) | Body, Required | Devices to delete. |
 
 ## Response Type
 
@@ -1905,7 +646,7 @@ ListDevicesInformationAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.AccountDeviceListRequest`](../../doc/models/account-device-list-request.md) | Body, Required | Device information query. |
+| `body` | [`AccountDeviceListRequest`](../../doc/models/account-device-list-request.md) | Body, Required | Device information query. |
 
 ## Response Type
 
@@ -1981,6 +722,93 @@ catch (ApiException e)
 | 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
+# List Devices With Imei Iccid Mismatch
+
+Returns a list of all 4G devices with an ICCID (SIM) that was not activated with the expected IMEI (hardware) during a specified time frame.
+
+```csharp
+ListDevicesWithImeiIccidMismatchAsync(
+    Models.DeviceMismatchListRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`DeviceMismatchListRequest`](../../doc/models/device-mismatch-list-request.md) | Body, Required | Request to list devices with mismatched IMEIs and ICCIDs. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceMismatchListResult>>`](../../doc/models/device-mismatch-list-result.md)
+
+## Example Usage
+
+```csharp
+DeviceMismatchListRequest body = new DeviceMismatchListRequest
+{
+    Filter = new DateFilter
+    {
+        Earliest = "2020-05-01T15:00:00-08:00Z",
+        Latest = "2020-07-30T15:00:00-08:00Z",
+    },
+    Devices = new List<Models.AccountDeviceList>
+    {
+        new AccountDeviceList
+        {
+            DeviceIds = new List<Models.DeviceId>
+            {
+                new DeviceId
+                {
+                    Id = "8914800000080078",
+                    Kind = "ICCID",
+                },
+                new DeviceId
+                {
+                    Id = "5096300587",
+                    Kind = "MDN",
+                },
+            },
+        },
+    },
+    AccountName = "0342077109-00001",
+};
+
+try
+{
+    ApiResponse<DeviceMismatchListResult> result = await deviceManagementController.ListDevicesWithImeiIccidMismatchAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "devices": [
+    {
+      "accountName": "0212398765-00001",
+      "mdn": "5096300587",
+      "activationDate": "2011-01-21T10:55:27-08:00",
+      "iccid": "89148000000800784259",
+      "preImei": "990003420535573",
+      "postImei": "987603420573553",
+      "simOtaDate": "2017-12-01T16:00:00-08:00"
+    }
+  ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
 # Move Devices Within Accounts of Profile
 
 Move active devices from one billing account to another within a customer profile.
@@ -1994,7 +822,7 @@ MoveDevicesWithinAccountsOfProfileAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.MoveDeviceRequest`](../../doc/models/move-device-request.md) | Body, Required | Request to move devices between accounts. |
+| `body` | [`MoveDeviceRequest`](../../doc/models/move-device-request.md) | Body, Required | Request to move devices between accounts. |
 
 ## Response Type
 
@@ -2049,6 +877,183 @@ catch (ApiException e)
 | 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
+# Update Devices State
+
+Changes the provisioning state of one or more devices to a specified customer-defined service and state.
+
+```csharp
+UpdateDevicesStateAsync(
+    Models.GoToStateRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`GoToStateRequest`](../../doc/models/go-to-state-request.md) | Body, Required | Request to change device state to one defined by the user. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+
+## Example Usage
+
+```csharp
+GoToStateRequest body = new GoToStateRequest
+{
+    ServiceName = "My Service",
+    StateName = "My State",
+    ServicePlan = "87641",
+    MdnZipCode = "94203",
+    Devices = new List<Models.AccountDeviceList>
+    {
+        new AccountDeviceList
+        {
+            DeviceIds = new List<Models.DeviceId>
+            {
+                new DeviceId
+                {
+                    Id = "990013907835573",
+                    Kind = "imei",
+                },
+                new DeviceId
+                {
+                    Id = "89141390780800784259",
+                    Kind = "iccid",
+                },
+            },
+        },
+        new AccountDeviceList
+        {
+            DeviceIds = new List<Models.DeviceId>
+            {
+                new DeviceId
+                {
+                    Id = "990013907884259",
+                    Kind = "imei",
+                },
+                new DeviceId
+                {
+                    Id = "89141390780800735573",
+                    Kind = "iccid",
+                },
+            },
+        },
+    },
+    PublicIpRestriction = "unrestricted",
+    GroupName = "4G West",
+    PrimaryPlaceOfUse = new PlaceOfUse
+    {
+        Address = new Address
+        {
+            AddressLine1 = "1600 Pennsylvania Ave NW",
+            City = "Washington",
+            State = "DC",
+            Zip = "20500",
+            Country = "USA",
+        },
+        CustomerName = new CustomerName
+        {
+            FirstName = "Zaffod",
+            LastName = "Beeblebrox",
+            Title = "President",
+        },
+    },
+};
+
+try
+{
+    ApiResponse<DeviceManagementResult> result = await deviceManagementController.UpdateDevicesStateAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# Change Devices Service Plan
+
+Changes the service plan for one or more devices.
+
+```csharp
+ChangeDevicesServicePlanAsync(
+    Models.ServicePlanUpdateRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`ServicePlanUpdateRequest`](../../doc/models/service-plan-update-request.md) | Body, Required | Request to change device service plan. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+
+## Example Usage
+
+```csharp
+ServicePlanUpdateRequest body = new ServicePlanUpdateRequest
+{
+    ServicePlan = "new_service_plan_code",
+    Devices = new List<Models.AccountDeviceList>
+    {
+        new AccountDeviceList
+        {
+            DeviceIds = new List<Models.DeviceId>
+            {
+                new DeviceId
+                {
+                    Id = "A100003685E561",
+                    Kind = "meid",
+                },
+            },
+        },
+    },
+};
+
+try
+{
+    ApiResponse<DeviceManagementResult> result = await deviceManagementController.ChangeDevicesServicePlanAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "requestId": "c8de7c1d-59b9-4cf3-b969-db76cb2ce509"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
 # Suspend Service for Devices
 
 Suspends service for one or more devices.
@@ -2062,7 +1067,7 @@ SuspendServiceForDevicesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.CarrierActionsRequest`](../../doc/models/carrier-actions-request.md) | Body, Required | Request to suspend service for one or more devices. |
+| `body` | [`CarrierActionsRequest`](../../doc/models/carrier-actions-request.md) | Body, Required | Request to suspend service for one or more devices. |
 
 ## Response Type
 
@@ -2073,6 +1078,15 @@ SuspendServiceForDevicesAsync(
 ```csharp
 CarrierActionsRequest body = new CarrierActionsRequest
 {
+    AccountName = "0000123456-00001",
+    CustomFields = new List<Models.CustomFields>
+    {
+        new CustomFields
+        {
+            Key = "customField1",
+            MValue = "key value",
+        },
+    },
     Devices = new List<Models.AccountDeviceList>
     {
         new AccountDeviceList
@@ -2081,12 +1095,15 @@ CarrierActionsRequest body = new CarrierActionsRequest
             {
                 new DeviceId
                 {
-                    Id = "89148000000800139708",
+                    Id = "20-digit ICCID",
                     Kind = "iccid",
                 },
             },
         },
     },
+    WithBilling = true,
+    GroupName = "name of the group",
+    ServicePlan = "service plan name",
 };
 
 try
@@ -2115,6 +1132,962 @@ catch (ApiException e)
 | 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
+# Restore Service for Suspended Devices
+
+Restores service to one or more suspended devices.
+
+```csharp
+RestoreServiceForSuspendedDevicesAsync(
+    Models.CarrierActionsRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`CarrierActionsRequest`](../../doc/models/carrier-actions-request.md) | Body, Required | Request to restore services of one or more suspended devices. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+
+## Example Usage
+
+```csharp
+CarrierActionsRequest body = new CarrierActionsRequest
+{
+    AccountName = "0000123456-00001",
+    CustomFields = new List<Models.CustomFields>
+    {
+        new CustomFields
+        {
+            Key = "customField1",
+            MValue = "key value",
+        },
+    },
+    Devices = new List<Models.AccountDeviceList>
+    {
+        new AccountDeviceList
+        {
+            DeviceIds = new List<Models.DeviceId>
+            {
+                new DeviceId
+                {
+                    Id = "20-digit ICCID",
+                    Kind = "iccid",
+                },
+            },
+        },
+    },
+    GroupName = "name of the group",
+    ServicePlan = "service plan name",
+};
+
+try
+{
+    ApiResponse<DeviceManagementResult> result = await deviceManagementController.RestoreServiceForSuspendedDevicesAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# Check Devices Availability for Activation
+
+Checks whether specified devices are registered by the manufacturer with the Verizon network and are available to be activated.
+
+```csharp
+CheckDevicesAvailabilityForActivationAsync(
+    Models.DeviceActivationRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`DeviceActivationRequest`](../../doc/models/device-activation-request.md) | Body, Required | Request to check if devices can be activated or not. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+
+## Example Usage
+
+```csharp
+DeviceActivationRequest body = new DeviceActivationRequest
+{
+    AccountName = "0212345678-00001",
+    Devices = new List<Models.AccountDeviceList>
+    {
+        new AccountDeviceList
+        {
+            DeviceIds = new List<Models.DeviceId>
+            {
+                new DeviceId
+                {
+                    Id = "A100008385E561",
+                    Kind = "meid",
+                },
+            },
+        },
+    },
+};
+
+try
+{
+    ApiResponse<DeviceManagementResult> result = await deviceManagementController.CheckDevicesAvailabilityForActivationAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# Retrieve Device Connection History
+
+Each response includes a maximum of 500 records. To obtain more records, you can call the API multiple times, adjusting the earliest value each time to start where the previous request finished.
+
+```csharp
+RetrieveDeviceConnectionHistoryAsync(
+    Models.DeviceConnectionListRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`DeviceConnectionListRequest`](../../doc/models/device-connection-list-request.md) | Body, Required | Query to retrieve device connection history. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.ConnectionHistoryResult>>`](../../doc/models/connection-history-result.md)
+
+## Example Usage
+
+```csharp
+DeviceConnectionListRequest body = new DeviceConnectionListRequest
+{
+    DeviceId = new DeviceId
+    {
+        Id = "89141390780800784259",
+        Kind = "iccid",
+    },
+    Earliest = "2015-09-16T00:00:01Z",
+    Latest = "2010-09-18T00:00:01Z",
+};
+
+try
+{
+    ApiResponse<ConnectionHistoryResult> result = await deviceManagementController.RetrieveDeviceConnectionHistoryAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "connectionHistory": [
+    {
+      "connectionEventAttributes": [
+        {
+          "key": "BytesUsed",
+          "value": "0"
+        },
+        {
+          "key": "Event",
+          "value": "Start"
+        }
+      ],
+      "extendedAttributes": [],
+      "occurredAt": "2015-12-17T14:12:36-05:00"
+    },
+    {
+      "connectionEventAttributes": [
+        {
+          "key": "BytesUsed",
+          "value": "419863234"
+        },
+        {
+          "key": "Event",
+          "value": "Stop"
+        },
+        {
+          "key": "Msisdn",
+          "value": "15086303371"
+        }
+      ],
+      "extendedAttributes": [],
+      "occurredAt": "2015-12-19T01:20:00-05:00"
+    }
+  ],
+  "hasMoreData": false
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# Update Devices Cost Center Code
+
+Changes or removes the CostCenterCode value or customer name and address (Primary Place of Use) for one or more devices.
+
+```csharp
+UpdateDevicesCostCenterCodeAsync(
+    Models.DeviceCostCenterRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`DeviceCostCenterRequest`](../../doc/models/device-cost-center-request.md) | Body, Required | Request to update cost center code value for one or more devices. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+
+## Example Usage
+
+```csharp
+DeviceCostCenterRequest body = new DeviceCostCenterRequest
+{
+    CostCenter = "cc12345",
+    Devices = new List<Models.AccountDeviceList>
+    {
+        new AccountDeviceList
+        {
+            DeviceIds = new List<Models.DeviceId>
+            {
+                new DeviceId
+                {
+                    Id = "89148000000800139708",
+                    Kind = "iccid",
+                },
+            },
+        },
+    },
+};
+
+try
+{
+    ApiResponse<DeviceManagementResult> result = await deviceManagementController.UpdateDevicesCostCenterCodeAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# Get Device Extended Diagnostic Information
+
+Returns extended diagnostic information about a specified device, including connectivity, provisioning, billing and location status.
+
+```csharp
+GetDeviceExtendedDiagnosticInformationAsync(
+    Models.DeviceExtendedDiagnosticsRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`DeviceExtendedDiagnosticsRequest`](../../doc/models/device-extended-diagnostics-request.md) | Body, Required | Request to query extended diagnostics information for a device. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceExtendedDiagnosticsResult>>`](../../doc/models/device-extended-diagnostics-result.md)
+
+## Example Usage
+
+```csharp
+DeviceExtendedDiagnosticsRequest body = new DeviceExtendedDiagnosticsRequest
+{
+    AccountName = "1223334444-00001",
+    DeviceList = new List<Models.DeviceId>
+    {
+        new DeviceId
+        {
+            Id = "10-digit MDN",
+            Kind = "mdn",
+        },
+    },
+};
+
+try
+{
+    ApiResponse<DeviceExtendedDiagnosticsResult> result = await deviceManagementController.GetDeviceExtendedDiagnosticInformationAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "categories": [
+    {
+      "categoryName": "Connectivity",
+      "extendedAttributes": [
+        {
+          "key": "Connected",
+          "value": "false"
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# List Devices Provisioning History
+
+Returns the provisioning history of a specified device during a specified time period.
+
+```csharp
+ListDevicesProvisioningHistoryAsync(
+    Models.DeviceProvisioningHistoryListRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`DeviceProvisioningHistoryListRequest`](../../doc/models/device-provisioning-history-list-request.md) | Body, Required | Query to obtain device provisioning history. |
+
+## Response Type
+
+[`Task<ApiResponse<List<Models.DeviceProvisioningHistoryListResult>>>`](../../doc/models/device-provisioning-history-list-result.md)
+
+## Example Usage
+
+```csharp
+DeviceProvisioningHistoryListRequest body = new DeviceProvisioningHistoryListRequest
+{
+    DeviceId = new DeviceId
+    {
+        Id = "89141390780800784259",
+        Kind = "iccid",
+    },
+    Earliest = "2015-09-16T00:00:01Z",
+    Latest = "2015-09-18T00:00:01Z",
+};
+
+try
+{
+    ApiResponse<List<DeviceProvisioningHistoryListResult>> result = await deviceManagementController.ListDevicesProvisioningHistoryAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+[
+  {
+    "provisioningHistory": [
+      {
+        "occurredAt": "2015-12-17T13:56:13-05:00",
+        "status": "Success",
+        "eventBy": "Harry Potter",
+        "eventType": "Activation Confirmed",
+        "servicePlan": "Tablet5GB",
+        "mdn": "",
+        "msisdn": "15086303371",
+        "extendedAttributes": []
+      }
+    ],
+    "hasMoreData": false
+  }
+]
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# List Current Devices PRL Version
+
+4G and GSM devices do not have a PRL.
+
+```csharp
+ListCurrentDevicesPRLVersionAsync(
+    Models.DevicePrlListRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`DevicePrlListRequest`](../../doc/models/device-prl-list-request.md) | Body, Required | Request to query device PRL. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+
+## Example Usage
+
+```csharp
+DevicePrlListRequest body = new DevicePrlListRequest
+{
+    AccountName = "101234-0001",
+    GroupName = "West Region",
+    ServicePlan = "3G 2MB",
+};
+
+try
+{
+    ApiResponse<DeviceManagementResult> result = await deviceManagementController.ListCurrentDevicesPRLVersionAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# Get Device Service Suspension Status
+
+Returns DeviceSuspensionStatus callback messages containing the current device state and information on how many days a device has been suspended and can continue to be suspended.
+
+```csharp
+GetDeviceServiceSuspensionStatusAsync(
+    Models.DeviceSuspensionStatusRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`DeviceSuspensionStatusRequest`](../../doc/models/device-suspension-status-request.md) | Body, Required | Request to obtain service suspenstion status for a device. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+
+## Example Usage
+
+```csharp
+DeviceSuspensionStatusRequest body = new DeviceSuspensionStatusRequest
+{
+    Filter = new DeviceFilterWithoutAccount
+    {
+        GroupName = "suspended devices",
+    },
+    AccountName = "1223334444-00001",
+};
+
+try
+{
+    ApiResponse<DeviceManagementResult> result = await deviceManagementController.GetDeviceServiceSuspensionStatusAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "requestId": "904dcdc6-a590-45e4-ac76-403306f6d883"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# List Devices Usage History
+
+Returns the network data usage history of a device during a specified time period.
+
+```csharp
+ListDevicesUsageHistoryAsync(
+    Models.DeviceUsageListRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`DeviceUsageListRequest`](../../doc/models/device-usage-list-request.md) | Body, Required | Request to obtain usage history for a specific device. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceUsageListResult>>`](../../doc/models/device-usage-list-result.md)
+
+## Example Usage
+
+```csharp
+DeviceUsageListRequest body = new DeviceUsageListRequest
+{
+    Earliest = "2018-03-20T00:00:01Z",
+    Latest = "2020-12-31T00:00:01Z",
+};
+
+try
+{
+    ApiResponse<DeviceUsageListResult> result = await deviceManagementController.ListDevicesUsageHistoryAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "hasMoreData": false,
+  "usageHistory": [
+    {
+      "bytesUsed": 4096,
+      "extendedAttributes": [
+        {
+          "key": "MoSms",
+          "value": "0"
+        }
+      ],
+      "smsUsed": 0,
+      "source": "Raw Usage",
+      "timestamp": "2020-12-01T00:00:00Z"
+    }
+  ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# Retrieve Aggregate Device Usage History
+
+The information is returned in a callback response, so you must register a URL for DeviceUsage callback messages using the POST /callbacks API.
+
+```csharp
+RetrieveAggregateDeviceUsageHistoryAsync(
+    Models.DeviceAggregateUsageListRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`DeviceAggregateUsageListRequest`](../../doc/models/device-aggregate-usage-list-request.md) | Body, Required | A request to retrieve aggregated device usage history information. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+
+## Example Usage
+
+```csharp
+DeviceAggregateUsageListRequest body = new DeviceAggregateUsageListRequest
+{
+    StartTime = "2021-08-01T00:00:00-06:00",
+    EndTime = "2021-08-30T00:00:00-06:00",
+    DeviceIds = new List<Models.DeviceId>
+    {
+        new DeviceId
+        {
+            Id = "84258000000891490087",
+            Kind = "ICCID",
+        },
+    },
+    AccountName = "9992330389-00001",
+};
+
+try
+{
+    ApiResponse<DeviceManagementResult> result = await deviceManagementController.RetrieveAggregateDeviceUsageHistoryAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "requestId": "1631e200-7398-4609-b1f8-398341229176"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# Update Device Id
+
+Changes the identifier of a 3G or 4G device to match hardware changes made for a line of service. Use this request to transfer the line of service and the MDN to new hardware, or to change the MDN.
+
+```csharp
+UpdateDeviceIdAsync(
+    string serviceType,
+    Models.ChangeDeviceIdRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `serviceType` | `string` | Template, Required | Identifier type. |
+| `body` | [`ChangeDeviceIdRequest`](../../doc/models/change-device-id-request.md) | Body, Required | Request to update device id. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+
+## Example Usage
+
+```csharp
+string serviceType = "serviceType6";
+ChangeDeviceIdRequest body = new ChangeDeviceIdRequest
+{
+    DeviceIds = new List<Models.DeviceId>
+    {
+        new DeviceId
+        {
+            Id = "42590078891480000008",
+            Kind = "iccid",
+        },
+    },
+    Change4gOption = "ChangeICCID",
+    DeviceIdsTo = new List<Models.DeviceId>
+    {
+        new DeviceId
+        {
+            Id = "89148000000842590078",
+            Kind = "iccid",
+        },
+    },
+    ServicePlan = "4G 2GB",
+    ZipCode = "98802",
+};
+
+try
+{
+    ApiResponse<DeviceManagementResult> result = await deviceManagementController.UpdateDeviceIdAsync(
+        serviceType,
+        body
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "requestId": "a28892ea-6503-4aa7-bfa2-4cd45d42f61b"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# Device Upload
+
+This corresponds to the M2M-MC SOAP interface, `DeviceUploadService`.
+
+```csharp
+DeviceUploadAsync(
+    Models.DeviceUploadRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`DeviceUploadRequest`](../../doc/models/device-upload-request.md) | Body, Required | Device Upload Query |
+
+## Response Type
+
+[`Task<ApiResponse<Models.RequestResponse>>`](../../doc/models/request-response.md)
+
+## Example Usage
+
+```csharp
+DeviceUploadRequest body = new DeviceUploadRequest
+{
+    AccountName = "1223334444-00001",
+    Devices = new List<Models.DeviceList>
+    {
+        new DeviceList
+        {
+            DeviceIds = new List<Models.DeviceId>
+            {
+                new DeviceId
+                {
+                    Id = "15-digit IMEI",
+                    Kind = "imei",
+                },
+            },
+        },
+        new DeviceList
+        {
+            DeviceIds = new List<Models.DeviceId>
+            {
+                new DeviceId
+                {
+                    Id = "15-digit IMEI",
+                    Kind = "imei",
+                },
+            },
+        },
+    },
+    EmailAddress = "bob@mycompany.com",
+    DeviceSku = "VZW123456",
+    UploadType = "IMEI",
+};
+
+try
+{
+    ApiResponse<RequestResponse> result = await deviceManagementController.DeviceUploadAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error Response | [`RestErrorResponseException`](../../doc/models/rest-error-response-exception.md) |
+
+
+# Billed Usage Info
+
+Gets billed usage for for either multiple devices or an entire billing account.
+
+```csharp
+BilledUsageInfoAsync(
+    Models.BilledusageListRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`BilledusageListRequest`](../../doc/models/billedusage-list-request.md) | Body, Required | Request to list devices with mismatched IMEIs and ICCIDs. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+
+## Example Usage
+
+```csharp
+BilledusageListRequest body = new BilledusageListRequest
+{
+    AccountName = "0342077109-00001",
+};
+
+try
+{
+    ApiResponse<DeviceManagementResult> result = await deviceManagementController.BilledUsageInfoAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# Usage Segmentation Label Association
+
+Allows you to associate your own usage segmentation label with a device.
+
+```csharp
+UsageSegmentationLabelAssociationAsync(
+    Models.AssociateLabelRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`AssociateLabelRequest`](../../doc/models/associate-label-request.md) | Body, Required | Request to associate a label to a device. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+
+## Example Usage
+
+```csharp
+AssociateLabelRequest body = new AssociateLabelRequest
+{
+    AccountName = "1223334444-00001",
+    Labels = new AccountLabels
+    {
+        Devices = new List<Models.DeviceList>
+        {
+            new DeviceList
+            {
+            },
+        },
+    },
+};
+
+try
+{
+    ApiResponse<DeviceManagementResult> result = await deviceManagementController.UsageSegmentationLabelAssociationAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "requestId": "ec682a8b-e288-4806-934d-24e7a59ed889"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
 # Usage Segmentation Label Deletion
 
 Allow customers to remove the associated label from a device.
@@ -2130,7 +2103,7 @@ UsageSegmentationLabelDeletionAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `accountName` | `string` | Query, Required | The numeric name of the account. |
-| `labelList` | [`Models.LabelsList`](../../doc/models/labels-list.md) | Query, Required | A list of the Label IDs to remove from the exclusion list. |
+| `labelList` | [`LabelsList`](../../doc/models/labels-list.md) | Query, Required | A list of the Label IDs to remove from the exclusion list. |
 
 ## Response Type
 
@@ -2146,7 +2119,88 @@ LabelsList labelList = new LabelsList
 
 try
 {
-    ApiResponse<DeviceManagementResult> result = await deviceManagementController.UsageSegmentationLabelDeletionAsync(accountName, labelList);
+    ApiResponse<DeviceManagementResult> result = await deviceManagementController.UsageSegmentationLabelDeletionAsync(
+        accountName,
+        labelList
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "requestId": "ec682a8b-e288-4806-934d-24e7a59ed889"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# Activation Order Status
+
+Uploads and activates device identifiers and SKUs for new devices from OEMs to Verizon.
+
+```csharp
+ActivationOrderStatusAsync(
+    Models.UploadsActivatesDeviceRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`UploadsActivatesDeviceRequest`](../../doc/models/uploads-activates-device-request.md) | Body, Required | Request to Uploads and activates device. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+
+## Example Usage
+
+```csharp
+UploadsActivatesDeviceRequest body = new UploadsActivatesDeviceRequest
+{
+    AccountName = "1223334444-00001",
+    EmailAddress = "bob@mycompany.com",
+    DeviceSku = "VZW123456",
+    UploadType = "IMEI ICCID Pair",
+    ServicePlan = "15MBShr",
+    MdnZipCode = "92222",
+    Devices = new List<Models.DeviceList>
+    {
+        new DeviceList
+        {
+            DeviceIds = new List<Models.DeviceId>
+            {
+                new DeviceId
+                {
+                    Id = "990013907835573",
+                    Kind = "imei",
+                },
+                new DeviceId
+                {
+                    Id = "89141390780800784259",
+                    Kind = "iccid",
+                },
+            },
+        },
+    },
+    CarrierIpPoolName = "",
+};
+
+try
+{
+    ApiResponse<DeviceManagementResult> result = await deviceManagementController.ActivationOrderStatusAsync(body);
 }
 catch (ApiException e)
 {
@@ -2183,7 +2237,7 @@ UploadDeviceIdentifierAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.CheckOrderStatusRequest`](../../doc/models/check-order-status-request.md) | Body, Required | The request body identifies the device and reporting period that you want included in the report. |
+| `body` | [`CheckOrderStatusRequest`](../../doc/models/check-order-status-request.md) | Body, Required | The request body identifies the device and reporting period that you want included in the report. |
 
 ## Response Type
 
@@ -2199,12 +2253,12 @@ CheckOrderStatusRequest body = new CheckOrderStatusRequest
     {
         new DeviceList
         {
-            DeviceIds = new List<Models.DeviceId1>
+            DeviceIds = new List<Models.DeviceId>
             {
-                new DeviceId1
+                new DeviceId
                 {
                     Id = "20112019672551234613",
-                    Kind = KindEnum.Iccid,
+                    Kind = "iccid",
                 },
             },
         },

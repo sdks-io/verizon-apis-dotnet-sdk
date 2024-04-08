@@ -14,7 +14,7 @@ Change Configuration resource definition.
 | `Action` | `string` | Optional | The action requested in this event; “change” for device configuration changes. |
 | `Createdon` | `string` | Optional | The date and time of the change request. |
 | `Deviceid` | `string` | Optional | The device’s ThingSpace UUID. |
-| `Fields` | [`Models.Fields`](../../doc/models/fields.md) | Optional | List of fields affected by the event. |
+| `Fields` | [`Fields`](../../doc/models/fields.md) | Optional | List of fields affected by the event. |
 | `Foreignid` | `string` | Optional | foreign id |
 | `Id` | `string` | Optional | The unique ID of this ts.event.configuration event. |
 | `Kind` | `string` | Optional | The kind of the ThingSpace resource that is being reported |

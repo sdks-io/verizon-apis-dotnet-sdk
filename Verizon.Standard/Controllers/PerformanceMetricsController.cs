@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -57,7 +56,7 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Performance)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/performance/device/network/metrics")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
@@ -67,8 +66,7 @@ namespace Verizon.Standard.Controllers
                   .ErrorCase("403", CreateErrorCase("Request forbidden.", (_reason, _context) => new EdgePerformanceResultException(_reason, _context)))
                   .ErrorCase("404", CreateErrorCase("Resource Not Found.", (_reason, _context) => new EdgePerformanceResultException(_reason, _context)))
                   .ErrorCase("405", CreateErrorCase("Method Not Allowed.", (_reason, _context) => new EdgePerformanceResultException(_reason, _context)))
-                  .ErrorCase("503", CreateErrorCase("Service Unavailable.", (_reason, _context) => new EdgePerformanceResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.MECPerformanceMetrics>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("503", CreateErrorCase("Service Unavailable.", (_reason, _context) => new EdgePerformanceResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

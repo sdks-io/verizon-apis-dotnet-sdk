@@ -14,7 +14,7 @@ A success response includes an array of all matching events. Each event includes
 | `Action` | `string` | Optional | The action requested in this event; “change” for device configuration changes. |
 | `Createdon` | `string` | Optional | The date and time of the change request. |
 | `Deviceid` | `string` | Optional | The device’s ThingSpace UUID. |
-| `Fields` | [`Models.Fields2`](../../doc/models/fields-2.md) | Optional | List of fields affected by the event. |
+| `Fields` | [`Fields2`](../../doc/models/fields-2.md) | Optional | List of fields affected by the event. |
 | `Id` | `string` | Optional | The unique ID of this ts.event.configuration event. |
 | `Kind` | `string` | Optional | The kind of the ThingSpace resource that is being reported; “ts.event.configuration” for device configuration changes. |
 | `Lastupdated` | `string` | Optional | The date and time that the event was last updated. |

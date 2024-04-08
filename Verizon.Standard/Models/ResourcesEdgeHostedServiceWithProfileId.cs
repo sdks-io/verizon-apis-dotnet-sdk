@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -124,12 +125,12 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Ern = {(this.Ern == null ? "null" : this.Ern == string.Empty ? "" : this.Ern)}");
+            toStringOutput.Add($"this.Ern = {(this.Ern == null ? "null" : this.Ern)}");
             toStringOutput.Add($"this.ServiceEndpoint = {(this.ServiceEndpoint == null ? "null" : this.ServiceEndpoint.ToString())}");
-            toStringOutput.Add($"this.ApplicationServerProviderId = {(this.ApplicationServerProviderId == null ? "null" : this.ApplicationServerProviderId == string.Empty ? "" : this.ApplicationServerProviderId)}");
-            toStringOutput.Add($"this.ApplicationId = {(this.ApplicationId == null ? "null" : this.ApplicationId == string.Empty ? "" : this.ApplicationId)}");
-            toStringOutput.Add($"this.ServiceDescription = {(this.ServiceDescription == null ? "null" : this.ServiceDescription == string.Empty ? "" : this.ServiceDescription)}");
-            toStringOutput.Add($"this.ServiceProfileID = {(this.ServiceProfileID == null ? "null" : this.ServiceProfileID == string.Empty ? "" : this.ServiceProfileID)}");
+            toStringOutput.Add($"this.ApplicationServerProviderId = {(this.ApplicationServerProviderId == null ? "null" : this.ApplicationServerProviderId)}");
+            toStringOutput.Add($"this.ApplicationId = {(this.ApplicationId == null ? "null" : this.ApplicationId)}");
+            toStringOutput.Add($"this.ServiceDescription = {(this.ServiceDescription == null ? "null" : this.ServiceDescription)}");
+            toStringOutput.Add($"this.ServiceProfileID = {(this.ServiceProfileID == null ? "null" : this.ServiceProfileID)}");
         }
     }
 }

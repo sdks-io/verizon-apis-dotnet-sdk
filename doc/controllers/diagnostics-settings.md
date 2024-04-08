@@ -37,7 +37,10 @@ string accountName = "0000123456-00001";
 string devices = "[{\"id\":\"864508030026238\",\"kind\":\"IMEI\"},{\"id\":\"864508030026238\",\"kind\":\"IMEI\"}]";
 try
 {
-    ApiResponse<List<DiagnosticObservationSetting>> result = await diagnosticsSettingsController.ListDiagnosticsSettingsAsync(accountName, devices);
+    ApiResponse<List<DiagnosticObservationSetting>> result = await diagnosticsSettingsController.ListDiagnosticsSettingsAsync(
+        accountName,
+        devices
+    );
 }
 catch (ApiException e)
 {

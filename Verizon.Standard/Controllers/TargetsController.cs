@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
     using Verizon.Standard.Utilities;
@@ -56,13 +55,66 @@ namespace Verizon.Standard.Controllers
               .Server(Server.CloudConnector)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/targets/actions/query")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.Target>>(_response)))
-              .ExecuteAsync(cancellationToken);
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// Remove a target from a ThingSpace account.
+        /// </summary>
+        /// <param name="body">Required parameter: The request body identifies the target to delete..</param>
+        public void DeleteTarget(
+                Models.DeleteTargetRequest body)
+            => CoreHelper.RunVoidTask(DeleteTargetAsync(body));
+
+        /// <summary>
+        /// Remove a target from a ThingSpace account.
+        /// </summary>
+        /// <param name="body">Required parameter: The request body identifies the target to delete..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the void response from the API call.</returns>
+        public async Task DeleteTargetAsync(
+                Models.DeleteTargetRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<VoidType>()
+              .Server(Server.CloudConnector)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/targets/actions/delete")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// Define a target to receive data streams, alerts, or callbacks. After creating the target resource, use its ID in a subscription to set up a data stream.
+        /// </summary>
+        /// <param name="body">Required parameter: The request body provides the details of the target that you want to create..</param>
+        /// <returns>Returns the ApiResponse of Models.Target response from the API call.</returns>
+        public ApiResponse<Models.Target> CreateTarget(
+                Models.CreateTargetRequest body)
+            => CoreHelper.RunTask(CreateTargetAsync(body));
+
+        /// <summary>
+        /// Define a target to receive data streams, alerts, or callbacks. After creating the target resource, use its ID in a subscription to set up a data stream.
+        /// </summary>
+        /// <param name="body">Required parameter: The request body provides the details of the target that you want to create..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.Target response from the API call.</returns>
+        public async Task<ApiResponse<Models.Target>> CreateTargetAsync(
+                Models.CreateTargetRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.Target>()
+              .Server(Server.CloudConnector)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/targets")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// Create a unique string that ThingSpace will pass to AWS for increased security.
@@ -89,9 +141,7 @@ namespace Verizon.Standard.Controllers
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.GenerateExternalIDResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// Deploy a new Azure IoT Central application based on the Verizon ARM template within the specified Azure Active Directory account.
@@ -119,70 +169,11 @@ namespace Verizon.Standard.Controllers
               .Server(Server.CloudConnector)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/targets/actions/newaic")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("BillingaccountID", billingaccountID))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.CreateIoTApplicationResponse>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Define a target to receive data streams, alerts, or callbacks. After creating the target resource, use its ID in a subscription to set up a data stream.
-        /// </summary>
-        /// <param name="body">Required parameter: The request body provides the details of the target that you want to create..</param>
-        /// <returns>Returns the ApiResponse of Models.Target response from the API call.</returns>
-        public ApiResponse<Models.Target> CreateTarget(
-                Models.CreateTargetRequest body)
-            => CoreHelper.RunTask(CreateTargetAsync(body));
-
-        /// <summary>
-        /// Define a target to receive data streams, alerts, or callbacks. After creating the target resource, use its ID in a subscription to set up a data stream.
-        /// </summary>
-        /// <param name="body">Required parameter: The request body provides the details of the target that you want to create..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.Target response from the API call.</returns>
-        public async Task<ApiResponse<Models.Target>> CreateTargetAsync(
-                Models.CreateTargetRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.Target>()
-              .Server(Server.CloudConnector)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/targets")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.Target>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Remove a target from a ThingSpace account.
-        /// </summary>
-        /// <param name="body">Required parameter: The request body identifies the target to delete..</param>
-        public void DeleteTarget(
-                Models.DeleteTargetRequest body)
-            => CoreHelper.RunVoidTask(DeleteTargetAsync(body));
-
-        /// <summary>
-        /// Remove a target from a ThingSpace account.
-        /// </summary>
-        /// <param name="body">Required parameter: The request body identifies the target to delete..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the void response from the API call.</returns>
-        public async Task DeleteTargetAsync(
-                Models.DeleteTargetRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<VoidType>()
-              .Server(Server.CloudConnector)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/targets/actions/delete")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ExecuteAsync(cancellationToken);
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

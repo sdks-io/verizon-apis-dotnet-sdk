@@ -11,9 +11,9 @@ The request body identifies the device and the values to set.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Accountidentifier` | [`Models.AccountIdentifier`](../../doc/models/account-identifier.md) | Optional | The ID of the authenticating billing account, in the format `{"billingaccountid":"1234567890-12345"}`. |
-| `Resourceidentifier` | [`Models.ResourceIdentifier`](../../doc/models/resource-identifier.md) | Optional | The ID of the target to delete, in the format {"id": "dd1682d3-2d80-cefc-f3ee-25154800beff"}. |
-| `Configuration` | [`Models.Configuration`](../../doc/models/configuration.md) | Optional | List of the field names and values to set. |
+| `Accountidentifier` | [`AccountIdentifier`](../../doc/models/account-identifier.md) | Optional | The ID of the authenticating billing account, in the format `{"billingaccountid":"1234567890-12345"}`. |
+| `Resourceidentifier` | [`ResourceIdentifier`](../../doc/models/resource-identifier.md) | Optional | The ID of the target to delete, in the format {"id": "dd1682d3-2d80-cefc-f3ee-25154800beff"}. |
+| `Configuration` | [`Configuration`](../../doc/models/configuration.md) | Optional | List of the field names and values to set. |
 
 ## Example (as JSON)
 

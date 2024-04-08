@@ -7,14 +7,15 @@ namespace Verizon.Standard.Models
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.Serialization;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
     using Verizon.Standard;
     using Verizon.Standard.Utilities;
 
     /// <summary>
     /// HttpStatusCodeEnum.
     /// </summary>
+
     [JsonConverter(typeof(StringEnumConverter))]
     public enum HttpStatusCodeEnum
     {

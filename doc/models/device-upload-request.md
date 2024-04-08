@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `AccountName` | `string` | Required | - |
-| `Devices` | [`List<Models.DeviceList>`](../../doc/models/device-list.md) | Required | - |
+| `Devices` | [`List<DeviceList>`](../../doc/models/device-list.md) | Required | - |
 | `EmailAddress` | `string` | Required | - |
 | `DeviceSku` | `string` | Required | - |
 | `UploadType` | `string` | Required | - |
@@ -24,16 +24,8 @@
     {
       "deviceIds": [
         {
-          "id": "id6",
-          "kind": "imei"
-        },
-        {
-          "id": "id7",
-          "kind": "eid"
-        },
-        {
-          "id": "id8",
-          "kind": "esn"
+          "id": "id0",
+          "kind": "kind8"
         }
       ]
     }

@@ -42,7 +42,10 @@ string imei = "709312034493372";
 string accountNumber = "0844021539-00001";
 try
 {
-    ApiResponse<BullseyeServiceResult> result = await deviceServiceManagementController.GetDeviceHyperPreciseStatusAsync(imei, accountNumber);
+    ApiResponse<BullseyeServiceResult> result = await deviceServiceManagementController.GetDeviceHyperPreciseStatusAsync(
+        imei,
+        accountNumber
+    );
 }
 catch (ApiException e)
 {
@@ -90,7 +93,7 @@ UpdateDeviceHyperPreciseStatusAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.BullseyeServiceRequest`](../../doc/models/bullseye-service-request.md) | Body, Required | List of devices and hyper-precise required statuses. |
+| `body` | [`BullseyeServiceRequest`](../../doc/models/bullseye-service-request.md) | Body, Required | List of devices and hyper-precise required statuses. |
 
 ## Response Type
 

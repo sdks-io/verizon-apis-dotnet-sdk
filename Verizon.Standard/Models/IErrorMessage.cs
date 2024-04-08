@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -49,7 +50,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Error Code.
         /// </summary>
-        [JsonProperty("errorCode", ItemConverterType = typeof(StringEnumConverter), NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("errorCode", NullValueHandling = NullValueHandling.Ignore)]
         public Models.ErrorResponseCodeEnum? ErrorCode { get; set; }
 
         /// <summary>
@@ -61,7 +62,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// HTML error code and description.
         /// </summary>
-        [JsonProperty("httpStatusCode", ItemConverterType = typeof(StringEnumConverter), NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("httpStatusCode", NullValueHandling = NullValueHandling.Ignore)]
         public Models.HttpStatusCodeEnum? HttpStatusCode { get; set; }
 
         /// <summary>
@@ -105,9 +106,9 @@ namespace Verizon.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"this.ErrorCode = {(this.ErrorCode == null ? "null" : this.ErrorCode.ToString())}");
-            toStringOutput.Add($"this.ErrorMessage = {(this.ErrorMessage == null ? "null" : this.ErrorMessage == string.Empty ? "" : this.ErrorMessage)}");
+            toStringOutput.Add($"this.ErrorMessage = {(this.ErrorMessage == null ? "null" : this.ErrorMessage)}");
             toStringOutput.Add($"this.HttpStatusCode = {(this.HttpStatusCode == null ? "null" : this.HttpStatusCode.ToString())}");
-            toStringOutput.Add($"this.DetailErrorMessage = {(this.DetailErrorMessage == null ? "null" : this.DetailErrorMessage == string.Empty ? "" : this.DetailErrorMessage)}");
+            toStringOutput.Add($"this.DetailErrorMessage = {(this.DetailErrorMessage == null ? "null" : this.DetailErrorMessage)}");
         }
     }
 }

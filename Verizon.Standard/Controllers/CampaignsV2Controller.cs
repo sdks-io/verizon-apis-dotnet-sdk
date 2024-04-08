@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -34,6 +33,41 @@ namespace Verizon.Standard.Controllers
         /// Initializes a new instance of the <see cref="CampaignsV2Controller"/> class.
         /// </summary>
         internal CampaignsV2Controller(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
+
+        /// <summary>
+        /// This endpoint allows user to schedule a software upgrade.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier..</param>
+        /// <param name="body">Required parameter: Software upgrade information..</param>
+        /// <returns>Returns the ApiResponse of Models.CampaignSoftware response from the API call.</returns>
+        public ApiResponse<Models.CampaignSoftware> ScheduleCampaignFirmwareUpgrade(
+                string account,
+                Models.CampaignSoftwareUpgrade body)
+            => CoreHelper.RunTask(ScheduleCampaignFirmwareUpgradeAsync(account, body));
+
+        /// <summary>
+        /// This endpoint allows user to schedule a software upgrade.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier..</param>
+        /// <param name="body">Required parameter: Software upgrade information..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.CampaignSoftware response from the API call.</returns>
+        public async Task<ApiResponse<Models.CampaignSoftware>> ScheduleCampaignFirmwareUpgradeAsync(
+                string account,
+                Models.CampaignSoftwareUpgrade body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.CampaignSoftware>()
+              .Server(Server.SoftwareManagementV2)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/campaigns/{account}")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Template(_template => _template.Setup("account", account))
+                      .Header(_header => _header.Setup("Content-Type", "*/*"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// This endpoint allows user to get information of a software upgrade.
@@ -61,91 +95,13 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/campaigns/{account}/{campaignId}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("campaignId", campaignId))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.CampaignSoftware>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// This endpoint allows user to change campaign dates and time windows. Fields which need to remain unchanged should be also provided.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier..</param>
-        /// <param name="campaignId">Required parameter: Software upgrade information..</param>
-        /// <param name="body">Required parameter: New dates and time windows..</param>
-        /// <returns>Returns the ApiResponse of Models.CampaignSoftware response from the API call.</returns>
-        public ApiResponse<Models.CampaignSoftware> UpdateCampaignDates(
-                string account,
-                string campaignId,
-                Models.V2ChangeCampaignDatesRequest body)
-            => CoreHelper.RunTask(UpdateCampaignDatesAsync(account, campaignId, body));
-
-        /// <summary>
-        /// This endpoint allows user to change campaign dates and time windows. Fields which need to remain unchanged should be also provided.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier..</param>
-        /// <param name="campaignId">Required parameter: Software upgrade information..</param>
-        /// <param name="body">Required parameter: New dates and time windows..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.CampaignSoftware response from the API call.</returns>
-        public async Task<ApiResponse<Models.CampaignSoftware>> UpdateCampaignDatesAsync(
-                string account,
-                string campaignId,
-                Models.V2ChangeCampaignDatesRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.CampaignSoftware>()
-              .Server(Server.SoftwareManagementV2)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Put, "/campaigns/{account}/{campaignId}/dates")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Template(_template => _template.Setup("account", account))
-                      .Template(_template => _template.Setup("campaignId", campaignId))
-                      .Header(_header => _header.Setup("Content-Type", "*/*"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.CampaignSoftware>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// You can upload configuration files and schedule them in a campaign to devices.
-        /// </summary>
-        /// <param name="acc">Required parameter: Account identifier..</param>
-        /// <param name="body">Required parameter: Device logging information..</param>
-        /// <returns>Returns the ApiResponse of Models.UploadAndScheduleFileResponse response from the API call.</returns>
-        public ApiResponse<Models.UploadAndScheduleFileResponse> ScheduleFileUpgrade(
-                string acc,
-                Models.UploadAndScheduleFileRequest body)
-            => CoreHelper.RunTask(ScheduleFileUpgradeAsync(acc, body));
-
-        /// <summary>
-        /// You can upload configuration files and schedule them in a campaign to devices.
-        /// </summary>
-        /// <param name="acc">Required parameter: Account identifier..</param>
-        /// <param name="body">Required parameter: Device logging information..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.UploadAndScheduleFileResponse response from the API call.</returns>
-        public async Task<ApiResponse<Models.UploadAndScheduleFileResponse>> ScheduleFileUpgradeAsync(
-                string acc,
-                Models.UploadAndScheduleFileRequest body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.UploadAndScheduleFileResponse>()
-              .Server(Server.SoftwareManagementV2)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/campaigns/files/{acc}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Template(_template => _template.Setup("acc", acc))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.UploadAndScheduleFileResponse>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// This endpoint allows user to Add or Remove devices to an existing software upgrade.
@@ -177,52 +133,15 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Put, "/campaigns/{account}/{campaignId}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("campaignId", campaignId))
                       .Header(_header => _header.Setup("Content-Type", "*/*"))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.V2AddOrRemoveDeviceResult>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// This endpoint allows user to schedule a software upgrade.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier..</param>
-        /// <param name="body">Required parameter: Software upgrade information..</param>
-        /// <returns>Returns the ApiResponse of Models.CampaignSoftware response from the API call.</returns>
-        public ApiResponse<Models.CampaignSoftware> ScheduleCampaignFirmwareUpgrade(
-                string account,
-                Models.CampaignSoftwareUpgrade body)
-            => CoreHelper.RunTask(ScheduleCampaignFirmwareUpgradeAsync(account, body));
-
-        /// <summary>
-        /// This endpoint allows user to schedule a software upgrade.
-        /// </summary>
-        /// <param name="account">Required parameter: Account identifier..</param>
-        /// <param name="body">Required parameter: Software upgrade information..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.CampaignSoftware response from the API call.</returns>
-        public async Task<ApiResponse<Models.CampaignSoftware>> ScheduleCampaignFirmwareUpgradeAsync(
-                string account,
-                Models.CampaignSoftwareUpgrade body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.CampaignSoftware>()
-              .Server(Server.SoftwareManagementV2)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/campaigns/{account}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Template(_template => _template.Setup("account", account))
-                      .Header(_header => _header.Setup("Content-Type", "*/*"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.CampaignSoftware>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// This endpoint allows user to cancel software upgrade. A software upgrade already started can not be cancelled.
@@ -250,14 +169,88 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/campaigns/{account}/{campaignId}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("campaignId", campaignId))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.FotaV2SuccessResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// This endpoint allows user to change campaign dates and time windows. Fields which need to remain unchanged should be also provided.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier..</param>
+        /// <param name="campaignId">Required parameter: Software upgrade information..</param>
+        /// <param name="body">Required parameter: New dates and time windows..</param>
+        /// <returns>Returns the ApiResponse of Models.CampaignSoftware response from the API call.</returns>
+        public ApiResponse<Models.CampaignSoftware> UpdateCampaignDates(
+                string account,
+                string campaignId,
+                Models.V2ChangeCampaignDatesRequest body)
+            => CoreHelper.RunTask(UpdateCampaignDatesAsync(account, campaignId, body));
+
+        /// <summary>
+        /// This endpoint allows user to change campaign dates and time windows. Fields which need to remain unchanged should be also provided.
+        /// </summary>
+        /// <param name="account">Required parameter: Account identifier..</param>
+        /// <param name="campaignId">Required parameter: Software upgrade information..</param>
+        /// <param name="body">Required parameter: New dates and time windows..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.CampaignSoftware response from the API call.</returns>
+        public async Task<ApiResponse<Models.CampaignSoftware>> UpdateCampaignDatesAsync(
+                string account,
+                string campaignId,
+                Models.V2ChangeCampaignDatesRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.CampaignSoftware>()
+              .Server(Server.SoftwareManagementV2)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Put, "/campaigns/{account}/{campaignId}/dates")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Template(_template => _template.Setup("account", account))
+                      .Template(_template => _template.Setup("campaignId", campaignId))
+                      .Header(_header => _header.Setup("Content-Type", "*/*"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// You can upload configuration files and schedule them in a campaign to devices.
+        /// </summary>
+        /// <param name="acc">Required parameter: Account identifier..</param>
+        /// <param name="body">Required parameter: Device logging information..</param>
+        /// <returns>Returns the ApiResponse of Models.UploadAndScheduleFileResponse response from the API call.</returns>
+        public ApiResponse<Models.UploadAndScheduleFileResponse> ScheduleFileUpgrade(
+                string acc,
+                Models.UploadAndScheduleFileRequest body)
+            => CoreHelper.RunTask(ScheduleFileUpgradeAsync(acc, body));
+
+        /// <summary>
+        /// You can upload configuration files and schedule them in a campaign to devices.
+        /// </summary>
+        /// <param name="acc">Required parameter: Account identifier..</param>
+        /// <param name="body">Required parameter: Device logging information..</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.UploadAndScheduleFileResponse response from the API call.</returns>
+        public async Task<ApiResponse<Models.UploadAndScheduleFileResponse>> ScheduleFileUpgradeAsync(
+                string acc,
+                Models.UploadAndScheduleFileRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.UploadAndScheduleFileResponse>()
+              .Server(Server.SoftwareManagementV2)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/campaigns/files/{acc}")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Template(_template => _template.Setup("acc", acc))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// Campaign time windows for downloading and installing software are available as long as the device OEM supports this.
@@ -285,14 +278,13 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/campaigns/software/{acc}")
-                  .WithAuth("global")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("acc", acc))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.UploadAndScheduleFileResponse>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV2ResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

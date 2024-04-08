@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -134,11 +135,11 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
             toStringOutput.Add($"this.UsageForAllAccounts = {(this.UsageForAllAccounts == null ? "null" : this.UsageForAllAccounts.ToString())}");
-            toStringOutput.Add($"this.SkuName = {(this.SkuName == null ? "null" : this.SkuName == string.Empty ? "" : this.SkuName)}");
-            toStringOutput.Add($"this.TransactionsAllowed = {(this.TransactionsAllowed == null ? "null" : this.TransactionsAllowed == string.Empty ? "" : this.TransactionsAllowed)}");
-            toStringOutput.Add($"this.TotalTransactionCount = {(this.TotalTransactionCount == null ? "null" : this.TotalTransactionCount == string.Empty ? "" : this.TotalTransactionCount)}");
+            toStringOutput.Add($"this.SkuName = {(this.SkuName == null ? "null" : this.SkuName)}");
+            toStringOutput.Add($"this.TransactionsAllowed = {(this.TransactionsAllowed == null ? "null" : this.TransactionsAllowed)}");
+            toStringOutput.Add($"this.TotalTransactionCount = {(this.TotalTransactionCount == null ? "null" : this.TotalTransactionCount)}");
             toStringOutput.Add($"this.PrimaryAccount = {(this.PrimaryAccount == null ? "null" : this.PrimaryAccount.ToString())}");
             toStringOutput.Add($"this.ManagedAccounts = {(this.ManagedAccounts == null ? "null" : $"[{string.Join(", ", this.ManagedAccounts)} ]")}");
         }

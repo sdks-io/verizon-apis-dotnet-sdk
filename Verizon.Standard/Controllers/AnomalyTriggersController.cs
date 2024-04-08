@@ -19,7 +19,6 @@ namespace Verizon.Standard.Controllers
     using Newtonsoft.Json.Converters;
     using System.Net.Http;
     using Verizon.Standard;
-    using Verizon.Standard.Authentication;
     using Verizon.Standard.Exceptions;
     using Verizon.Standard.Http.Client;
     using Verizon.Standard.Http.Response;
@@ -36,95 +35,167 @@ namespace Verizon.Standard.Controllers
         internal AnomalyTriggersController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// Updates an existing trigger using the account name.
+        /// This corresponds to the M2M-MC SOAP interface, ```GetTriggers```.
         /// </summary>
-        /// <param name="body">Required parameter: Request to update existing trigger..</param>
-        /// <returns>Returns the ApiResponse of Models.IntelligenceSuccessResult response from the API call.</returns>
-        public ApiResponse<Models.IntelligenceSuccessResult> UpdateAnomalyDetectionTrigger(
-                List<Models.UpdateTriggerRequestOptions> body)
+        /// <returns>Returns the ApiResponse of List<Models.GetTriggerResponseList> response from the API call.</returns>
+        public ApiResponse<List<Models.GetTriggerResponseList>> ListAnomalyDetectionTriggers()
+            => CoreHelper.RunTask(ListAnomalyDetectionTriggersAsync());
+
+        /// <summary>
+        /// This corresponds to the M2M-MC SOAP interface, ```GetTriggers```.
+        /// </summary>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of List<Models.GetTriggerResponseList> response from the API call.</returns>
+        public async Task<ApiResponse<List<Models.GetTriggerResponseList>>> ListAnomalyDetectionTriggersAsync(CancellationToken cancellationToken = default)
+            => await CreateApiCall<List<Models.GetTriggerResponseList>>()
+              .Server(Server.Thingspace)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/m2m/v1/triggers")
+                  .WithAuth("oAuth2"))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Bad request", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("Unauthorized", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("403", CreateErrorCase("Forbidden", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("404", CreateErrorCase("Not Found / Does not exist", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("406", CreateErrorCase("Format / Request Unacceptable", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("429", CreateErrorCase("Too many requests", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("0", CreateErrorCase("Error response", (_reason, _context) => new IntelligenceResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// This corresponds to the M2M-MC SOAP interface, ```UpdateTriggerRequest```.
+        /// </summary>
+        /// <param name="body">Required parameter: Update Trigger Request.</param>
+        /// <returns>Returns the ApiResponse of Models.AnomalyDetectionTrigger response from the API call.</returns>
+        public ApiResponse<Models.AnomalyDetectionTrigger> UpdateAnomalyDetectionTrigger(
+                Models.UpdateTriggerRequest body)
             => CoreHelper.RunTask(UpdateAnomalyDetectionTriggerAsync(body));
 
         /// <summary>
-        /// Updates an existing trigger using the account name.
+        /// This corresponds to the M2M-MC SOAP interface, ```UpdateTriggerRequest```.
         /// </summary>
-        /// <param name="body">Required parameter: Request to update existing trigger..</param>
+        /// <param name="body">Required parameter: Update Trigger Request.</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.IntelligenceSuccessResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.IntelligenceSuccessResult>> UpdateAnomalyDetectionTriggerAsync(
-                List<Models.UpdateTriggerRequestOptions> body,
+        /// <returns>Returns the ApiResponse of Models.AnomalyDetectionTrigger response from the API call.</returns>
+        public async Task<ApiResponse<Models.AnomalyDetectionTrigger>> UpdateAnomalyDetectionTriggerAsync(
+                Models.UpdateTriggerRequest body,
                 CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.IntelligenceSuccessResult>()
-              .Server(Server.M2m)
+            => await CreateApiCall<Models.AnomalyDetectionTrigger>()
+              .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Put, "/v2/triggers")
-                  .WithAuth("global")
+                  .Setup(HttpMethod.Put, "/m2m/v1/triggers")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("0", CreateErrorCase("An error occurred.", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.IntelligenceSuccessResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Bad request", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("Unauthorized", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("403", CreateErrorCase("Forbidden", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("404", CreateErrorCase("Not Found / Does not exist", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("406", CreateErrorCase("Format / Request Unacceptable", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("429", CreateErrorCase("Too many requests", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("0", CreateErrorCase("Error response", (_reason, _context) => new IntelligenceResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
-        /// Retrieves the values for a specific trigger ID.
+        /// This corresponds to the M2M-MC SOAP interface, ```CreateTrigger```.
         /// </summary>
-        /// <param name="triggerId">Required parameter: The trigger ID of a specific trigger..</param>
-        /// <returns>Returns the ApiResponse of Models.AnomalyTriggerResult response from the API call.</returns>
-        public ApiResponse<Models.AnomalyTriggerResult> ListAnomalyDetectionTriggerSettings(
+        /// <param name="body">Required parameter: Create Trigger Request.</param>
+        /// <returns>Returns the ApiResponse of Models.AnomalyDetectionTrigger response from the API call.</returns>
+        public ApiResponse<Models.AnomalyDetectionTrigger> CreateAnomalyDetectionTrigger(
+                Models.CreateTriggerRequest body)
+            => CoreHelper.RunTask(CreateAnomalyDetectionTriggerAsync(body));
+
+        /// <summary>
+        /// This corresponds to the M2M-MC SOAP interface, ```CreateTrigger```.
+        /// </summary>
+        /// <param name="body">Required parameter: Create Trigger Request.</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the ApiResponse of Models.AnomalyDetectionTrigger response from the API call.</returns>
+        public async Task<ApiResponse<Models.AnomalyDetectionTrigger>> CreateAnomalyDetectionTriggerAsync(
+                Models.CreateTriggerRequest body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<Models.AnomalyDetectionTrigger>()
+              .Server(Server.Thingspace)
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/m2m/v1/triggers")
+                  .WithAuth("oAuth2")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Bad request", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("Unauthorized", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("403", CreateErrorCase("Forbidden", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("404", CreateErrorCase("Not Found / Does not exist", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("406", CreateErrorCase("Format / Request Unacceptable", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("429", CreateErrorCase("Too many requests", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("0", CreateErrorCase("Error response", (_reason, _context) => new IntelligenceResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// This corresponds to the M2M-MC SOAP interface, ```GetTriggers```.
+        /// </summary>
+        /// <param name="triggerId">Required parameter: trigger ID.</param>
+        /// <returns>Returns the ApiResponse of List<Models.GetTriggerResponseList> response from the API call.</returns>
+        public ApiResponse<List<Models.GetTriggerResponseList>> ListAnomalyDetectionTriggerSettings(
                 string triggerId)
             => CoreHelper.RunTask(ListAnomalyDetectionTriggerSettingsAsync(triggerId));
 
         /// <summary>
-        /// Retrieves the values for a specific trigger ID.
+        /// This corresponds to the M2M-MC SOAP interface, ```GetTriggers```.
         /// </summary>
-        /// <param name="triggerId">Required parameter: The trigger ID of a specific trigger..</param>
+        /// <param name="triggerId">Required parameter: trigger ID.</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.AnomalyTriggerResult response from the API call.</returns>
-        public async Task<ApiResponse<Models.AnomalyTriggerResult>> ListAnomalyDetectionTriggerSettingsAsync(
+        /// <returns>Returns the ApiResponse of List<Models.GetTriggerResponseList> response from the API call.</returns>
+        public async Task<ApiResponse<List<Models.GetTriggerResponseList>>> ListAnomalyDetectionTriggerSettingsAsync(
                 string triggerId,
                 CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.AnomalyTriggerResult>()
-              .Server(Server.M2m)
+            => await CreateApiCall<List<Models.GetTriggerResponseList>>()
+              .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/v2/triggers/{triggerId}")
-                  .WithAuth("global")
+                  .Setup(HttpMethod.Get, "/m2m/v1/triggers/{triggerId}")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("triggerId", triggerId))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("0", CreateErrorCase("An error occurred.", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AnomalyTriggerResult>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("400", CreateErrorCase("Bad request", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("401", CreateErrorCase("Unauthorized", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("403", CreateErrorCase("Forbidden", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("404", CreateErrorCase("Not Found / Does not exist", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("406", CreateErrorCase("Format / Request Unacceptable", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("429", CreateErrorCase("Too many requests", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
+                  .ErrorCase("0", CreateErrorCase("Error response", (_reason, _context) => new IntelligenceResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
-        /// Creates the trigger to identify an anomaly.
+        /// Deletes a specific trigger ID.
         /// </summary>
-        /// <param name="body">Required parameter: Request to create an anomaly trigger..</param>
+        /// <param name="triggerId">Required parameter: The trigger ID to be deleted.</param>
         /// <returns>Returns the ApiResponse of Models.AnomalyDetectionTrigger response from the API call.</returns>
-        public ApiResponse<Models.AnomalyDetectionTrigger> CreateAnomalyDetectionTrigger(
-                List<Models.CreateTriggerRequestOptions> body)
-            => CoreHelper.RunTask(CreateAnomalyDetectionTriggerAsync(body));
+        public ApiResponse<Models.AnomalyDetectionTrigger> DeleteAnomalyDetectionTrigger(
+                string triggerId)
+            => CoreHelper.RunTask(DeleteAnomalyDetectionTriggerAsync(triggerId));
 
         /// <summary>
-        /// Creates the trigger to identify an anomaly.
+        /// Deletes a specific trigger ID.
         /// </summary>
-        /// <param name="body">Required parameter: Request to create an anomaly trigger..</param>
+        /// <param name="triggerId">Required parameter: The trigger ID to be deleted.</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
         /// <returns>Returns the ApiResponse of Models.AnomalyDetectionTrigger response from the API call.</returns>
-        public async Task<ApiResponse<Models.AnomalyDetectionTrigger>> CreateAnomalyDetectionTriggerAsync(
-                List<Models.CreateTriggerRequestOptions> body,
+        public async Task<ApiResponse<Models.AnomalyDetectionTrigger>> DeleteAnomalyDetectionTriggerAsync(
+                string triggerId,
                 CancellationToken cancellationToken = default)
             => await CreateApiCall<Models.AnomalyDetectionTrigger>()
-              .Server(Server.M2m)
+              .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/v2/triggers")
-                  .WithAuth("global")
+                  .Setup(HttpMethod.Delete, "/m2m/v1/triggers/{triggerId}")
+                  .WithAuth("oAuth2")
                   .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+                      .Template(_template => _template.Setup("triggerId", triggerId))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("0", CreateErrorCase("An error occurred.", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.AnomalyDetectionTrigger>(_response)))
-              .ExecuteAsync(cancellationToken);
+                  .ErrorCase("0", CreateErrorCase("Error response", (_reason, _context) => new IntelligenceResultException(_reason, _context))))
+              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
     }
 }

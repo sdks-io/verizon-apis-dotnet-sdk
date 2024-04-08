@@ -14,6 +14,11 @@ namespace Verizon.Standard
         EdgeDiscovery,
 
         /// <summary>
+        /// Thingspace.
+        /// </summary>
+        Thingspace,
+
+        /// <summary>
         /// OauthServer.
         /// </summary>
         OauthServer,
@@ -72,5 +77,10 @@ namespace Verizon.Standard
         /// Services.
         /// </summary>
         Services,
+
+        /// <summary>
+        /// QualityOfService.
+        /// </summary>
+        QualityOfService,
     }
 }

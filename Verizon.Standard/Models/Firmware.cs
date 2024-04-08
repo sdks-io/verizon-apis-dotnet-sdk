@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -145,14 +146,14 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.FirmwareName = {(this.FirmwareName == null ? "null" : this.FirmwareName == string.Empty ? "" : this.FirmwareName)}");
-            toStringOutput.Add($"this.ParticipantName = {(this.ParticipantName == null ? "null" : this.ParticipantName == string.Empty ? "" : this.ParticipantName)}");
+            toStringOutput.Add($"this.FirmwareName = {(this.FirmwareName == null ? "null" : this.FirmwareName)}");
+            toStringOutput.Add($"this.ParticipantName = {(this.ParticipantName == null ? "null" : this.ParticipantName)}");
             toStringOutput.Add($"this.LaunchDate = {(this.LaunchDate == null ? "null" : this.LaunchDate.ToString())}");
-            toStringOutput.Add($"this.ReleaseNote = {(this.ReleaseNote == null ? "null" : this.ReleaseNote == string.Empty ? "" : this.ReleaseNote)}");
-            toStringOutput.Add($"this.Model = {(this.Model == null ? "null" : this.Model == string.Empty ? "" : this.Model)}");
-            toStringOutput.Add($"this.Make = {(this.Make == null ? "null" : this.Make == string.Empty ? "" : this.Make)}");
-            toStringOutput.Add($"this.FromVersion = {(this.FromVersion == null ? "null" : this.FromVersion == string.Empty ? "" : this.FromVersion)}");
-            toStringOutput.Add($"this.ToVersion = {(this.ToVersion == null ? "null" : this.ToVersion == string.Empty ? "" : this.ToVersion)}");
+            toStringOutput.Add($"this.ReleaseNote = {(this.ReleaseNote == null ? "null" : this.ReleaseNote)}");
+            toStringOutput.Add($"this.Model = {(this.Model == null ? "null" : this.Model)}");
+            toStringOutput.Add($"this.Make = {(this.Make == null ? "null" : this.Make)}");
+            toStringOutput.Add($"this.FromVersion = {(this.FromVersion == null ? "null" : this.FromVersion)}");
+            toStringOutput.Add($"this.ToVersion = {(this.ToVersion == null ? "null" : this.ToVersion)}");
         }
     }
 }

@@ -11,7 +11,8 @@ A list of deviceId objects to use when requesting information from multiple devi
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `DeviceIds` | [`List<Models.DeviceId>`](../../doc/models/device-id.md) | Optional | All identifiers for the device. |
+| `DeviceIds` | [`List<DeviceId>`](../../doc/models/device-id.md) | Required | All identifiers for the device. |
+| `IpAddress` | `string` | Optional | **Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9].[0-9].[0-9].[0-9]{3,32}$` |
 
 ## Example (as JSON)
 
@@ -26,7 +27,8 @@ A list of deviceId objects to use when requesting information from multiple devi
       "kind": "iccid",
       "id": "89141390780800784259"
     }
-  ]
+  ],
+  "ipAddress": "ipAddress2"
 }
 ```
 

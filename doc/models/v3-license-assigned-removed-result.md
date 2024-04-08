@@ -14,7 +14,7 @@ License assignment/removal response.
 | `AccountName` | `string` | Required | Account name. |
 | `LicCount` | `int` | Required | Total license count. |
 | `LicUsedCount` | `int` | Required | Assigned license count. |
-| `DeviceList` | [`List<Models.V3DeviceStatus>`](../../doc/models/v3-device-status.md) | Required | List of devices with id in IMEI. |
+| `DeviceList` | [`List<V3DeviceStatus>`](../../doc/models/v3-device-status.md) | Required | List of devices with id in IMEI. |
 
 ## Example (as JSON)
 

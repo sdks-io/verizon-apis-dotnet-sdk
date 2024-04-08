@@ -12,7 +12,7 @@ Returns the name, description, and list of devices in a device group.
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `Description` | `string` | Optional | The description of the device group. |
-| `Devices` | [`List<Models.AccountDeviceList>`](../../doc/models/account-device-list.md) | Optional | The devices in the device group. |
+| `Devices` | [`List<AccountDeviceList>`](../../doc/models/account-device-list.md) | Optional | The devices in the device group. |
 | `HasMoreData` | `bool?` | Optional | False for a status 200 response.True for a status 202 response, indicating that there is more data to be retrieved. |
 | `Name` | `string` | Optional | The name of the device group. |
 
@@ -34,7 +34,8 @@ Returns the name, description, and list of devices in a device group.
           "id": "54321",
           "kind": "mdn"
         }
-      ]
+      ],
+      "ipAddress": "ipAddress4"
     }
   ]
 }

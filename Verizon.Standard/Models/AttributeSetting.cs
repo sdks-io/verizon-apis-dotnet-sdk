@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -55,7 +56,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Attribute identifier.
         /// </summary>
-        [JsonProperty("name", ItemConverterType = typeof(StringEnumConverter), NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
         public Models.AttributeIdentifierEnum? Name { get; set; }
 
         /// <summary>
@@ -126,7 +127,7 @@ namespace Verizon.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name.ToString())}");
-            toStringOutput.Add($"this.MValue = {(this.MValue == null ? "null" : this.MValue == string.Empty ? "" : this.MValue)}");
+            toStringOutput.Add($"this.MValue = {(this.MValue == null ? "null" : this.MValue)}");
             toStringOutput.Add($"this.CreatedOn = {(this.CreatedOn == null ? "null" : this.CreatedOn.ToString())}");
             toStringOutput.Add($"this.IsObservable = {(this.IsObservable == null ? "null" : this.IsObservable.ToString())}");
             toStringOutput.Add($"this.IsObserving = {(this.IsObserving == null ? "null" : this.IsObserving.ToString())}");

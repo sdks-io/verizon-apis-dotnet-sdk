@@ -14,7 +14,7 @@ License assignment or removal confirmation.
 | `AccountName` | `string` | Required | Account name. |
 | `LicTotalCount` | `int` | Required | Total license count. |
 | `LicUsedCount` | `int` | Required | Assigned license count. |
-| `DeviceList` | [`List<Models.V2DeviceStatus>`](../../doc/models/v2-device-status.md) | Required | List of devices with id in IMEI. |
+| `DeviceList` | [`List<V2DeviceStatus>`](../../doc/models/v2-device-status.md) | Required | List of devices with id in IMEI. |
 
 ## Example (as JSON)
 

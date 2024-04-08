@@ -14,7 +14,7 @@ License assignment or removal confirmation.
 | `AccountName` | `string` | Optional | Account identifier in "##########-#####". |
 | `LicCount` | `int?` | Optional | Total number of monthly licenses in an MRC subscription. |
 | `LicUsedCount` | `int?` | Optional | Number of licenses assigned to devices after the request completed. |
-| `DeviceList` | [`List<Models.V1DeviceListItem>`](../../doc/models/v1-device-list-item.md) | Optional | A JSON object for each device that was in the request. |
+| `DeviceList` | [`List<V1DeviceListItem>`](../../doc/models/v1-device-list-item.md) | Optional | A JSON object for each device that was in the request. |
 
 ## Example (as JSON)
 

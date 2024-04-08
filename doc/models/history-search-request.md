@@ -11,9 +11,9 @@ Used to filter data by time period or number of devices.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Filter` | [`Models.HistorySearchFilter`](../../doc/models/history-search-filter.md) | Required | The selected device and attributes for which a request should retrieve data. |
+| `Filter` | [`HistorySearchFilter`](../../doc/models/history-search-filter.md) | Required | The selected device and attributes for which a request should retrieve data. |
 | `LimitNumber` | `int?` | Optional | The maximum number of historical attributes to include in the response. If the request matches more than this number of attributes, the response will contain an X-Next value in the header that can be used as the page value in the next request to retrieve the next page of events. |
-| `LimitTime` | [`Models.HistorySearchLimitTime`](../../doc/models/history-search-limit-time.md) | Optional | The time period for which a request should retrieve data, beginning with the limitTime.startOn and proceeding with the limitTime.duration. |
+| `LimitTime` | [`HistorySearchLimitTime`](../../doc/models/history-search-limit-time.md) | Optional | The time period for which a request should retrieve data, beginning with the limitTime.startOn and proceeding with the limitTime.duration. |
 | `Page` | `string` | Optional | Page number for pagination purposes. |
 
 ## Example (as JSON)
@@ -30,15 +30,15 @@ Used to filter data by time period or number of devices.
       "name": "MANUFACTURER"
     }
   },
-  "$limitNumber": 18,
+  "$limitNumber": 10,
   "$limitTime": {
     "startOn": "2016-03-13T12:52:32.123Z",
     "duration": {
-      "value": 212,
+      "value": 176,
       "unit": "SECOND"
     }
   },
-  "$page": "$page4"
+  "$page": "$page2"
 }
 ```
 

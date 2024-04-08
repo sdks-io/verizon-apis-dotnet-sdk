@@ -11,7 +11,7 @@ Authenticating account ID.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Accountidentifier` | [`Models.AccountIdentifier`](../../doc/models/account-identifier.md) | Optional | The ID of the authenticating billing account, in the format `{"billingaccountid":"1234567890-12345"}`. |
+| `Accountidentifier` | [`AccountIdentifier`](../../doc/models/account-identifier.md) | Optional | The ID of the authenticating billing account, in the format `{"billingaccountid":"1234567890-12345"}`. |
 
 ## Example (as JSON)
 

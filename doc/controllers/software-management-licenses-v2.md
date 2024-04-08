@@ -10,139 +10,12 @@ SoftwareManagementLicensesV2Controller softwareManagementLicensesV2Controller = 
 
 ## Methods
 
-* [Delete List of Licenses to Remove](../../doc/controllers/software-management-licenses-v2.md#delete-list-of-licenses-to-remove)
-* [Assign Licenses to Devices](../../doc/controllers/software-management-licenses-v2.md#assign-licenses-to-devices)
 * [Get Account License Status](../../doc/controllers/software-management-licenses-v2.md#get-account-license-status)
+* [Assign Licenses to Devices](../../doc/controllers/software-management-licenses-v2.md#assign-licenses-to-devices)
 * [Remove Licenses From Devices](../../doc/controllers/software-management-licenses-v2.md#remove-licenses-from-devices)
 * [List Licenses to Remove](../../doc/controllers/software-management-licenses-v2.md#list-licenses-to-remove)
 * [Create List of Licenses to Remove](../../doc/controllers/software-management-licenses-v2.md#create-list-of-licenses-to-remove)
-
-
-# Delete List of Licenses to Remove
-
-**This endpoint is deprecated.**
-
-This endpoint allows user to delete a created cancel candidate device list.
-
-```csharp
-DeleteListOfLicensesToRemoveAsync(
-    string account)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.FotaV2SuccessResult>>`](../../doc/models/fota-v2-success-result.md)
-
-## Example Usage
-
-```csharp
-string account = "0242078689-00001";
-try
-{
-    ApiResponse<FotaV2SuccessResult> result = await softwareManagementLicensesV2Controller.DeleteListOfLicensesToRemoveAsync(account);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "success": true
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
-
-
-# Assign Licenses to Devices
-
-**This endpoint is deprecated.**
-
-This endpoint allows user to assign licenses to a list of devices.
-
-```csharp
-AssignLicensesToDevicesAsync(
-    string account,
-    Models.V2LicenseIMEI body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier. |
-| `body` | [`Models.V2LicenseIMEI`](../../doc/models/v2-license-imei.md) | Body, Required | License assignment. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.V2LicensesAssignedRemovedResult>>`](../../doc/models/v2-licenses-assigned-removed-result.md)
-
-## Example Usage
-
-```csharp
-string account = "0242078689-00001";
-V2LicenseIMEI body = new V2LicenseIMEI
-{
-    DeviceList = new List<string>
-    {
-        "990003425730524",
-        "990000473475967",
-    },
-};
-
-try
-{
-    ApiResponse<V2LicensesAssignedRemovedResult> result = await softwareManagementLicensesV2Controller.AssignLicensesToDevicesAsync(account, body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "accountName": "0242078689-00001",
-  "licTotalCount": 1000,
-  "licUsedCount": 502,
-  "deviceList": [
-    {
-      "deviceId": "990003425730524",
-      "status": "Success",
-      "resultReason": "Success"
-    },
-    {
-      "deviceId": "990000473475967",
-      "status": "Failure",
-      "resultReason": "Device does not exist."
-    }
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
+* [Delete List of Licenses to Remove](../../doc/controllers/software-management-licenses-v2.md#delete-list-of-licenses-to-remove)
 
 
 # Get Account License Status
@@ -173,7 +46,10 @@ string account = "0000123456-00001";
 string lastSeenDeviceId = "15-digit IMEI";
 try
 {
-    ApiResponse<V2LicenseSummary> result = await softwareManagementLicensesV2Controller.GetAccountLicenseStatusAsync(account, lastSeenDeviceId);
+    ApiResponse<V2LicenseSummary> result = await softwareManagementLicensesV2Controller.GetAccountLicenseStatusAsync(
+        account,
+        lastSeenDeviceId
+    );
 }
 catch (ApiException e)
 {
@@ -220,6 +96,85 @@ catch (ApiException e)
 | 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
 
 
+# Assign Licenses to Devices
+
+**This endpoint is deprecated.**
+
+This endpoint allows user to assign licenses to a list of devices.
+
+```csharp
+AssignLicensesToDevicesAsync(
+    string account,
+    Models.V2LicenseIMEI body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account` | `string` | Template, Required | Account identifier. |
+| `body` | [`V2LicenseIMEI`](../../doc/models/v2-license-imei.md) | Body, Required | License assignment. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.V2LicensesAssignedRemovedResult>>`](../../doc/models/v2-licenses-assigned-removed-result.md)
+
+## Example Usage
+
+```csharp
+string account = "0242078689-00001";
+V2LicenseIMEI body = new V2LicenseIMEI
+{
+    DeviceList = new List<string>
+    {
+        "990003425730524",
+        "990000473475967",
+    },
+};
+
+try
+{
+    ApiResponse<V2LicensesAssignedRemovedResult> result = await softwareManagementLicensesV2Controller.AssignLicensesToDevicesAsync(
+        account,
+        body
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "accountName": "0242078689-00001",
+  "licTotalCount": 1000,
+  "licUsedCount": 502,
+  "deviceList": [
+    {
+      "deviceId": "990003425730524",
+      "status": "Success",
+      "resultReason": "Success"
+    },
+    {
+      "deviceId": "990000473475967",
+      "status": "Failure",
+      "resultReason": "Device does not exist."
+    }
+  ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
+
+
 # Remove Licenses From Devices
 
 **This endpoint is deprecated.**
@@ -237,7 +192,7 @@ RemoveLicensesFromDevicesAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `account` | `string` | Template, Required | Account identifier. |
-| `body` | [`Models.V2LicenseIMEI`](../../doc/models/v2-license-imei.md) | Body, Required | License removal. |
+| `body` | [`V2LicenseIMEI`](../../doc/models/v2-license-imei.md) | Body, Required | License removal. |
 
 ## Response Type
 
@@ -259,7 +214,10 @@ V2LicenseIMEI body = new V2LicenseIMEI
 
 try
 {
-    ApiResponse<V2LicensesAssignedRemovedResult> result = await softwareManagementLicensesV2Controller.RemoveLicensesFromDevicesAsync(account, body);
+    ApiResponse<V2LicensesAssignedRemovedResult> result = await softwareManagementLicensesV2Controller.RemoveLicensesFromDevicesAsync(
+        account,
+        body
+    );
 }
 catch (ApiException e)
 {
@@ -331,7 +289,7 @@ ListLicensesToRemoveAsync(
 string account = "0242078689-00001";
 try
 {
-    ApiResponse<V2ListOfLicensesToRemove> result = await softwareManagementLicensesV2Controller.ListLicensesToRemoveAsync(account, null);
+    ApiResponse<V2ListOfLicensesToRemove> result = await softwareManagementLicensesV2Controller.ListLicensesToRemoveAsync(account);
 }
 catch (ApiException e)
 {
@@ -382,7 +340,7 @@ CreateListOfLicensesToRemoveAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `account` | `string` | Template, Required | Account identifier. |
-| `body` | [`Models.V2ListOfLicensesToRemoveRequest`](../../doc/models/v2-list-of-licenses-to-remove-request.md) | Body, Required | List of licensess to remove. |
+| `body` | [`V2ListOfLicensesToRemoveRequest`](../../doc/models/v2-list-of-licenses-to-remove-request.md) | Body, Required | List of licensess to remove. |
 
 ## Response Type
 
@@ -405,7 +363,10 @@ V2ListOfLicensesToRemoveRequest body = new V2ListOfLicensesToRemoveRequest
 
 try
 {
-    ApiResponse<V2ListOfLicensesToRemoveResult> result = await softwareManagementLicensesV2Controller.CreateListOfLicensesToRemoveAsync(account, body);
+    ApiResponse<V2ListOfLicensesToRemoveResult> result = await softwareManagementLicensesV2Controller.CreateListOfLicensesToRemoveAsync(
+        account,
+        body
+    );
 }
 catch (ApiException e)
 {
@@ -423,6 +384,57 @@ catch (ApiException e)
     "990003425730535",
     "990000473475989"
   ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
+
+
+# Delete List of Licenses to Remove
+
+**This endpoint is deprecated.**
+
+This endpoint allows user to delete a created cancel candidate device list.
+
+```csharp
+DeleteListOfLicensesToRemoveAsync(
+    string account)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account` | `string` | Template, Required | Account identifier. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.FotaV2SuccessResult>>`](../../doc/models/fota-v2-success-result.md)
+
+## Example Usage
+
+```csharp
+string account = "0242078689-00001";
+try
+{
+    ApiResponse<FotaV2SuccessResult> result = await softwareManagementLicensesV2Controller.DeleteListOfLicensesToRemoveAsync(account);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "success": true
 }
 ```
 

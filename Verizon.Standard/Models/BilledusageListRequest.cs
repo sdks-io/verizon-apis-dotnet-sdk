@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -32,24 +33,24 @@ namespace Verizon.Standard.Models
         /// </summary>
         /// <param name="accountName">accountName.</param>
         /// <param name="labels">labels.</param>
-        /// <param name="devices">devices.</param>
-        /// <param name="billingCycle">BillingCycle.</param>
+        /// <param name="deviceIds">deviceIds.</param>
+        /// <param name="billingCycle">billingCycle.</param>
         public BilledusageListRequest(
-            string accountName = null,
+            string accountName,
             Models.LabelsList labels = null,
-            List<Models.DeviceList> devices = null,
+            List<Models.DeviceList> deviceIds = null,
             Models.BillingCycle billingCycle = null)
         {
             this.AccountName = accountName;
             this.Labels = labels;
-            this.Devices = devices;
+            this.DeviceIds = deviceIds;
             this.BillingCycle = billingCycle;
         }
 
         /// <summary>
         /// Gets or sets AccountName.
         /// </summary>
-        [JsonProperty("accountName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("accountName")]
         public string AccountName { get; set; }
 
         /// <summary>
@@ -59,15 +60,15 @@ namespace Verizon.Standard.Models
         public Models.LabelsList Labels { get; set; }
 
         /// <summary>
-        /// Gets or sets Devices.
+        /// Gets or sets DeviceIds.
         /// </summary>
-        [JsonProperty("devices", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Models.DeviceList> Devices { get; set; }
+        [JsonProperty("deviceIds", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Models.DeviceList> DeviceIds { get; set; }
 
         /// <summary>
         /// Gets or sets BillingCycle.
         /// </summary>
-        [JsonProperty("BillingCycle", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("billingCycle", NullValueHandling = NullValueHandling.Ignore)]
         public Models.BillingCycle BillingCycle { get; set; }
 
         /// <inheritdoc/>
@@ -94,7 +95,7 @@ namespace Verizon.Standard.Models
             }
             return obj is BilledusageListRequest other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
                 ((this.Labels == null && other.Labels == null) || (this.Labels?.Equals(other.Labels) == true)) &&
-                ((this.Devices == null && other.Devices == null) || (this.Devices?.Equals(other.Devices) == true)) &&
+                ((this.DeviceIds == null && other.DeviceIds == null) || (this.DeviceIds?.Equals(other.DeviceIds) == true)) &&
                 ((this.BillingCycle == null && other.BillingCycle == null) || (this.BillingCycle?.Equals(other.BillingCycle) == true));
         }
         
@@ -104,9 +105,9 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
             toStringOutput.Add($"this.Labels = {(this.Labels == null ? "null" : this.Labels.ToString())}");
-            toStringOutput.Add($"this.Devices = {(this.Devices == null ? "null" : $"[{string.Join(", ", this.Devices)} ]")}");
+            toStringOutput.Add($"this.DeviceIds = {(this.DeviceIds == null ? "null" : $"[{string.Join(", ", this.DeviceIds)} ]")}");
             toStringOutput.Add($"this.BillingCycle = {(this.BillingCycle == null ? "null" : this.BillingCycle.ToString())}");
         }
     }

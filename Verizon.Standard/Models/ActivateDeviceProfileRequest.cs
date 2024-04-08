@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -35,8 +36,8 @@ namespace Verizon.Standard.Models
         /// <param name="servicePlan">servicePlan.</param>
         /// <param name="mdnZipCode">mdnZipCode.</param>
         public ActivateDeviceProfileRequest(
-            List<Models.DeviceList> devices = null,
-            string accountName = null,
+            List<Models.DeviceList> devices,
+            string accountName,
             string servicePlan = null,
             string mdnZipCode = null)
         {
@@ -49,13 +50,13 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Gets or sets Devices.
         /// </summary>
-        [JsonProperty("devices", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("devices")]
         public List<Models.DeviceList> Devices { get; set; }
 
         /// <summary>
         /// Gets or sets AccountName.
         /// </summary>
-        [JsonProperty("accountName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("accountName")]
         public string AccountName { get; set; }
 
         /// <summary>
@@ -105,9 +106,9 @@ namespace Verizon.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"this.Devices = {(this.Devices == null ? "null" : $"[{string.Join(", ", this.Devices)} ]")}");
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName == string.Empty ? "" : this.AccountName)}");
-            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan == string.Empty ? "" : this.ServicePlan)}");
-            toStringOutput.Add($"this.MdnZipCode = {(this.MdnZipCode == null ? "null" : this.MdnZipCode == string.Empty ? "" : this.MdnZipCode)}");
+            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
+            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan)}");
+            toStringOutput.Add($"this.MdnZipCode = {(this.MdnZipCode == null ? "null" : this.MdnZipCode)}");
         }
     }
 }

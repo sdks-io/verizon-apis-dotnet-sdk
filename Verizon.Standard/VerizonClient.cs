@@ -28,6 +28,7 @@ namespace Verizon.Standard
                 Environment.Production, new Dictionary<Enum, string>
                 {
                     { Server.EdgeDiscovery, "https://5gedge.verizon.com/api/mec/eds" },
+                    { Server.Thingspace, "https://thingspace.verizon.com/api" },
                     { Server.OauthServer, "https://thingspace.verizon.com/api/ts/v1" },
                     { Server.M2m, "https://thingspace.verizon.com/api/m2m" },
                     { Server.DeviceLocation, "https://thingspace.verizon.com/api/loc/v1" },
@@ -40,13 +41,13 @@ namespace Verizon.Standard
                     { Server.CloudConnector, "https://thingspace.verizon.com/api/cc/v1" },
                     { Server.HyperPreciseLocation, "https://thingspace.verizon.com/api/hyper-precise/v1" },
                     { Server.Services, "https://5gedge.verizon.com/api/mec/services" },
+                    { Server.QualityOfService, "https://thingspace.verizon.com/api/m2m/v1/devices" },
                 }
             },
         };
 
         private readonly GlobalConfiguration globalConfiguration;
         private const string userAgent = "APIMATIC 3.0";
-        private readonly ClientCredentialsAuthManager clientCredentialsAuthManager;
         private readonly Lazy<M5gEdgePlatformsController> m5gEdgePlatforms;
         private readonly Lazy<ServiceEndpointsController> serviceEndpoints;
         private readonly Lazy<ServiceProfilesController> serviceProfiles;
@@ -58,9 +59,10 @@ namespace Verizon.Standard
         private readonly Lazy<ConnectivityCallbacksController> connectivityCallbacks;
         private readonly Lazy<AccountRequestsController> accountRequests;
         private readonly Lazy<ServicePlansController> servicePlans;
+        private readonly Lazy<DeviceDiagnosticsController> deviceDiagnostics;
         private readonly Lazy<DeviceProfileManagementController> deviceProfileManagement;
         private readonly Lazy<DeviceMonitoringController> deviceMonitoring;
-        private readonly Lazy<UICCDeviceProfileManagementController> uICCDeviceProfileManagement;
+        private readonly Lazy<EUICCDeviceProfileManagementController> eUICCDeviceProfileManagement;
         private readonly Lazy<DevicesLocationsController> devicesLocations;
         private readonly Lazy<ExclusionsController> exclusions;
         private readonly Lazy<DevicesLocationSubscriptionsController> devicesLocationSubscriptions;
@@ -104,34 +106,36 @@ namespace Verizon.Standard
         private readonly Lazy<HyperPreciseLocationCallbacksController> hyperPreciseLocationCallbacks;
         private readonly Lazy<AnomalySettingsController> anomalySettings;
         private readonly Lazy<AnomalyTriggersController> anomalyTriggers;
-        private readonly Lazy<MECSitesController> mECSites;
-        private readonly Lazy<ServiceLaunchProfilesController> serviceLaunchProfiles;
-        private readonly Lazy<ServiceLaunchRequestsController> serviceLaunchRequests;
-        private readonly Lazy<ServiceInstancesController> serviceInstances;
-        private readonly Lazy<ServiceInstanceOperationsController> serviceInstanceOperations;
-        private readonly Lazy<ServiceOnboardingController> serviceOnboarding;
-        private readonly Lazy<ServiceMetadataController> serviceMetadata;
-        private readonly Lazy<RepositoriesController> repositories;
-        private readonly Lazy<CSPProfilesController> cSPProfiles;
-        private readonly Lazy<ServiceClaimsController> serviceClaims;
+        private readonly Lazy<AnomalyTriggersV2Controller> anomalyTriggersV2;
+        private readonly Lazy<WirelessNetworkPerformanceController> wirelessNetworkPerformance;
+        private readonly Lazy<FixedWirelessQualificationController> fixedWirelessQualification;
+        private readonly Lazy<ManagingESIMProfilesController> managingESIMProfiles;
+        private readonly Lazy<DeviceSMSMessagingController> deviceSMSMessaging;
+        private readonly Lazy<DeviceActionsController> deviceActions;
+        private readonly Lazy<ThingSpaceQualityOfServiceAPIActionsController> thingSpaceQualityOfServiceAPIActions;
+        private readonly Lazy<MECController> mEC;
+        private readonly Lazy<PromotionPeriodInformationController> promotionPeriodInformation;
+        private readonly Lazy<RetrieveTheTriggersController> retrieveTheTriggers;
+        private readonly Lazy<UpdateTriggersController> updateTriggers;
+        private readonly Lazy<SIMActionsController> sIMActions;
+        private readonly Lazy<GlobalReportingController> globalReporting;
         private readonly Lazy<OauthAuthorizationController> oauthAuthorization;
 
         private VerizonClient(
             string vZM2mToken,
             Environment environment,
-            string oauthClientId,
-            string oauthClientSecret,
-            Models.OauthToken oauthToken,
-            List<Models.OauthScopeEnum> oauthScopes,
+            ClientCredentialsAuthModel clientCredentialsAuthModel,
             IHttpClientConfiguration httpClientConfiguration)
         {
             this.VZM2mToken = vZM2mToken;
             this.Environment = environment;
             this.HttpClientConfiguration = httpClientConfiguration;
-            clientCredentialsAuthManager = new ClientCredentialsAuthManager(oauthClientId, oauthClientSecret, oauthToken, oauthScopes);
+            ClientCredentialsAuthModel = clientCredentialsAuthModel;
+            var clientCredentialsAuthManager = new ClientCredentialsAuthManager(clientCredentialsAuthModel);
+            clientCredentialsAuthManager.ApplyGlobalConfiguration(() => OauthAuthorizationController);
             globalConfiguration = new GlobalConfiguration.Builder()
                 .AuthManagers(new Dictionary<string, AuthManager> {
-                        {"global", clientCredentialsAuthManager}
+                    {"oAuth2", clientCredentialsAuthManager},
                 })
                 .HttpConfiguration(httpClientConfiguration)
                 .ServerUrls(EnvironmentsMap[environment], Server.EdgeDiscovery)
@@ -140,7 +144,8 @@ namespace Verizon.Standard
 )
                 .UserAgent(userAgent)
                 .Build();
-            clientCredentialsAuthManager.ApplyGlobalConfiguration(globalConfiguration);
+
+            ClientCredentialsAuth = clientCredentialsAuthManager;
 
             this.m5gEdgePlatforms = new Lazy<M5gEdgePlatformsController>(
                 () => new M5gEdgePlatformsController(globalConfiguration));
@@ -164,12 +169,14 @@ namespace Verizon.Standard
                 () => new AccountRequestsController(globalConfiguration));
             this.servicePlans = new Lazy<ServicePlansController>(
                 () => new ServicePlansController(globalConfiguration));
+            this.deviceDiagnostics = new Lazy<DeviceDiagnosticsController>(
+                () => new DeviceDiagnosticsController(globalConfiguration));
             this.deviceProfileManagement = new Lazy<DeviceProfileManagementController>(
                 () => new DeviceProfileManagementController(globalConfiguration));
             this.deviceMonitoring = new Lazy<DeviceMonitoringController>(
                 () => new DeviceMonitoringController(globalConfiguration));
-            this.uICCDeviceProfileManagement = new Lazy<UICCDeviceProfileManagementController>(
-                () => new UICCDeviceProfileManagementController(globalConfiguration));
+            this.eUICCDeviceProfileManagement = new Lazy<EUICCDeviceProfileManagementController>(
+                () => new EUICCDeviceProfileManagementController(globalConfiguration));
             this.devicesLocations = new Lazy<DevicesLocationsController>(
                 () => new DevicesLocationsController(globalConfiguration));
             this.exclusions = new Lazy<ExclusionsController>(
@@ -256,26 +263,32 @@ namespace Verizon.Standard
                 () => new AnomalySettingsController(globalConfiguration));
             this.anomalyTriggers = new Lazy<AnomalyTriggersController>(
                 () => new AnomalyTriggersController(globalConfiguration));
-            this.mECSites = new Lazy<MECSitesController>(
-                () => new MECSitesController(globalConfiguration));
-            this.serviceLaunchProfiles = new Lazy<ServiceLaunchProfilesController>(
-                () => new ServiceLaunchProfilesController(globalConfiguration));
-            this.serviceLaunchRequests = new Lazy<ServiceLaunchRequestsController>(
-                () => new ServiceLaunchRequestsController(globalConfiguration));
-            this.serviceInstances = new Lazy<ServiceInstancesController>(
-                () => new ServiceInstancesController(globalConfiguration));
-            this.serviceInstanceOperations = new Lazy<ServiceInstanceOperationsController>(
-                () => new ServiceInstanceOperationsController(globalConfiguration));
-            this.serviceOnboarding = new Lazy<ServiceOnboardingController>(
-                () => new ServiceOnboardingController(globalConfiguration));
-            this.serviceMetadata = new Lazy<ServiceMetadataController>(
-                () => new ServiceMetadataController(globalConfiguration));
-            this.repositories = new Lazy<RepositoriesController>(
-                () => new RepositoriesController(globalConfiguration));
-            this.cSPProfiles = new Lazy<CSPProfilesController>(
-                () => new CSPProfilesController(globalConfiguration));
-            this.serviceClaims = new Lazy<ServiceClaimsController>(
-                () => new ServiceClaimsController(globalConfiguration));
+            this.anomalyTriggersV2 = new Lazy<AnomalyTriggersV2Controller>(
+                () => new AnomalyTriggersV2Controller(globalConfiguration));
+            this.wirelessNetworkPerformance = new Lazy<WirelessNetworkPerformanceController>(
+                () => new WirelessNetworkPerformanceController(globalConfiguration));
+            this.fixedWirelessQualification = new Lazy<FixedWirelessQualificationController>(
+                () => new FixedWirelessQualificationController(globalConfiguration));
+            this.managingESIMProfiles = new Lazy<ManagingESIMProfilesController>(
+                () => new ManagingESIMProfilesController(globalConfiguration));
+            this.deviceSMSMessaging = new Lazy<DeviceSMSMessagingController>(
+                () => new DeviceSMSMessagingController(globalConfiguration));
+            this.deviceActions = new Lazy<DeviceActionsController>(
+                () => new DeviceActionsController(globalConfiguration));
+            this.thingSpaceQualityOfServiceAPIActions = new Lazy<ThingSpaceQualityOfServiceAPIActionsController>(
+                () => new ThingSpaceQualityOfServiceAPIActionsController(globalConfiguration));
+            this.mEC = new Lazy<MECController>(
+                () => new MECController(globalConfiguration));
+            this.promotionPeriodInformation = new Lazy<PromotionPeriodInformationController>(
+                () => new PromotionPeriodInformationController(globalConfiguration));
+            this.retrieveTheTriggers = new Lazy<RetrieveTheTriggersController>(
+                () => new RetrieveTheTriggersController(globalConfiguration));
+            this.updateTriggers = new Lazy<UpdateTriggersController>(
+                () => new UpdateTriggersController(globalConfiguration));
+            this.sIMActions = new Lazy<SIMActionsController>(
+                () => new SIMActionsController(globalConfiguration));
+            this.globalReporting = new Lazy<GlobalReportingController>(
+                () => new GlobalReportingController(globalConfiguration));
             this.oauthAuthorization = new Lazy<OauthAuthorizationController>(
                 () => new OauthAuthorizationController(globalConfiguration));
         }
@@ -336,6 +349,11 @@ namespace Verizon.Standard
         public ServicePlansController ServicePlansController => this.servicePlans.Value;
 
         /// <summary>
+        /// Gets DeviceDiagnosticsController controller.
+        /// </summary>
+        public DeviceDiagnosticsController DeviceDiagnosticsController => this.deviceDiagnostics.Value;
+
+        /// <summary>
         /// Gets DeviceProfileManagementController controller.
         /// </summary>
         public DeviceProfileManagementController DeviceProfileManagementController => this.deviceProfileManagement.Value;
@@ -346,9 +364,9 @@ namespace Verizon.Standard
         public DeviceMonitoringController DeviceMonitoringController => this.deviceMonitoring.Value;
 
         /// <summary>
-        /// Gets UICCDeviceProfileManagementController controller.
+        /// Gets EUICCDeviceProfileManagementController controller.
         /// </summary>
-        public UICCDeviceProfileManagementController UICCDeviceProfileManagementController => this.uICCDeviceProfileManagement.Value;
+        public EUICCDeviceProfileManagementController EUICCDeviceProfileManagementController => this.eUICCDeviceProfileManagement.Value;
 
         /// <summary>
         /// Gets DevicesLocationsController controller.
@@ -566,54 +584,69 @@ namespace Verizon.Standard
         public AnomalyTriggersController AnomalyTriggersController => this.anomalyTriggers.Value;
 
         /// <summary>
-        /// Gets MECSitesController controller.
+        /// Gets AnomalyTriggersV2Controller controller.
         /// </summary>
-        public MECSitesController MECSitesController => this.mECSites.Value;
+        public AnomalyTriggersV2Controller AnomalyTriggersV2Controller => this.anomalyTriggersV2.Value;
 
         /// <summary>
-        /// Gets ServiceLaunchProfilesController controller.
+        /// Gets WirelessNetworkPerformanceController controller.
         /// </summary>
-        public ServiceLaunchProfilesController ServiceLaunchProfilesController => this.serviceLaunchProfiles.Value;
+        public WirelessNetworkPerformanceController WirelessNetworkPerformanceController => this.wirelessNetworkPerformance.Value;
 
         /// <summary>
-        /// Gets ServiceLaunchRequestsController controller.
+        /// Gets FixedWirelessQualificationController controller.
         /// </summary>
-        public ServiceLaunchRequestsController ServiceLaunchRequestsController => this.serviceLaunchRequests.Value;
+        public FixedWirelessQualificationController FixedWirelessQualificationController => this.fixedWirelessQualification.Value;
 
         /// <summary>
-        /// Gets ServiceInstancesController controller.
+        /// Gets ManagingESIMProfilesController controller.
         /// </summary>
-        public ServiceInstancesController ServiceInstancesController => this.serviceInstances.Value;
+        public ManagingESIMProfilesController ManagingESIMProfilesController => this.managingESIMProfiles.Value;
 
         /// <summary>
-        /// Gets ServiceInstanceOperationsController controller.
+        /// Gets DeviceSMSMessagingController controller.
         /// </summary>
-        public ServiceInstanceOperationsController ServiceInstanceOperationsController => this.serviceInstanceOperations.Value;
+        public DeviceSMSMessagingController DeviceSMSMessagingController => this.deviceSMSMessaging.Value;
 
         /// <summary>
-        /// Gets ServiceOnboardingController controller.
+        /// Gets DeviceActionsController controller.
         /// </summary>
-        public ServiceOnboardingController ServiceOnboardingController => this.serviceOnboarding.Value;
+        public DeviceActionsController DeviceActionsController => this.deviceActions.Value;
 
         /// <summary>
-        /// Gets ServiceMetadataController controller.
+        /// Gets ThingSpaceQualityOfServiceAPIActionsController controller.
         /// </summary>
-        public ServiceMetadataController ServiceMetadataController => this.serviceMetadata.Value;
+        public ThingSpaceQualityOfServiceAPIActionsController ThingSpaceQualityOfServiceAPIActionsController => this.thingSpaceQualityOfServiceAPIActions.Value;
 
         /// <summary>
-        /// Gets RepositoriesController controller.
+        /// Gets MECController controller.
         /// </summary>
-        public RepositoriesController RepositoriesController => this.repositories.Value;
+        public MECController MECController => this.mEC.Value;
 
         /// <summary>
-        /// Gets CSPProfilesController controller.
+        /// Gets PromotionPeriodInformationController controller.
         /// </summary>
-        public CSPProfilesController CSPProfilesController => this.cSPProfiles.Value;
+        public PromotionPeriodInformationController PromotionPeriodInformationController => this.promotionPeriodInformation.Value;
 
         /// <summary>
-        /// Gets ServiceClaimsController controller.
+        /// Gets RetrieveTheTriggersController controller.
         /// </summary>
-        public ServiceClaimsController ServiceClaimsController => this.serviceClaims.Value;
+        public RetrieveTheTriggersController RetrieveTheTriggersController => this.retrieveTheTriggers.Value;
+
+        /// <summary>
+        /// Gets UpdateTriggersController controller.
+        /// </summary>
+        public UpdateTriggersController UpdateTriggersController => this.updateTriggers.Value;
+
+        /// <summary>
+        /// Gets SIMActionsController controller.
+        /// </summary>
+        public SIMActionsController SIMActionsController => this.sIMActions.Value;
+
+        /// <summary>
+        /// Gets GlobalReportingController controller.
+        /// </summary>
+        public GlobalReportingController GlobalReportingController => this.globalReporting.Value;
 
         /// <summary>
         /// Gets OauthAuthorizationController controller.
@@ -627,7 +660,7 @@ namespace Verizon.Standard
 
         /// <summary>
         /// Gets VZM2mToken.
-        /// M2M Session Token.
+        /// M2M Session Token ([How to generate an M2M session token?](page:getting-started/5g-edge-developer-creds-token#obtaining-a-vz-m2m-session-token-programmatically)).
         /// </summary>
         public string VZM2mToken { get; }
 
@@ -641,7 +674,12 @@ namespace Verizon.Standard
         /// <summary>
         /// Gets the credentials to use with ClientCredentialsAuth.
         /// </summary>
-        public IClientCredentialsAuth ClientCredentialsAuth => this.clientCredentialsAuthManager;
+        public IClientCredentialsAuth ClientCredentialsAuth { get; private set; }
+
+        /// <summary>
+        /// Gets the credentials model to use with ClientCredentialsAuth.
+        /// </summary>
+        public ClientCredentialsAuthModel ClientCredentialsAuthModel { get; private set; }
 
         /// <summary>
         /// Gets the URL for a particular alias in the current environment and appends
@@ -663,10 +701,12 @@ namespace Verizon.Standard
             Builder builder = new Builder()
                 .VZM2mToken(this.VZM2mToken)
                 .Environment(this.Environment)
-                .OauthToken(clientCredentialsAuthManager.OauthToken)
-                .OauthScopes(clientCredentialsAuthManager.OauthScopes)
-                .ClientCredentialsAuth(clientCredentialsAuthManager.OauthClientId, clientCredentialsAuthManager.OauthClientSecret)
                 .HttpClientConfig(config => config.Build());
+
+            if (ClientCredentialsAuthModel != null)
+            {
+                builder.ClientCredentialsAuth(ClientCredentialsAuthModel.ToBuilder().Build());
+            }
 
             return builder;
         }
@@ -705,7 +745,9 @@ namespace Verizon.Standard
 
             if (oauthClientId != null && oauthClientSecret != null)
             {
-                builder.ClientCredentialsAuth(oauthClientId, oauthClientSecret);
+                builder.ClientCredentialsAuth(new ClientCredentialsAuthModel
+                .Builder(oauthClientId, oauthClientSecret)
+                .Build());
             }
 
             return builder.Build();
@@ -718,10 +760,7 @@ namespace Verizon.Standard
         {
             private string vZM2mToken = String.Empty;
             private Environment environment = Verizon.Standard.Environment.Production;
-            private string oauthClientId = "";
-            private string oauthClientSecret = "";
-            private Models.OauthToken oauthToken = null;
-            private List<Models.OauthScopeEnum> oauthScopes = null;
+            private ClientCredentialsAuthModel clientCredentialsAuthModel = new ClientCredentialsAuthModel();
             private HttpClientConfiguration.Builder httpClientConfig = new HttpClientConfiguration.Builder();
 
             /// <summary>
@@ -730,10 +769,13 @@ namespace Verizon.Standard
             /// <param name="oauthClientId">OauthClientId.</param>
             /// <param name="oauthClientSecret">OauthClientSecret.</param>
             /// <returns>Builder.</returns>
+            [Obsolete("This method is deprecated. Use ClientCredentialsAuth(clientCredentialsAuthModel) instead.")]
             public Builder ClientCredentialsAuth(string oauthClientId, string oauthClientSecret)
             {
-                this.oauthClientId = oauthClientId ?? throw new ArgumentNullException(nameof(oauthClientId));
-                this.oauthClientSecret = oauthClientSecret ?? throw new ArgumentNullException(nameof(oauthClientSecret));
+                clientCredentialsAuthModel = clientCredentialsAuthModel.ToBuilder()
+                    .OauthClientId(oauthClientId)
+                    .OauthClientSecret(oauthClientSecret)
+                    .Build();
                 return this;
             }
 
@@ -742,9 +784,12 @@ namespace Verizon.Standard
             /// </summary>
             /// <param name="oauthToken">OauthToken.</param>
             /// <returns>Builder.</returns>
+            [Obsolete("This method is deprecated. Use ClientCredentialsAuth(clientCredentialsAuthModel) instead.")]
             public Builder OauthToken(Models.OauthToken oauthToken)
             {
-                this.oauthToken = oauthToken;
+                clientCredentialsAuthModel = clientCredentialsAuthModel.ToBuilder()
+                    .OauthToken(oauthToken)
+                    .Build();
                 return this;
             }
 
@@ -753,9 +798,28 @@ namespace Verizon.Standard
             /// </summary>
             /// <param name="oauthScopes">OauthScopes.</param>
             /// <returns>Builder.</returns>
+            [Obsolete("This method is deprecated. Use ClientCredentialsAuth(clientCredentialsAuthModel) instead.")]
             public Builder OauthScopes(List<Models.OauthScopeEnum> oauthScopes)
             {
-                this.oauthScopes = oauthScopes;
+                clientCredentialsAuthModel = clientCredentialsAuthModel.ToBuilder()
+                    .OauthScopes(oauthScopes)
+                    .Build();
+                return this;
+            }
+
+            /// <summary>
+            /// Sets credentials for ClientCredentialsAuth.
+            /// </summary>
+            /// <param name="clientCredentialsAuthModel">ClientCredentialsAuthModel.</param>
+            /// <returns>Builder.</returns>
+            public Builder ClientCredentialsAuth(ClientCredentialsAuthModel clientCredentialsAuthModel)
+            {
+                if (clientCredentialsAuthModel is null)
+                {
+                    throw new ArgumentNullException(nameof(clientCredentialsAuthModel));
+                }
+
+                this.clientCredentialsAuthModel = clientCredentialsAuthModel;
                 return this;
             }
 
@@ -806,13 +870,14 @@ namespace Verizon.Standard
             public VerizonClient Build()
             {
 
+                if (clientCredentialsAuthModel.OauthClientId == null || clientCredentialsAuthModel.OauthClientSecret == null)
+                {
+                    clientCredentialsAuthModel = null;
+                }
                 return new VerizonClient(
                     vZM2mToken,
                     environment,
-                    oauthClientId,
-                    oauthClientSecret,
-                    oauthToken,
-                    oauthScopes,
+                    clientCredentialsAuthModel,
                     httpClientConfig.Build());
             }
         }

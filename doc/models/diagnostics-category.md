@@ -12,7 +12,7 @@ Various types of information about the device, grouped into categories. Each cat
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `CategoryName` | `string` | Optional | The name of the category. |
-| `ExtendedAttributes` | [`List<Models.CustomFields>`](../../doc/models/custom-fields.md) | Optional | A list of Extended Attribute objects as key-value pairs. |
+| `ExtendedAttributes` | [`List<CustomFields>`](../../doc/models/custom-fields.md) | Optional | A list of Extended Attribute objects as key-value pairs. |
 
 ## Example (as JSON)
 

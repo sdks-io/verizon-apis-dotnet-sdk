@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -65,7 +66,7 @@ namespace Verizon.Standard.Models
         public string Endswith { get; set; }
 
         /// <summary>
-        /// The type of the device identifier to match. Valid types of identifiers are:EID,ESN,ICCID,IMEI,MDN,MEID,MSISDN.
+        /// The type of the device identifier. Valid types of identifiers are:ESN (decimal),EID,ICCID (up to 20 digits),IMEI (up to 16 digits),MDN,MEID (hexadecimal),MSISDN.
         /// </summary>
         [JsonProperty("kind")]
         public string Kind { get; set; }
@@ -104,10 +105,10 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Contains = {(this.Contains == null ? "null" : this.Contains == string.Empty ? "" : this.Contains)}");
-            toStringOutput.Add($"this.Startswith = {(this.Startswith == null ? "null" : this.Startswith == string.Empty ? "" : this.Startswith)}");
-            toStringOutput.Add($"this.Endswith = {(this.Endswith == null ? "null" : this.Endswith == string.Empty ? "" : this.Endswith)}");
-            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind == string.Empty ? "" : this.Kind)}");
+            toStringOutput.Add($"this.Contains = {(this.Contains == null ? "null" : this.Contains)}");
+            toStringOutput.Add($"this.Startswith = {(this.Startswith == null ? "null" : this.Startswith)}");
+            toStringOutput.Add($"this.Endswith = {(this.Endswith == null ? "null" : this.Endswith)}");
+            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind)}");
         }
     }
 }

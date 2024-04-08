@@ -11,7 +11,7 @@ Response for a request to list down account devices.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Devices` | [`List<Models.ThingspaceDevice>`](../../doc/models/thingspace-device.md) | Optional | Up to 10,000 devices that you want to move to a different account, specified by device identifier. |
+| `Devices` | [`List<ThingspaceDevice>`](../../doc/models/thingspace-device.md) | Optional | Up to 10,000 devices that you want to move to a different account, specified by device identifier. |
 | `HasMoreData` | `bool?` | Optional | False for a status 200 response.True for a status 202 response, indicating that there is more data to be retrieved. |
 
 ## Example (as JSON)

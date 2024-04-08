@@ -10,6 +10,7 @@ namespace Verizon.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Verizon.Standard;
@@ -47,7 +48,9 @@ namespace Verizon.Standard.Models
         public int StartTime { get; set; }
 
         /// <summary>
+        /// <![CDATA[
         /// End hour in range [1..24], current hour < endTime.
+        /// ]]>
         /// </summary>
         [JsonProperty("endTime")]
         public int EndTime { get; set; }
