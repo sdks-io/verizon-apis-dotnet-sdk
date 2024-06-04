@@ -90,9 +90,7 @@ namespace Verizon.Standard.Authentication
         /// <returns>Models.OauthToken.</returns>
         public async Task<Models.OauthToken> FetchTokenAsync(Dictionary<string, object> additionalParameters = null)
         {
-            var token = await oAuthApi?.Invoke().RequestTokenAsync(BuildBasicAuthheader(),
-                scope: this.OauthScopes.GetValues(),
-                fieldParameters: additionalParameters);
+            var token = await oAuthApi?.Invoke().RequestTokenAsync(BuildBasicAuthHeader(), this.OauthScopes.GetValues(), additionalParameters);
 
             if (token.Data.ExpiresIn != null && token.Data.ExpiresIn != 0)
             {
@@ -146,7 +144,7 @@ namespace Verizon.Standard.Authentication
         /// Build basic auth header.
         /// </summary>
         /// <returns> string. </returns>
-        private string BuildBasicAuthheader()
+        private string BuildBasicAuthHeader()
         {
             var plainTextBytes = Encoding.UTF8.GetBytes(this.OauthClientId + ':' + this.OauthClientSecret);
             return "Basic " + Convert.ToBase64String(plainTextBytes);

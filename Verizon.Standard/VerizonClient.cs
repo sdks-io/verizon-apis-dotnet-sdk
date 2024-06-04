@@ -861,6 +861,7 @@ namespace Verizon.Standard
                 return this;
             }
 
+
            
 
             /// <summary>
@@ -869,7 +870,6 @@ namespace Verizon.Standard
             /// <returns>VerizonClient.</returns>
             public VerizonClient Build()
             {
-
                 if (clientCredentialsAuthModel.OauthClientId == null || clientCredentialsAuthModel.OauthClientSecret == null)
                 {
                     clientCredentialsAuthModel = null;
