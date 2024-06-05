@@ -17,5 +17,11 @@ namespace Verizon.Standard
         /// </summary>
         [EnumMember(Value = "Production")]
         Production,
+
+        /// <summary>
+        /// MockServerForLimitedAvailabilitySeeQuickStart.
+        /// </summary>
+        [EnumMember(Value = "Mock server for limited availability, see quick start")]
+        MockServerForLimitedAvailabilitySeeQuickStart,
     }
 }

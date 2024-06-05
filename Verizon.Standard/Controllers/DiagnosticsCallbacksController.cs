@@ -56,7 +56,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.DeviceDiagnostics)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/callbacks")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Query(_query => _query.Setup("accountName", accountName))))
               .ResponseHandler(_responseHandler => _responseHandler
@@ -85,7 +88,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.DeviceDiagnostics)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/callbacks")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "*/*"))))
@@ -119,7 +125,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.DeviceDiagnostics)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/callbacks")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Query(_query => _query.Setup("accountName", accountName))
                       .Query(_query => _query.Setup("serviceName", serviceName))))

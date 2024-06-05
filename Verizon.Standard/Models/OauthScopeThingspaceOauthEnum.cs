@@ -1,4 +1,4 @@
-// <copyright file="OauthScopeEnum.cs" company="APIMatic">
+// <copyright file="OauthScopeThingspaceOauthEnum.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
 namespace Verizon.Standard.Models
@@ -14,11 +14,11 @@ namespace Verizon.Standard.Models
     using Verizon.Standard.Utilities;
 
     /// <summary>
-    /// OauthScopeEnum.
+    /// OauthScopeThingspaceOauthEnum.
     /// </summary>
 
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum OauthScopeEnum
+    public enum OauthScopeThingspaceOauthEnum
     {
         /// <summary>
         ///Grant read-only access to discovery data
@@ -76,6 +76,36 @@ namespace Verizon.Standard.Models
         TsApplicationRo,
 
         /// <summary>
+        /// Edgediscoveryread.
+        /// </summary>
+        [EnumMember(Value = "edge:discovery:read")]
+        Edgediscoveryread,
+
+        /// <summary>
+        /// Edgeserviceprofileread.
+        /// </summary>
+        [EnumMember(Value = "edge:serviceprofile:read")]
+        Edgeserviceprofileread,
+
+        /// <summary>
+        /// Edgeserviceprofilewrite.
+        /// </summary>
+        [EnumMember(Value = "edge:serviceprofile:write")]
+        Edgeserviceprofilewrite,
+
+        /// <summary>
+        /// Edgeserviceregistryread.
+        /// </summary>
+        [EnumMember(Value = "edge:serviceregistry:read")]
+        Edgeserviceregistryread,
+
+        /// <summary>
+        /// Edgeserviceregistrywrite.
+        /// </summary>
+        [EnumMember(Value = "edge:serviceregistry:write")]
+        Edgeserviceregistrywrite,
+
+        /// <summary>
         ///read access
         /// Read.
         /// </summary>
@@ -90,9 +120,9 @@ namespace Verizon.Standard.Models
         Write
     }
 
-    static class OauthScopeEnumExtention
+    static class OauthScopeThingspaceOauthEnumExtention
     {
-        internal static string GetValues(this IEnumerable<OauthScopeEnum> values)
+        internal static string GetValues(this IEnumerable<OauthScopeThingspaceOauthEnum> values)
         {
             return values != null ? string.Join(" ", values.Select(s => s.GetValue()).Where(s => !string.IsNullOrEmpty(s)).ToArray()) : null;
         }

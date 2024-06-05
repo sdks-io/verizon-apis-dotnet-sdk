@@ -51,7 +51,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/m2m/v1/triggers")
-                  .WithAuth("oAuth2"))
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  ))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Bad request", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
                   .ErrorCase("401", CreateErrorCase("Unauthorized", (_reason, _context) => new IntelligenceResultException(_reason, _context)))
@@ -84,7 +87,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Put, "/m2m/v1/triggers")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
@@ -120,7 +126,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/m2m/v1/triggers")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
@@ -156,7 +165,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/m2m/v1/triggers/{triggerId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("triggerId", triggerId))))
               .ResponseHandler(_responseHandler => _responseHandler
@@ -191,7 +203,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/m2m/v1/triggers/{triggerId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("triggerId", triggerId))))
               .ResponseHandler(_responseHandler => _responseHandler

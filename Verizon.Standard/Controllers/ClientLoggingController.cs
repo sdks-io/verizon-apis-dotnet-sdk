@@ -56,7 +56,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/logging/{account}/devices")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))))
               .ResponseHandler(_responseHandler => _responseHandler
@@ -89,7 +92,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Put, "/logging/{account}/devices")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("account", account))
@@ -123,7 +129,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/logging/{account}/devices")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Query(_query => _query.Setup("deviceIds", deviceIds))))
@@ -157,7 +166,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Put, "/logging/{account}/devices/{deviceId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("deviceId", deviceId))))
@@ -190,7 +202,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/logging/{account}/devices/{deviceId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("deviceId", deviceId))))
@@ -224,7 +239,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/logging/{account}/devices/{deviceId}/logs")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("deviceId", deviceId))))

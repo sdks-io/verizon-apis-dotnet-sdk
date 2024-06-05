@@ -60,7 +60,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.M2m)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/v1/devices/license/actions/assign")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))
@@ -97,7 +100,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.M2m)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/v1/devices/license/actions/assign")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Header(_header => _header.Setup("X-Request-ID", xRequestID))))
               .ResponseHandler(_responseHandler => _responseHandler

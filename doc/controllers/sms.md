@@ -41,9 +41,16 @@ SendSMSToDeviceAsync(
 ```csharp
 SMSSendRequest body = new SMSSendRequest
 {
-    AccountName = "accountName0",
-    SmsMessage = "The rain in Spain stays mainly in the plain.",
-    ServicePlan = "T Plan 2",
+    AccountName = "0000123456-00001",
+    SmsMessage = "Can you hear me now?",
+    DeviceIds = new List<Models.DeviceId>
+    {
+        new DeviceId
+        {
+            Id = "89148000000800139708",
+            Kind = "iccid",
+        },
+    },
 };
 
 try

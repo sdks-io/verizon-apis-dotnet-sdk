@@ -3,7 +3,7 @@
 
 
 
-Documentation for accessing and setting credentials for oAuth2.
+Documentation for accessing and setting credentials for thingspace_oauth.
 
 ## Auth Credentials
 
@@ -12,11 +12,11 @@ Documentation for accessing and setting credentials for oAuth2.
 | OAuthClientId | `string` | OAuth 2 Client ID | `OauthClientId` | `OauthClientId` |
 | OAuthClientSecret | `string` | OAuth 2 Client Secret | `OauthClientSecret` | `OauthClientSecret` |
 | OAuthToken | `Models.OauthToken` | Object for storing information about the OAuth token | `OauthToken` | `OauthToken` |
-| OAuthScopes | `List<Models.OauthScopeEnum>` | List of scopes that apply to the OAuth token | `OauthScopes` | `OauthScopes` |
+| OAuthScopes | `List<Models.OauthScopeThingspaceOauthEnum>` | List of scopes that apply to the OAuth token | `OauthScopes` | `OauthScopes` |
 
 
 
-**Note:** Auth credentials can be set using `ClientCredentialsAuth` in the client builder and accessed through `ClientCredentialsAuth` method in the client instance.
+**Note:** Auth credentials can be set using `ThingspaceOauthCredentials` in the client builder and accessed through `ThingspaceOauthCredentials` method in the client instance.
 
 ## Usage Example
 
@@ -26,16 +26,16 @@ You must initialize the client with *OAuth 2.0 Client Credentials Grant* credent
 
 ```csharp
 Verizon.Standard.VerizonClient client = new Verizon.Standard.VerizonClient.Builder()
-    .ClientCredentialsAuth(
-        new ClientCredentialsAuthModel.Builder(
+    .ThingspaceOauthCredentials(
+        new ThingspaceOauthModel.Builder(
             "OAuthClientId",
             "OAuthClientSecret"
         )
         .OauthScopes(
-            new List<OauthScopeEnum>
+            new List<OauthScopeThingspaceOauthEnum>
             {
-                OauthScopeEnum.Discoveryread,
-                OauthScopeEnum.Serviceprofileread,
+                OauthScopeThingspaceOauthEnum.Discoveryread,
+                OauthScopeThingspaceOauthEnum.Serviceprofileread,
             })
         .Build())
     .Build();
@@ -50,15 +50,15 @@ The `FetchToken()` method will exchange the OAuth client credentials for an *acc
 You must have initialized the client with scopes for which you need permission to access.
 
 ```csharp
-var authManager = client.ClientCredentialsAuth;
+var authManager = client.ThingspaceOauth;
 
 try
 {
     OauthToken token = authManager.FetchToken();
     // re-instantiate the client with OAuth token
     client = client.ToBuilder()
-        .ClientCredentialsAuth(
-            client.ClientCredentialsAuthModel.ToBuilder()
+        .ThingspaceOauthCredentials(
+            client.ThingspaceOauthModel.ToBuilder()
                 .OAuthToken(token)
                 .Build())
         .Build();
@@ -73,7 +73,7 @@ The client can now make authorized endpoint calls.
 
 ### Scopes
 
-Scopes enable your application to only request access to the resources it needs while enabling users to control the amount of access they grant to your application. Available scopes are defined in the [`OauthScopeEnum`](../../doc/models/oauth-scope-enum.md) enumeration.
+Scopes enable your application to only request access to the resources it needs while enabling users to control the amount of access they grant to your application. Available scopes are defined in the [`OauthScopeThingspaceOauthEnum`](../../doc/models/oauth-scope-thingspace-oauth-enum.md) enumeration.
 
 | Scope Name | Description |
 |  --- | --- |
@@ -85,6 +85,11 @@ Scopes enable your application to only request access to the resources it needs 
 | `TS.MEC.FULLACCESS` | Full access for /serviceprofiles and /serviceendpoints. |
 | `TS.MEC.LIMITACCESS` | Limited access. Will not allow use of /serviceprofiles and /serviceendpoints but will allow discovery. |
 | `TS.APPLICATION.RO` |  |
+| `EDGEDISCOVERYREAD` |  |
+| `EDGESERVICEPROFILEREAD` |  |
+| `EDGESERVICEPROFILEWRITE` |  |
+| `EDGESERVICEREGISTRYREAD` |  |
+| `EDGESERVICEREGISTRYWRITE` |  |
 | `READ` | read access |
 | `WRITE` | read/write access |
 
@@ -94,7 +99,7 @@ It is recommended that you store the access token for reuse.
 
 ```csharp
 // store token
-SaveTokenToDatabase(client.ClientCredentialsAuth.OauthToken);
+SaveTokenToDatabase(client.ThingspaceOauthCredentials.OauthToken);
 ```
 
 ### Creating a client from a stored token
@@ -107,8 +112,8 @@ OAuthToken token = LoadTokenFromDatabase();
 
 // re-instantiate the client with OAuth token
 VerizonClient client = client.ToBuilder()
-    .ClientCredentialsAuth(
-        client.ClientCredentialsAuthModel.ToBuilder()
+    .ThingspaceOauthCredentials(
+        client.ThingspaceOauthModel.ToBuilder()
             .OAuthToken(token)
             .Build())
     .Build();
@@ -131,16 +136,16 @@ namespace OAuthTestApplication
         static void Main(string[] args)
         {
             Verizon.Standard.VerizonClient client = new Verizon.Standard.VerizonClient.Builder()
-                .ClientCredentialsAuth(
-                    new ClientCredentialsAuthModel.Builder(
+                .ThingspaceOauthCredentials(
+                    new ThingspaceOauthModel.Builder(
                         "OAuthClientId",
                         "OAuthClientSecret"
                     )
                     .OauthScopes(
-                        new List<OauthScopeEnum>
+                        new List<OauthScopeThingspaceOauthEnum>
                         {
-                            OauthScopeEnum.Discoveryread,
-                            OauthScopeEnum.Serviceprofileread,
+                            OauthScopeThingspaceOauthEnum.Discoveryread,
+                            OauthScopeThingspaceOauthEnum.Serviceprofileread,
                         })
                     .Build())
                 .Environment(Verizon.Standard.Environment.Production)
@@ -152,15 +157,15 @@ namespace OAuthTestApplication
                 // Set the token if it is not set before
                 if (token == null)
                 {
-                    var authManager = client.ClientCredentialsAuth;
+                    var authManager = client.ThingspaceOauthCredentials;
                     token = authManager.FetchToken();
                 }
 
                 SaveTokenToDatabase(token);
                 // re-instantiate the client with OAuth token
                 client = client.ToBuilder()
-                    .ClientCredentialsAuth(
-                        client.ClientCredentialsAuthModel.ToBuilder()
+                    .ThingspaceOauthCredentials(
+                        client.ThingspaceOauthModel.ToBuilder()
                             .OAuthToken(token)
                             .Build())
                     .Build();

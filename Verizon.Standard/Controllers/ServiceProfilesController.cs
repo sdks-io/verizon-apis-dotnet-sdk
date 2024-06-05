@@ -55,7 +55,10 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<Models.CreateServiceProfileResult>()
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/serviceprofiles")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
@@ -81,7 +84,10 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<Models.ListServiceProfilesResult>()
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/serviceprofiles")
-                  .WithAuth("oAuth2"))
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  ))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
                   .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
@@ -109,7 +115,10 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<Models.ResourcesServiceProfileWithId>()
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/serviceprofiles/{serviceProfileId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("serviceProfileId", serviceProfileId))))
               .ResponseHandler(_responseHandler => _responseHandler
@@ -143,7 +152,10 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<Models.UpdateServiceProfileResult>()
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Put, "/serviceprofiles/{serviceProfileId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("serviceProfileId", serviceProfileId))
@@ -175,7 +187,10 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<Models.DeleteServiceProfileResult>()
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/serviceprofiles/{serviceProfileId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("serviceProfileId", serviceProfileId))))
               .ResponseHandler(_responseHandler => _responseHandler

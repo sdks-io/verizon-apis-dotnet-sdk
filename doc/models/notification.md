@@ -1,8 +1,6 @@
 
 # Notification
 
-The notification details of the trigger.
-
 ## Structure
 
 `Notification`
@@ -11,38 +9,27 @@ The notification details of the trigger.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `NotificationType` | `string` | Optional | The type of notification, i.e. 'DailySummary'. |
-| `Callback` | `bool?` | Optional | Whether or not the notification should be sent via callback.<br />true<br />false. |
-| `EmailNotification` | `bool?` | Optional | Whether or not the notification should be sent via e-mail.<br />true<br />false. |
-| `NotificationGroupName` | `string` | Optional | Name for the notification group. |
-| `NotificationFrequencyFactor` | `int?` | Optional | Frequency factor for notification. |
-| `NotificationFrequencyInterval` | `string` | Optional | Frequency interval for notification. |
-| `ExternalEmailRecipients` | `string` | Optional | E-mail address(es) where the notification should be delivered. |
-| `SmsNotification` | `bool?` | Optional | SMS notification. |
-| `SmsNumbers` | [`List<SMSNumber>`](../../doc/models/sms-number.md) | Optional | List of SMS numbers.<br>**Constraints**: *Maximum Items*: `10` |
+| `NotificationType` | `string` | Optional | - |
+| `Callback` | `bool?` | Optional | - |
+| `EmailNotification` | `bool?` | Optional | - |
+| `NotificationGroupName` | `string` | Optional | - |
+| `NotificationFrequencyFactor` | `int?` | Optional | - |
+| `NotificationFrequencyInterval` | `string` | Optional | - |
+| `ExternalEmailRecipients` | `string` | Optional | - |
+| `SmsNotification` | `bool?` | Optional | - |
+| `SmsNumbers` | [`List<SmsNumbers>`](../../doc/models/sms-numbers.md) | Optional | - |
 | `Reminder` | `bool?` | Optional | - |
-| `Severity` | `string` | Optional | Severity level associated with the notification. Examples would be:<br />Major<br />Minor<br />Critical<br />NotApplicable. |
+| `Severity` | `string` | Optional | - |
 
 ## Example (as JSON)
 
 ```json
 {
-  "notificationType": "DailySummary",
-  "callback": true,
+  "notificationType": "notificationType2",
+  "callback": false,
   "emailNotification": false,
-  "notificationGroupName": "Anomaly Test API",
-  "notificationFrequencyFactor": 3,
-  "notificationFrequencyInterval": "Hourly",
-  "externalEmailRecipients": "placeholder@verizon.com",
-  "smsNotification": true,
-  "smsNumbers": [
-    {
-      "carrier": "US Cellular",
-      "number": "9299280711"
-    }
-  ],
-  "reminder": true,
-  "severity": "Critical"
+  "notificationGroupName": "notificationGroupName2",
+  "notificationFrequencyFactor": 214
 }
 ```
 

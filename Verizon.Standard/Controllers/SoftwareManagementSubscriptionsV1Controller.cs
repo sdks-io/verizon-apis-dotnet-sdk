@@ -56,7 +56,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV1)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/subscriptions/{account}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))))
               .ResponseHandler(_responseHandler => _responseHandler
@@ -89,7 +92,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV1)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/licenses/{account}/index/{startIndex}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("startIndex", startIndex))))

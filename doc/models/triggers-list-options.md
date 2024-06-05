@@ -17,7 +17,7 @@
 | `CreatedAt` | `string` | Optional | Timestamp for whe the trigger was created. |
 | `ModifiedAt` | `string` | Optional | Timestamp for the most recent time the trigger was modified. |
 | `Anomalyattributes` | [`UsageAnomalyAttributes`](../../doc/models/usage-anomaly-attributes.md) | Optional | The details of the UsageAnomaly trigger. |
-| `Notification` | [`Notification`](../../doc/models/notification.md) | Optional | The notification details of the trigger. |
+| `Notification` | [`TriggerNotification`](../../doc/models/trigger-notification.md) | Optional | The notification details of the trigger. |
 
 ## Example (as JSON)
 

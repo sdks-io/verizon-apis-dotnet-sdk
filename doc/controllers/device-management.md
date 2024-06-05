@@ -82,6 +82,7 @@ CarrierActivateRequest body = new CarrierActivateRequest
                     Kind = "iccid",
                 },
             },
+            IpAddress = "1.2.3.456",
         },
         new AccountDeviceList
         {
@@ -98,9 +99,10 @@ CarrierActivateRequest body = new CarrierActivateRequest
                     Kind = "iccid",
                 },
             },
+            IpAddress = "1.2.3.456",
         },
     },
-    ServicePlan = "m2m_4G",
+    ServicePlan = "the service plan name",
     MdnZipCode = "98801",
     AccountName = "0868924207-00001",
     CustomFields = new List<Models.CustomFields>
@@ -476,20 +478,10 @@ CarrierDeactivateRequest body = new CarrierDeactivateRequest
                 },
             },
         },
-        new AccountDeviceList
-        {
-            DeviceIds = new List<Models.DeviceId>
-            {
-                new DeviceId
-                {
-                    Id = "20-digit ICCID",
-                    Kind = "iccid",
-                },
-            },
-        },
     },
     ReasonCode = "FF",
     EtfWaiver = true,
+    DeleteAfterDeactivation = true,
 };
 
 try
@@ -1011,7 +1003,7 @@ ChangeDevicesServicePlanAsync(
 ```csharp
 ServicePlanUpdateRequest body = new ServicePlanUpdateRequest
 {
-    ServicePlan = "new_service_plan_code",
+    ServicePlan = "Tablet5GB",
     Devices = new List<Models.AccountDeviceList>
     {
         new AccountDeviceList
@@ -1026,6 +1018,7 @@ ServicePlanUpdateRequest body = new ServicePlanUpdateRequest
             },
         },
     },
+    CarrierIpPoolName = "IPPool",
 };
 
 try
@@ -1078,15 +1071,6 @@ SuspendServiceForDevicesAsync(
 ```csharp
 CarrierActionsRequest body = new CarrierActionsRequest
 {
-    AccountName = "0000123456-00001",
-    CustomFields = new List<Models.CustomFields>
-    {
-        new CustomFields
-        {
-            Key = "customField1",
-            MValue = "key value",
-        },
-    },
     Devices = new List<Models.AccountDeviceList>
     {
         new AccountDeviceList
@@ -1095,15 +1079,12 @@ CarrierActionsRequest body = new CarrierActionsRequest
             {
                 new DeviceId
                 {
-                    Id = "20-digit ICCID",
+                    Id = "89148000000800139708",
                     Kind = "iccid",
                 },
             },
         },
     },
-    WithBilling = true,
-    GroupName = "name of the group",
-    ServicePlan = "service plan name",
 };
 
 try
@@ -1156,15 +1137,6 @@ RestoreServiceForSuspendedDevicesAsync(
 ```csharp
 CarrierActionsRequest body = new CarrierActionsRequest
 {
-    AccountName = "0000123456-00001",
-    CustomFields = new List<Models.CustomFields>
-    {
-        new CustomFields
-        {
-            Key = "customField1",
-            MValue = "key value",
-        },
-    },
     Devices = new List<Models.AccountDeviceList>
     {
         new AccountDeviceList
@@ -1173,14 +1145,12 @@ CarrierActionsRequest body = new CarrierActionsRequest
             {
                 new DeviceId
                 {
-                    Id = "20-digit ICCID",
+                    Id = "89148000000800139708",
                     Kind = "iccid",
                 },
             },
         },
     },
-    GroupName = "name of the group",
-    ServicePlan = "service plan name",
 };
 
 try
@@ -1604,9 +1574,19 @@ ListCurrentDevicesPRLVersionAsync(
 ```csharp
 DevicePrlListRequest body = new DevicePrlListRequest
 {
-    AccountName = "101234-0001",
-    GroupName = "West Region",
-    ServicePlan = "3G 2MB",
+    DeviceIds = new List<Models.DeviceId>
+    {
+        new DeviceId
+        {
+            Id = "A10085E5003861",
+            Kind = "meid",
+        },
+        new DeviceId
+        {
+            Id = "A10085E5003186",
+            Kind = "meid",
+        },
+    },
 };
 
 try
@@ -1659,11 +1639,19 @@ GetDeviceServiceSuspensionStatusAsync(
 ```csharp
 DeviceSuspensionStatusRequest body = new DeviceSuspensionStatusRequest
 {
-    Filter = new DeviceFilterWithoutAccount
+    DeviceIds = new List<Models.DeviceId>
     {
-        GroupName = "suspended devices",
+        new DeviceId
+        {
+            Id = "A10085E5003861",
+            Kind = "meid",
+        },
+        new DeviceId
+        {
+            Id = "A10085E5003186",
+            Kind = "meid",
+        },
     },
-    AccountName = "1223334444-00001",
 };
 
 try
@@ -1718,6 +1706,11 @@ DeviceUsageListRequest body = new DeviceUsageListRequest
 {
     Earliest = "2018-03-20T00:00:01Z",
     Latest = "2020-12-31T00:00:01Z",
+    DeviceId = new DeviceId
+    {
+        Id = "50684915885088839315521399821675",
+        Kind = "eid",
+    },
 };
 
 try
@@ -1934,7 +1927,7 @@ DeviceUploadRequest body = new DeviceUploadRequest
                 new DeviceId
                 {
                     Id = "15-digit IMEI",
-                    Kind = "imei",
+                    Kind = "IMEI",
                 },
             },
         },
@@ -1945,7 +1938,18 @@ DeviceUploadRequest body = new DeviceUploadRequest
                 new DeviceId
                 {
                     Id = "15-digit IMEI",
-                    Kind = "imei",
+                    Kind = "IMEI",
+                },
+            },
+        },
+        new DeviceList
+        {
+            DeviceIds = new List<Models.DeviceId>
+            {
+                new DeviceId
+                {
+                    Id = "15-digit IMEI",
+                    Kind = "IMEI",
                 },
             },
         },

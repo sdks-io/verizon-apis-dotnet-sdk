@@ -71,7 +71,10 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<Models.ListMECPlatformsResult>()
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/mecplatforms")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Query(_query => _query.Setup("region", region))
                       .Query(_query => _query.Setup("serviceProfileId", serviceProfileId))
@@ -100,7 +103,10 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<Models.ListRegionsResult>()
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/regions")
-                  .WithAuth("oAuth2"))
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  ))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
                   .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))

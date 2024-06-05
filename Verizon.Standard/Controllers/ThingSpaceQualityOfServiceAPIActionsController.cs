@@ -56,7 +56,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/m2m/v1/devices/actions/enhanceQoS")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
@@ -90,7 +93,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/m2m/v1/devices/actions/enhanceQoS")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Query(_query => _query.Setup("accountName", accountName))
                       .Query(_query => _query.Setup("qosSubscriptionId", qosSubscriptionId))))

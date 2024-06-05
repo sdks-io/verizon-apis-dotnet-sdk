@@ -56,7 +56,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/m2m/v1/callbacks/{aname}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("aname", aname))))
               .ResponseHandler(_responseHandler => _responseHandler
@@ -89,7 +92,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/m2m/v1/callbacks/{aname}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("aname", aname))
@@ -124,7 +130,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/m2m/v1/callbacks/{aname}/name/{sname}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("aname", aname))
                       .Template(_template => _template.Setup("sname", sname))))

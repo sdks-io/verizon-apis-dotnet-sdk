@@ -56,7 +56,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.DeviceDiagnostics)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/subscriptions")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Query(_query => _query.Setup("accountName", accountName))))
               .ResponseHandler(_responseHandler => _responseHandler

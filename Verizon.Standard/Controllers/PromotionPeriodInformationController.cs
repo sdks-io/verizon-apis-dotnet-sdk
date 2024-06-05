@@ -40,7 +40,7 @@ namespace Verizon.Standard.Controllers
         /// <param name="body">Required parameter: Retrieve Aggregate Usage.</param>
         /// <returns>Returns the ApiResponse of Models.ResponseToUsageQuery response from the API call.</returns>
         public ApiResponse<Models.ResponseToUsageQuery> GetPromoDeviceUsageHistory(
-                Models.RequestBodyForUsage body)
+                Models.RequestBodyForUsage1 body)
             => CoreHelper.RunTask(GetPromoDeviceUsageHistoryAsync(body));
 
         /// <summary>
@@ -50,13 +50,16 @@ namespace Verizon.Standard.Controllers
         /// <param name="cancellationToken"> cancellationToken. </param>
         /// <returns>Returns the ApiResponse of Models.ResponseToUsageQuery response from the API call.</returns>
         public async Task<ApiResponse<Models.ResponseToUsageQuery>> GetPromoDeviceUsageHistoryAsync(
-                Models.RequestBodyForUsage body,
+                Models.RequestBodyForUsage1 body,
                 CancellationToken cancellationToken = default)
             => await CreateApiCall<Models.ResponseToUsageQuery>()
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/m2m/v1/devices/usage/actions/promodeviceusage")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
@@ -70,7 +73,7 @@ namespace Verizon.Standard.Controllers
         /// <param name="body">Required parameter: Retrieve Aggregate Usage.</param>
         /// <returns>Returns the ApiResponse of Models.UsageRequestResponse response from the API call.</returns>
         public ApiResponse<Models.UsageRequestResponse> GetPromoDeviceAggregateUsageHistory(
-                Models.UsageRequestBody body)
+                Models.RequestBodyForUsage body)
             => CoreHelper.RunTask(GetPromoDeviceAggregateUsageHistoryAsync(body));
 
         /// <summary>
@@ -80,13 +83,16 @@ namespace Verizon.Standard.Controllers
         /// <param name="cancellationToken"> cancellationToken. </param>
         /// <returns>Returns the ApiResponse of Models.UsageRequestResponse response from the API call.</returns>
         public async Task<ApiResponse<Models.UsageRequestResponse>> GetPromoDeviceAggregateUsageHistoryAsync(
-                Models.UsageRequestBody body,
+                Models.RequestBodyForUsage body,
                 CancellationToken cancellationToken = default)
             => await CreateApiCall<Models.UsageRequestResponse>()
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/m2m/v1/devices/usage/actions/promoaggregateusage")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))

@@ -56,7 +56,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV1)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/firmware/{account}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))))
               .ResponseHandler(_responseHandler => _responseHandler
@@ -85,7 +88,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV1)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/upgrades")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
@@ -119,7 +125,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV1)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/upgrades/{account}/upgrade/{upgradeId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("upgradeId", upgradeId))))
@@ -157,7 +166,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV1)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Put, "/upgrades/{account}/upgrade/{upgradeId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("account", account))
@@ -193,7 +205,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV1)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/upgrades/{account}/upgrade/{upgradeId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("upgradeId", upgradeId))))

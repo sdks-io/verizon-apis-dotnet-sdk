@@ -1,4 +1,4 @@
-// <copyright file="UsageRequestBody.cs" company="APIMatic">
+// <copyright file="RequestBodyForUsage1.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
 namespace Verizon.Standard.Models
@@ -17,41 +17,32 @@ namespace Verizon.Standard.Models
     using Verizon.Standard.Utilities;
 
     /// <summary>
-    /// UsageRequestBody.
+    /// RequestBodyForUsage1.
     /// </summary>
-    public class UsageRequestBody
+    public class RequestBodyForUsage1
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UsageRequestBody"/> class.
+        /// Initializes a new instance of the <see cref="RequestBodyForUsage1"/> class.
         /// </summary>
-        public UsageRequestBody()
+        public RequestBodyForUsage1()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UsageRequestBody"/> class.
+        /// Initializes a new instance of the <see cref="RequestBodyForUsage1"/> class.
         /// </summary>
-        /// <param name="accountId">accountId.</param>
         /// <param name="deviceId">deviceId.</param>
         /// <param name="startTime">startTime.</param>
         /// <param name="endTime">endTime.</param>
-        public UsageRequestBody(
-            string accountId = null,
+        public RequestBodyForUsage1(
             List<Models.ReadySimDeviceId> deviceId = null,
             DateTime? startTime = null,
             DateTime? endTime = null)
         {
-            this.AccountId = accountId;
             this.DeviceId = deviceId;
             this.StartTime = startTime;
             this.EndTime = endTime;
         }
-
-        /// <summary>
-        /// Gets or sets AccountId.
-        /// </summary>
-        [JsonProperty("accountId", NullValueHandling = NullValueHandling.Ignore)]
-        public string AccountId { get; set; }
 
         /// <summary>
         /// Gets or sets DeviceId.
@@ -80,7 +71,7 @@ namespace Verizon.Standard.Models
 
             this.ToString(toStringOutput);
 
-            return $"UsageRequestBody : ({string.Join(", ", toStringOutput)})";
+            return $"RequestBodyForUsage1 : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
@@ -95,8 +86,7 @@ namespace Verizon.Standard.Models
             {
                 return true;
             }
-            return obj is UsageRequestBody other &&                ((this.AccountId == null && other.AccountId == null) || (this.AccountId?.Equals(other.AccountId) == true)) &&
-                ((this.DeviceId == null && other.DeviceId == null) || (this.DeviceId?.Equals(other.DeviceId) == true)) &&
+            return obj is RequestBodyForUsage1 other &&                ((this.DeviceId == null && other.DeviceId == null) || (this.DeviceId?.Equals(other.DeviceId) == true)) &&
                 ((this.StartTime == null && other.StartTime == null) || (this.StartTime?.Equals(other.StartTime) == true)) &&
                 ((this.EndTime == null && other.EndTime == null) || (this.EndTime?.Equals(other.EndTime) == true));
         }
@@ -107,7 +97,6 @@ namespace Verizon.Standard.Models
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountId = {(this.AccountId == null ? "null" : this.AccountId)}");
             toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : $"[{string.Join(", ", this.DeviceId)} ]")}");
             toStringOutput.Add($"this.StartTime = {(this.StartTime == null ? "null" : this.StartTime.ToString())}");
             toStringOutput.Add($"this.EndTime = {(this.EndTime == null ? "null" : this.EndTime.ToString())}");

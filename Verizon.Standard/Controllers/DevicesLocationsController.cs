@@ -56,7 +56,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.DeviceLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/locations")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
@@ -86,7 +89,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.DeviceLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/devicelocations")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "*/*"))))
@@ -120,7 +126,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.DeviceLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/devicelocations/{txid}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Query(_query => _query.Setup("accountName", accountName))
                       .Template(_template => _template.Setup("txid", txid))))
@@ -150,7 +159,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.DeviceLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/locationreports")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "*/*"))))
@@ -188,7 +200,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.DeviceLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/locationreports/{account}/report/{txid}/index/{startindex}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("txid", txid))
@@ -223,7 +238,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.DeviceLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/locationreports/{account}/report/{txid}/status")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("txid", txid))))
@@ -257,7 +275,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.DeviceLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/locationreports/{account}/report/{txid}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("txid", txid))))

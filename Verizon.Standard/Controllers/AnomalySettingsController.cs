@@ -56,7 +56,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/m2m/v1/intelligence/anomaly/settings")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
@@ -86,7 +89,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/m2m/v1/intelligence/{accountName}/anomaly/settings")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("accountName", accountName))))
               .ResponseHandler(_responseHandler => _responseHandler
@@ -115,7 +121,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Put, "/m2m/v1/intelligence/{accountName}/anomaly/settings/reset")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("accountName", accountName))))
               .ResponseHandler(_responseHandler => _responseHandler

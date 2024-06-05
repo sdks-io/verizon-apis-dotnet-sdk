@@ -56,7 +56,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.HyperPreciseLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/callbacks")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Query(_query => _query.Setup("accountNumber", accountNumber))))
               .ResponseHandler(_responseHandler => _responseHandler
@@ -94,7 +97,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.HyperPreciseLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/callbacks")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Query(_query => _query.Setup("accountNumber", accountNumber))
@@ -133,7 +139,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.HyperPreciseLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/callbacks")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Query(_query => _query.Setup("accountNumber", accountNumber))
                       .Query(_query => _query.Setup("service", service))))

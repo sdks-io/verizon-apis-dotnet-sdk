@@ -1,11 +1,11 @@
 
-# Oauth Scope Enum
+# Oauth Scope Thingspace Oauth Enum
 
 OAuth 2 scopes supported by the API
 
 ## Enumeration
 
-`OauthScopeEnum`
+`OauthScopeThingspaceOauthEnum`
 
 ## Fields
 
@@ -19,6 +19,11 @@ OAuth 2 scopes supported by the API
 | `TsMecFullaccess` | Full access for /serviceprofiles and /serviceendpoints. |
 | `TsMecLimitaccess` | Limited access. Will not allow use of /serviceprofiles and /serviceendpoints but will allow discovery. |
 | `TsApplicationRo` |  |
+| `Edgediscoveryread` |  |
+| `Edgeserviceprofileread` |  |
+| `Edgeserviceprofilewrite` |  |
+| `Edgeserviceregistryread` |  |
+| `Edgeserviceregistrywrite` |  |
 | `Read` | read access |
 | `Write` | read/write access |
 

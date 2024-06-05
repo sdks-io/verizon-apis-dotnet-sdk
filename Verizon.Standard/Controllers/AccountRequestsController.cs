@@ -60,7 +60,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/m2m/v1/accounts/{aname}/requests/{requestId}/status")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("aname", aname))
                       .Template(_template => _template.Setup("requestId", requestId))))

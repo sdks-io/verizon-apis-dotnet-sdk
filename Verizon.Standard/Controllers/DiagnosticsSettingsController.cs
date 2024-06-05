@@ -60,7 +60,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.DeviceDiagnostics)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/devices/settings")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Query(_query => _query.Setup("accountName", accountName))
                       .Query(_query => _query.Setup("devices", devices))))

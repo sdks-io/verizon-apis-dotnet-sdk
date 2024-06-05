@@ -64,7 +64,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/reports/{acc}/firmware/campaigns")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("acc", acc))
                       .Query(_query => _query.Setup("campaignStatus", ApiHelper.JsonSerialize(campaignStatus).Trim('\"')))
@@ -99,7 +102,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/reports/{acc}/devices/{deviceId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("acc", acc))
                       .Template(_template => _template.Setup("deviceId", deviceId))))
@@ -137,7 +143,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/reports/{acc}/campaigns/{campaignId}/devices")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("acc", acc))
                       .Template(_template => _template.Setup("campaignId", campaignId))

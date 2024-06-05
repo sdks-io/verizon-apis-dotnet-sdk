@@ -41,11 +41,11 @@ namespace Verizon.Standard.Controllers
         /// <param name="scope">Optional parameter: Requested scopes as a space-delimited list..</param>
         /// <param name="fieldParameters">Additional optional form parameters are supported by this endpoint.</param>
         /// <returns>Returns the ApiResponse of Models.OauthToken response from the API call.</returns>
-        public ApiResponse<Models.OauthToken> RequestToken(
+        public ApiResponse<Models.OauthToken> RequestTokenThingspaceOauth(
                 string authorization,
                 string scope = null,
                 Dictionary<string, object> fieldParameters = null)
-            => CoreHelper.RunTask(RequestTokenAsync(authorization, scope, fieldParameters));
+            => CoreHelper.RunTask(RequestTokenThingspaceOauthAsync(authorization, scope, fieldParameters));
 
         /// <summary>
         /// Create a new OAuth 2 token.
@@ -55,7 +55,7 @@ namespace Verizon.Standard.Controllers
         /// <param name="fieldParameters">Additional optional form parameters are supported by this endpoint.</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
         /// <returns>Returns the ApiResponse of Models.OauthToken response from the API call.</returns>
-        public async Task<ApiResponse<Models.OauthToken>> RequestTokenAsync(
+        public async Task<ApiResponse<Models.OauthToken>> RequestTokenThingspaceOauthAsync(
                 string authorization,
                 string scope = null,
                 Dictionary<string, object> fieldParameters = null,

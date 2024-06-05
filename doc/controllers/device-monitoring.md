@@ -82,16 +82,14 @@ catch (ApiException e)
 
 ```csharp
 StopDeviceReachabilityAsync(
-    string accountName,
-    List<string> monitorIds)
+    Models.StopMonitorRequest body = null)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `accountName` | `string` | Query, Required | The numeric name of the account. |
-| `monitorIds` | `List<string>` | Query, Required | The array contains the monitorIDs (UUID) for which the monitor is to be deleted. |
+| `body` | [`StopMonitorRequest`](../../doc/models/stop-monitor-request.md) | Body, Optional | - |
 
 ## Response Type
 
@@ -100,19 +98,18 @@ StopDeviceReachabilityAsync(
 ## Example Usage
 
 ```csharp
-string accountName = "0242123520-00001";
-List<string> monitorIds = new List<string>
+StopMonitorRequest body = new StopMonitorRequest
 {
-    "35596ca6-bab4-4333-a914-42b4fc2da54c",
-    "35596ca6-bab4-4333-a914-42b4fc2da54b",
+    AccountName = "0242123520-00001",
+    MonitorIds = new List<string>
+    {
+        "35596ca6-bab4-4333-a914-42b4fc2da54c",
+    },
 };
 
 try
 {
-    ApiResponse<RequestResponse> result = await deviceMonitoringController.StopDeviceReachabilityAsync(
-        accountName,
-        monitorIds
-    );
+    ApiResponse<RequestResponse> result = await deviceMonitoringController.StopDeviceReachabilityAsync(body);
 }
 catch (ApiException e)
 {

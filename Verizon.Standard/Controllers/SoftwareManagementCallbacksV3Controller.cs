@@ -56,7 +56,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/callbacks/{acc}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("acc", acc))))
               .ResponseHandler(_responseHandler => _responseHandler
@@ -89,7 +92,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Put, "/callbacks/{acc}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("acc", acc))
@@ -124,7 +130,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/callbacks/{acc}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("acc", acc))
@@ -155,7 +164,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/callbacks/{acc}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("acc", acc))))
               .ResponseHandler(_responseHandler => _responseHandler

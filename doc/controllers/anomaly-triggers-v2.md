@@ -52,7 +52,7 @@ List<Models.CreateTriggerRequestOptions> body = new List<Models.CreateTriggerReq
             IncludeUnderExpectedUsage = true,
             IncludeOverExpectedUsage = true,
         },
-        Notification = new Notification
+        Notification = new TriggerNotification
         {
             NotificationType = "DailySummary",
             Callback = true,
@@ -140,7 +140,7 @@ List<Models.UpdateTriggerRequestOptions> body = new List<Models.UpdateTriggerReq
             IncludeUnderExpectedUsage = false,
             IncludeOverExpectedUsage = true,
         },
-        Notification = new Notification
+        Notification = new TriggerNotification
         {
             NotificationType = "DailySummary",
             Callback = true,

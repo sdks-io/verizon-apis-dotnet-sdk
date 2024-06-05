@@ -14,6 +14,7 @@ Contains usage information per device.
 | `Imei` | `string` | Optional | International Mobile Equipment Identifier. This is the ID of the device reporting usage. |
 | `NumberOfSessions` | `int?` | Optional | Number of sessions established by the device reporting usage. |
 | `BytesTransferred` | `int?` | Optional | The amount of data transferred by the device reporting usage, measured in Bytes. |
+| `Example` | `object` | Optional | - |
 
 ## Example (as JSON)
 
@@ -21,7 +22,11 @@ Contains usage information per device.
 {
   "imei": "709312034493372",
   "numberOfSessions": 1,
-  "bytesTransferred": 2057
+  "bytesTransferred": 2057,
+  "example": {
+    "key1": "val1",
+    "key2": "val2"
+  }
 }
 ```
 

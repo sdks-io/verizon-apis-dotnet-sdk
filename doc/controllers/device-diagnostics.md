@@ -97,7 +97,7 @@ RetrieveActiveMonitorsUsingPOSTAsync(
 ```csharp
 RetrieveMonitorsRequest body = new RetrieveMonitorsRequest
 {
-    AccountName = "0868924207-00001",
+    AccountName = "0242123520-00001",
     Devices = new List<Models.AccountDeviceList>
     {
         new AccountDeviceList
@@ -106,34 +106,12 @@ RetrieveMonitorsRequest body = new RetrieveMonitorsRequest
             {
                 new DeviceId
                 {
-                    Id = "990013907835573",
-                    Kind = "imei",
-                },
-                new DeviceId
-                {
-                    Id = "89141390780800784259",
-                    Kind = "iccid",
-                },
-            },
-        },
-        new AccountDeviceList
-        {
-            DeviceIds = new List<Models.DeviceId>
-            {
-                new DeviceId
-                {
-                    Id = "990013907884259",
-                    Kind = "imei",
-                },
-                new DeviceId
-                {
-                    Id = "89141390780800735573",
-                    Kind = "iccid",
+                    Id = "12016560696",
+                    Kind = "msisdn",
                 },
             },
         },
     },
-    MonitorType = "monitorType",
 };
 
 try

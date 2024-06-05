@@ -5,28 +5,32 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `VZM2mToken` | `string` | M2M Session Token ([How to generate an M2M session token?](page:getting-started/5g-edge-developer-creds-token#obtaining-a-vz-m2m-session-token-programmatically)) |
 | `Environment` | `Environment` | The API environment. <br> **Default: `Environment.Production`** |
 | `Timeout` | `TimeSpan` | Http client timeout.<br>*Default*: `TimeSpan.FromSeconds(100)` |
-| `ClientCredentialsAuth` | [`ClientCredentialsAuth`]($a/oauth-2-client-credentials-grant.md) | The Credentials Setter for OAuth 2 Client Credentials Grant |
+| `ThingspaceOauthCredentials` | [`ThingspaceOauthCredentials`]($a/oauth-2-client-credentials-grant.md) | The Credentials Setter for OAuth 2 Client Credentials Grant |
+| `VZM2mTokenCredentials` | [`VZM2mTokenCredentials`]($a/custom-header-signature.md) | The Credentials Setter for Custom Header Signature |
 
 The API client can be initialized as follows:
 
 ```csharp
 Verizon.Standard.VerizonClient client = new Verizon.Standard.VerizonClient.Builder()
-    .ClientCredentialsAuth(
-        new ClientCredentialsAuthModel.Builder(
+    .ThingspaceOauthCredentials(
+        new ThingspaceOauthModel.Builder(
             "OAuthClientId",
             "OAuthClientSecret"
         )
         .OauthScopes(
-            new List<OauthScopeEnum>
+            new List<OauthScopeThingspaceOauthEnum>
             {
-                OauthScopeEnum.Discoveryread,
-                OauthScopeEnum.Serviceprofileread,
+                OauthScopeThingspaceOauthEnum.Discoveryread,
+                OauthScopeThingspaceOauthEnum.Serviceprofileread,
             })
         .Build())
-    .VZM2mToken("VZ-M2M-Token")
+    .VZM2mTokenCredentials(
+        new VZM2MTokenModel.Builder(
+            "VZ-M2M-Token"
+        )
+        .Build())
     .Environment(Verizon.Standard.Environment.Production)
     .Build();
 ```
@@ -118,6 +122,7 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | UpdateTriggersController | Gets UpdateTriggersController controller. |
 | SIMActionsController | Gets SIMActionsController controller. |
 | GlobalReportingController | Gets GlobalReportingController controller. |
+| MV2TriggersController | Gets MV2TriggersController controller. |
 | OauthAuthorizationController | Gets OauthAuthorizationController controller. |
 
 ### Properties
@@ -126,9 +131,9 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 |  --- | --- | --- |
 | HttpClientConfiguration | Gets the configuration of the Http Client associated with this client. | [`IHttpClientConfiguration`](http-client-configuration.md) |
 | Timeout | Http client timeout. | `TimeSpan` |
-| VZM2mToken | M2M Session Token ([How to generate an M2M session token?](page:getting-started/5g-edge-developer-creds-token#obtaining-a-vz-m2m-session-token-programmatically)) | `string` |
 | Environment | Current API environment. | `Environment` |
-| ClientCredentialsAuth | Gets the credentials to use with ClientCredentialsAuth. | [`IClientCredentialsAuth`]($a/oauth-2-client-credentials-grant.md) |
+| ThingspaceOauthCredentials | Gets the credentials to use with ThingspaceOauth. | [`IThingspaceOauthCredentials`]($a/oauth-2-client-credentials-grant.md) |
+| VZM2mTokenCredentials | Gets the credentials to use with VZM2MToken. | [`IVZM2mTokenCredentials`]($a/custom-header-signature.md) |
 
 ### Methods
 
@@ -147,7 +152,7 @@ Class to build instances of VerizonClient.
 |  --- | --- | --- |
 | `HttpClientConfiguration(Action<`[`HttpClientConfiguration.Builder`](http-client-configuration-builder.md)`> action)` | Gets the configuration of the Http Client associated with this client. | `Builder` |
 | `Timeout(TimeSpan timeout)` | Http client timeout. | `Builder` |
-| `VZM2mToken(string vZM2mToken)` | M2M Session Token ([How to generate an M2M session token?](page:getting-started/5g-edge-developer-creds-token#obtaining-a-vz-m2m-session-token-programmatically)) | `Builder` |
 | `Environment(Environment environment)` | Current API environment. | `Builder` |
-| `ClientCredentialsAuth(Action<ClientCredentialsAuthModel.Builder> action)` | Sets credentials for ClientCredentialsAuth. | `Builder` |
+| `ThingspaceOauthCredentials(Action<ThingspaceOauthModel.Builder> action)` | Sets credentials for ThingspaceOauth. | `Builder` |
+| `VZM2mTokenCredentials(Action<VZM2mTokenModel.Builder> action)` | Sets credentials for VZM2MToken. | `Builder` |
 

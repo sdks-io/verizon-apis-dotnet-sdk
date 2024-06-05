@@ -9,14 +9,14 @@ OauthAuthorizationController oauthAuthorizationController = client.OauthAuthoriz
 `OauthAuthorizationController`
 
 
-# Request Token
+# Request Token Thingspace Oauth
 
 Create a new OAuth 2 token.
 
 :information_source: **Note** This endpoint does not require authentication.
 
 ```csharp
-RequestTokenAsync(
+RequestTokenThingspaceOauthAsync(
     string authorization,
     string scope = null,
     Dictionary<string, object> fieldParameters = null)
@@ -45,7 +45,7 @@ Dictionary<string, object> fieldParameters = new Dictionary<string, object>
 
 try
 {
-    ApiResponse<OauthToken> result = await oauthAuthorizationController.RequestTokenAsync(
+    ApiResponse<OauthToken> result = await oauthAuthorizationController.RequestTokenThingspaceOauthAsync(
         authorization,
         null,
         fieldParameters

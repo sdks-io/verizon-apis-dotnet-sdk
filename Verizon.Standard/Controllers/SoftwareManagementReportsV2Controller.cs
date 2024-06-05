@@ -60,7 +60,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/software/{account}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Query(_query => _query.Setup("distributionType", distributionType))))
@@ -98,7 +101,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/devices/{account}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Query(_query => _query.Setup("lastSeenDeviceId", lastSeenDeviceId))
@@ -133,7 +139,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/reports/{account}/devices/{deviceId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("deviceId", deviceId))))
@@ -171,7 +180,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/reports/{account}/campaigns")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Query(_query => _query.Setup("campaignStatus", campaignStatus))
@@ -210,7 +222,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/reports/{account}/campaigns/{campaignId}/devices")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("campaignId", campaignId))

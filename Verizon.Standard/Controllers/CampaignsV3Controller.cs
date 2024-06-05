@@ -60,7 +60,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/campaigns/firmware/{acc}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("acc", acc))
@@ -99,7 +102,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Put, "/campaigns/firmware/{acc}/{campaignId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("acc", acc))
@@ -139,7 +145,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Put, "/campaigns/firmware/{acc}/{campaignId}/dates")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("acc", acc))
@@ -175,7 +184,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/campaigns/{acc}/{campaignId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("acc", acc))
                       .Template(_template => _template.Setup("campaignId", campaignId))))
@@ -209,7 +221,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/campaigns/{acc}/{campaignId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("acc", acc))
                       .Template(_template => _template.Setup("campaignId", campaignId))))

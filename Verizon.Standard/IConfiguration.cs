@@ -14,24 +14,29 @@ namespace Verizon.Standard
     public interface IConfiguration
     {
         /// <summary>
-        /// Gets M2M Session Token ([How to generate an M2M session token?](page:getting-started/5g-edge-developer-creds-token#obtaining-a-vz-m2m-session-token-programmatically))
-        /// </summary>
-        string VZM2mToken { get; }
-
-        /// <summary>
         /// Gets Current API environment.
         /// </summary>
         Environment Environment { get; }
 
         /// <summary>
-        /// Gets the credentials to use with ClientCredentialsAuth.
+        /// Gets the credentials to use with ThingspaceOauth.
         /// </summary>
-        IClientCredentialsAuth ClientCredentialsAuth { get; }
+        IThingspaceOauthCredentials ThingspaceOauthCredentials { get; }
 
         /// <summary>
-        /// Gets the credentials model to use with ClientCredentialsAuth.
+        /// Gets the credentials model to use with ThingspaceOauth.
         /// </summary>
-        ClientCredentialsAuthModel ClientCredentialsAuthModel { get; }
+        ThingspaceOauthModel ThingspaceOauthModel { get; }
+
+        /// <summary>
+        /// Gets the credentials to use with VZM2MToken.
+        /// </summary>
+        IVZM2mTokenCredentials VZM2mTokenCredentials { get; }
+
+        /// <summary>
+        /// Gets the credentials model to use with VZM2MToken.
+        /// </summary>
+        VZM2mTokenModel VZM2mTokenModel { get; }
 
         /// <summary>
         /// Gets the URL for a particular alias in the current environment and appends it with template parameters.

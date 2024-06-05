@@ -1,4 +1,4 @@
-// <copyright file="ClientCredentialsAuthManager.cs" company="APIMatic">
+// <copyright file="ThingspaceOauthManager.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
 namespace Verizon.Standard.Authentication
@@ -15,22 +15,22 @@ namespace Verizon.Standard.Authentication
     using APIMatic.Core;
 
     /// <summary>
-    /// ClientCredentialsAuthManager Class.
+    /// ThingspaceOauthManager Class.
     /// </summary>
-    public class ClientCredentialsAuthManager : AuthManager, IClientCredentialsAuth
+    public class ThingspaceOauthManager : AuthManager, IThingspaceOauthCredentials
     {
         private Func<OauthAuthorizationController> oAuthApi;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClientCredentialsAuthManager"/> class.
+        /// Initializes a new instance of the <see cref="ThingspaceOauthManager"/> class.
         /// </summary>
-        /// <param name="clientCredentialsAuth"> OAuth 2 Client Cridentials Model.</param>
-        internal ClientCredentialsAuthManager(ClientCredentialsAuthModel clientCredentialsAuth)
+        /// <param name="thingspaceOauth"> OAuth 2 Client Cridentials Model.</param>
+        internal ThingspaceOauthManager(ThingspaceOauthModel thingspaceOauth)
         {
-            OauthClientId = clientCredentialsAuth?.OauthClientId;
-            OauthClientSecret = clientCredentialsAuth?.OauthClientSecret;
-            OauthToken = clientCredentialsAuth?.OauthToken;
-            OauthScopes = clientCredentialsAuth?.OauthScopes;
+            OauthClientId = thingspaceOauth?.OauthClientId;
+            OauthClientSecret = thingspaceOauth?.OauthClientSecret;
+            OauthToken = thingspaceOauth?.OauthToken;
+            OauthScopes = thingspaceOauth?.OauthScopes;
             Parameters(authParameter => authParameter
                 .Header(headerParameter => headerParameter
                     .Setup("Authorization",
@@ -54,9 +54,9 @@ namespace Verizon.Standard.Authentication
         public Models.OauthToken OauthToken { get; }
 
         /// <summary>
-        /// Gets List of Models.OauthScopeEnum value for oauthScopes.
+        /// Gets List of Models.OauthScopeThingspaceOauthEnum value for oauthScopes.
         /// </summary>
-        public List<Models.OauthScopeEnum> OauthScopes { get; }
+        public List<Models.OauthScopeThingspaceOauthEnum> OauthScopes { get; }
 
         /// <summary>
         /// Check if credentials match.
@@ -64,9 +64,9 @@ namespace Verizon.Standard.Authentication
         /// <param name="oauthClientId"> The string value for credentials.</param>
         /// <param name="oauthClientSecret"> The string value for credentials.</param>
         /// <param name="oauthToken"> The Models.OauthToken value for credentials.</param>
-        /// <param name="oauthScopes"> The List of Models.OauthScopeEnum value for credentials.</param>
+        /// <param name="oauthScopes"> The List of Models.OauthScopeThingspaceOauthEnum value for credentials.</param>
         /// <returns> True if credentials matched.</returns>
-        public bool Equals(string oauthClientId, string oauthClientSecret, Models.OauthToken oauthToken, List<Models.OauthScopeEnum> oauthScopes)
+        public bool Equals(string oauthClientId, string oauthClientSecret, Models.OauthToken oauthToken, List<Models.OauthScopeThingspaceOauthEnum> oauthScopes)
         {
             return oauthClientId.Equals(this.OauthClientId)
                     && oauthClientSecret.Equals(this.OauthClientSecret)
@@ -90,7 +90,7 @@ namespace Verizon.Standard.Authentication
         /// <returns>Models.OauthToken.</returns>
         public async Task<Models.OauthToken> FetchTokenAsync(Dictionary<string, object> additionalParameters = null)
         {
-            var token = await oAuthApi?.Invoke().RequestTokenAsync(BuildBasicAuthHeader(), this.OauthScopes.GetValues(), additionalParameters);
+            var token = await oAuthApi?.Invoke().RequestTokenThingspaceOauthAsync(BuildBasicAuthHeader(), this.OauthScopes.GetValues(), additionalParameters);
 
             if (token.Data.ExpiresIn != null && token.Data.ExpiresIn != 0)
             {
@@ -151,9 +151,9 @@ namespace Verizon.Standard.Authentication
         }
     }
 
-    public sealed class ClientCredentialsAuthModel
+    public sealed class ThingspaceOauthModel
     {
-        internal ClientCredentialsAuthModel()
+        internal ThingspaceOauthModel()
         {
         }
 
@@ -163,10 +163,10 @@ namespace Verizon.Standard.Authentication
 
         internal Models.OauthToken OauthToken { get; set; }
 
-        internal List<Models.OauthScopeEnum> OauthScopes { get; set; }
+        internal List<Models.OauthScopeThingspaceOauthEnum> OauthScopes { get; set; }
 
         /// <summary>
-        /// Creates an object of the ClientCredentialsAuthModel using the values provided for the builder.
+        /// Creates an object of the ThingspaceOauthModel using the values provided for the builder.
         /// </summary>
         /// <returns>Builder.</returns>
         public Builder ToBuilder()
@@ -177,14 +177,14 @@ namespace Verizon.Standard.Authentication
         }
 
         /// <summary>
-        /// Builder class for ClientCredentialsAuthModel.
+        /// Builder class for ThingspaceOauthModel.
         /// </summary>
         public class Builder
         {
             private string oauthClientId;
             private string oauthClientSecret;
             private Models.OauthToken oauthToken;
-            private List<Models.OauthScopeEnum> oauthScopes;
+            private List<Models.OauthScopeThingspaceOauthEnum> oauthScopes;
 
             public Builder(string oauthClientId, string oauthClientSecret)
             {
@@ -233,7 +233,7 @@ namespace Verizon.Standard.Authentication
             /// </summary>
             /// <param name="oauthScopes">OauthScopes.</param>
             /// <returns>Builder.</returns>
-            public Builder OauthScopes(List<Models.OauthScopeEnum> oauthScopes)
+            public Builder OauthScopes(List<Models.OauthScopeThingspaceOauthEnum> oauthScopes)
             {
                 this.oauthScopes = oauthScopes;
                 return this;
@@ -241,12 +241,12 @@ namespace Verizon.Standard.Authentication
 
 
             /// <summary>
-            /// Creates an object of the ClientCredentialsAuthModel using the values provided for the builder.
+            /// Creates an object of the ThingspaceOauthModel using the values provided for the builder.
             /// </summary>
-            /// <returns>ClientCredentialsAuthModel.</returns>
-            public ClientCredentialsAuthModel Build()
+            /// <returns>ThingspaceOauthModel.</returns>
+            public ThingspaceOauthModel Build()
             {
-                return new ClientCredentialsAuthModel()
+                return new ThingspaceOauthModel()
                 {
                     OauthClientId = this.oauthClientId,
                     OauthClientSecret = this.oauthClientSecret,

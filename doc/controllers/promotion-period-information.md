@@ -20,14 +20,14 @@ Retrieves the usage history of a device during the promotion period.
 
 ```csharp
 GetPromoDeviceUsageHistoryAsync(
-    Models.RequestBodyForUsage body)
+    Models.RequestBodyForUsage1 body)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`RequestBodyForUsage`](../../doc/models/request-body-for-usage.md) | Body, Required | Retrieve Aggregate Usage |
+| `body` | [`RequestBodyForUsage1`](../../doc/models/request-body-for-usage-1.md) | Body, Required | Retrieve Aggregate Usage |
 
 ## Response Type
 
@@ -36,7 +36,7 @@ GetPromoDeviceUsageHistoryAsync(
 ## Example Usage
 
 ```csharp
-RequestBodyForUsage body = new RequestBodyForUsage
+RequestBodyForUsage1 body = new RequestBodyForUsage1
 {
     StartTime = DateTime.ParseExact("08/15/2021 00:00:00", "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK",
         provider: CultureInfo.InvariantCulture,
@@ -93,14 +93,14 @@ Retrieves the aggregate usage for an account using pseudo-MDN during the promoti
 
 ```csharp
 GetPromoDeviceAggregateUsageHistoryAsync(
-    Models.UsageRequestBody body)
+    Models.RequestBodyForUsage body)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`UsageRequestBody`](../../doc/models/usage-request-body.md) | Body, Required | Retrieve Aggregate Usage |
+| `body` | [`RequestBodyForUsage`](../../doc/models/request-body-for-usage.md) | Body, Required | Retrieve Aggregate Usage |
 
 ## Response Type
 
@@ -109,7 +109,7 @@ GetPromoDeviceAggregateUsageHistoryAsync(
 ## Example Usage
 
 ```csharp
-UsageRequestBody body = new UsageRequestBody
+RequestBodyForUsage body = new RequestBodyForUsage
 {
     AccountId = "0000123456-000001",
     StartTime = DateTime.ParseExact("08/15/2021 00:00:00", "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK",

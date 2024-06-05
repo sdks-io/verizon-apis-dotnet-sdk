@@ -1,4 +1,4 @@
-// <copyright file="IClientCredentialsAuth.cs" company="APIMatic">
+// <copyright file="IThingspaceOauthCredentials.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
 namespace Verizon.Standard.Authentication
@@ -6,7 +6,7 @@ namespace Verizon.Standard.Authentication
     using System.Threading.Tasks;
     using System.Collections.Generic;
 
-    public interface IClientCredentialsAuth
+    public interface IThingspaceOauthCredentials
     {
         /// <summary>
         /// Gets string value for oauthClientId.
@@ -24,9 +24,9 @@ namespace Verizon.Standard.Authentication
         Models.OauthToken OauthToken { get; }
 
         /// <summary>
-        /// Gets List of Models.OauthScopeEnum value for oauthScopes.
+        /// Gets List of Models.OauthScopeThingspaceOauthEnum value for oauthScopes.
         /// </summary>
-        List<Models.OauthScopeEnum> OauthScopes { get; }
+        List<Models.OauthScopeThingspaceOauthEnum> OauthScopes { get; }
 
         /// <summary>
         ///  Returns true if credentials matched.
@@ -34,9 +34,9 @@ namespace Verizon.Standard.Authentication
         /// <param name="oauthClientId"> The string value for credentials.</param>
         /// <param name="oauthClientSecret"> The string value for credentials.</param>
         /// <param name="oauthToken"> The Models.OauthToken value for credentials.</param>
-        /// <param name="oauthScopes"> The List of Models.OauthScopeEnum value for credentials.</param>
+        /// <param name="oauthScopes"> The List of Models.OauthScopeThingspaceOauthEnum value for credentials.</param>
         /// <returns>True if credentials matched.</returns>
-        bool Equals(string oauthClientId, string oauthClientSecret, Models.OauthToken oauthToken, List<Models.OauthScopeEnum> oauthScopes);
+        bool Equals(string oauthClientId, string oauthClientSecret, Models.OauthToken oauthToken, List<Models.OauthScopeThingspaceOauthEnum> oauthScopes);
 
         /// <summary>
         /// Fetch the OAuth token asynchronously.

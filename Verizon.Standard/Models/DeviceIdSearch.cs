@@ -31,13 +31,13 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="DeviceIdSearch"/> class.
         /// </summary>
-        /// <param name="kind">kind.</param>
         /// <param name="contains">contains.</param>
+        /// <param name="kind">kind.</param>
         /// <param name="startswith">startswith.</param>
         /// <param name="endswith">endswith.</param>
         public DeviceIdSearch(
+            string contains,
             string kind,
-            string contains = null,
             string startswith = null,
             string endswith = null)
         {
@@ -50,7 +50,7 @@ namespace Verizon.Standard.Models
         /// <summary>
         /// The string appears anywhere in the identifer.
         /// </summary>
-        [JsonProperty("contains", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("contains")]
         public string Contains { get; set; }
 
         /// <summary>

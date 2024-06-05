@@ -51,7 +51,7 @@ namespace Verizon.Standard.Models
             string notificationFrequencyInterval = null,
             string externalEmailRecipients = null,
             bool? smsNotification = null,
-            List<Models.SMSNumber> smsNumbers = null,
+            List<Models.SmsNumbers> smsNumbers = null,
             bool? reminder = null,
             string severity = null)
         {
@@ -69,58 +69,58 @@ namespace Verizon.Standard.Models
         }
 
         /// <summary>
-        /// The type of notification, i.e. 'DailySummary'.
+        /// Gets or sets NotificationType.
         /// </summary>
         [JsonProperty("notificationType", NullValueHandling = NullValueHandling.Ignore)]
         public string NotificationType { get; set; }
 
         /// <summary>
-        /// Whether or not the notification should be sent via callback.<br />true<br />false.
+        /// Gets or sets Callback.
         /// </summary>
         [JsonProperty("callback", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Callback { get; set; }
 
         /// <summary>
-        /// Whether or not the notification should be sent via e-mail.<br />true<br />false.
+        /// Gets or sets EmailNotification.
         /// </summary>
         [JsonProperty("emailNotification", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EmailNotification { get; set; }
 
         /// <summary>
-        /// Name for the notification group.
+        /// Gets or sets NotificationGroupName.
         /// </summary>
         [JsonProperty("notificationGroupName", NullValueHandling = NullValueHandling.Ignore)]
         public string NotificationGroupName { get; set; }
 
         /// <summary>
-        /// Frequency factor for notification.
+        /// Gets or sets NotificationFrequencyFactor.
         /// </summary>
         [JsonProperty("notificationFrequencyFactor", NullValueHandling = NullValueHandling.Ignore)]
         public int? NotificationFrequencyFactor { get; set; }
 
         /// <summary>
-        /// Frequency interval for notification.
+        /// Gets or sets NotificationFrequencyInterval.
         /// </summary>
         [JsonProperty("notificationFrequencyInterval", NullValueHandling = NullValueHandling.Ignore)]
         public string NotificationFrequencyInterval { get; set; }
 
         /// <summary>
-        /// E-mail address(es) where the notification should be delivered.
+        /// Gets or sets ExternalEmailRecipients.
         /// </summary>
         [JsonProperty("externalEmailRecipients", NullValueHandling = NullValueHandling.Ignore)]
         public string ExternalEmailRecipients { get; set; }
 
         /// <summary>
-        /// SMS notification.
+        /// Gets or sets SmsNotification.
         /// </summary>
         [JsonProperty("smsNotification", NullValueHandling = NullValueHandling.Ignore)]
         public bool? SmsNotification { get; set; }
 
         /// <summary>
-        /// List of SMS numbers.
+        /// Gets or sets SmsNumbers.
         /// </summary>
         [JsonProperty("smsNumbers", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Models.SMSNumber> SmsNumbers { get; set; }
+        public List<Models.SmsNumbers> SmsNumbers { get; set; }
 
         /// <summary>
         /// Gets or sets Reminder.
@@ -129,7 +129,7 @@ namespace Verizon.Standard.Models
         public bool? Reminder { get; set; }
 
         /// <summary>
-        /// Severity level associated with the notification. Examples would be:<br />Major<br />Minor<br />Critical<br />NotApplicable.
+        /// Gets or sets Severity.
         /// </summary>
         [JsonProperty("severity", NullValueHandling = NullValueHandling.Ignore)]
         public string Severity { get; set; }

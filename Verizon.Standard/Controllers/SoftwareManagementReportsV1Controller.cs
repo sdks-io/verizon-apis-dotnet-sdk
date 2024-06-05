@@ -60,7 +60,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV1)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/devices/{account}/index/{startIndex}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("startIndex", startIndex))))
@@ -98,7 +101,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV1)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/reports/{account}/status/{upgradeStatus}/index/{startIndex}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("upgradeStatus", ApiHelper.JsonSerialize(upgradeStatus).Trim('\"')))
@@ -133,7 +139,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV1)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/reports/{account}/devices/{deviceId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("account", account))
                       .Template(_template => _template.Setup("deviceId", deviceId))))

@@ -44,6 +44,26 @@ namespace Verizon.Standard
                     { Server.QualityOfService, "https://thingspace.verizon.com/api/m2m/v1/devices" },
                 }
             },
+            {
+                Environment.MockServerForLimitedAvailabilitySeeQuickStart, new Dictionary<Enum, string>
+                {
+                    { Server.EdgeDiscovery, "https://mock.thingspace.verizon.com/api/mec/eds" },
+                    { Server.Thingspace, "https://mock.thingspace.verizon.com/api" },
+                    { Server.OauthServer, "https://mock.thingspace.verizon.com/api/ts/v1" },
+                    { Server.M2m, "https://mock.thingspace.verizon.com/api/m2m" },
+                    { Server.DeviceLocation, "https://mock.thingspace.verizon.com/api/loc/v1" },
+                    { Server.SubscriptionServer, "https://mock.thingspace.verizon.com/api/subsc/v1" },
+                    { Server.SoftwareManagementV1, "https://mock.thingspace.verizon.com/api/fota/v1" },
+                    { Server.SoftwareManagementV2, "https://mock.thingspace.verizon.com/api/fota/v2" },
+                    { Server.SoftwareManagementV3, "https://mock.thingspace.verizon.com/api/fota/v3" },
+                    { Server.Performance, "https://mock.thingspace.verizon.com/api/mec" },
+                    { Server.DeviceDiagnostics, "https://mock.thingspace.verizon.com/api/diagnostics/v1" },
+                    { Server.CloudConnector, "https://mock.thingspace.verizon.com/api/cc/v1" },
+                    { Server.HyperPreciseLocation, "https://mock.thingspace.verizon.com/api/hyper-precise/v1" },
+                    { Server.Services, "https://mock.thingspace.verizon.com/api/mec/services" },
+                    { Server.QualityOfService, "https://mock.thingspace.verizon.com/api/m2m/v1/devices" },
+                }
+            },
         };
 
         private readonly GlobalConfiguration globalConfiguration;
@@ -119,33 +139,34 @@ namespace Verizon.Standard
         private readonly Lazy<UpdateTriggersController> updateTriggers;
         private readonly Lazy<SIMActionsController> sIMActions;
         private readonly Lazy<GlobalReportingController> globalReporting;
+        private readonly Lazy<MV2TriggersController> mV2Triggers;
         private readonly Lazy<OauthAuthorizationController> oauthAuthorization;
 
         private VerizonClient(
-            string vZM2mToken,
             Environment environment,
-            ClientCredentialsAuthModel clientCredentialsAuthModel,
+            ThingspaceOauthModel thingspaceOauthModel,
+            VZM2mTokenModel vZM2mTokenModel,
             IHttpClientConfiguration httpClientConfiguration)
         {
-            this.VZM2mToken = vZM2mToken;
             this.Environment = environment;
             this.HttpClientConfiguration = httpClientConfiguration;
-            ClientCredentialsAuthModel = clientCredentialsAuthModel;
-            var clientCredentialsAuthManager = new ClientCredentialsAuthManager(clientCredentialsAuthModel);
-            clientCredentialsAuthManager.ApplyGlobalConfiguration(() => OauthAuthorizationController);
+            ThingspaceOauthModel = thingspaceOauthModel;
+            var thingspaceOauthManager = new ThingspaceOauthManager(thingspaceOauthModel);
+            thingspaceOauthManager.ApplyGlobalConfiguration(() => OauthAuthorizationController);
+            VZM2mTokenModel = vZM2mTokenModel;
+            var vZM2mTokenManager = new VZM2mTokenManager(vZM2mTokenModel);
             globalConfiguration = new GlobalConfiguration.Builder()
                 .AuthManagers(new Dictionary<string, AuthManager> {
-                    {"oAuth2", clientCredentialsAuthManager},
+                    {"thingspace_oauth", thingspaceOauthManager},
+                    {"VZ-M2M-Token", vZM2mTokenManager},
                 })
                 .HttpConfiguration(httpClientConfiguration)
                 .ServerUrls(EnvironmentsMap[environment], Server.EdgeDiscovery)
-                .Parameters(globalParameter => globalParameter
-                    .Header(headerParameter => headerParameter.Setup("VZ-M2M-Token", this.VZM2mToken))
-)
                 .UserAgent(userAgent)
                 .Build();
 
-            ClientCredentialsAuth = clientCredentialsAuthManager;
+            ThingspaceOauthCredentials = thingspaceOauthManager;
+            VZM2mTokenCredentials = vZM2mTokenManager;
 
             this.m5gEdgePlatforms = new Lazy<M5gEdgePlatformsController>(
                 () => new M5gEdgePlatformsController(globalConfiguration));
@@ -289,6 +310,8 @@ namespace Verizon.Standard
                 () => new SIMActionsController(globalConfiguration));
             this.globalReporting = new Lazy<GlobalReportingController>(
                 () => new GlobalReportingController(globalConfiguration));
+            this.mV2Triggers = new Lazy<MV2TriggersController>(
+                () => new MV2TriggersController(globalConfiguration));
             this.oauthAuthorization = new Lazy<OauthAuthorizationController>(
                 () => new OauthAuthorizationController(globalConfiguration));
         }
@@ -649,6 +672,11 @@ namespace Verizon.Standard
         public GlobalReportingController GlobalReportingController => this.globalReporting.Value;
 
         /// <summary>
+        /// Gets MV2TriggersController controller.
+        /// </summary>
+        public MV2TriggersController MV2TriggersController => this.mV2Triggers.Value;
+
+        /// <summary>
         /// Gets OauthAuthorizationController controller.
         /// </summary>
         public OauthAuthorizationController OauthAuthorizationController => this.oauthAuthorization.Value;
@@ -659,12 +687,6 @@ namespace Verizon.Standard
         public IHttpClientConfiguration HttpClientConfiguration { get; }
 
         /// <summary>
-        /// Gets VZM2mToken.
-        /// M2M Session Token ([How to generate an M2M session token?](page:getting-started/5g-edge-developer-creds-token#obtaining-a-vz-m2m-session-token-programmatically)).
-        /// </summary>
-        public string VZM2mToken { get; }
-
-        /// <summary>
         /// Gets Environment.
         /// Current API environment.
         /// </summary>
@@ -672,14 +694,24 @@ namespace Verizon.Standard
 
 
         /// <summary>
-        /// Gets the credentials to use with ClientCredentialsAuth.
+        /// Gets the credentials to use with ThingspaceOauth.
         /// </summary>
-        public IClientCredentialsAuth ClientCredentialsAuth { get; private set; }
+        public IThingspaceOauthCredentials ThingspaceOauthCredentials { get; private set; }
 
         /// <summary>
-        /// Gets the credentials model to use with ClientCredentialsAuth.
+        /// Gets the credentials model to use with ThingspaceOauth.
         /// </summary>
-        public ClientCredentialsAuthModel ClientCredentialsAuthModel { get; private set; }
+        public ThingspaceOauthModel ThingspaceOauthModel { get; private set; }
+
+        /// <summary>
+        /// Gets the credentials to use with VZM2MToken.
+        /// </summary>
+        public IVZM2mTokenCredentials VZM2mTokenCredentials { get; private set; }
+
+        /// <summary>
+        /// Gets the credentials model to use with VZM2MToken.
+        /// </summary>
+        public VZM2mTokenModel VZM2mTokenModel { get; private set; }
 
         /// <summary>
         /// Gets the URL for a particular alias in the current environment and appends
@@ -699,13 +731,17 @@ namespace Verizon.Standard
         public Builder ToBuilder()
         {
             Builder builder = new Builder()
-                .VZM2mToken(this.VZM2mToken)
                 .Environment(this.Environment)
                 .HttpClientConfig(config => config.Build());
 
-            if (ClientCredentialsAuthModel != null)
+            if (ThingspaceOauthModel != null)
             {
-                builder.ClientCredentialsAuth(ClientCredentialsAuthModel.ToBuilder().Build());
+                builder.ThingspaceOauthCredentials(ThingspaceOauthModel.ToBuilder().Build());
+            }
+
+            if (VZM2mTokenModel != null)
+            {
+                builder.VZM2mTokenCredentials(VZM2mTokenModel.ToBuilder().Build());
             }
 
             return builder;
@@ -715,7 +751,6 @@ namespace Verizon.Standard
         public override string ToString()
         {
             return
-                $"VZM2mToken = {this.VZM2mToken}, " +
                 $"Environment = {this.Environment}, " +
                 $"HttpClientConfiguration = {this.HttpClientConfiguration}, ";
         }
@@ -728,15 +763,10 @@ namespace Verizon.Standard
         {
             var builder = new Builder();
 
-            string vZM2mToken = System.Environment.GetEnvironmentVariable("VERIZON_STANDARD_VZ_M2M_TOKEN");
             string environment = System.Environment.GetEnvironmentVariable("VERIZON_STANDARD_ENVIRONMENT");
             string oauthClientId = System.Environment.GetEnvironmentVariable("VERIZON_STANDARD_OAUTH_CLIENT_ID");
             string oauthClientSecret = System.Environment.GetEnvironmentVariable("VERIZON_STANDARD_OAUTH_CLIENT_SECRET");
-
-            if (vZM2mToken != null)
-            {
-                builder.VZM2mToken(vZM2mToken);
-            }
+            string vZM2mToken = System.Environment.GetEnvironmentVariable("VERIZON_STANDARD_VZ_M2M_TOKEN");
 
             if (environment != null)
             {
@@ -745,8 +775,15 @@ namespace Verizon.Standard
 
             if (oauthClientId != null && oauthClientSecret != null)
             {
-                builder.ClientCredentialsAuth(new ClientCredentialsAuthModel
+                builder.ThingspaceOauthCredentials(new ThingspaceOauthModel
                 .Builder(oauthClientId, oauthClientSecret)
+                .Build());
+            }
+
+            if (vZM2mToken != null)
+            {
+                builder.VZM2mTokenCredentials(new VZM2mTokenModel
+                .Builder(vZM2mToken)
                 .Build());
             }
 
@@ -758,79 +795,40 @@ namespace Verizon.Standard
         /// </summary>
         public class Builder
         {
-            private string vZM2mToken = String.Empty;
             private Environment environment = Verizon.Standard.Environment.Production;
-            private ClientCredentialsAuthModel clientCredentialsAuthModel = new ClientCredentialsAuthModel();
+            private ThingspaceOauthModel thingspaceOauthModel = new ThingspaceOauthModel();
+            private VZM2mTokenModel vZM2mTokenModel = new VZM2mTokenModel();
             private HttpClientConfiguration.Builder httpClientConfig = new HttpClientConfiguration.Builder();
 
             /// <summary>
-            /// Sets credentials for ClientCredentialsAuth.
+            /// Sets credentials for ThingspaceOauth.
             /// </summary>
-            /// <param name="oauthClientId">OauthClientId.</param>
-            /// <param name="oauthClientSecret">OauthClientSecret.</param>
+            /// <param name="thingspaceOauthModel">ThingspaceOauthModel.</param>
             /// <returns>Builder.</returns>
-            [Obsolete("This method is deprecated. Use ClientCredentialsAuth(clientCredentialsAuthModel) instead.")]
-            public Builder ClientCredentialsAuth(string oauthClientId, string oauthClientSecret)
+            public Builder ThingspaceOauthCredentials(ThingspaceOauthModel thingspaceOauthModel)
             {
-                clientCredentialsAuthModel = clientCredentialsAuthModel.ToBuilder()
-                    .OauthClientId(oauthClientId)
-                    .OauthClientSecret(oauthClientSecret)
-                    .Build();
-                return this;
-            }
-
-            /// <summary>
-            /// Sets OAuthToken.
-            /// </summary>
-            /// <param name="oauthToken">OauthToken.</param>
-            /// <returns>Builder.</returns>
-            [Obsolete("This method is deprecated. Use ClientCredentialsAuth(clientCredentialsAuthModel) instead.")]
-            public Builder OauthToken(Models.OauthToken oauthToken)
-            {
-                clientCredentialsAuthModel = clientCredentialsAuthModel.ToBuilder()
-                    .OauthToken(oauthToken)
-                    .Build();
-                return this;
-            }
-
-            /// <summary>
-            /// Sets OAuthScopes.
-            /// </summary>
-            /// <param name="oauthScopes">OauthScopes.</param>
-            /// <returns>Builder.</returns>
-            [Obsolete("This method is deprecated. Use ClientCredentialsAuth(clientCredentialsAuthModel) instead.")]
-            public Builder OauthScopes(List<Models.OauthScopeEnum> oauthScopes)
-            {
-                clientCredentialsAuthModel = clientCredentialsAuthModel.ToBuilder()
-                    .OauthScopes(oauthScopes)
-                    .Build();
-                return this;
-            }
-
-            /// <summary>
-            /// Sets credentials for ClientCredentialsAuth.
-            /// </summary>
-            /// <param name="clientCredentialsAuthModel">ClientCredentialsAuthModel.</param>
-            /// <returns>Builder.</returns>
-            public Builder ClientCredentialsAuth(ClientCredentialsAuthModel clientCredentialsAuthModel)
-            {
-                if (clientCredentialsAuthModel is null)
+                if (thingspaceOauthModel is null)
                 {
-                    throw new ArgumentNullException(nameof(clientCredentialsAuthModel));
+                    throw new ArgumentNullException(nameof(thingspaceOauthModel));
                 }
 
-                this.clientCredentialsAuthModel = clientCredentialsAuthModel;
+                this.thingspaceOauthModel = thingspaceOauthModel;
                 return this;
             }
 
             /// <summary>
-            /// Sets VZM2mToken.
+            /// Sets credentials for VZM2MToken.
             /// </summary>
-            /// <param name="vZM2mToken"> VZM2mToken. </param>
-            /// <returns> Builder. </returns>
-            public Builder VZM2mToken(string vZM2mToken)
+            /// <param name="vZM2mTokenModel">VZM2mTokenModel.</param>
+            /// <returns>Builder.</returns>
+            public Builder VZM2mTokenCredentials(VZM2mTokenModel vZM2mTokenModel)
             {
-                this.vZM2mToken = vZM2mToken ?? throw new ArgumentNullException(nameof(vZM2mToken));
+                if (vZM2mTokenModel is null)
+                {
+                    throw new ArgumentNullException(nameof(vZM2mTokenModel));
+                }
+
+                this.vZM2mTokenModel = vZM2mTokenModel;
                 return this;
             }
 
@@ -870,14 +868,18 @@ namespace Verizon.Standard
             /// <returns>VerizonClient.</returns>
             public VerizonClient Build()
             {
-                if (clientCredentialsAuthModel.OauthClientId == null || clientCredentialsAuthModel.OauthClientSecret == null)
+                if (thingspaceOauthModel.OauthClientId == null || thingspaceOauthModel.OauthClientSecret == null)
                 {
-                    clientCredentialsAuthModel = null;
+                    thingspaceOauthModel = null;
+                }
+                if (vZM2mTokenModel.VZM2mToken == null)
+                {
+                    vZM2mTokenModel = null;
                 }
                 return new VerizonClient(
-                    vZM2mToken,
                     environment,
-                    clientCredentialsAuthModel,
+                    thingspaceOauthModel,
+                    vZM2mTokenModel,
                     httpClientConfig.Build());
             }
         }

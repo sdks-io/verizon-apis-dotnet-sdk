@@ -60,7 +60,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/files/{acc}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("acc", acc))
                       .Query(_query => _query.Setup("distributionType", distributionType))))
@@ -110,7 +113,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.SoftwareManagementV2)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/files/{acc}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("acc", acc))
                       .Form(_form => _form.Setup("fileupload", fileupload))

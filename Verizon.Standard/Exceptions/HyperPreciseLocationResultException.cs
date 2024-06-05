@@ -50,5 +50,11 @@ namespace Verizon.Standard.Exceptions
         /// </summary>
         [JsonProperty("fault", NullValueHandling = NullValueHandling.Ignore)]
         public Models.HyperPreciseLocationFault Fault { get; set; }
+
+        /// <summary>
+        /// Gets or sets Example.
+        /// </summary>
+        [JsonProperty("example", NullValueHandling = NullValueHandling.Ignore)]
+        public object Example { get; set; }
     }
 }

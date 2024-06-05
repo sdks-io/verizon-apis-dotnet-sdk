@@ -43,9 +43,9 @@ ListOptimalServiceEndpointsAsync(
 
 ## Requires scope
 
-### oAuth2
+### thingspace_oauth
 
-`discovery:read`, `serviceprofile:read`, `serviceprofile:write`, `serviceregistry:read`, `serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
+`edge:discovery:read`, `edge:serviceprofile:read`, `edge:serviceprofile:write`, `edge:serviceregistry:read`, `edge:serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
 
 ## Response Type
 
@@ -123,9 +123,9 @@ RegisterServiceEndpointsAsync(
 
 ## Requires scope
 
-### oAuth2
+### thingspace_oauth
 
-`discovery:read`, `serviceprofile:read`, `serviceprofile:write`, `serviceregistry:read`, `serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
+`edge:discovery:read`, `edge:serviceprofile:read`, `edge:serviceprofile:write`, `edge:serviceregistry:read`, `edge:serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
 
 ## Response Type
 
@@ -184,9 +184,9 @@ ListAllServiceEndpointsAsync()
 
 ## Requires scope
 
-### oAuth2
+### thingspace_oauth
 
-`discovery:read`, `serviceprofile:read`, `serviceprofile:write`, `serviceregistry:read`, `serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
+`edge:discovery:read`, `edge:serviceprofile:read`, `edge:serviceprofile:write`, `edge:serviceregistry:read`, `edge:serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
 
 ## Response Type
 
@@ -243,9 +243,9 @@ GetServiceEndpointAsync(
 
 ## Requires scope
 
-### oAuth2
+### thingspace_oauth
 
-`discovery:read`, `serviceprofile:read`, `serviceprofile:write`, `serviceregistry:read`, `serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
+`edge:discovery:read`, `edge:serviceprofile:read`, `edge:serviceprofile:write`, `edge:serviceregistry:read`, `edge:serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
 
 ## Response Type
 
@@ -315,9 +315,9 @@ UpdateServiceEndpointAsync(
 
 ## Requires scope
 
-### oAuth2
+### thingspace_oauth
 
-`discovery:read`, `serviceprofile:read`, `serviceprofile:write`, `serviceregistry:read`, `serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
+`edge:discovery:read`, `edge:serviceprofile:read`, `edge:serviceprofile:write`, `edge:serviceregistry:read`, `edge:serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
 
 ## Response Type
 
@@ -396,9 +396,9 @@ DeregisterServiceEndpointAsync(
 
 ## Requires scope
 
-### oAuth2
+### thingspace_oauth
 
-`discovery:read`, `serviceprofile:read`, `serviceprofile:write`, `serviceregistry:read`, `serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
+`edge:discovery:read`, `edge:serviceprofile:read`, `edge:serviceprofile:write`, `edge:serviceregistry:read`, `edge:serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
 
 ## Response Type
 

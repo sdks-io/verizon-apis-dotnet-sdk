@@ -49,7 +49,7 @@ namespace Verizon.Standard.Models
             string createdAt = null,
             string modifiedAt = null,
             Models.UsageAnomalyAttributes anomalyattributes = null,
-            Models.Notification notification = null)
+            Models.TriggerNotification notification = null)
         {
             this.TriggerId = triggerId;
             this.TriggerName = triggerName;
@@ -114,7 +114,7 @@ namespace Verizon.Standard.Models
         /// The notification details of the trigger.
         /// </summary>
         [JsonProperty("notification", NullValueHandling = NullValueHandling.Ignore)]
-        public Models.Notification Notification { get; set; }
+        public Models.TriggerNotification Notification { get; set; }
 
         /// <inheritdoc/>
         public override string ToString()

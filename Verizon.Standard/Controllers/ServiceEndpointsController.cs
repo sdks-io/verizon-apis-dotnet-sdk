@@ -71,7 +71,10 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<Models.ListOptimalServiceEndpointsResult>()
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/serviceendpoints")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Query(_query => _query.Setup("region", region))
                       .Query(_query => _query.Setup("subscriberDensity", subscriberDensity))
@@ -105,7 +108,10 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<Models.RegisterServiceEndpointResult>()
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/serviceendpoints")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
@@ -131,7 +137,10 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<Models.ListAllServiceEndpointsResult>()
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/serviceendpointsall")
-                  .WithAuth("oAuth2"))
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  ))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("HTTP 400 Bad Request.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
                   .ErrorCase("401", CreateErrorCase("HTTP 401 Unauthorized.", (_reason, _context) => new EdgeDiscoveryResultException(_reason, _context)))
@@ -159,7 +168,10 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<List<Models.ResourcesEdgeHostedServiceWithProfileId>>()
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Get, "/serviceendpoints/{serviceEndpointsId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("serviceEndpointsId", serviceEndpointsId))))
               .ResponseHandler(_responseHandler => _responseHandler
@@ -193,7 +205,10 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<Models.UpdateServiceEndpointResult>()
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Put, "/serviceendpoints/{serviceEndpointsId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Template(_template => _template.Setup("serviceEndpointsId", serviceEndpointsId))
@@ -225,7 +240,10 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<Models.DeregisterServiceEndpointResult>()
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Delete, "/serviceendpoints/{serviceEndpointsId}")
-                  .WithAuth("oAuth2")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Template(_template => _template.Setup("serviceEndpointsId", serviceEndpointsId))))
               .ResponseHandler(_responseHandler => _responseHandler
