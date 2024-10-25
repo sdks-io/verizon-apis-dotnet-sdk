@@ -1,29 +1,29 @@
 // <copyright file="GlobalReportingController.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using APIMatic.Core;
+using APIMatic.Core.Types;
+using APIMatic.Core.Utilities;
+using APIMatic.Core.Utilities.Date.Xml;
+using Newtonsoft.Json.Converters;
+using System.Net.Http;
+using Verizon.Standard;
+using Verizon.Standard.Exceptions;
+using Verizon.Standard.Http.Client;
+using Verizon.Standard.Http.Response;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Dynamic;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using APIMatic.Core;
-    using APIMatic.Core.Types;
-    using APIMatic.Core.Utilities;
-    using APIMatic.Core.Utilities.Date.Xml;
-    using Newtonsoft.Json.Converters;
-    using System.Net.Http;
-    using Verizon.Standard;
-    using Verizon.Standard.Exceptions;
-    using Verizon.Standard.Http.Client;
-    using Verizon.Standard.Http.Response;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// GlobalReportingController.
     /// </summary>
@@ -35,7 +35,7 @@ namespace Verizon.Standard.Controllers
         internal GlobalReportingController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
-        /// Retreive the provisioning history of a specific device or devices.
+        /// Retrieve the provisioning history of a specific device or devices.
         /// </summary>
         /// <param name="body">Required parameter: Device Provisioning History.</param>
         /// <returns>Returns the ApiResponse of Models.ESIMRequestResponse response from the API call.</returns>
@@ -44,7 +44,7 @@ namespace Verizon.Standard.Controllers
             => CoreHelper.RunTask(DeviceprovhistoryUsingPOSTAsync(body));
 
         /// <summary>
-        /// Retreive the provisioning history of a specific device or devices.
+        /// Retrieve the provisioning history of a specific device or devices.
         /// </summary>
         /// <param name="body">Required parameter: Device Provisioning History.</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
@@ -74,38 +74,34 @@ namespace Verizon.Standard.Controllers
               .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
-        /// Get the status of a request made with the Device Actions.
+        /// Retrieve a list of all devices associated with an account.
         /// </summary>
-        /// <param name="accountname">Required parameter: Example: .</param>
-        /// <param name="requestID">Required parameter: Example: .</param>
-        /// <returns>Returns the ApiResponse of Models.ESIMStatusResponse response from the API call.</returns>
-        public ApiResponse<Models.ESIMStatusResponse> RequeststatususingGET(
-                string accountname,
-                string requestID)
-            => CoreHelper.RunTask(RequeststatususingGETAsync(accountname, requestID));
+        /// <param name="body">Required parameter: Device List.</param>
+        /// <returns>Returns the ApiResponse of Models.ESIMRequestResponse response from the API call.</returns>
+        public ApiResponse<Models.ESIMRequestResponse> RetrieveGlobalList(
+                Models.ESIMGlobalDeviceList body)
+            => CoreHelper.RunTask(RetrieveGlobalListAsync(body));
 
         /// <summary>
-        /// Get the status of a request made with the Device Actions.
+        /// Retrieve a list of all devices associated with an account.
         /// </summary>
-        /// <param name="accountname">Required parameter: Example: .</param>
-        /// <param name="requestID">Required parameter: Example: .</param>
+        /// <param name="body">Required parameter: Device List.</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.ESIMStatusResponse response from the API call.</returns>
-        public async Task<ApiResponse<Models.ESIMStatusResponse>> RequeststatususingGETAsync(
-                string accountname,
-                string requestID,
+        /// <returns>Returns the ApiResponse of Models.ESIMRequestResponse response from the API call.</returns>
+        public async Task<ApiResponse<Models.ESIMRequestResponse>> RetrieveGlobalListAsync(
+                Models.ESIMGlobalDeviceList body,
                 CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.ESIMStatusResponse>()
+            => await CreateApiCall<Models.ESIMRequestResponse>()
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/m2m/v2/accounts/{accountname}/requests/{requestID}/status")
+                  .Setup(HttpMethod.Post, "/m2m/v2/devices/actions/list")
                   .WithAndAuth(_andAuth => _andAuth
                       .Add("thingspace_oauth")
                       .Add("VZ-M2M-Token")
                   )
                   .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("accountname", accountname))
-                      .Template(_template => _template.Setup("requestID", requestID))))
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Bad request", (_reason, _context) => new ESIMRestErrorResponseException(_reason, _context)))
                   .ErrorCase("401", CreateErrorCase("Unauthorized", (_reason, _context) => new ESIMRestErrorResponseException(_reason, _context)))

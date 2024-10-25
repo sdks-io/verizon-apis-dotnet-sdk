@@ -102,9 +102,8 @@ FirmwareUpgradeRequest body = new FirmwareUpgradeRequest
     AccountName = "0402196254-00001",
     FirmwareName = "FOTA_Verizon_Model-A_01To02_HF",
     FirmwareTo = "VerizonFirmwareVersion-02",
-    StartDate = DateTime.ParseExact("2018-04-01T16:03:00.000Z", "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK",
-        provider: CultureInfo.InvariantCulture,
-        DateTimeStyles.RoundtripKind),
+    StartDate = DateTime.Parse("2018-04-01"),
+    EndDate = DateTime.Parse("2018-04-05"),
     DeviceList = new List<string>
     {
         "990003425730535",
@@ -159,7 +158,7 @@ Returns information about a specified upgrade, include the target date of the up
 
 ```csharp
 ListFirmwareUpgradeDetailsAsync(
-    string account,
+    string accountName,
     string upgradeId)
 ```
 
@@ -167,7 +166,7 @@ ListFirmwareUpgradeDetailsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier in "##########-#####". |
+| `accountName` | `string` | Template, Required | Account identifier in "##########-#####". |
 | `upgradeId` | `string` | Template, Required | The UUID of the upgrade, returned by POST /upgrades when the upgrade was scheduled. |
 
 ## Response Type
@@ -177,12 +176,12 @@ ListFirmwareUpgradeDetailsAsync(
 ## Example Usage
 
 ```csharp
-string account = "0242078689-00001";
+string accountName = "0242078689-00001";
 string upgradeId = "e3a8d88a-04c6-4ef3-b039-89b62f91e962";
 try
 {
     ApiResponse<FirmwareUpgrade> result = await firmwareV1Controller.ListFirmwareUpgradeDetailsAsync(
-        account,
+        accountName,
         upgradeId
     );
 }
@@ -214,7 +213,8 @@ catch (ApiException e)
       "status": "Device Accepted",
       "resultReason": "success"
     }
-  ]
+  ],
+  "endDate": "2018-04-05"
 }
 ```
 
@@ -231,7 +231,7 @@ Add or remove devices from a scheduled upgrade.
 
 ```csharp
 UpdateFirmwareUpgradeDevicesAsync(
-    string account,
+    string accountName,
     string upgradeId,
     Models.FirmwareUpgradeChangeRequest body)
 ```
@@ -240,7 +240,7 @@ UpdateFirmwareUpgradeDevicesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier in "##########-#####". |
+| `accountName` | `string` | Template, Required | Account identifier in "##########-#####". |
 | `upgradeId` | `string` | Template, Required | The UUID of the upgrade, returned by POST /upgrades when the upgrade was scheduled. |
 | `body` | [`FirmwareUpgradeChangeRequest`](../../doc/models/firmware-upgrade-change-request.md) | Body, Required | List of devices to add or remove. |
 
@@ -251,7 +251,7 @@ UpdateFirmwareUpgradeDevicesAsync(
 ## Example Usage
 
 ```csharp
-string account = "0242078689-00001";
+string accountName = "0242078689-00001";
 string upgradeId = "e3a8d88a-04c6-4ef3-b039-89b62f91e962";
 FirmwareUpgradeChangeRequest body = new FirmwareUpgradeChangeRequest
 {
@@ -266,7 +266,7 @@ FirmwareUpgradeChangeRequest body = new FirmwareUpgradeChangeRequest
 try
 {
     ApiResponse<FirmwareUpgradeChangeResult> result = await firmwareV1Controller.UpdateFirmwareUpgradeDevicesAsync(
-        account,
+        accountName,
         upgradeId,
         body
     );
@@ -312,7 +312,7 @@ Cancel a scheduled firmware upgrade.
 
 ```csharp
 CancelScheduledFirmwareUpgradeAsync(
-    string account,
+    string accountName,
     string upgradeId)
 ```
 
@@ -320,7 +320,7 @@ CancelScheduledFirmwareUpgradeAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier in "##########-#####". |
+| `accountName` | `string` | Template, Required | Account identifier in "##########-#####". |
 | `upgradeId` | `string` | Template, Required | The UUID of the scheduled upgrade that you want to cancel. |
 
 ## Response Type
@@ -330,12 +330,12 @@ CancelScheduledFirmwareUpgradeAsync(
 ## Example Usage
 
 ```csharp
-string account = "0242078689-00001";
+string accountName = "0242078689-00001";
 string upgradeId = "e3a8d88a-04c6-4ef3-b039-89b62f91e962";
 try
 {
     ApiResponse<FotaV1SuccessResult> result = await firmwareV1Controller.CancelScheduledFirmwareUpgradeAsync(
-        account,
+        accountName,
         upgradeId
     );
 }

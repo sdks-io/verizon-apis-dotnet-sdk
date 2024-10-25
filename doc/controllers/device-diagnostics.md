@@ -98,11 +98,11 @@ RetrieveActiveMonitorsUsingPOSTAsync(
 RetrieveMonitorsRequest body = new RetrieveMonitorsRequest
 {
     AccountName = "0242123520-00001",
-    Devices = new List<Models.AccountDeviceList>
+    Devices = new List<AccountDeviceList>
     {
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {

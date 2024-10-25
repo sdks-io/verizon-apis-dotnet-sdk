@@ -1,18 +1,18 @@
 // <copyright file="BaseController.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using APIMatic.Core;
+using APIMatic.Core.Http.Configuration;
+using APIMatic.Core.Response;
+using System;
+using Verizon.Standard.Exceptions;
+using Verizon.Standard.Http.Client;
+using Verizon.Standard.Http.Request;
+using Verizon.Standard.Http.Response;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard.Controllers
 {
-    using APIMatic.Core;
-    using APIMatic.Core.Http.Configuration;
-    using APIMatic.Core.Response;
-    using System;
-    using Verizon.Standard.Exceptions;
-    using Verizon.Standard.Http.Client;
-    using Verizon.Standard.Http.Request;
-    using Verizon.Standard.Http.Response;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// The base class for all controller classes.
     /// </summary>

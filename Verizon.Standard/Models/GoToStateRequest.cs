@@ -1,21 +1,21 @@
 // <copyright file="GoToStateRequest.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using APIMatic.Core.Utilities.Converters;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Verizon.Standard;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using APIMatic.Core.Utilities.Converters;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-    using Verizon.Standard;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// GoToStateRequest.
     /// </summary>
@@ -42,7 +42,7 @@ namespace Verizon.Standard.Models
         /// <param name="skuNumber">skuNumber.</param>
         /// <param name="customFields">customFields.</param>
         /// <param name="devicesWithServiceAddress">devicesWithServiceAddress.</param>
-        /// <param name="ipAddress">ipAddress.</param>
+        /// <param name="ipaddress">ipAddress.</param>
         /// <param name="groupName">groupName.</param>
         /// <param name="primaryPlaceOfUse">primaryPlaceOfUse.</param>
         public GoToStateRequest(
@@ -57,7 +57,7 @@ namespace Verizon.Standard.Models
             string skuNumber = null,
             List<Models.CustomFields> customFields = null,
             object devicesWithServiceAddress = null,
-            string ipAddress = null,
+            string ipaddress = null,
             string groupName = null,
             Models.PlaceOfUse primaryPlaceOfUse = null)
         {
@@ -72,7 +72,7 @@ namespace Verizon.Standard.Models
             this.SkuNumber = skuNumber;
             this.CustomFields = customFields;
             this.DevicesWithServiceAddress = devicesWithServiceAddress;
-            this.IpAddress = ipAddress;
+            this.Ipaddress = ipaddress;
             this.GroupName = groupName;
             this.PrimaryPlaceOfUse = primaryPlaceOfUse;
         }
@@ -147,7 +147,7 @@ namespace Verizon.Standard.Models
         /// The IP address of the device.
         /// </summary>
         [JsonProperty("ipAddress", NullValueHandling = NullValueHandling.Ignore)]
-        public string IpAddress { get; set; }
+        public string Ipaddress { get; set; }
 
         /// <summary>
         /// The name of a device group that the devices should be added to.
@@ -194,7 +194,7 @@ namespace Verizon.Standard.Models
                 ((this.SkuNumber == null && other.SkuNumber == null) || (this.SkuNumber?.Equals(other.SkuNumber) == true)) &&
                 ((this.CustomFields == null && other.CustomFields == null) || (this.CustomFields?.Equals(other.CustomFields) == true)) &&
                 ((this.DevicesWithServiceAddress == null && other.DevicesWithServiceAddress == null) || (this.DevicesWithServiceAddress?.Equals(other.DevicesWithServiceAddress) == true)) &&
-                ((this.IpAddress == null && other.IpAddress == null) || (this.IpAddress?.Equals(other.IpAddress) == true)) &&
+                ((this.Ipaddress == null && other.Ipaddress == null) || (this.Ipaddress?.Equals(other.Ipaddress) == true)) &&
                 ((this.GroupName == null && other.GroupName == null) || (this.GroupName?.Equals(other.GroupName) == true)) &&
                 ((this.PrimaryPlaceOfUse == null && other.PrimaryPlaceOfUse == null) || (this.PrimaryPlaceOfUse?.Equals(other.PrimaryPlaceOfUse) == true));
         }
@@ -216,7 +216,7 @@ namespace Verizon.Standard.Models
             toStringOutput.Add($"this.SkuNumber = {(this.SkuNumber == null ? "null" : this.SkuNumber)}");
             toStringOutput.Add($"this.CustomFields = {(this.CustomFields == null ? "null" : $"[{string.Join(", ", this.CustomFields)} ]")}");
             toStringOutput.Add($"DevicesWithServiceAddress = {(this.DevicesWithServiceAddress == null ? "null" : this.DevicesWithServiceAddress.ToString())}");
-            toStringOutput.Add($"this.IpAddress = {(this.IpAddress == null ? "null" : this.IpAddress)}");
+            toStringOutput.Add($"this.Ipaddress = {(this.Ipaddress == null ? "null" : this.Ipaddress)}");
             toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName)}");
             toStringOutput.Add($"this.PrimaryPlaceOfUse = {(this.PrimaryPlaceOfUse == null ? "null" : this.PrimaryPlaceOfUse.ToString())}");
         }

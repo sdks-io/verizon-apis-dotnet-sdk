@@ -8,22 +8,22 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>sdksio.VerizonApisSDK</AssemblyName>
-    <Version>1.5.0.0</Version>
-    <Authors>developer-sdks-io </Authors>
+    <AssemblyName>VerizonApisSDK</AssemblyName>
+    <Version>1.5.1.0</Version>
+    <Authors>developer-sdksio</Authors>
     <Owners></Owners>
     <Product>Verizon.Standard</Product>
     <Copyright>Copyright ©  2019</Copyright>
-    <AssemblyVersion>1.5.0.0</AssemblyVersion>
-    <FileVersion>1.5.0.0</FileVersion>
-    <Description>Use Verizon API to manage IOT  and Mobile devices</Description>
+    <AssemblyVersion>1.5.1.0</AssemblyVersion>
+    <FileVersion>1.5.1.0</FileVersion>
+    <Description>Use the Verizon API for connectivity management, device diagnostics, device location, edge discovery service, edge performance, software management and much more.</Description>
     <LangVersion>7.3</LangVersion>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <PackageId>sdksio.VerizonApisSDK</PackageId>
-    <PackageTags>Verizon;API;SDK</PackageTags>
+    <PackageId>VerizonApisSDK</PackageId>
+    <PackageTags>API;SDK;Verizon;Thingspace</PackageTags>
     <RepositoryUrl>https://github.com/sdks-io/verizon-apis-dotnet-sdk.git</RepositoryUrl>
     <PackRepositoryTypeageId>git</PackRepositoryTypeageId>
-    <PackageProjectUrl>https://www.verizon.com/business/5g-edge-portal/</PackageProjectUrl>
+    <PackageProjectUrl>https://www.verizon.com/business/5g-edge-portal/api-documentation.html</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
 
@@ -31,7 +31,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include= "APIMatic.Core" Version= "0.3.*" />
+    <PackageReference Include= "APIMatic.Core" Version= "0.4.*" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <None Include="..\README.md" Pack="true" PackagePath="\"/>
     <None Include="..\LICENSE" Pack="true" PackagePath="\"/>

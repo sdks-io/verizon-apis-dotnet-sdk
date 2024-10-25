@@ -65,11 +65,11 @@ ActivateServiceForDevicesAsync(
 ```csharp
 CarrierActivateRequest body = new CarrierActivateRequest
 {
-    Devices = new List<Models.AccountDeviceList>
+    Devices = new List<AccountDeviceList>
     {
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -82,11 +82,11 @@ CarrierActivateRequest body = new CarrierActivateRequest
                     Kind = "iccid",
                 },
             },
-            IpAddress = "1.2.3.456",
+            Ipaddress = "1.2.3.456",
         },
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -99,13 +99,13 @@ CarrierActivateRequest body = new CarrierActivateRequest
                     Kind = "iccid",
                 },
             },
-            IpAddress = "1.2.3.456",
+            Ipaddress = "1.2.3.456",
         },
     },
     ServicePlan = "the service plan name",
     MdnZipCode = "98801",
     AccountName = "0868924207-00001",
-    CustomFields = new List<Models.CustomFields>
+    CustomFields = new List<CustomFields>
     {
         new CustomFields
         {
@@ -184,11 +184,11 @@ AddDevicesAsync(
 AddDevicesRequest body = new AddDevicesRequest
 {
     State = "preactive",
-    DevicesToAdd = new List<Models.AccountDeviceList>
+    DevicesToAdd = new List<AccountDeviceList>
     {
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -204,7 +204,7 @@ AddDevicesRequest body = new AddDevicesRequest
         },
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -220,7 +220,7 @@ AddDevicesRequest body = new AddDevicesRequest
         },
     },
     AccountName = "0868924207-00001",
-    CustomFields = new List<Models.CustomFields>
+    CustomFields = new List<CustomFields>
     {
         new CustomFields
         {
@@ -313,12 +313,12 @@ ContactInfoUpdateRequest body = new ContactInfoUpdateRequest
             Suffix = "I",
         },
     },
-    AccountName = "0212345678-00001",
-    Devices = new List<Models.AccountDeviceList>
+    AccountName = "0000123456-00001",
+    Devices = new List<AccountDeviceList>
     {
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -385,7 +385,7 @@ UpdateDevicesCustomFieldsAsync(
 ```csharp
 CustomFieldsUpdateRequest body = new CustomFieldsUpdateRequest
 {
-    CustomFieldsToUpdate = new List<Models.CustomFields>
+    CustomFieldsToUpdate = new List<CustomFields>
     {
         new CustomFields
         {
@@ -398,11 +398,11 @@ CustomFieldsUpdateRequest body = new CustomFieldsUpdateRequest
             MValue = "Distribution",
         },
     },
-    Devices = new List<Models.AccountDeviceList>
+    Devices = new List<AccountDeviceList>
     {
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -465,11 +465,11 @@ DeactivateServiceForDevicesAsync(
 CarrierDeactivateRequest body = new CarrierDeactivateRequest
 {
     AccountName = "0000123456-00001",
-    Devices = new List<Models.AccountDeviceList>
+    Devices = new List<AccountDeviceList>
     {
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -534,11 +534,11 @@ DeleteDeactivatedDevicesAsync(
 ```csharp
 DeleteDevicesRequest body = new DeleteDevicesRequest
 {
-    DevicesToDelete = new List<Models.AccountDeviceList>
+    DevicesToDelete = new List<AccountDeviceList>
     {
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -549,7 +549,7 @@ DeleteDevicesRequest body = new DeleteDevicesRequest
         },
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -560,7 +560,7 @@ DeleteDevicesRequest body = new DeleteDevicesRequest
         },
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -743,11 +743,11 @@ DeviceMismatchListRequest body = new DeviceMismatchListRequest
         Earliest = "2020-05-01T15:00:00-08:00Z",
         Latest = "2020-07-30T15:00:00-08:00Z",
     },
-    Devices = new List<Models.AccountDeviceList>
+    Devices = new List<AccountDeviceList>
     {
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -826,11 +826,11 @@ MoveDevicesWithinAccountsOfProfileAsync(
 MoveDeviceRequest body = new MoveDeviceRequest
 {
     AccountName = "0212345678-00001",
-    Devices = new List<Models.AccountDeviceList>
+    Devices = new List<AccountDeviceList>
     {
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -897,11 +897,11 @@ GoToStateRequest body = new GoToStateRequest
     StateName = "My State",
     ServicePlan = "87641",
     MdnZipCode = "94203",
-    Devices = new List<Models.AccountDeviceList>
+    Devices = new List<AccountDeviceList>
     {
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -917,7 +917,7 @@ GoToStateRequest body = new GoToStateRequest
         },
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -1004,11 +1004,11 @@ ChangeDevicesServicePlanAsync(
 ServicePlanUpdateRequest body = new ServicePlanUpdateRequest
 {
     ServicePlan = "Tablet5GB",
-    Devices = new List<Models.AccountDeviceList>
+    Devices = new List<AccountDeviceList>
     {
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -1071,11 +1071,11 @@ SuspendServiceForDevicesAsync(
 ```csharp
 CarrierActionsRequest body = new CarrierActionsRequest
 {
-    Devices = new List<Models.AccountDeviceList>
+    Devices = new List<AccountDeviceList>
     {
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -1137,11 +1137,11 @@ RestoreServiceForSuspendedDevicesAsync(
 ```csharp
 CarrierActionsRequest body = new CarrierActionsRequest
 {
-    Devices = new List<Models.AccountDeviceList>
+    Devices = new List<AccountDeviceList>
     {
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -1204,11 +1204,11 @@ CheckDevicesAvailabilityForActivationAsync(
 DeviceActivationRequest body = new DeviceActivationRequest
 {
     AccountName = "0212345678-00001",
-    Devices = new List<Models.AccountDeviceList>
+    Devices = new List<AccountDeviceList>
     {
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -1364,11 +1364,11 @@ UpdateDevicesCostCenterCodeAsync(
 DeviceCostCenterRequest body = new DeviceCostCenterRequest
 {
     CostCenter = "cc12345",
-    Devices = new List<Models.AccountDeviceList>
+    Devices = new List<AccountDeviceList>
     {
         new AccountDeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -1431,7 +1431,7 @@ GetDeviceExtendedDiagnosticInformationAsync(
 DeviceExtendedDiagnosticsRequest body = new DeviceExtendedDiagnosticsRequest
 {
     AccountName = "1223334444-00001",
-    DeviceList = new List<Models.DeviceId>
+    DeviceList = new List<DeviceId>
     {
         new DeviceId
         {
@@ -1574,7 +1574,7 @@ ListCurrentDevicesPRLVersionAsync(
 ```csharp
 DevicePrlListRequest body = new DevicePrlListRequest
 {
-    DeviceIds = new List<Models.DeviceId>
+    DeviceIds = new List<DeviceId>
     {
         new DeviceId
         {
@@ -1639,7 +1639,7 @@ GetDeviceServiceSuspensionStatusAsync(
 ```csharp
 DeviceSuspensionStatusRequest body = new DeviceSuspensionStatusRequest
 {
-    DeviceIds = new List<Models.DeviceId>
+    DeviceIds = new List<DeviceId>
     {
         new DeviceId
         {
@@ -1779,7 +1779,7 @@ DeviceAggregateUsageListRequest body = new DeviceAggregateUsageListRequest
 {
     StartTime = "2021-08-01T00:00:00-06:00",
     EndTime = "2021-08-30T00:00:00-06:00",
-    DeviceIds = new List<Models.DeviceId>
+    DeviceIds = new List<DeviceId>
     {
         new DeviceId
         {
@@ -1843,7 +1843,7 @@ UpdateDeviceIdAsync(
 string serviceType = "serviceType6";
 ChangeDeviceIdRequest body = new ChangeDeviceIdRequest
 {
-    DeviceIds = new List<Models.DeviceId>
+    DeviceIds = new List<DeviceId>
     {
         new DeviceId
         {
@@ -1852,7 +1852,7 @@ ChangeDeviceIdRequest body = new ChangeDeviceIdRequest
         },
     },
     Change4gOption = "ChangeICCID",
-    DeviceIdsTo = new List<Models.DeviceId>
+    DeviceIdsTo = new List<DeviceId>
     {
         new DeviceId
         {
@@ -1918,11 +1918,11 @@ DeviceUploadAsync(
 DeviceUploadRequest body = new DeviceUploadRequest
 {
     AccountName = "1223334444-00001",
-    Devices = new List<Models.DeviceList>
+    Devices = new List<DeviceList>
     {
         new DeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -1933,7 +1933,7 @@ DeviceUploadRequest body = new DeviceUploadRequest
         },
         new DeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -1944,7 +1944,7 @@ DeviceUploadRequest body = new DeviceUploadRequest
         },
         new DeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -2057,7 +2057,7 @@ AssociateLabelRequest body = new AssociateLabelRequest
     AccountName = "1223334444-00001",
     Labels = new AccountLabels
     {
-        Devices = new List<Models.DeviceList>
+        Devices = new List<DeviceList>
         {
             new DeviceList
             {
@@ -2180,11 +2180,11 @@ UploadsActivatesDeviceRequest body = new UploadsActivatesDeviceRequest
     UploadType = "IMEI ICCID Pair",
     ServicePlan = "15MBShr",
     MdnZipCode = "92222",
-    Devices = new List<Models.DeviceList>
+    Devices = new List<DeviceList>
     {
         new DeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -2253,11 +2253,11 @@ UploadDeviceIdentifierAsync(
 CheckOrderStatusRequest body = new CheckOrderStatusRequest
 {
     AccountName = "4Gpublicaccount ",
-    Devices = new List<Models.DeviceList>
+    Devices = new List<DeviceList>
     {
         new DeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {

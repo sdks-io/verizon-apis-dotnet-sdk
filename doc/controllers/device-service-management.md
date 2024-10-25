@@ -104,7 +104,7 @@ UpdateDeviceHyperPreciseStatusAsync(
 ```csharp
 BullseyeServiceRequest body = new BullseyeServiceRequest
 {
-    DeviceList = new List<Models.DeviceServiceRequest>
+    DeviceList = new List<DeviceServiceRequest>
     {
         new DeviceServiceRequest
         {

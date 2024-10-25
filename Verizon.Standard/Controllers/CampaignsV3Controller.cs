@@ -1,29 +1,29 @@
 // <copyright file="CampaignsV3Controller.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using APIMatic.Core;
+using APIMatic.Core.Types;
+using APIMatic.Core.Utilities;
+using APIMatic.Core.Utilities.Date.Xml;
+using Newtonsoft.Json.Converters;
+using System.Net.Http;
+using Verizon.Standard;
+using Verizon.Standard.Exceptions;
+using Verizon.Standard.Http.Client;
+using Verizon.Standard.Http.Response;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Dynamic;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using APIMatic.Core;
-    using APIMatic.Core.Types;
-    using APIMatic.Core.Utilities;
-    using APIMatic.Core.Utilities.Date.Xml;
-    using Newtonsoft.Json.Converters;
-    using System.Net.Http;
-    using Verizon.Standard;
-    using Verizon.Standard.Exceptions;
-    using Verizon.Standard.Http.Client;
-    using Verizon.Standard.Http.Response;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// CampaignsV3Controller.
     /// </summary>
@@ -37,36 +37,36 @@ namespace Verizon.Standard.Controllers
         /// <summary>
         /// This endpoint allows a user to schedule a firmware upgrade for a list of devices.
         /// </summary>
-        /// <param name="acc">Required parameter: Account identifier..</param>
+        /// <param name="accountName">Required parameter: Account identifier..</param>
         /// <param name="body">Required parameter: Firmware upgrade information..</param>
         /// <returns>Returns the ApiResponse of Models.FirmwareCampaign response from the API call.</returns>
         public ApiResponse<Models.FirmwareCampaign> ScheduleCampaignFirmwareUpgrade(
-                string acc,
+                string accountName,
                 Models.CampaignFirmwareUpgrade body)
-            => CoreHelper.RunTask(ScheduleCampaignFirmwareUpgradeAsync(acc, body));
+            => CoreHelper.RunTask(ScheduleCampaignFirmwareUpgradeAsync(accountName, body));
 
         /// <summary>
         /// This endpoint allows a user to schedule a firmware upgrade for a list of devices.
         /// </summary>
-        /// <param name="acc">Required parameter: Account identifier..</param>
+        /// <param name="accountName">Required parameter: Account identifier..</param>
         /// <param name="body">Required parameter: Firmware upgrade information..</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
         /// <returns>Returns the ApiResponse of Models.FirmwareCampaign response from the API call.</returns>
         public async Task<ApiResponse<Models.FirmwareCampaign>> ScheduleCampaignFirmwareUpgradeAsync(
-                string acc,
+                string accountName,
                 Models.CampaignFirmwareUpgrade body,
                 CancellationToken cancellationToken = default)
             => await CreateApiCall<Models.FirmwareCampaign>()
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/campaigns/firmware/{acc}")
+                  .Setup(HttpMethod.Post, "/campaigns/firmware/{accountName}")
                   .WithAndAuth(_andAuth => _andAuth
                       .Add("thingspace_oauth")
                       .Add("VZ-M2M-Token")
                   )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Template(_template => _template.Setup("acc", acc))
+                      .Template(_template => _template.Setup("accountName", accountName))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context))))
@@ -161,35 +161,35 @@ namespace Verizon.Standard.Controllers
         /// <summary>
         /// This endpoint allows the user to retrieve campaign level information for a specified campaign.
         /// </summary>
-        /// <param name="acc">Required parameter: Account identifier..</param>
+        /// <param name="accountName">Required parameter: Account identifier..</param>
         /// <param name="campaignId">Required parameter: Firmware upgrade identifier..</param>
         /// <returns>Returns the ApiResponse of Models.Campaign response from the API call.</returns>
         public ApiResponse<Models.Campaign> GetCampaignInformation(
-                string acc,
+                string accountName,
                 string campaignId)
-            => CoreHelper.RunTask(GetCampaignInformationAsync(acc, campaignId));
+            => CoreHelper.RunTask(GetCampaignInformationAsync(accountName, campaignId));
 
         /// <summary>
         /// This endpoint allows the user to retrieve campaign level information for a specified campaign.
         /// </summary>
-        /// <param name="acc">Required parameter: Account identifier..</param>
+        /// <param name="accountName">Required parameter: Account identifier..</param>
         /// <param name="campaignId">Required parameter: Firmware upgrade identifier..</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
         /// <returns>Returns the ApiResponse of Models.Campaign response from the API call.</returns>
         public async Task<ApiResponse<Models.Campaign>> GetCampaignInformationAsync(
-                string acc,
+                string accountName,
                 string campaignId,
                 CancellationToken cancellationToken = default)
             => await CreateApiCall<Models.Campaign>()
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/campaigns/{acc}/{campaignId}")
+                  .Setup(HttpMethod.Get, "/campaigns/{accountName}/{campaignId}")
                   .WithAndAuth(_andAuth => _andAuth
                       .Add("thingspace_oauth")
                       .Add("VZ-M2M-Token")
                   )
                   .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("acc", acc))
+                      .Template(_template => _template.Setup("accountName", accountName))
                       .Template(_template => _template.Setup("campaignId", campaignId))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context))))
@@ -198,35 +198,35 @@ namespace Verizon.Standard.Controllers
         /// <summary>
         /// This endpoint allows user to cancel a firmware campaign. A firmware campaign already started can not be cancelled.
         /// </summary>
-        /// <param name="acc">Required parameter: Account identifier..</param>
+        /// <param name="accountName">Required parameter: Account identifier..</param>
         /// <param name="campaignId">Required parameter: Firmware upgrade information..</param>
         /// <returns>Returns the ApiResponse of Models.FotaV3SuccessResult response from the API call.</returns>
         public ApiResponse<Models.FotaV3SuccessResult> CancelCampaign(
-                string acc,
+                string accountName,
                 string campaignId)
-            => CoreHelper.RunTask(CancelCampaignAsync(acc, campaignId));
+            => CoreHelper.RunTask(CancelCampaignAsync(accountName, campaignId));
 
         /// <summary>
         /// This endpoint allows user to cancel a firmware campaign. A firmware campaign already started can not be cancelled.
         /// </summary>
-        /// <param name="acc">Required parameter: Account identifier..</param>
+        /// <param name="accountName">Required parameter: Account identifier..</param>
         /// <param name="campaignId">Required parameter: Firmware upgrade information..</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
         /// <returns>Returns the ApiResponse of Models.FotaV3SuccessResult response from the API call.</returns>
         public async Task<ApiResponse<Models.FotaV3SuccessResult>> CancelCampaignAsync(
-                string acc,
+                string accountName,
                 string campaignId,
                 CancellationToken cancellationToken = default)
             => await CreateApiCall<Models.FotaV3SuccessResult>()
               .Server(Server.SoftwareManagementV3)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Delete, "/campaigns/{acc}/{campaignId}")
+                  .Setup(HttpMethod.Delete, "/campaigns/{accountName}/{campaignId}")
                   .WithAndAuth(_andAuth => _andAuth
                       .Add("thingspace_oauth")
                       .Add("VZ-M2M-Token")
                   )
                   .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("acc", acc))
+                      .Template(_template => _template.Setup("accountName", accountName))
                       .Template(_template => _template.Setup("campaignId", campaignId))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new FotaV3ResultException(_reason, _context))))

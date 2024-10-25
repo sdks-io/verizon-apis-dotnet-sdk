@@ -41,11 +41,11 @@ DownloadLocalProfileToEnableAsync(
 ```csharp
 ProfileChangeStateRequest body = new ProfileChangeStateRequest
 {
-    Devices = new List<Models.DeviceList>
+    Devices = new List<DeviceList>
     {
         new DeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -114,11 +114,11 @@ DownloadLocalProfileToDisableAsync(
 ```csharp
 ProfileChangeStateRequest body = new ProfileChangeStateRequest
 {
-    Devices = new List<Models.DeviceList>
+    Devices = new List<DeviceList>
     {
         new DeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -187,11 +187,11 @@ EnableLocalProfileAsync(
 ```csharp
 ProfileChangeStateRequest body = new ProfileChangeStateRequest
 {
-    Devices = new List<Models.DeviceList>
+    Devices = new List<DeviceList>
     {
         new DeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -252,11 +252,11 @@ DisableLocalProfileAsync(
 ```csharp
 ProfileChangeStateRequest body = new ProfileChangeStateRequest
 {
-    Devices = new List<Models.DeviceList>
+    Devices = new List<DeviceList>
     {
         new DeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -317,11 +317,11 @@ DeleteLocalProfileAsync(
 ```csharp
 ProfileChangeStateRequest body = new ProfileChangeStateRequest
 {
-    Devices = new List<Models.DeviceList>
+    Devices = new List<DeviceList>
     {
         new DeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {

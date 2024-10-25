@@ -11,7 +11,7 @@ Type of User Equipment identifier used in `UEIdentity`.
 
 | Name |
 |  --- |
-| `IPAddress` |
+| `Ipaddress` |
 
 ## Example
 

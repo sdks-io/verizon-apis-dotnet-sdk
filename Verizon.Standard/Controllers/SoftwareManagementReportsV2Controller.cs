@@ -1,29 +1,29 @@
 // <copyright file="SoftwareManagementReportsV2Controller.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using APIMatic.Core;
+using APIMatic.Core.Types;
+using APIMatic.Core.Utilities;
+using APIMatic.Core.Utilities.Date.Xml;
+using Newtonsoft.Json.Converters;
+using System.Net.Http;
+using Verizon.Standard;
+using Verizon.Standard.Exceptions;
+using Verizon.Standard.Http.Client;
+using Verizon.Standard.Http.Response;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Dynamic;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using APIMatic.Core;
-    using APIMatic.Core.Types;
-    using APIMatic.Core.Utilities;
-    using APIMatic.Core.Utilities.Date.Xml;
-    using Newtonsoft.Json.Converters;
-    using System.Net.Http;
-    using Verizon.Standard;
-    using Verizon.Standard.Exceptions;
-    using Verizon.Standard.Http.Client;
-    using Verizon.Standard.Http.Response;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// SoftwareManagementReportsV2Controller.
     /// </summary>
@@ -39,7 +39,7 @@ namespace Verizon.Standard.Controllers
         /// </summary>
         /// <param name="account">Required parameter: Account identifier..</param>
         /// <param name="distributionType">Optional parameter: Filter distributionType to get specific type of software. Value is LWM2M, OMD-DM or HTTP..</param>
-        /// <returns>Returns the ApiResponse of List<Models.SoftwarePackage> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.SoftwarePackage&gt; response from the API call.</returns>
         public ApiResponse<List<Models.SoftwarePackage>> ListAvailableSoftware(
                 string account,
                 string distributionType = null)
@@ -51,7 +51,7 @@ namespace Verizon.Standard.Controllers
         /// <param name="account">Required parameter: Account identifier..</param>
         /// <param name="distributionType">Optional parameter: Filter distributionType to get specific type of software. Value is LWM2M, OMD-DM or HTTP..</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of List<Models.SoftwarePackage> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.SoftwarePackage&gt; response from the API call.</returns>
         public async Task<ApiResponse<List<Models.SoftwarePackage>>> ListAvailableSoftwareAsync(
                 string account,
                 string distributionType = null,
@@ -118,7 +118,7 @@ namespace Verizon.Standard.Controllers
         /// </summary>
         /// <param name="account">Required parameter: Account identifier..</param>
         /// <param name="deviceId">Required parameter: Device IMEI identifier..</param>
-        /// <returns>Returns the ApiResponse of List<Models.DeviceSoftwareUpgrade> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.DeviceSoftwareUpgrade&gt; response from the API call.</returns>
         public ApiResponse<List<Models.DeviceSoftwareUpgrade>> GetDeviceFirmwareUpgradeHistory(
                 string account,
                 string deviceId)
@@ -130,7 +130,7 @@ namespace Verizon.Standard.Controllers
         /// <param name="account">Required parameter: Account identifier..</param>
         /// <param name="deviceId">Required parameter: Device IMEI identifier..</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of List<Models.DeviceSoftwareUpgrade> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.DeviceSoftwareUpgrade&gt; response from the API call.</returns>
         public async Task<ApiResponse<List<Models.DeviceSoftwareUpgrade>>> GetDeviceFirmwareUpgradeHistoryAsync(
                 string account,
                 string deviceId,

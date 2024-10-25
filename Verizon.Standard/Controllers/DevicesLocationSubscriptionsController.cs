@@ -1,29 +1,29 @@
 // <copyright file="DevicesLocationSubscriptionsController.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using APIMatic.Core;
+using APIMatic.Core.Types;
+using APIMatic.Core.Utilities;
+using APIMatic.Core.Utilities.Date.Xml;
+using Newtonsoft.Json.Converters;
+using System.Net.Http;
+using Verizon.Standard;
+using Verizon.Standard.Exceptions;
+using Verizon.Standard.Http.Client;
+using Verizon.Standard.Http.Response;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Dynamic;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using APIMatic.Core;
-    using APIMatic.Core.Types;
-    using APIMatic.Core.Utilities;
-    using APIMatic.Core.Utilities.Date.Xml;
-    using Newtonsoft.Json.Converters;
-    using System.Net.Http;
-    using Verizon.Standard;
-    using Verizon.Standard.Exceptions;
-    using Verizon.Standard.Http.Client;
-    using Verizon.Standard.Http.Response;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// DevicesLocationSubscriptionsController.
     /// </summary>
@@ -37,31 +37,31 @@ namespace Verizon.Standard.Controllers
         /// <summary>
         /// This subscriptions endpoint retrieves an account's current location subscription status.
         /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <param name="accountName">Required parameter: Account identifier in "##########-#####"..</param>
         /// <returns>Returns the ApiResponse of Models.DeviceLocationSubscription response from the API call.</returns>
         public ApiResponse<Models.DeviceLocationSubscription> GetLocationServiceSubscriptionStatus(
-                string account)
-            => CoreHelper.RunTask(GetLocationServiceSubscriptionStatusAsync(account));
+                string accountName)
+            => CoreHelper.RunTask(GetLocationServiceSubscriptionStatusAsync(accountName));
 
         /// <summary>
         /// This subscriptions endpoint retrieves an account's current location subscription status.
         /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <param name="accountName">Required parameter: Account identifier in "##########-#####"..</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
         /// <returns>Returns the ApiResponse of Models.DeviceLocationSubscription response from the API call.</returns>
         public async Task<ApiResponse<Models.DeviceLocationSubscription>> GetLocationServiceSubscriptionStatusAsync(
-                string account,
+                string accountName,
                 CancellationToken cancellationToken = default)
             => await CreateApiCall<Models.DeviceLocationSubscription>()
               .Server(Server.DeviceLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/subscriptions/{account}")
+                  .Setup(HttpMethod.Get, "/subscriptions/{accountName}")
                   .WithAndAuth(_andAuth => _andAuth
                       .Add("thingspace_oauth")
                       .Add("VZ-M2M-Token")
                   )
                   .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("account", account))))
+                      .Template(_template => _template.Setup("accountName", accountName))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Unexpected error.", (_reason, _context) => new DeviceLocationResultException(_reason, _context))))
               .ExecuteAsync(cancellationToken).ConfigureAwait(false);

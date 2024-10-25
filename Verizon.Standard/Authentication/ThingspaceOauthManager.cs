@@ -1,19 +1,21 @@
 // <copyright file="ThingspaceOauthManager.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Verizon.Standard.Controllers;
+using Verizon.Standard.Http.Response;using Verizon.Standard.Models;
+using Verizon.Standard.Utilities;
+using Verizon.Standard.Exceptions;
+using APIMatic.Core.Authentication;
+using APIMatic.Core.Request;
+using APIMatic.Core;
+
 namespace Verizon.Standard.Authentication
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Verizon.Standard.Controllers;
-        using Verizon.Standard.Http.Response;using Verizon.Standard.Models;
-    using Verizon.Standard.Utilities;
-    using Verizon.Standard.Exceptions;
-    using APIMatic.Core.Authentication;
-    using APIMatic.Core;
-
     /// <summary>
     /// ThingspaceOauthManager Class.
     /// </summary>
@@ -31,11 +33,10 @@ namespace Verizon.Standard.Authentication
             OauthClientSecret = thingspaceOauth?.OauthClientSecret;
             OauthToken = thingspaceOauth?.OauthToken;
             OauthScopes = thingspaceOauth?.OauthScopes;
-            Parameters(authParameter => authParameter
-                .Header(headerParameter => headerParameter
-                    .Setup("Authorization",
-                        OauthToken?.AccessToken == null ? null : $"Bearer {OauthToken?.AccessToken}"
-                    ).Required()));
+            OAuthClockSkew = thingspaceOauth?.OAuthClockSkew;
+            OAuthTokenProvider = thingspaceOauth?.OAuthTokenProvider;
+            OAuthOnTokenUpdate = thingspaceOauth?.OAuthOnTokenUpdate;
+            OAuthTokenAutoRefresh = thingspaceOauth?.OauthToken;
         }
 
         /// <summary>
@@ -57,6 +58,29 @@ namespace Verizon.Standard.Authentication
         /// Gets List of Models.OauthScopeThingspaceOauthEnum value for oauthScopes.
         /// </summary>
         public List<Models.OauthScopeThingspaceOauthEnum> OauthScopes { get; }
+
+        /// <summary>
+        /// Gets TimeSpan? value for oauthClockSkew.
+        /// </summary>
+        public TimeSpan? OAuthClockSkew { get; }
+
+        /// <summary>
+        /// Gets Func of OauthToken value for oauthTokenProvider.
+        /// </summary>
+        public Func<ThingspaceOauthManager, OauthToken, Task<OauthToken>> OAuthTokenProvider { get; }
+
+        /// <summary>
+        /// Gets Action of OauthToken value for oauthOnTokenUpdate.
+        /// </summary>
+        public Action<OauthToken> OAuthOnTokenUpdate { get; }
+
+        /// <summary>
+        /// Gets OauthToken value for oauthTokenAutoRefresh.
+        /// </summary>
+        private OauthToken OAuthTokenAutoRefresh { get; set; }
+
+        private readonly SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1);
+
 
         /// <summary>
         /// Check if credentials match.
@@ -120,23 +144,47 @@ namespace Verizon.Standard.Authentication
             oAuthApi = controllerGetter;
         }
 
-        /// <summary>
-        /// Validates the authentication parameters for the HTTP Request.
-        /// </summary>
-        public override void Validate()
+        /// <inheritdoc />
+        public override async Task Apply(RequestBuilder requestBuilder)
         {
-            base.Validate();
-            if (OauthToken == null)
+            var token = await FetchOrReturnToken(); 
+            Parameters(authParameter => authParameter
+                .Header(headerParameter => headerParameter
+                    .Setup("Authorization",
+                        token?.AccessToken == null ? null : $"Bearer {token.AccessToken}"
+                    ).Required()));
+            await base.Apply(requestBuilder);
+        }
+
+        private async Task<OauthToken> FetchOrReturnToken()
+        {
+            if (OAuthTokenAutoRefresh != null && !OAuthTokenAutoRefresh.IsTokenExpired(OAuthClockSkew))
+                return OAuthTokenAutoRefresh;
+
+            await semaphoreSlim.WaitAsync();
+            try
             {
-                throw new ApiException(
-                        "Client is not authorized.An OAuth token is needed to make API calls.");
+                if (OAuthTokenAutoRefresh != null && !OAuthTokenAutoRefresh.IsTokenExpired(OAuthClockSkew))
+                    return OAuthTokenAutoRefresh;
+                OAuthTokenAutoRefresh = OAuthTokenProvider != null
+                    ? await OAuthTokenProvider(this, OAuthTokenAutoRefresh)
+                    : await FetchTokenAsync();
+            }
+            finally
+            {
+                semaphoreSlim.Release();
             }
 
-            if (IsTokenExpired())
-            {
+            OAuthOnTokenUpdate?.Invoke(OAuthTokenAutoRefresh);
+
+            if (OAuthTokenAutoRefresh == null)
                 throw new ApiException(
-                        "OAuth token is expired. A valid token is needed to make API calls.");
-            }
+                    "Client is not authorized.An OAuth token is needed to make API calls.");
+
+            if (OAuthTokenAutoRefresh.IsTokenExpired(TimeSpan.Zero))
+                throw new ApiException("OAuth token is expired. A valid token is needed to make API calls.");
+
+            return OAuthTokenAutoRefresh;
         }
 
 
@@ -165,6 +213,12 @@ namespace Verizon.Standard.Authentication
 
         internal List<Models.OauthScopeThingspaceOauthEnum> OauthScopes { get; set; }
 
+        internal TimeSpan? OAuthClockSkew { get; set; }
+
+        internal Func<ThingspaceOauthManager, OauthToken, Task<OauthToken>> OAuthTokenProvider { get; set; }
+
+        internal Action<OauthToken> OAuthOnTokenUpdate { get; set; }
+
         /// <summary>
         /// Creates an object of the ThingspaceOauthModel using the values provided for the builder.
         /// </summary>
@@ -173,7 +227,10 @@ namespace Verizon.Standard.Authentication
         {
             return new Builder(OauthClientId, OauthClientSecret)
                 .OauthToken(OauthToken)
-                .OauthScopes(OauthScopes);
+                .OauthScopes(OauthScopes)
+                .OAuthClockSkew(OAuthClockSkew)
+                .OAuthTokenProvider(OAuthTokenProvider)
+                .OAuthOnTokenUpdate(OAuthOnTokenUpdate);
         }
 
         /// <summary>
@@ -185,6 +242,9 @@ namespace Verizon.Standard.Authentication
             private string oauthClientSecret;
             private Models.OauthToken oauthToken;
             private List<Models.OauthScopeThingspaceOauthEnum> oauthScopes;
+            private TimeSpan? oauthClockSkew;
+            private Func<ThingspaceOauthManager, OauthToken, Task<OauthToken>> oauthTokenProvider;
+            private Action<OauthToken> oauthOnTokenUpdate;
 
             public Builder(string oauthClientId, string oauthClientSecret)
             {
@@ -241,6 +301,42 @@ namespace Verizon.Standard.Authentication
 
 
             /// <summary>
+            /// Sets OAuthClockSkew.
+            /// </summary>
+            /// <param name="oauthClockSkew">oauthClockSkew.</param>
+            /// <returns>Builder.</returns>
+            public Builder OAuthClockSkew(TimeSpan? oauthClockSkew)
+            {
+                this.oauthClockSkew = oauthClockSkew;
+                return this;
+            }
+
+
+            /// <summary>
+            /// Sets OAuthTokenProvider.
+            /// </summary>
+            /// <param name="oauthTokenProvider">oauthTokenProvider.</param>
+            /// <returns>Builder.</returns>
+            public Builder OAuthTokenProvider(Func<ThingspaceOauthManager, OauthToken, Task<OauthToken>> oauthTokenProvider)
+            {
+                this.oauthTokenProvider = oauthTokenProvider;
+                return this;
+            }
+
+
+            /// <summary>
+            /// Sets OAuthOnTokenUpdate.
+            /// </summary>
+            /// <param name="oauthOnTokenUpdate">oauthOnTokenUpdate.</param>
+            /// <returns>Builder.</returns>
+            public Builder OAuthOnTokenUpdate(Action<OauthToken> oauthOnTokenUpdate)
+            {
+                this.oauthOnTokenUpdate = oauthOnTokenUpdate;
+                return this;
+            }
+
+
+            /// <summary>
             /// Creates an object of the ThingspaceOauthModel using the values provided for the builder.
             /// </summary>
             /// <returns>ThingspaceOauthModel.</returns>
@@ -251,7 +347,10 @@ namespace Verizon.Standard.Authentication
                     OauthClientId = this.oauthClientId,
                     OauthClientSecret = this.oauthClientSecret,
                     OauthToken = this.oauthToken,
-                    OauthScopes = this.oauthScopes
+                    OauthScopes = this.oauthScopes,
+                    OAuthClockSkew = this.oauthClockSkew,
+                    OAuthTokenProvider = this.oauthTokenProvider,
+                    OAuthOnTokenUpdate = this.oauthOnTokenUpdate
                 };
             }
         }

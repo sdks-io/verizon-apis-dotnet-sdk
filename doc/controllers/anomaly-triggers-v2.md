@@ -37,7 +37,7 @@ CreateAnomalyDetectionTriggerV2Async(
 ## Example Usage
 
 ```csharp
-List<Models.CreateTriggerRequestOptions> body = new List<Models.CreateTriggerRequestOptions>
+List<CreateTriggerRequestOptions> body = new List<CreateTriggerRequestOptions>
 {
     new CreateTriggerRequestOptions
     {
@@ -62,7 +62,7 @@ List<Models.CreateTriggerRequestOptions> body = new List<Models.CreateTriggerReq
             NotificationFrequencyInterval = "Hourly",
             ExternalEmailRecipients = "placeholder@verizon.com",
             SmsNotification = true,
-            SmsNumbers = new List<Models.SMSNumber>
+            SmsNumbers = new List<SMSNumber>
             {
                 new SMSNumber
                 {
@@ -124,7 +124,7 @@ UpdateAnomalyDetectionTriggerV2Async(
 ## Example Usage
 
 ```csharp
-List<Models.UpdateTriggerRequestOptions> body = new List<Models.UpdateTriggerRequestOptions>
+List<UpdateTriggerRequestOptions> body = new List<UpdateTriggerRequestOptions>
 {
     new UpdateTriggerRequestOptions
     {
@@ -150,7 +150,7 @@ List<Models.UpdateTriggerRequestOptions> body = new List<Models.UpdateTriggerReq
             NotificationFrequencyInterval = "Hourly",
             ExternalEmailRecipients = "placeholder@verizon.com",
             SmsNotification = true,
-            SmsNumbers = new List<Models.SMSNumber>
+            SmsNumbers = new List<SMSNumber>
             {
                 new SMSNumber
                 {

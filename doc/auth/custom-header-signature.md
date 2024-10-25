@@ -22,9 +22,9 @@ Documentation for accessing and setting credentials for VZ-M2M-Token.
 You must provide credentials in the client as shown in the following code snippet.
 
 ```csharp
-Verizon.Standard.VerizonClient client = new Verizon.Standard.VerizonClient.Builder()
+VerizonClient client = new VerizonClient.Builder()
     .VZM2mTokenCredentials(
-        new VZM2MTokenModel.Builder(
+        new VZM2mTokenModel.Builder(
             "VZ-M2M-Token"
         )
         .Build())

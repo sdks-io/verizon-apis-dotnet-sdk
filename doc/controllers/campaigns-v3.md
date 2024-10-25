@@ -23,7 +23,7 @@ This endpoint allows a user to schedule a firmware upgrade for a list of devices
 
 ```csharp
 ScheduleCampaignFirmwareUpgradeAsync(
-    string acc,
+    string accountName,
     Models.CampaignFirmwareUpgrade body)
 ```
 
@@ -31,7 +31,7 @@ ScheduleCampaignFirmwareUpgradeAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `acc` | `string` | Template, Required | Account identifier. |
+| `accountName` | `string` | Template, Required | Account identifier. |
 | `body` | [`CampaignFirmwareUpgrade`](../../doc/models/campaign-firmware-upgrade.md) | Body, Required | Firmware upgrade information. |
 
 ## Response Type
@@ -41,7 +41,7 @@ ScheduleCampaignFirmwareUpgradeAsync(
 ## Example Usage
 
 ```csharp
-string acc = "0000123456-00001";
+string accountName = "0000123456-00001";
 CampaignFirmwareUpgrade body = new CampaignFirmwareUpgrade
 {
     FirmwareName = "SEQUANSCommunications_GM01Q_SR1.2.0.0-10512_SR1.2.0.0-10657",
@@ -54,8 +54,10 @@ CampaignFirmwareUpgrade body = new CampaignFirmwareUpgrade
     {
         "15-digit IMEI",
     },
+    AutoAssignLicenseFlag = false,
+    AutoAddDevicesFlag = false,
     CampaignName = "Smart FOTA - test 4",
-    CampaignTimeWindowList = new List<Models.V3TimeWindow>
+    CampaignTimeWindowList = new List<V3TimeWindow>
     {
         new V3TimeWindow
         {
@@ -68,7 +70,7 @@ CampaignFirmwareUpgrade body = new CampaignFirmwareUpgrade
 try
 {
     ApiResponse<FirmwareCampaign> result = await campaignsV3Controller.ScheduleCampaignFirmwareUpgradeAsync(
-        acc,
+        accountName,
         body
     );
 }
@@ -218,7 +220,7 @@ V3ChangeCampaignDatesRequest body = new V3ChangeCampaignDatesRequest
 {
     StartDate = DateTime.Parse("2022-02-23"),
     EndDate = DateTime.Parse("2022-02-24"),
-    CampaignTimeWindowList = new List<Models.V3TimeWindow>
+    CampaignTimeWindowList = new List<V3TimeWindow>
     {
         new V3TimeWindow
         {
@@ -281,7 +283,7 @@ This endpoint allows the user to retrieve campaign level information for a speci
 
 ```csharp
 GetCampaignInformationAsync(
-    string acc,
+    string accountName,
     string campaignId)
 ```
 
@@ -289,7 +291,7 @@ GetCampaignInformationAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `acc` | `string` | Template, Required | Account identifier. |
+| `accountName` | `string` | Template, Required | Account identifier. |
 | `campaignId` | `string` | Template, Required | Firmware upgrade identifier. |
 
 ## Response Type
@@ -299,12 +301,12 @@ GetCampaignInformationAsync(
 ## Example Usage
 
 ```csharp
-string acc = "0000123456-00001";
+string accountName = "0000123456-00001";
 string campaignId = "f858b8c4-2153-11ec-8c44-aeb16d1aa652";
 try
 {
     ApiResponse<Campaign> result = await campaignsV3Controller.GetCampaignInformationAsync(
-        acc,
+        accountName,
         campaignId
     );
 }
@@ -336,7 +338,9 @@ catch (ApiException e)
       "startTime": 18,
       "endTime": 22
     }
-  ]
+  ],
+  "autoAssignLicenseFlag": false,
+  "autoAddDevicesFlag": false
 }
 ```
 
@@ -353,7 +357,7 @@ This endpoint allows user to cancel a firmware campaign. A firmware campaign alr
 
 ```csharp
 CancelCampaignAsync(
-    string acc,
+    string accountName,
     string campaignId)
 ```
 
@@ -361,7 +365,7 @@ CancelCampaignAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `acc` | `string` | Template, Required | Account identifier. |
+| `accountName` | `string` | Template, Required | Account identifier. |
 | `campaignId` | `string` | Template, Required | Firmware upgrade information. |
 
 ## Response Type
@@ -371,12 +375,12 @@ CancelCampaignAsync(
 ## Example Usage
 
 ```csharp
-string acc = "0000123456-00001";
+string accountName = "0000123456-00001";
 string campaignId = "f858b8c4-2153-11ec-8c44-aeb16d1aa652";
 try
 {
     ApiResponse<FotaV3SuccessResult> result = await campaignsV3Controller.CancelCampaignAsync(
-        acc,
+        accountName,
         campaignId
     );
 }

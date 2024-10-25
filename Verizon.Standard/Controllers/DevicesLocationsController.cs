@@ -1,29 +1,29 @@
 // <copyright file="DevicesLocationsController.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using APIMatic.Core;
+using APIMatic.Core.Types;
+using APIMatic.Core.Utilities;
+using APIMatic.Core.Utilities.Date.Xml;
+using Newtonsoft.Json.Converters;
+using System.Net.Http;
+using Verizon.Standard;
+using Verizon.Standard.Exceptions;
+using Verizon.Standard.Http.Client;
+using Verizon.Standard.Http.Response;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Dynamic;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using APIMatic.Core;
-    using APIMatic.Core.Types;
-    using APIMatic.Core.Utilities;
-    using APIMatic.Core.Utilities.Date.Xml;
-    using Newtonsoft.Json.Converters;
-    using System.Net.Http;
-    using Verizon.Standard;
-    using Verizon.Standard.Exceptions;
-    using Verizon.Standard.Http.Client;
-    using Verizon.Standard.Http.Response;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// DevicesLocationsController.
     /// </summary>
@@ -38,7 +38,7 @@ namespace Verizon.Standard.Controllers
         /// This locations endpoint retrieves the locations for a list of devices.
         /// </summary>
         /// <param name="body">Required parameter: Request to obtain location of devices..</param>
-        /// <returns>Returns the ApiResponse of List<Models.Location> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.Location&gt; response from the API call.</returns>
         public ApiResponse<List<Models.Location>> ListDevicesLocationsSynchronous(
                 Models.LocationRequest body)
             => CoreHelper.RunTask(ListDevicesLocationsSynchronousAsync(body));
@@ -48,7 +48,7 @@ namespace Verizon.Standard.Controllers
         /// </summary>
         /// <param name="body">Required parameter: Request to obtain location of devices..</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of List<Models.Location> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.Location&gt; response from the API call.</returns>
         public async Task<ApiResponse<List<Models.Location>>> ListDevicesLocationsSynchronousAsync(
                 Models.LocationRequest body,
                 CancellationToken cancellationToken = default)
@@ -101,43 +101,6 @@ namespace Verizon.Standard.Controllers
               .ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
-        /// Cancel a queued or unfinished device location request.
-        /// </summary>
-        /// <param name="accountName">Required parameter: Account identifier in "##########-#####"..</param>
-        /// <param name="txid">Required parameter: Transaction ID of the request to cancel, from the synchronous response to the original request..</param>
-        /// <returns>Returns the ApiResponse of Models.TransactionID response from the API call.</returns>
-        public ApiResponse<Models.TransactionID> CancelDeviceLocationRequest(
-                string accountName,
-                string txid)
-            => CoreHelper.RunTask(CancelDeviceLocationRequestAsync(accountName, txid));
-
-        /// <summary>
-        /// Cancel a queued or unfinished device location request.
-        /// </summary>
-        /// <param name="accountName">Required parameter: Account identifier in "##########-#####"..</param>
-        /// <param name="txid">Required parameter: Transaction ID of the request to cancel, from the synchronous response to the original request..</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of Models.TransactionID response from the API call.</returns>
-        public async Task<ApiResponse<Models.TransactionID>> CancelDeviceLocationRequestAsync(
-                string accountName,
-                string txid,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<Models.TransactionID>()
-              .Server(Server.DeviceLocation)
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Delete, "/devicelocations/{txid}")
-                  .WithAndAuth(_andAuth => _andAuth
-                      .Add("thingspace_oauth")
-                      .Add("VZ-M2M-Token")
-                  )
-                  .Parameters(_parameters => _parameters
-                      .Query(_query => _query.Setup("accountName", accountName))
-                      .Template(_template => _template.Setup("txid", txid))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("0", CreateErrorCase("Unexpected error.", (_reason, _context) => new DeviceLocationResultException(_reason, _context))))
-              .ExecuteAsync(cancellationToken).ConfigureAwait(false);
-
-        /// <summary>
         /// Request an asynchronous device location report.
         /// </summary>
         /// <param name="body">Required parameter: Request for device location report..</param>
@@ -173,39 +136,39 @@ namespace Verizon.Standard.Controllers
         /// <summary>
         /// Download a completed asynchronous device location report.
         /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <param name="accountName">Required parameter: Account identifier in "##########-#####"..</param>
         /// <param name="txid">Required parameter: Transaction ID from POST /locationreports response..</param>
         /// <param name="startindex">Required parameter: Zero-based number of the first record to return..</param>
         /// <returns>Returns the ApiResponse of Models.LocationReport response from the API call.</returns>
         public ApiResponse<Models.LocationReport> RetrieveLocationReport(
-                string account,
+                string accountName,
                 string txid,
                 int startindex)
-            => CoreHelper.RunTask(RetrieveLocationReportAsync(account, txid, startindex));
+            => CoreHelper.RunTask(RetrieveLocationReportAsync(accountName, txid, startindex));
 
         /// <summary>
         /// Download a completed asynchronous device location report.
         /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <param name="accountName">Required parameter: Account identifier in "##########-#####"..</param>
         /// <param name="txid">Required parameter: Transaction ID from POST /locationreports response..</param>
         /// <param name="startindex">Required parameter: Zero-based number of the first record to return..</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
         /// <returns>Returns the ApiResponse of Models.LocationReport response from the API call.</returns>
         public async Task<ApiResponse<Models.LocationReport>> RetrieveLocationReportAsync(
-                string account,
+                string accountName,
                 string txid,
                 int startindex,
                 CancellationToken cancellationToken = default)
             => await CreateApiCall<Models.LocationReport>()
               .Server(Server.DeviceLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/locationreports/{account}/report/{txid}/index/{startindex}")
+                  .Setup(HttpMethod.Get, "/locationreports/{accountName}/report/{txid}/index/{startindex}")
                   .WithAndAuth(_andAuth => _andAuth
                       .Add("thingspace_oauth")
                       .Add("VZ-M2M-Token")
                   )
                   .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("account", account))
+                      .Template(_template => _template.Setup("accountName", accountName))
                       .Template(_template => _template.Setup("txid", txid))
                       .Template(_template => _template.Setup("startindex", startindex))))
               .ResponseHandler(_responseHandler => _responseHandler
@@ -215,35 +178,35 @@ namespace Verizon.Standard.Controllers
         /// <summary>
         /// Returns the current status of a requested device location report.
         /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <param name="accountName">Required parameter: Account identifier in "##########-#####"..</param>
         /// <param name="txid">Required parameter: Transaction ID of the report..</param>
         /// <returns>Returns the ApiResponse of Models.LocationReportStatus response from the API call.</returns>
         public ApiResponse<Models.LocationReportStatus> GetLocationReportStatus(
-                string account,
+                string accountName,
                 string txid)
-            => CoreHelper.RunTask(GetLocationReportStatusAsync(account, txid));
+            => CoreHelper.RunTask(GetLocationReportStatusAsync(accountName, txid));
 
         /// <summary>
         /// Returns the current status of a requested device location report.
         /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <param name="accountName">Required parameter: Account identifier in "##########-#####"..</param>
         /// <param name="txid">Required parameter: Transaction ID of the report..</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
         /// <returns>Returns the ApiResponse of Models.LocationReportStatus response from the API call.</returns>
         public async Task<ApiResponse<Models.LocationReportStatus>> GetLocationReportStatusAsync(
-                string account,
+                string accountName,
                 string txid,
                 CancellationToken cancellationToken = default)
             => await CreateApiCall<Models.LocationReportStatus>()
               .Server(Server.DeviceLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/locationreports/{account}/report/{txid}/status")
+                  .Setup(HttpMethod.Get, "/locationreports/{accountName}/report/{txid}/status")
                   .WithAndAuth(_andAuth => _andAuth
                       .Add("thingspace_oauth")
                       .Add("VZ-M2M-Token")
                   )
                   .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("account", account))
+                      .Template(_template => _template.Setup("accountName", accountName))
                       .Template(_template => _template.Setup("txid", txid))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("0", CreateErrorCase("Unexpected error.", (_reason, _context) => new DeviceLocationResultException(_reason, _context))))
@@ -252,35 +215,35 @@ namespace Verizon.Standard.Controllers
         /// <summary>
         /// Cancel a queued device location report.
         /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <param name="accountName">Required parameter: Account identifier in "##########-#####"..</param>
         /// <param name="txid">Required parameter: Transaction ID of the report to cancel..</param>
         /// <returns>Returns the ApiResponse of Models.TransactionID response from the API call.</returns>
         public ApiResponse<Models.TransactionID> CancelQueuedLocationReportGeneration(
-                string account,
+                string accountName,
                 string txid)
-            => CoreHelper.RunTask(CancelQueuedLocationReportGenerationAsync(account, txid));
+            => CoreHelper.RunTask(CancelQueuedLocationReportGenerationAsync(accountName, txid));
 
         /// <summary>
         /// Cancel a queued device location report.
         /// </summary>
-        /// <param name="account">Required parameter: Account identifier in "##########-#####"..</param>
+        /// <param name="accountName">Required parameter: Account identifier in "##########-#####"..</param>
         /// <param name="txid">Required parameter: Transaction ID of the report to cancel..</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
         /// <returns>Returns the ApiResponse of Models.TransactionID response from the API call.</returns>
         public async Task<ApiResponse<Models.TransactionID>> CancelQueuedLocationReportGenerationAsync(
-                string account,
+                string accountName,
                 string txid,
                 CancellationToken cancellationToken = default)
             => await CreateApiCall<Models.TransactionID>()
               .Server(Server.DeviceLocation)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Delete, "/locationreports/{account}/report/{txid}")
+                  .Setup(HttpMethod.Delete, "/locationreports/{accountName}/report/{txid}")
                   .WithAndAuth(_andAuth => _andAuth
                       .Add("thingspace_oauth")
                       .Add("VZ-M2M-Token")
                   )
                   .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("account", account))
+                      .Template(_template => _template.Setup("accountName", accountName))
                       .Template(_template => _template.Setup("txid", txid))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("0", CreateErrorCase("Unexpected error.", (_reason, _context) => new DeviceLocationResultException(_reason, _context))))

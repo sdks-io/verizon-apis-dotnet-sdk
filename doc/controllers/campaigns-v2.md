@@ -59,7 +59,7 @@ CampaignSoftwareUpgrade body = new CampaignSoftwareUpgrade
     },
     CampaignName = "FOTA_Verizon_Upgrade",
     DownloadAfterDate = DateTime.Parse("2020-08-21"),
-    DownloadTimeWindowList = new List<Models.V2TimeWindow>
+    DownloadTimeWindowList = new List<V2TimeWindow>
     {
         new V2TimeWindow
         {
@@ -68,7 +68,7 @@ CampaignSoftwareUpgrade body = new CampaignSoftwareUpgrade
         },
     },
     InstallAfterDate = DateTime.Parse("2020-08-21"),
-    InstallTimeWindowList = new List<Models.V2TimeWindow>
+    InstallTimeWindowList = new List<V2TimeWindow>
     {
         new V2TimeWindow
         {
@@ -361,7 +361,7 @@ V2ChangeCampaignDatesRequest body = new V2ChangeCampaignDatesRequest
     StartDate = DateTime.Parse("2020-08-21"),
     EndDate = DateTime.Parse("2020-08-22"),
     DownloadAfterDate = DateTime.Parse("2020-08-21"),
-    DownloadTimeWindowList = new List<Models.V2TimeWindow>
+    DownloadTimeWindowList = new List<V2TimeWindow>
     {
         new V2TimeWindow
         {
@@ -370,7 +370,7 @@ V2ChangeCampaignDatesRequest body = new V2ChangeCampaignDatesRequest
         },
     },
     InstallAfterDate = DateTime.Parse("2020-08-21"),
-    InstallTimeWindowList = new List<Models.V2TimeWindow>
+    InstallTimeWindowList = new List<V2TimeWindow>
     {
         new V2TimeWindow
         {
@@ -535,7 +535,7 @@ SchedulesSoftwareUpgradeRequest body = new SchedulesSoftwareUpgradeRequest
     StartDate = "2020-08-21",
     EndDate = "2020-08-22",
     DownloadAfterDate = "2020-08-21",
-    DownloadTimeWindowList = new List<Models.DownloadTimeWindow>
+    DownloadTimeWindowList = new List<DownloadTimeWindow>
     {
         new DownloadTimeWindow
         {
@@ -544,7 +544,7 @@ SchedulesSoftwareUpgradeRequest body = new SchedulesSoftwareUpgradeRequest
         },
     },
     InstallAfterDate = "2020-08-21",
-    InstallTimeWindowList = new List<Models.DownloadTimeWindow>
+    InstallTimeWindowList = new List<DownloadTimeWindow>
     {
         new DownloadTimeWindow
         {

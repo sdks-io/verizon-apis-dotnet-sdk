@@ -12,9 +12,150 @@ ExclusionsController exclusionsController = client.ExclusionsController;
 
 ## Methods
 
+* [Devices Location Get Consent Async](../../doc/controllers/exclusions.md#devices-location-get-consent-async)
+* [Devices Location Give Consent Async](../../doc/controllers/exclusions.md#devices-location-give-consent-async)
+* [Devices Location Update Consent](../../doc/controllers/exclusions.md#devices-location-update-consent)
 * [Exclude Devices](../../doc/controllers/exclusions.md#exclude-devices)
 * [Remove Devices From Exclusion List](../../doc/controllers/exclusions.md#remove-devices-from-exclusion-list)
 * [List Excluded Devices](../../doc/controllers/exclusions.md#list-excluded-devices)
+
+
+# Devices Location Get Consent Async
+
+Get the consent settings for the entire account or device list in an account.
+
+```csharp
+DevicesLocationGetConsentAsyncAsync(
+    string accountName,
+    string deviceId = null)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountName` | `string` | Query, Required | The numeric name of the account. |
+| `deviceId` | `string` | Query, Optional | The IMEI of the device being queried |
+
+## Response Type
+
+[`Task<ApiResponse<Models.GetAccountDeviceConsent>>`](../../doc/models/get-account-device-consent.md)
+
+## Example Usage
+
+```csharp
+string accountName = "0000123456-00001";
+string deviceId = "900000000000009";
+try
+{
+    ApiResponse<GetAccountDeviceConsent> result = await exclusionsController.DevicesLocationGetConsentAsyncAsync(
+        accountName,
+        deviceId
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | Unexpected error. | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
+
+
+# Devices Location Give Consent Async
+
+Create a consent record to use location services as an asynchronous request.
+
+```csharp
+DevicesLocationGiveConsentAsyncAsync(
+    Models.AccountConsentCreate body = null)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`AccountConsentCreate`](../../doc/models/account-consent-create.md) | Body, Optional | Account details to create a consent record. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.ConsentTransactionID>>`](../../doc/models/consent-transaction-id.md)
+
+## Example Usage
+
+```csharp
+AccountConsentCreate body = new AccountConsentCreate
+{
+    AccountName = "0000123456-00001",
+};
+
+try
+{
+    ApiResponse<ConsentTransactionID> result = await exclusionsController.DevicesLocationGiveConsentAsyncAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | Unexpected error. | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
+
+
+# Devices Location Update Consent
+
+Update the location services consent record for an entire account.
+
+```csharp
+DevicesLocationUpdateConsentAsync(
+    Models.AccountConsentUpdate body = null)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`AccountConsentUpdate`](../../doc/models/account-consent-update.md) | Body, Optional | Account details to update a consent record. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.ConsentTransactionID>>`](../../doc/models/consent-transaction-id.md)
+
+## Example Usage
+
+```csharp
+AccountConsentUpdate body = new AccountConsentUpdate
+{
+    AccountName = "0000123456-00001",
+    AllDeviceConsent = 0,
+};
+
+try
+{
+    ApiResponse<ConsentTransactionID> result = await exclusionsController.DevicesLocationUpdateConsentAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | Unexpected error. | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
 
 
 # Exclude Devices
@@ -131,7 +272,7 @@ This consents endpoint retrieves a list of excluded devices in an account.
 
 ```csharp
 ListExcludedDevicesAsync(
-    string account,
+    string accountName,
     string startIndex)
 ```
 
@@ -139,7 +280,7 @@ ListExcludedDevicesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier in "##########-#####". |
+| `accountName` | `string` | Template, Required | Account identifier in "##########-#####". |
 | `startIndex` | `string` | Template, Required | Zero-based number of the first record to return. |
 
 ## Response Type
@@ -149,12 +290,12 @@ ListExcludedDevicesAsync(
 ## Example Usage
 
 ```csharp
-string account = "0252012345-00001";
+string accountName = "0252012345-00001";
 string startIndex = "0";
 try
 {
     ApiResponse<DevicesConsentResult> result = await exclusionsController.ListExcludedDevicesAsync(
-        account,
+        accountName,
         startIndex
     );
 }

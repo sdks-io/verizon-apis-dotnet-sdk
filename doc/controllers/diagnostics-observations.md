@@ -39,7 +39,7 @@ StartDiagnosticsObservationAsync(
 ObservationRequest body = new ObservationRequest
 {
     AccountName = "TestQAAccount",
-    Devices = new List<Models.Device>
+    Devices = new List<Device>
     {
         new Device
         {
@@ -47,7 +47,7 @@ ObservationRequest body = new ObservationRequest
             Kind = "IMEI",
         },
     },
-    Attributes = new List<Models.ObservationRequestAttribute>
+    Attributes = new List<ObservationRequestAttribute>
     {
         new ObservationRequestAttribute
         {

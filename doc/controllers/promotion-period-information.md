@@ -20,14 +20,14 @@ Retrieves the usage history of a device during the promotion period.
 
 ```csharp
 GetPromoDeviceUsageHistoryAsync(
-    Models.RequestBodyForUsage1 body)
+    Models.ARequestBodyForUsage body)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`RequestBodyForUsage1`](../../doc/models/request-body-for-usage-1.md) | Body, Required | Retrieve Aggregate Usage |
+| `body` | [`ARequestBodyForUsage`](../../doc/models/a-request-body-for-usage.md) | Body, Required | Retrieve Aggregate Usage |
 
 ## Response Type
 
@@ -36,7 +36,7 @@ GetPromoDeviceUsageHistoryAsync(
 ## Example Usage
 
 ```csharp
-RequestBodyForUsage1 body = new RequestBodyForUsage1
+ARequestBodyForUsage body = new ARequestBodyForUsage
 {
     StartTime = DateTime.ParseExact("08/15/2021 00:00:00", "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK",
         provider: CultureInfo.InvariantCulture,

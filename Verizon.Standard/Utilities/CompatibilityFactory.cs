@@ -1,16 +1,15 @@
 // <copyright file="CompatibilityFactory.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using APIMatic.Core.Types.Sdk;
+using APIMatic.Core.Utilities;
+using Verizon.Standard.Exceptions;
+using Verizon.Standard.Http.Client;
+using Verizon.Standard.Http.Request;
+using Verizon.Standard.Http.Response;
 
 namespace Verizon.Standard.Utilities
 {
-    using APIMatic.Core.Types.Sdk;
-    using APIMatic.Core.Utilities;
-    using Verizon.Standard.Exceptions;
-    using Verizon.Standard.Http.Client;
-    using Verizon.Standard.Http.Request;
-    using Verizon.Standard.Http.Response;
-
     internal class CompatibilityFactory : ICompatibilityFactory<HttpRequest, HttpResponse, HttpContext, ApiException>
     {
         public ApiException CreateApiException(string reason, CoreContext<CoreRequest, CoreResponse> context) =>

@@ -35,7 +35,7 @@ DeviceResetRequest body = new DeviceResetRequest
 {
     AccountName = "0642233522-00003",
     Action = "reboot",
-    Devices = new List<Models.Device>
+    Devices = new List<Device>
     {
         new Device
         {

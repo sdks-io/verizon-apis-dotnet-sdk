@@ -1,10 +1,10 @@
 // <copyright file="IVZM2mTokenCredentials.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+
 namespace Verizon.Standard.Authentication
 {
-    using System;
-
     /// <summary>
     /// Authentication configuration interface for VZM2MToken.
     /// </summary>

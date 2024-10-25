@@ -1,13 +1,13 @@
 // <copyright file="ApiException.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using APIMatic.Core.Types.Sdk;
+using Verizon.Standard.Http.Client;
+using Verizon.Standard.Http.Request;
+using Verizon.Standard.Http.Response;
+
 namespace Verizon.Standard.Exceptions
 {
-    using APIMatic.Core.Types.Sdk;
-    using Verizon.Standard.Http.Client;
-    using Verizon.Standard.Http.Request;
-    using Verizon.Standard.Http.Response;
-
     /// <summary>
     /// This is the base class for all exceptions that represent an error response
     /// from the server.

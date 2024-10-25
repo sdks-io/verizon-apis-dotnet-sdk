@@ -66,7 +66,7 @@ catch (ApiException e)
 
 ```json
 {
-  "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
+  "txid": "2c90bd28-eeee-ffff-gggg-7e3bd4fbff33",
   "statusList": [
     {
       "id": "1223334444-00001",
@@ -122,7 +122,7 @@ ManagedAccountsProvisionRequest body = new ManagedAccountsProvisionRequest
     PaccountName = "1234567890-00001",
     ServiceName = ServiceNameEnum.Location,
     Type = "TS-LOC-COARSE-CellID-5K",
-    Txid = "d4fbff33-ece4-9f02-42ef-2c90bd287e3b",
+    Txid = "d4fbff33-eeee-ffff-gggg-2c90bd287e3b",
 };
 
 try
@@ -140,7 +140,7 @@ catch (ApiException e)
 
 ```json
 {
-  "txid": "4fbff332-ece4-42ef-9f02-7e3bdc90bd28",
+  "txid": "4fbff332-eeee-ffff-gggg-7e3bdc90bd28",
   "accountName": "1223334444-00001",
   "paccountName": "1234567890-00001",
   "serviceName": "Location",
@@ -184,7 +184,7 @@ ManagedAccountCancelRequest body = new ManagedAccountCancelRequest
     PaccountName = "1234567890-00001",
     ServiceName = ServiceNameEnum.Location,
     Type = "TS-LOC-COARSE-CellID-5K",
-    Txid = "d4fbff33-ece4-9f02-42ef-2c90bd287e3b",
+    Txid = "d4fbff33-eeee-ffff-gggg-2c90bd287e3b",
 };
 
 try
@@ -202,7 +202,7 @@ catch (ApiException e)
 
 ```json
 {
-  "txid": "4fbff332-ece4-42ef-9f02-7e3bdc90bd28",
+  "txid": "4fbff332-eeee-ffff-gggg-7e3bdc90bd28",
   "accountName": "1223334444-00001",
   "paccountName": "1234567890-00001",
   "serviceName": "Location",
@@ -266,11 +266,11 @@ catch (ApiException e)
   "ManagedAccAddedList": [
     {
       "id": "1223334444-00001",
-      "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33"
+      "txid": "2c90bd28-eeee-ffff-gggg-7e3bd4fbff33"
     },
     {
       "id": "2334445555-00001",
-      "txid": "d4fbff33-ece4-9f02-42ef-2c90bd287e3b"
+      "txid": "d4fbff33-eeee-ffff-gggg-2c90bd287e3b"
     }
   ]
 }

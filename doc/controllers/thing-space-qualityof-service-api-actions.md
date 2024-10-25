@@ -39,7 +39,7 @@ CreateAThingSpaceQualityOfServiceAPISubscriptionAsync(
 SubscribeRequest body = new SubscribeRequest
 {
     AccountName = "0000123456-00001",
-    DeviceInfo = new List<Models.QosDeviceInfo>
+    DeviceInfo = new List<QosDeviceInfo>
     {
         new QosDeviceInfo
         {
@@ -48,7 +48,7 @@ SubscribeRequest body = new SubscribeRequest
                 Id = "10-digit phone number",
                 Kind = "mdn",
             },
-            FlowInfo = new List<Models.FlowInfo>
+            FlowInfo = new List<FlowInfo>
             {
                 new FlowInfo
                 {

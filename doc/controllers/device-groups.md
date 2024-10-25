@@ -44,7 +44,7 @@ CreateDeviceGroupRequest body = new CreateDeviceGroupRequest
     AccountName = "0000123456-00001",
     GroupDescription = "descriptive string",
     GroupName = "group name",
-    DevicesToAdd = new List<Models.DeviceId>
+    DevicesToAdd = new List<DeviceId>
     {
         new DeviceId
         {
@@ -243,7 +243,7 @@ string aname = "0252012345-00001";
 string gname = "gname2";
 DeviceGroupUpdateRequest body = new DeviceGroupUpdateRequest
 {
-    DevicesToAdd = new List<Models.DeviceId>
+    DevicesToAdd = new List<DeviceId>
     {
         new DeviceId
         {

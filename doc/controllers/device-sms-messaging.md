@@ -40,7 +40,7 @@ SendAnSmsMessageAsync(
 ```csharp
 GIOSMSSendRequest body = new GIOSMSSendRequest
 {
-    DeviceIds = new List<Models.GIODeviceId>
+    DeviceIds = new List<GIODeviceId>
     {
         new GIODeviceId
         {
@@ -83,8 +83,8 @@ GetSmsMessagesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `accountName` | `string` | Template, Required | Numeric account name |
-| `next` | `string` | Query, Optional | Continue the previous query from the pageUrl in Location Header |
+| `accountName` | `string` | Template, Required | Numeric account name<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9\-]{3,32}$` |
+| `next` | `string` | Query, Optional | Continue the previous query from the pageUrl in Location Header<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `64`, *Pattern*: `^[A-Za-z0-9]{3,32}$` |
 
 ## Response Type
 
@@ -129,7 +129,7 @@ StartSmsMessageDeliveryAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `accountName` | `string` | Template, Required | Numeric account name |
+| `accountName` | `string` | Template, Required | Numeric account name<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9\-]{3,32}$` |
 
 ## Response Type
 

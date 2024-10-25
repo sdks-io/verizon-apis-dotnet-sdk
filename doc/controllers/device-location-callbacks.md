@@ -10,9 +10,65 @@ DeviceLocationCallbacksController deviceLocationCallbacksController = client.Dev
 
 ## Methods
 
+* [Cancel Async Report](../../doc/controllers/device-location-callbacks.md#cancel-async-report)
 * [List Registered Callbacks](../../doc/controllers/device-location-callbacks.md#list-registered-callbacks)
 * [Register Callback](../../doc/controllers/device-location-callbacks.md#register-callback)
 * [Deregister Callback](../../doc/controllers/device-location-callbacks.md#deregister-callback)
+
+
+# Cancel Async Report
+
+Cancel an asynchronous report request.
+
+```csharp
+CancelAsyncReportAsync(
+    string accountName,
+    string txid)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountName` | `string` | Query, Required | Account identifier in "##########-#####". |
+| `txid` | `string` | Template, Required | The `transactionId` value. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.TransactionID>>`](../../doc/models/transaction-id.md)
+
+## Example Usage
+
+```csharp
+string accountName = "0000123456-00001";
+string txid = "2c90bd28-eeee-ffff-gggg-7e3bd4fbff33";
+try
+{
+    ApiResponse<TransactionID> result = await deviceLocationCallbacksController.CancelAsyncReportAsync(
+        accountName,
+        txid
+    );
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "txid": "2c90bd28-eeee-ffff-gggg-7e3bd4fbff33"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | Unexpected error. | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
 
 
 # List Registered Callbacks
@@ -21,14 +77,14 @@ Returns a list of all registered callback URLs for the account.
 
 ```csharp
 ListRegisteredCallbacksAsync(
-    string account)
+    string accountName)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account number. |
+| `accountName` | `string` | Template, Required | Account number. |
 
 ## Response Type
 
@@ -37,10 +93,10 @@ ListRegisteredCallbacksAsync(
 ## Example Usage
 
 ```csharp
-string account = "0252012345-00001";
+string accountName = "0000123456-00001";
 try
 {
-    ApiResponse<List<DeviceLocationCallback>> result = await deviceLocationCallbacksController.ListRegisteredCallbacksAsync(account);
+    ApiResponse<List<DeviceLocationCallback>> result = await deviceLocationCallbacksController.ListRegisteredCallbacksAsync(accountName);
 }
 catch (ApiException e)
 {
@@ -77,7 +133,7 @@ Provide a URL to receive messages from a ThingSpace callback service.
 
 ```csharp
 RegisterCallbackAsync(
-    string account,
+    string accountName,
     Models.DeviceLocationCallback body)
 ```
 
@@ -85,7 +141,7 @@ RegisterCallbackAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account number. |
+| `accountName` | `string` | Template, Required | Account number. |
 | `body` | [`DeviceLocationCallback`](../../doc/models/device-location-callback.md) | Body, Required | Request to register a callback. |
 
 ## Response Type
@@ -95,7 +151,7 @@ RegisterCallbackAsync(
 ## Example Usage
 
 ```csharp
-string account = "0252012345-00001";
+string accountName = "0000123456-00001";
 DeviceLocationCallback body = new DeviceLocationCallback
 {
     Name = CallbackServiceNameEnum.Location,
@@ -105,7 +161,7 @@ DeviceLocationCallback body = new DeviceLocationCallback
 try
 {
     ApiResponse<CallbackRegistrationResult> result = await deviceLocationCallbacksController.RegisterCallbackAsync(
-        account,
+        accountName,
         body
     );
 }
@@ -138,7 +194,7 @@ Deregister a URL to stop receiving callback messages.
 
 ```csharp
 DeregisterCallbackAsync(
-    string account,
+    string accountName,
     Models.CallbackServiceNameEnum service)
 ```
 
@@ -146,7 +202,7 @@ DeregisterCallbackAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account number. |
+| `accountName` | `string` | Template, Required | Account number. |
 | `service` | [`CallbackServiceNameEnum`](../../doc/models/callback-service-name-enum.md) | Template, Required | Callback service name. |
 
 ## Response Type
@@ -156,12 +212,12 @@ DeregisterCallbackAsync(
 ## Example Usage
 
 ```csharp
-string account = "0252012345-00001";
+string accountName = "0000123456-00001";
 CallbackServiceNameEnum service = CallbackServiceNameEnum.Location;
 try
 {
     ApiResponse<DeviceLocationSuccessResult> result = await deviceLocationCallbacksController.DeregisterCallbackAsync(
-        account,
+        accountName,
         service
     );
 }

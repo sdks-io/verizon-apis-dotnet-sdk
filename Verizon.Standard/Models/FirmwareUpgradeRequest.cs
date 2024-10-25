@@ -1,21 +1,21 @@
 // <copyright file="FirmwareUpgradeRequest.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using APIMatic.Core.Utilities.Converters;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Verizon.Standard;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using APIMatic.Core.Utilities.Converters;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-    using Verizon.Standard;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// FirmwareUpgradeRequest.
     /// </summary>
@@ -35,18 +35,21 @@ namespace Verizon.Standard.Models
         /// <param name="firmwareName">firmwareName.</param>
         /// <param name="firmwareTo">firmwareTo.</param>
         /// <param name="startDate">startDate.</param>
+        /// <param name="endDate">endDate.</param>
         /// <param name="deviceList">deviceList.</param>
         public FirmwareUpgradeRequest(
             string accountName,
             string firmwareName,
             string firmwareTo,
             DateTime startDate,
+            DateTime endDate,
             List<string> deviceList)
         {
             this.AccountName = accountName;
             this.FirmwareName = firmwareName;
             this.FirmwareTo = firmwareTo;
             this.StartDate = startDate;
+            this.EndDate = endDate;
             this.DeviceList = deviceList;
         }
 
@@ -69,11 +72,18 @@ namespace Verizon.Standard.Models
         public string FirmwareTo { get; set; }
 
         /// <summary>
-        /// The date that the upgrade should begin.
+        /// The date that the upgrade begins.
         /// </summary>
-        [JsonConverter(typeof(IsoDateTimeConverter))]
+        [JsonConverter(typeof(CustomDateTimeConverter), "yyyy'-'MM'-'dd")]
         [JsonProperty("startDate")]
         public DateTime StartDate { get; set; }
+
+        /// <summary>
+        /// The date that the upgrade ends.
+        /// </summary>
+        [JsonConverter(typeof(CustomDateTimeConverter), "yyyy'-'MM'-'dd")]
+        [JsonProperty("endDate")]
+        public DateTime EndDate { get; set; }
 
         /// <summary>
         /// The IMEIs of the devices.
@@ -107,6 +117,7 @@ namespace Verizon.Standard.Models
                 ((this.FirmwareName == null && other.FirmwareName == null) || (this.FirmwareName?.Equals(other.FirmwareName) == true)) &&
                 ((this.FirmwareTo == null && other.FirmwareTo == null) || (this.FirmwareTo?.Equals(other.FirmwareTo) == true)) &&
                 this.StartDate.Equals(other.StartDate) &&
+                this.EndDate.Equals(other.EndDate) &&
                 ((this.DeviceList == null && other.DeviceList == null) || (this.DeviceList?.Equals(other.DeviceList) == true));
         }
         
@@ -120,6 +131,7 @@ namespace Verizon.Standard.Models
             toStringOutput.Add($"this.FirmwareName = {(this.FirmwareName == null ? "null" : this.FirmwareName)}");
             toStringOutput.Add($"this.FirmwareTo = {(this.FirmwareTo == null ? "null" : this.FirmwareTo)}");
             toStringOutput.Add($"this.StartDate = {this.StartDate}");
+            toStringOutput.Add($"this.EndDate = {this.EndDate}");
             toStringOutput.Add($"this.DeviceList = {(this.DeviceList == null ? "null" : $"[{string.Join(", ", this.DeviceList)} ]")}");
         }
     }

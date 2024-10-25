@@ -1,28 +1,28 @@
 // <copyright file="TargetsController.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using APIMatic.Core;
+using APIMatic.Core.Types;
+using APIMatic.Core.Utilities;
+using APIMatic.Core.Utilities.Date.Xml;
+using Newtonsoft.Json.Converters;
+using System.Net.Http;
+using Verizon.Standard;
+using Verizon.Standard.Http.Client;
+using Verizon.Standard.Http.Response;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Dynamic;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using APIMatic.Core;
-    using APIMatic.Core.Types;
-    using APIMatic.Core.Utilities;
-    using APIMatic.Core.Utilities.Date.Xml;
-    using Newtonsoft.Json.Converters;
-    using System.Net.Http;
-    using Verizon.Standard;
-    using Verizon.Standard.Http.Client;
-    using Verizon.Standard.Http.Response;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// TargetsController.
     /// </summary>
@@ -37,7 +37,7 @@ namespace Verizon.Standard.Controllers
         /// Search for targets by property values. Returns an array of all matching target resources.
         /// </summary>
         /// <param name="body">Required parameter: Search for targets by property values..</param>
-        /// <returns>Returns the ApiResponse of List<Models.Target> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.Target&gt; response from the API call.</returns>
         public ApiResponse<List<Models.Target>> QueryTarget(
                 Models.QueryTargetRequest body)
             => CoreHelper.RunTask(QueryTargetAsync(body));
@@ -47,7 +47,7 @@ namespace Verizon.Standard.Controllers
         /// </summary>
         /// <param name="body">Required parameter: Search for targets by property values..</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of List<Models.Target> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.Target&gt; response from the API call.</returns>
         public async Task<ApiResponse<List<Models.Target>>> QueryTargetAsync(
                 Models.QueryTargetRequest body,
                 CancellationToken cancellationToken = default)
@@ -147,6 +147,10 @@ namespace Verizon.Standard.Controllers
               .Server(Server.CloudConnector)
               .RequestBuilder(_requestBuilder => _requestBuilder
                   .Setup(HttpMethod.Post, "/targets/actions/newextid")
+                  .WithAndAuth(_andAuth => _andAuth
+                      .Add("thingspace_oauth")
+                      .Add("VZ-M2M-Token")
+                  )
                   .Parameters(_parameters => _parameters
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))

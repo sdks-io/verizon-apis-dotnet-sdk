@@ -12,7 +12,6 @@ DevicesLocationsController devicesLocationsController = client.DevicesLocationsC
 
 * [List Devices Locations Synchronous](../../doc/controllers/devices-locations.md#list-devices-locations-synchronous)
 * [List Devices Locations Asynchronous](../../doc/controllers/devices-locations.md#list-devices-locations-asynchronous)
-* [Cancel Device Location Request](../../doc/controllers/devices-locations.md#cancel-device-location-request)
 * [Create Location Report](../../doc/controllers/devices-locations.md#create-location-report)
 * [Retrieve Location Report](../../doc/controllers/devices-locations.md#retrieve-location-report)
 * [Get Location Report Status](../../doc/controllers/devices-locations.md#get-location-report-status)
@@ -44,7 +43,7 @@ ListDevicesLocationsSynchronousAsync(
 LocationRequest body = new LocationRequest
 {
     AccountName = "1234567890-00001",
-    DeviceList = new List<Models.DeviceInfo>
+    DeviceList = new List<DeviceInfo>
     {
         new DeviceInfo
         {
@@ -57,12 +56,6 @@ LocationRequest body = new LocationRequest
             Id = "375535024300089",
             Kind = "imei",
             Mdn = "7897654321",
-        },
-        new DeviceInfo
-        {
-            Id = "A100003861E585",
-            Kind = "meid",
-            Mdn = "7897650914",
         },
     },
     AccuracyMode = AccuracyModeEnum.Enum0,
@@ -150,7 +143,7 @@ ListDevicesLocationsAsynchronousAsync(
 LocationRequest body = new LocationRequest
 {
     AccountName = "2234434445-32333",
-    DeviceList = new List<Models.DeviceInfo>
+    DeviceList = new List<DeviceInfo>
     {
         new DeviceInfo
         {
@@ -178,63 +171,8 @@ catch (ApiException e)
 
 ```json
 {
-  "txid": "4be7c858-0ef9-4b15-a0c1-95061456d835",
+  "txid": "4be7c858-eeee-ffff-gggg-95061456d835",
   "status": "QUEUED"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| Default | Unexpected error. | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
-
-
-# Cancel Device Location Request
-
-Cancel a queued or unfinished device location request.
-
-```csharp
-CancelDeviceLocationRequestAsync(
-    string accountName,
-    string txid)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `accountName` | `string` | Query, Required | Account identifier in "##########-#####". |
-| `txid` | `string` | Template, Required | Transaction ID of the request to cancel, from the synchronous response to the original request. |
-
-## Response Type
-
-[`Task<ApiResponse<Models.TransactionID>>`](../../doc/models/transaction-id.md)
-
-## Example Usage
-
-```csharp
-string accountName = "1234567890-00001";
-string txid = "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33";
-try
-{
-    ApiResponse<TransactionID> result = await devicesLocationsController.CancelDeviceLocationRequestAsync(
-        accountName,
-        txid
-    );
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33"
 }
 ```
 
@@ -270,7 +208,7 @@ CreateLocationReportAsync(
 LocationRequest body = new LocationRequest
 {
     AccountName = "1234567890-00001",
-    DeviceList = new List<Models.DeviceInfo>
+    DeviceList = new List<DeviceInfo>
     {
         new DeviceInfo
         {
@@ -310,7 +248,7 @@ catch (ApiException e)
 
 ```json
 {
-  "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
+  "txid": "2c90bd28-eeee-ffff-gggg-7e3bd4fbff33",
   "status": "QUEUED"
 }
 ```
@@ -328,7 +266,7 @@ Download a completed asynchronous device location report.
 
 ```csharp
 RetrieveLocationReportAsync(
-    string account,
+    string accountName,
     string txid,
     int startindex)
 ```
@@ -337,7 +275,7 @@ RetrieveLocationReportAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier in "##########-#####". |
+| `accountName` | `string` | Template, Required | Account identifier in "##########-#####". |
 | `txid` | `string` | Template, Required | Transaction ID from POST /locationreports response. |
 | `startindex` | `int` | Template, Required | Zero-based number of the first record to return. |
 
@@ -348,13 +286,13 @@ RetrieveLocationReportAsync(
 ## Example Usage
 
 ```csharp
-string account = "0252012345-00001";
-string txid = "2017-12-11Te8b47da2-3a45-46cf-9903-61815e1e97e9";
+string accountName = "0000123456-00001";
+string txid = "2017-12-11Te8b47da2-eeee-ffff-gggg-61815e1e97e9";
 int startindex = 0;
 try
 {
     ApiResponse<LocationReport> result = await devicesLocationsController.RetrieveLocationReportAsync(
-        account,
+        accountName,
         txid,
         startindex
     );
@@ -371,7 +309,7 @@ catch (ApiException e)
 ```json
 {
   "startIndex": "0",
-  "txid": "2017-12-11Te8b47da2-3a45-46cf-9903-61815e1e97e9",
+  "txid": "2017-12-11Te8b47da2-eeee-ffff-gggg-61815e1e97e9",
   "totalCount": 3,
   "hasMoreData": false,
   "devLocationList": [
@@ -423,7 +361,7 @@ Returns the current status of a requested device location report.
 
 ```csharp
 GetLocationReportStatusAsync(
-    string account,
+    string accountName,
     string txid)
 ```
 
@@ -431,7 +369,7 @@ GetLocationReportStatusAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier in "##########-#####". |
+| `accountName` | `string` | Template, Required | Account identifier in "##########-#####". |
 | `txid` | `string` | Template, Required | Transaction ID of the report. |
 
 ## Response Type
@@ -441,12 +379,12 @@ GetLocationReportStatusAsync(
 ## Example Usage
 
 ```csharp
-string account = "0252012345-00001";
-string txid = "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33";
+string accountName = "0252012345-00001";
+string txid = "2c90bd28-eeee-ffff-gggg-7e3bd4fbff33";
 try
 {
     ApiResponse<LocationReportStatus> result = await devicesLocationsController.GetLocationReportStatusAsync(
-        account,
+        accountName,
         txid
     );
 }
@@ -461,7 +399,7 @@ catch (ApiException e)
 
 ```json
 {
-  "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
+  "txid": "2c90bd28-eeee-ffff-gggg-7e3bd4fbff33",
   "status": "INPROGRESS"
 }
 ```
@@ -479,7 +417,7 @@ Cancel a queued device location report.
 
 ```csharp
 CancelQueuedLocationReportGenerationAsync(
-    string account,
+    string accountName,
     string txid)
 ```
 
@@ -487,7 +425,7 @@ CancelQueuedLocationReportGenerationAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier in "##########-#####". |
+| `accountName` | `string` | Template, Required | Account identifier in "##########-#####". |
 | `txid` | `string` | Template, Required | Transaction ID of the report to cancel. |
 
 ## Response Type
@@ -497,12 +435,12 @@ CancelQueuedLocationReportGenerationAsync(
 ## Example Usage
 
 ```csharp
-string account = "0252012345-00001";
-string txid = "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33";
+string accountName = "0252012345-00001";
+string txid = "2c90bd28-eeee-ffff-gggg-7e3bd4fbff33";
 try
 {
     ApiResponse<TransactionID> result = await devicesLocationsController.CancelQueuedLocationReportGenerationAsync(
-        account,
+        accountName,
         txid
     );
 }
@@ -517,7 +455,7 @@ catch (ApiException e)
 
 ```json
 {
-  "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33"
+  "txid": "2c90bd28-eeee-ffff-gggg-7e3bd4fbff33"
 }
 ```
 

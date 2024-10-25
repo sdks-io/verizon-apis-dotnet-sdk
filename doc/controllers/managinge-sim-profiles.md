@@ -10,12 +10,219 @@ ManagingeSIMProfilesController managingeSIMProfilesController = client.Managinge
 
 ## Methods
 
+* [Resume Profile](../../doc/controllers/managinge-sim-profiles.md#resume-profile)
+* [Profile Suspend](../../doc/controllers/managinge-sim-profiles.md#profile-suspend)
+* [Device Suspend](../../doc/controllers/managinge-sim-profiles.md#device-suspend)
+* [Set Fallback](../../doc/controllers/managinge-sim-profiles.md#set-fallback)
 * [Activate a Device Profile](../../doc/controllers/managinge-sim-profiles.md#activate-a-device-profile)
 * [Enable a Device Profile](../../doc/controllers/managinge-sim-profiles.md#enable-a-device-profile)
 * [Deactivate a Device Profile](../../doc/controllers/managinge-sim-profiles.md#deactivate-a-device-profile)
 * [Enable a Device Profile for Download](../../doc/controllers/managinge-sim-profiles.md#enable-a-device-profile-for-download)
 * [Download a Device Profile](../../doc/controllers/managinge-sim-profiles.md#download-a-device-profile)
 * [Delete a Device Profile](../../doc/controllers/managinge-sim-profiles.md#delete-a-device-profile)
+
+
+# Resume Profile
+
+Resume service to a device with either a lead or local profile.
+
+```csharp
+ResumeProfileAsync(
+    Models.GIOProfileRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`GIOProfileRequest`](../../doc/models/gio-profile-request.md) | Body, Required | Device Profile Query |
+
+## Response Type
+
+[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+
+## Example Usage
+
+```csharp
+GIOProfileRequest body = new GIOProfileRequest
+{
+    Devices = new List<GIODeviceList>
+    {
+        new GIODeviceList
+        {
+        },
+    },
+    AccountName = "0000123456-00001",
+    MdnZipCode = "12345",
+    ServicePlan = "service plan name",
+};
+
+try
+{
+    ApiResponse<GIORequestResponse> result = await managingESIMProfilesController.ResumeProfileAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | Error response | [`GIORestErrorResponseException`](../../doc/models/gio-rest-error-response-exception.md) |
+
+
+# Profile Suspend
+
+Suspend a device's Global profile.
+
+```csharp
+ProfileSuspendAsync(
+    Models.GIOProfileRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`GIOProfileRequest`](../../doc/models/gio-profile-request.md) | Body, Required | Device Profile Query |
+
+## Response Type
+
+[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+
+## Example Usage
+
+```csharp
+GIOProfileRequest body = new GIOProfileRequest
+{
+    Devices = new List<GIODeviceList>
+    {
+        new GIODeviceList
+        {
+        },
+    },
+    AccountName = "0000123456-00001",
+    MdnZipCode = "12345",
+    ServicePlan = "service plan name",
+};
+
+try
+{
+    ApiResponse<GIORequestResponse> result = await managingESIMProfilesController.ProfileSuspendAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | Error response | [`GIORestErrorResponseException`](../../doc/models/gio-rest-error-response-exception.md) |
+
+
+# Device Suspend
+
+Suspend all service to an eUICC device, including the lead and local profile.
+
+```csharp
+DeviceSuspendAsync(
+    Models.GIOProfileRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`GIOProfileRequest`](../../doc/models/gio-profile-request.md) | Body, Required | Device Profile Query |
+
+## Response Type
+
+[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+
+## Example Usage
+
+```csharp
+GIOProfileRequest body = new GIOProfileRequest
+{
+    Devices = new List<GIODeviceList>
+    {
+        new GIODeviceList
+        {
+        },
+    },
+    AccountName = "0000123456-00001",
+    MdnZipCode = "12345",
+    ServicePlan = "service plan name",
+};
+
+try
+{
+    ApiResponse<GIORequestResponse> result = await managingESIMProfilesController.DeviceSuspendAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | Error response | [`GIORestErrorResponseException`](../../doc/models/gio-rest-error-response-exception.md) |
+
+
+# Set Fallback
+
+Enable a fallback profile to be set.
+
+```csharp
+SetFallbackAsync(
+    Models.FallBack body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`FallBack`](../../doc/models/fall-back.md) | Body, Required | Set the fallback attributes to allow a fallback profile to be activated. |
+
+## Response Type
+
+[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+
+## Example Usage
+
+```csharp
+FallBack body = new FallBack
+{
+};
+
+try
+{
+    ApiResponse<GIORequestResponse> result = await managingESIMProfilesController.SetFallbackAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | Error response | [`GIORestErrorResponseException`](../../doc/models/gio-rest-error-response-exception.md) |
 
 
 # Activate a Device Profile
@@ -42,7 +249,7 @@ ActivateADeviceProfileAsync(
 ```csharp
 GIOProfileRequest body = new GIOProfileRequest
 {
-    Devices = new List<Models.GIODeviceList>
+    Devices = new List<GIODeviceList>
     {
         new GIODeviceList
         {

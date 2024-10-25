@@ -1,29 +1,29 @@
 // <copyright file="AnomalyTriggersController.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using APIMatic.Core;
+using APIMatic.Core.Types;
+using APIMatic.Core.Utilities;
+using APIMatic.Core.Utilities.Date.Xml;
+using Newtonsoft.Json.Converters;
+using System.Net.Http;
+using Verizon.Standard;
+using Verizon.Standard.Exceptions;
+using Verizon.Standard.Http.Client;
+using Verizon.Standard.Http.Response;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Dynamic;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using APIMatic.Core;
-    using APIMatic.Core.Types;
-    using APIMatic.Core.Utilities;
-    using APIMatic.Core.Utilities.Date.Xml;
-    using Newtonsoft.Json.Converters;
-    using System.Net.Http;
-    using Verizon.Standard;
-    using Verizon.Standard.Exceptions;
-    using Verizon.Standard.Http.Client;
-    using Verizon.Standard.Http.Response;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// AnomalyTriggersController.
     /// </summary>
@@ -37,7 +37,7 @@ namespace Verizon.Standard.Controllers
         /// <summary>
         /// This corresponds to the M2M-MC SOAP interface, ```GetTriggers```.
         /// </summary>
-        /// <returns>Returns the ApiResponse of List<Models.GetTriggerResponseList> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.GetTriggerResponseList&gt; response from the API call.</returns>
         public ApiResponse<List<Models.GetTriggerResponseList>> ListAnomalyDetectionTriggers()
             => CoreHelper.RunTask(ListAnomalyDetectionTriggersAsync());
 
@@ -45,7 +45,7 @@ namespace Verizon.Standard.Controllers
         /// This corresponds to the M2M-MC SOAP interface, ```GetTriggers```.
         /// </summary>
         /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of List<Models.GetTriggerResponseList> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.GetTriggerResponseList&gt; response from the API call.</returns>
         public async Task<ApiResponse<List<Models.GetTriggerResponseList>>> ListAnomalyDetectionTriggersAsync(CancellationToken cancellationToken = default)
             => await CreateApiCall<List<Models.GetTriggerResponseList>>()
               .Server(Server.Thingspace)
@@ -147,7 +147,7 @@ namespace Verizon.Standard.Controllers
         /// This corresponds to the M2M-MC SOAP interface, ```GetTriggers```.
         /// </summary>
         /// <param name="triggerId">Required parameter: trigger ID.</param>
-        /// <returns>Returns the ApiResponse of List<Models.GetTriggerResponseList> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.GetTriggerResponseList&gt; response from the API call.</returns>
         public ApiResponse<List<Models.GetTriggerResponseList>> ListAnomalyDetectionTriggerSettings(
                 string triggerId)
             => CoreHelper.RunTask(ListAnomalyDetectionTriggerSettingsAsync(triggerId));
@@ -157,7 +157,7 @@ namespace Verizon.Standard.Controllers
         /// </summary>
         /// <param name="triggerId">Required parameter: trigger ID.</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of List<Models.GetTriggerResponseList> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.GetTriggerResponseList&gt; response from the API call.</returns>
         public async Task<ApiResponse<List<Models.GetTriggerResponseList>>> ListAnomalyDetectionTriggerSettingsAsync(
                 string triggerId,
                 CancellationToken cancellationToken = default)

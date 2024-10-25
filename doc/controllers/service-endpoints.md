@@ -36,7 +36,7 @@ ListOptimalServiceEndpointsAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `region` | `string` | Query, Optional | MEC region name. Current valid values are US_WEST_2 and US_EAST_1. |
-| `subscriberDensity` | `int?` | Query, Optional | Minimum number of 4G/5G subscribers per square kilometer. |
+| `subscriberDensity` | `int?` | Query, Optional | Minimum number of 4G/5G subscribers per square kilometer.<br>**Constraints**: `>= 1`, `<= 100` |
 | `uEIdentityType` | [`UserEquipmentIdentityTypeEnum?`](../../doc/models/user-equipment-identity-type-enum.md) | Query, Optional | Type of User Equipment identifier used in `UEIdentity`. |
 | `uEIdentity` | `string` | Query, Optional | The identifier value for User Equipment. The type of identifier is defined by the 'UEIdentityType' parameter. The`IPAddress`format can be IPv4 or IPv6. |
 | `serviceEndpointsIds` | `string` | Query, Optional | A system-defined string identifier representing one or more registered Service Endpoints. |
@@ -55,7 +55,7 @@ ListOptimalServiceEndpointsAsync(
 
 ```csharp
 string region = "US_WEST_2";
-UserEquipmentIdentityTypeEnum? uEIdentityType = UserEquipmentIdentityTypeEnum.IPAddress;
+UserEquipmentIdentityTypeEnum? uEIdentityType = UserEquipmentIdentityTypeEnum.Ipaddress;
 string uEIdentity = "2600:1010:b1d0:0000:0000:0000:0000:0012";
 string serviceEndpointsIds = "43f3f7bb-d6c5-4bad-b081-9a3a0df2db98";
 try
@@ -119,7 +119,7 @@ RegisterServiceEndpointsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`List<ResourcesEdgeHostedServiceWithProfileId>`](../../doc/models/resources-edge-hosted-service-with-profile-id.md) | Body, Required | An array of Service Endpoint data for a deployed application. The request body passes all of the needed parameters to create a service endpoint. Parameters will be edited here rather than the **Parameters** section above. The `ern`,`applicationServerProviderId`, `applicationId` and `serviceProfileID` parameters are required. **Note:** Currently, the only valid value for `applicationServerProviderId`is **AWS**. Also, if you do not know one of the optional values (i.e. URI), you can erase the line from the query by back-spacing over it. |
+| `body` | [`List<ResourcesEdgeHostedServiceWithProfileId>`](../../doc/models/resources-edge-hosted-service-with-profile-id.md) | Body, Required | An array of Service Endpoint data for a deployed application. The request body passes all of the needed parameters to create a service endpoint. Parameters will be edited here rather than the **Parameters** section above. The `ern`,`applicationServerProviderId`, `applicationId` and `serviceProfileID` parameters are required. **Note:** Currently, the only valid value for `applicationServerProviderId`is **AWS**. Also, if you do not know one of the optional values (i.e. URI), you can erase the line from the query by back-spacing over it.<br>**Constraints**: *Maximum Items*: `100` |
 
 ## Requires scope
 
@@ -134,7 +134,7 @@ RegisterServiceEndpointsAsync(
 ## Example Usage
 
 ```csharp
-List<Models.ResourcesEdgeHostedServiceWithProfileId> body = new List<Models.ResourcesEdgeHostedServiceWithProfileId>
+List<ResourcesEdgeHostedServiceWithProfileId> body = new List<ResourcesEdgeHostedServiceWithProfileId>
 {
     new ResourcesEdgeHostedServiceWithProfileId
     {
@@ -311,7 +311,7 @@ UpdateServiceEndpointAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `serviceEndpointsId` | `string` | Template, Required | A system-defined string identifier representing one or more registered Service Endpoints. |
-| `body` | [`List<ResourcesEdgeHostedServiceWithProfileId>`](../../doc/models/resources-edge-hosted-service-with-profile-id.md) | Body, Required | Data needed for Service Endpoint information. The request body passes the rest of the needed parameters to create a service endpoint. Parameters other than `serviceEndpointsId` will be edited here rather than the **Parameters** section above. The `ern`,`applicationServerProviderId` and `applicationId` parameters are required. **Note:** Currently, the only valid value for `applicationServerProviderId`is **AWS**. |
+| `body` | [`List<ResourcesEdgeHostedServiceWithProfileId>`](../../doc/models/resources-edge-hosted-service-with-profile-id.md) | Body, Required | Data needed for Service Endpoint information. The request body passes the rest of the needed parameters to create a service endpoint. Parameters other than `serviceEndpointsId` will be edited here rather than the **Parameters** section above. The `ern`,`applicationServerProviderId` and `applicationId` parameters are required. **Note:** Currently, the only valid value for `applicationServerProviderId`is **AWS**.<br>**Constraints**: *Maximum Items*: `100` |
 
 ## Requires scope
 
@@ -327,7 +327,7 @@ UpdateServiceEndpointAsync(
 
 ```csharp
 string serviceEndpointsId = "43f3f7bb-d6c5-4bad-b081-9a3a0df2db98";
-List<Models.ResourcesEdgeHostedServiceWithProfileId> body = new List<Models.ResourcesEdgeHostedServiceWithProfileId>
+List<ResourcesEdgeHostedServiceWithProfileId> body = new List<ResourcesEdgeHostedServiceWithProfileId>
 {
     new ResourcesEdgeHostedServiceWithProfileId
     {

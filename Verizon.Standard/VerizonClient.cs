@@ -1,19 +1,18 @@
 // <copyright file="VerizonClient.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using APIMatic.Core;
+using APIMatic.Core.Authentication;
+using Verizon.Standard.Authentication;
+using Verizon.Standard.Controllers;
+using Verizon.Standard.Http.Client;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using APIMatic.Core;
-    using APIMatic.Core.Authentication;
-    using APIMatic.Core.Types;
-    using Verizon.Standard.Authentication;
-    using Verizon.Standard.Controllers;
-    using Verizon.Standard.Http.Client;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// The gateway for the SDK. This class acts as a factory for Controller and
     /// holds the configuration of the SDK.
@@ -68,6 +67,7 @@ namespace Verizon.Standard
 
         private readonly GlobalConfiguration globalConfiguration;
         private const string userAgent = "APIMATIC 3.0";
+        private readonly HttpCallback httpCallback;
         private readonly Lazy<M5gEdgePlatformsController> m5gEdgePlatforms;
         private readonly Lazy<ServiceEndpointsController> serviceEndpoints;
         private readonly Lazy<ServiceProfilesController> serviceProfiles;
@@ -133,22 +133,25 @@ namespace Verizon.Standard
         private readonly Lazy<DeviceSMSMessagingController> deviceSMSMessaging;
         private readonly Lazy<DeviceActionsController> deviceActions;
         private readonly Lazy<ThingSpaceQualityOfServiceAPIActionsController> thingSpaceQualityOfServiceAPIActions;
-        private readonly Lazy<MECController> mEC;
+        private readonly Lazy<PWNController> pWN;
         private readonly Lazy<PromotionPeriodInformationController> promotionPeriodInformation;
         private readonly Lazy<RetrieveTheTriggersController> retrieveTheTriggers;
         private readonly Lazy<UpdateTriggersController> updateTriggers;
         private readonly Lazy<SIMActionsController> sIMActions;
         private readonly Lazy<GlobalReportingController> globalReporting;
         private readonly Lazy<MV2TriggersController> mV2Triggers;
+        private readonly Lazy<M5gBIDeviceActionsController> m5gBIDeviceActions;
         private readonly Lazy<OauthAuthorizationController> oauthAuthorization;
 
         private VerizonClient(
             Environment environment,
             ThingspaceOauthModel thingspaceOauthModel,
             VZM2mTokenModel vZM2mTokenModel,
+            HttpCallback httpCallback,
             IHttpClientConfiguration httpClientConfiguration)
         {
             this.Environment = environment;
+            this.httpCallback = httpCallback;
             this.HttpClientConfiguration = httpClientConfiguration;
             ThingspaceOauthModel = thingspaceOauthModel;
             var thingspaceOauthManager = new ThingspaceOauthManager(thingspaceOauthModel);
@@ -160,6 +163,7 @@ namespace Verizon.Standard
                     {"thingspace_oauth", thingspaceOauthManager},
                     {"VZ-M2M-Token", vZM2mTokenManager},
                 })
+                .ApiCallback(httpCallback)
                 .HttpConfiguration(httpClientConfiguration)
                 .ServerUrls(EnvironmentsMap[environment], Server.EdgeDiscovery)
                 .UserAgent(userAgent)
@@ -298,8 +302,8 @@ namespace Verizon.Standard
                 () => new DeviceActionsController(globalConfiguration));
             this.thingSpaceQualityOfServiceAPIActions = new Lazy<ThingSpaceQualityOfServiceAPIActionsController>(
                 () => new ThingSpaceQualityOfServiceAPIActionsController(globalConfiguration));
-            this.mEC = new Lazy<MECController>(
-                () => new MECController(globalConfiguration));
+            this.pWN = new Lazy<PWNController>(
+                () => new PWNController(globalConfiguration));
             this.promotionPeriodInformation = new Lazy<PromotionPeriodInformationController>(
                 () => new PromotionPeriodInformationController(globalConfiguration));
             this.retrieveTheTriggers = new Lazy<RetrieveTheTriggersController>(
@@ -312,6 +316,8 @@ namespace Verizon.Standard
                 () => new GlobalReportingController(globalConfiguration));
             this.mV2Triggers = new Lazy<MV2TriggersController>(
                 () => new MV2TriggersController(globalConfiguration));
+            this.m5gBIDeviceActions = new Lazy<M5gBIDeviceActionsController>(
+                () => new M5gBIDeviceActionsController(globalConfiguration));
             this.oauthAuthorization = new Lazy<OauthAuthorizationController>(
                 () => new OauthAuthorizationController(globalConfiguration));
         }
@@ -642,9 +648,9 @@ namespace Verizon.Standard
         public ThingSpaceQualityOfServiceAPIActionsController ThingSpaceQualityOfServiceAPIActionsController => this.thingSpaceQualityOfServiceAPIActions.Value;
 
         /// <summary>
-        /// Gets MECController controller.
+        /// Gets PWNController controller.
         /// </summary>
-        public MECController MECController => this.mEC.Value;
+        public PWNController PWNController => this.pWN.Value;
 
         /// <summary>
         /// Gets PromotionPeriodInformationController controller.
@@ -677,6 +683,11 @@ namespace Verizon.Standard
         public MV2TriggersController MV2TriggersController => this.mV2Triggers.Value;
 
         /// <summary>
+        /// Gets M5gBIDeviceActionsController controller.
+        /// </summary>
+        public M5gBIDeviceActionsController M5gBIDeviceActionsController => this.m5gBIDeviceActions.Value;
+
+        /// <summary>
         /// Gets OauthAuthorizationController controller.
         /// </summary>
         public OauthAuthorizationController OauthAuthorizationController => this.oauthAuthorization.Value;
@@ -692,6 +703,10 @@ namespace Verizon.Standard
         /// </summary>
         public Environment Environment { get; }
 
+        /// <summary>
+        /// Gets http callback.
+        /// </summary>
+        public HttpCallback HttpCallback => this.httpCallback;
 
         /// <summary>
         /// Gets the credentials to use with ThingspaceOauth.
@@ -732,6 +747,7 @@ namespace Verizon.Standard
         {
             Builder builder = new Builder()
                 .Environment(this.Environment)
+                .HttpCallback(httpCallback)
                 .HttpClientConfig(config => config.Build());
 
             if (ThingspaceOauthModel != null)
@@ -799,6 +815,7 @@ namespace Verizon.Standard
             private ThingspaceOauthModel thingspaceOauthModel = new ThingspaceOauthModel();
             private VZM2mTokenModel vZM2mTokenModel = new VZM2mTokenModel();
             private HttpClientConfiguration.Builder httpClientConfig = new HttpClientConfiguration.Builder();
+            private HttpCallback httpCallback;
 
             /// <summary>
             /// Sets credentials for ThingspaceOauth.
@@ -860,7 +877,17 @@ namespace Verizon.Standard
             }
 
 
-           
+
+            /// <summary>
+            /// Sets the HttpCallback for the Builder.
+            /// </summary>
+            /// <param name="httpCallback"> http callback. </param>
+            /// <returns>Builder.</returns>
+            public Builder HttpCallback(HttpCallback httpCallback)
+            {
+                this.httpCallback = httpCallback;
+                return this;
+            }
 
             /// <summary>
             /// Creates an object of the VerizonClient using the values provided for the builder.
@@ -880,6 +907,7 @@ namespace Verizon.Standard
                     environment,
                     thingspaceOauthModel,
                     vZM2mTokenModel,
+                    httpCallback,
                     httpClientConfig.Build());
             }
         }

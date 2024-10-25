@@ -1,29 +1,29 @@
 // <copyright file="DeviceManagementController.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using APIMatic.Core;
+using APIMatic.Core.Types;
+using APIMatic.Core.Utilities;
+using APIMatic.Core.Utilities.Date.Xml;
+using Newtonsoft.Json.Converters;
+using System.Net.Http;
+using Verizon.Standard;
+using Verizon.Standard.Exceptions;
+using Verizon.Standard.Http.Client;
+using Verizon.Standard.Http.Response;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Dynamic;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using APIMatic.Core;
-    using APIMatic.Core.Types;
-    using APIMatic.Core.Utilities;
-    using APIMatic.Core.Utilities.Date.Xml;
-    using Newtonsoft.Json.Converters;
-    using System.Net.Http;
-    using Verizon.Standard;
-    using Verizon.Standard.Exceptions;
-    using Verizon.Standard.Http.Client;
-    using Verizon.Standard.Http.Response;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// DeviceManagementController.
     /// </summary>
@@ -71,7 +71,7 @@ namespace Verizon.Standard.Controllers
         /// Use this API if you want to manage some device settings before you are ready to activate service for the devices.
         /// </summary>
         /// <param name="body">Required parameter: Devices to add..</param>
-        /// <returns>Returns the ApiResponse of List<Models.AddDevicesResult> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.AddDevicesResult&gt; response from the API call.</returns>
         public ApiResponse<List<Models.AddDevicesResult>> AddDevices(
                 Models.AddDevicesRequest body)
             => CoreHelper.RunTask(AddDevicesAsync(body));
@@ -81,7 +81,7 @@ namespace Verizon.Standard.Controllers
         /// </summary>
         /// <param name="body">Required parameter: Devices to add..</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of List<Models.AddDevicesResult> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.AddDevicesResult&gt; response from the API call.</returns>
         public async Task<ApiResponse<List<Models.AddDevicesResult>>> AddDevicesAsync(
                 Models.AddDevicesRequest body,
                 CancellationToken cancellationToken = default)
@@ -121,7 +121,7 @@ namespace Verizon.Standard.Controllers
             => await CreateApiCall<Models.DeviceManagementResult>()
               .Server(Server.Thingspace)
               .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Put, "/m2m/v1/devices/actions/contactinfo")
+                  .Setup(HttpMethod.Put, "/m2m/v1/devices/actions/contactInfo")
                   .WithAndAuth(_andAuth => _andAuth
                       .Add("thingspace_oauth")
                       .Add("VZ-M2M-Token")
@@ -203,7 +203,7 @@ namespace Verizon.Standard.Controllers
         /// Use this API to remove unneeded devices from an account.
         /// </summary>
         /// <param name="body">Required parameter: Devices to delete..</param>
-        /// <returns>Returns the ApiResponse of List<Models.DeleteDevicesResult> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.DeleteDevicesResult&gt; response from the API call.</returns>
         public ApiResponse<List<Models.DeleteDevicesResult>> DeleteDeactivatedDevices(
                 Models.DeleteDevicesRequest body)
             => CoreHelper.RunTask(DeleteDeactivatedDevicesAsync(body));
@@ -213,7 +213,7 @@ namespace Verizon.Standard.Controllers
         /// </summary>
         /// <param name="body">Required parameter: Devices to delete..</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of List<Models.DeleteDevicesResult> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.DeleteDevicesResult&gt; response from the API call.</returns>
         public async Task<ApiResponse<List<Models.DeleteDevicesResult>>> DeleteDeactivatedDevicesAsync(
                 Models.DeleteDevicesRequest body,
                 CancellationToken cancellationToken = default)
@@ -599,7 +599,7 @@ namespace Verizon.Standard.Controllers
         /// Returns the provisioning history of a specified device during a specified time period.
         /// </summary>
         /// <param name="body">Required parameter: Query to obtain device provisioning history..</param>
-        /// <returns>Returns the ApiResponse of List<Models.DeviceProvisioningHistoryListResult> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.DeviceProvisioningHistoryListResult&gt; response from the API call.</returns>
         public ApiResponse<List<Models.DeviceProvisioningHistoryListResult>> ListDevicesProvisioningHistory(
                 Models.DeviceProvisioningHistoryListRequest body)
             => CoreHelper.RunTask(ListDevicesProvisioningHistoryAsync(body));
@@ -609,7 +609,7 @@ namespace Verizon.Standard.Controllers
         /// </summary>
         /// <param name="body">Required parameter: Query to obtain device provisioning history..</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the ApiResponse of List<Models.DeviceProvisioningHistoryListResult> response from the API call.</returns>
+        /// <returns>Returns the ApiResponse of List&lt;Models.DeviceProvisioningHistoryListResult&gt; response from the API call.</returns>
         public async Task<ApiResponse<List<Models.DeviceProvisioningHistoryListResult>>> ListDevicesProvisioningHistoryAsync(
                 Models.DeviceProvisioningHistoryListRequest body,
                 CancellationToken cancellationToken = default)

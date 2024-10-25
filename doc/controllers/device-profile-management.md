@@ -40,11 +40,11 @@ ActivateDeviceThroughProfileAsync(
 ```csharp
 ActivateDeviceProfileRequest body = new ActivateDeviceProfileRequest
 {
-    Devices = new List<Models.DeviceList>
+    Devices = new List<DeviceList>
     {
         new DeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {
@@ -107,7 +107,7 @@ ProfileToActivateDeviceAsync(
 ProfileRequest body = new ProfileRequest
 {
     AccountName = "0000123456-00001",
-    Devices = new List<Models.DeviceList>
+    Devices = new List<DeviceList>
     {
         new DeviceList
         {
@@ -209,7 +209,7 @@ ProfileToSetFallbackAttributeAsync(
 ```csharp
 SetFallbackAttributeRequest body = new SetFallbackAttributeRequest
 {
-    Devices = new List<Models.DeviceList>
+    Devices = new List<DeviceList>
     {
         new DeviceList
         {

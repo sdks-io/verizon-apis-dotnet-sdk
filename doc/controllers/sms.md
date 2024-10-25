@@ -43,7 +43,7 @@ SMSSendRequest body = new SMSSendRequest
 {
     AccountName = "0000123456-00001",
     SmsMessage = "Can you hear me now?",
-    DeviceIds = new List<Models.DeviceId>
+    DeviceIds = new List<DeviceId>
     {
         new DeviceId
         {

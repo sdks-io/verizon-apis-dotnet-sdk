@@ -1,18 +1,18 @@
 // <copyright file="OauthScopeThingspaceOauthEnum.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using APIMatic.Core.Utilities.Converters;
+using Newtonsoft.Json;
+using System.Reflection;
+using Verizon.Standard;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Runtime.Serialization;
-    using APIMatic.Core.Utilities.Converters;
-    using Newtonsoft.Json;
-    using System.Reflection;
-    using Verizon.Standard;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// OauthScopeThingspaceOauthEnum.
     /// </summary>
@@ -76,30 +76,35 @@ namespace Verizon.Standard.Models
         TsApplicationRo,
 
         /// <summary>
+        ///Read access to the discovery service
         /// Edgediscoveryread.
         /// </summary>
         [EnumMember(Value = "edge:discovery:read")]
         Edgediscoveryread,
 
         /// <summary>
+        ///Read access to the service profile service
         /// Edgeserviceprofileread.
         /// </summary>
         [EnumMember(Value = "edge:serviceprofile:read")]
         Edgeserviceprofileread,
 
         /// <summary>
+        ///Write access to the service profile service
         /// Edgeserviceprofilewrite.
         /// </summary>
         [EnumMember(Value = "edge:serviceprofile:write")]
         Edgeserviceprofilewrite,
 
         /// <summary>
+        ///Read access to the service registry service
         /// Edgeserviceregistryread.
         /// </summary>
         [EnumMember(Value = "edge:serviceregistry:read")]
         Edgeserviceregistryread,
 
         /// <summary>
+        ///Write access to the service registry service
         /// Edgeserviceregistrywrite.
         /// </summary>
         [EnumMember(Value = "edge:serviceregistry:write")]

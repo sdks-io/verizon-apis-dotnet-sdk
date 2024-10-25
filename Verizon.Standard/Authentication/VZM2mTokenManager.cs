@@ -1,14 +1,14 @@
 // <copyright file="VZM2mTokenManager.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Verizon.Standard.Http.Request;
+using APIMatic.Core.Authentication;
+
 namespace Verizon.Standard.Authentication
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Verizon.Standard.Http.Request;
-    using APIMatic.Core.Authentication;
-
     /// <summary>
     /// VZM2mTokenManager Class.
     /// </summary>

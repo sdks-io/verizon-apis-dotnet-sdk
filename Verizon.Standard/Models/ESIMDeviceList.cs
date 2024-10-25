@@ -1,21 +1,21 @@
 // <copyright file="ESIMDeviceList.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using APIMatic.Core.Utilities.Converters;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Verizon.Standard;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using APIMatic.Core.Utilities.Converters;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-    using Verizon.Standard;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// ESIMDeviceList.
     /// </summary>
@@ -33,7 +33,7 @@ namespace Verizon.Standard.Models
         /// </summary>
         /// <param name="deviceIds">deviceIds.</param>
         public ESIMDeviceList(
-            List<Models.ESIMDeviceId> deviceIds = null)
+            List<Models.DeviceId2> deviceIds = null)
         {
             this.DeviceIds = deviceIds;
         }
@@ -42,7 +42,7 @@ namespace Verizon.Standard.Models
         /// Gets or sets DeviceIds.
         /// </summary>
         [JsonProperty("deviceIds", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Models.ESIMDeviceId> DeviceIds { get; set; }
+        public List<Models.DeviceId2> DeviceIds { get; set; }
 
         /// <inheritdoc/>
         public override string ToString()

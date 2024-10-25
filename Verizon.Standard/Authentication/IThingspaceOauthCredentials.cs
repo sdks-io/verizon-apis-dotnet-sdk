@@ -1,11 +1,11 @@
 // <copyright file="IThingspaceOauthCredentials.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System.Threading.Tasks;
+using System.Collections.Generic;
+
 namespace Verizon.Standard.Authentication
 {
-    using System.Threading.Tasks;
-    using System.Collections.Generic;
-
     public interface IThingspaceOauthCredentials
     {
         /// <summary>

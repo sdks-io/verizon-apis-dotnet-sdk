@@ -29,7 +29,7 @@ AssignLicenseToDevicesAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `body` | [`AssignLicenseRequest`](../../doc/models/assign-license-request.md) | Body, Required | Request to assign license to devices. |
-| `xRequestID` | `string` | Header, Optional | Transaction Id. |
+| `xRequestID` | `string` | Header, Optional | Transaction Id.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9]-[0-9]{3,32}$` |
 
 ## Response Type
 
@@ -41,11 +41,11 @@ AssignLicenseToDevicesAsync(
 AssignLicenseRequest body = new AssignLicenseRequest
 {
     AccountName = "0000123456-00001",
-    Devices = new List<Models.LicenseDeviceList>
+    Devices = new List<LicenseDeviceList>
     {
         new LicenseDeviceList
         {
-            DeviceIds = new List<Models.LicenseDeviceId>
+            DeviceIds = new List<LicenseDeviceId>
             {
                 new LicenseDeviceId
                 {
@@ -103,7 +103,7 @@ UnassignLicenseToDevicesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `xRequestID` | `string` | Header, Required | Transaction Id. |
+| `xRequestID` | `string` | Header, Required | Transaction Id.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9]-[0-9]{3,32}$` |
 
 ## Response Type
 

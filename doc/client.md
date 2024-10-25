@@ -7,13 +7,13 @@ The following parameters are configurable for the API Client:
 |  --- | --- | --- |
 | `Environment` | `Environment` | The API environment. <br> **Default: `Environment.Production`** |
 | `Timeout` | `TimeSpan` | Http client timeout.<br>*Default*: `TimeSpan.FromSeconds(100)` |
-| `ThingspaceOauthCredentials` | [`ThingspaceOauthCredentials`]($a/oauth-2-client-credentials-grant.md) | The Credentials Setter for OAuth 2 Client Credentials Grant |
-| `VZM2mTokenCredentials` | [`VZM2mTokenCredentials`]($a/custom-header-signature.md) | The Credentials Setter for Custom Header Signature |
+| `ThingspaceOauthCredentials` | [`ThingspaceOauthCredentials`](auth/oauth-2-client-credentials-grant.md) | The Credentials Setter for OAuth 2 Client Credentials Grant |
+| `VZM2mTokenCredentials` | [`VZM2mTokenCredentials`](auth/custom-header-signature.md) | The Credentials Setter for Custom Header Signature |
 
 The API client can be initialized as follows:
 
 ```csharp
-Verizon.Standard.VerizonClient client = new Verizon.Standard.VerizonClient.Builder()
+VerizonClient client = new VerizonClient.Builder()
     .ThingspaceOauthCredentials(
         new ThingspaceOauthModel.Builder(
             "OAuthClientId",
@@ -27,7 +27,7 @@ Verizon.Standard.VerizonClient client = new Verizon.Standard.VerizonClient.Build
             })
         .Build())
     .VZM2mTokenCredentials(
-        new VZM2MTokenModel.Builder(
+        new VZM2mTokenModel.Builder(
             "VZ-M2M-Token"
         )
         .Build())
@@ -116,13 +116,14 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | DeviceSMSMessagingController | Gets DeviceSMSMessagingController controller. |
 | DeviceActionsController | Gets DeviceActionsController controller. |
 | ThingSpaceQualityOfServiceAPIActionsController | Gets ThingSpaceQualityOfServiceAPIActionsController controller. |
-| MECController | Gets MECController controller. |
+| PWNController | Gets PWNController controller. |
 | PromotionPeriodInformationController | Gets PromotionPeriodInformationController controller. |
 | RetrieveTheTriggersController | Gets RetrieveTheTriggersController controller. |
 | UpdateTriggersController | Gets UpdateTriggersController controller. |
 | SIMActionsController | Gets SIMActionsController controller. |
 | GlobalReportingController | Gets GlobalReportingController controller. |
 | MV2TriggersController | Gets MV2TriggersController controller. |
+| M5gBIDeviceActionsController | Gets M5gBIDeviceActionsController controller. |
 | OauthAuthorizationController | Gets OauthAuthorizationController controller. |
 
 ### Properties
@@ -132,8 +133,8 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | HttpClientConfiguration | Gets the configuration of the Http Client associated with this client. | [`IHttpClientConfiguration`](http-client-configuration.md) |
 | Timeout | Http client timeout. | `TimeSpan` |
 | Environment | Current API environment. | `Environment` |
-| ThingspaceOauthCredentials | Gets the credentials to use with ThingspaceOauth. | [`IThingspaceOauthCredentials`]($a/oauth-2-client-credentials-grant.md) |
-| VZM2mTokenCredentials | Gets the credentials to use with VZM2MToken. | [`IVZM2mTokenCredentials`]($a/custom-header-signature.md) |
+| ThingspaceOauthCredentials | Gets the credentials to use with ThingspaceOauth. | [`IThingspaceOauthCredentials`](auth/oauth-2-client-credentials-grant.md) |
+| VZM2mTokenCredentials | Gets the credentials to use with VZM2MToken. | [`IVZM2mTokenCredentials`](auth/custom-header-signature.md) |
 
 ### Methods
 

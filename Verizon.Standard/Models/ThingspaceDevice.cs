@@ -1,21 +1,21 @@
 // <copyright file="ThingspaceDevice.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using APIMatic.Core.Utilities.Converters;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Verizon.Standard;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using APIMatic.Core.Utilities.Converters;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-    using Verizon.Standard;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// ThingspaceDevice.
     /// </summary>
@@ -40,7 +40,7 @@ namespace Verizon.Standard.Models
         /// <param name="deviceIds">deviceIds.</param>
         /// <param name="extendedAttributes">extendedAttributes.</param>
         /// <param name="groupNames">groupNames.</param>
-        /// <param name="ipAddress">ipAddress.</param>
+        /// <param name="ipaddress">ipAddress.</param>
         /// <param name="lastActivationBy">lastActivationBy.</param>
         /// <param name="lastActivationDate">lastActivationDate.</param>
         /// <param name="lastConnectionDate">lastConnectionDate.</param>
@@ -54,7 +54,7 @@ namespace Verizon.Standard.Models
             List<Models.DeviceId> deviceIds = null,
             List<Models.CustomFields> extendedAttributes = null,
             List<string> groupNames = null,
-            string ipAddress = null,
+            string ipaddress = null,
             string lastActivationBy = null,
             string lastActivationDate = null,
             string lastConnectionDate = null)
@@ -68,7 +68,7 @@ namespace Verizon.Standard.Models
             this.DeviceIds = deviceIds;
             this.ExtendedAttributes = extendedAttributes;
             this.GroupNames = groupNames;
-            this.IpAddress = ipAddress;
+            this.Ipaddress = ipaddress;
             this.LastActivationBy = lastActivationBy;
             this.LastActivationDate = lastActivationDate;
             this.LastConnectionDate = lastConnectionDate;
@@ -132,7 +132,7 @@ namespace Verizon.Standard.Models
         /// The IP address of the device.
         /// </summary>
         [JsonProperty("ipAddress", NullValueHandling = NullValueHandling.Ignore)]
-        public string IpAddress { get; set; }
+        public string Ipaddress { get; set; }
 
         /// <summary>
         /// The user who last activated the device.
@@ -183,7 +183,7 @@ namespace Verizon.Standard.Models
                 ((this.DeviceIds == null && other.DeviceIds == null) || (this.DeviceIds?.Equals(other.DeviceIds) == true)) &&
                 ((this.ExtendedAttributes == null && other.ExtendedAttributes == null) || (this.ExtendedAttributes?.Equals(other.ExtendedAttributes) == true)) &&
                 ((this.GroupNames == null && other.GroupNames == null) || (this.GroupNames?.Equals(other.GroupNames) == true)) &&
-                ((this.IpAddress == null && other.IpAddress == null) || (this.IpAddress?.Equals(other.IpAddress) == true)) &&
+                ((this.Ipaddress == null && other.Ipaddress == null) || (this.Ipaddress?.Equals(other.Ipaddress) == true)) &&
                 ((this.LastActivationBy == null && other.LastActivationBy == null) || (this.LastActivationBy?.Equals(other.LastActivationBy) == true)) &&
                 ((this.LastActivationDate == null && other.LastActivationDate == null) || (this.LastActivationDate?.Equals(other.LastActivationDate) == true)) &&
                 ((this.LastConnectionDate == null && other.LastConnectionDate == null) || (this.LastConnectionDate?.Equals(other.LastConnectionDate) == true));
@@ -204,7 +204,7 @@ namespace Verizon.Standard.Models
             toStringOutput.Add($"this.DeviceIds = {(this.DeviceIds == null ? "null" : $"[{string.Join(", ", this.DeviceIds)} ]")}");
             toStringOutput.Add($"this.ExtendedAttributes = {(this.ExtendedAttributes == null ? "null" : $"[{string.Join(", ", this.ExtendedAttributes)} ]")}");
             toStringOutput.Add($"this.GroupNames = {(this.GroupNames == null ? "null" : $"[{string.Join(", ", this.GroupNames)} ]")}");
-            toStringOutput.Add($"this.IpAddress = {(this.IpAddress == null ? "null" : this.IpAddress)}");
+            toStringOutput.Add($"this.Ipaddress = {(this.Ipaddress == null ? "null" : this.Ipaddress)}");
             toStringOutput.Add($"this.LastActivationBy = {(this.LastActivationBy == null ? "null" : this.LastActivationBy)}");
             toStringOutput.Add($"this.LastActivationDate = {(this.LastActivationDate == null ? "null" : this.LastActivationDate)}");
             toStringOutput.Add($"this.LastConnectionDate = {(this.LastConnectionDate == null ? "null" : this.LastConnectionDate)}");

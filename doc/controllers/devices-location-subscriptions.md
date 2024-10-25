@@ -20,14 +20,14 @@ This subscriptions endpoint retrieves an account's current location subscription
 
 ```csharp
 GetLocationServiceSubscriptionStatusAsync(
-    string account)
+    string accountName)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account` | `string` | Template, Required | Account identifier in "##########-#####". |
+| `accountName` | `string` | Template, Required | Account identifier in "##########-#####". |
 
 ## Response Type
 
@@ -36,10 +36,10 @@ GetLocationServiceSubscriptionStatusAsync(
 ## Example Usage
 
 ```csharp
-string account = "0000123456-00001";
+string accountName = "0000123456-00001";
 try
 {
-    ApiResponse<DeviceLocationSubscription> result = await devicesLocationSubscriptionsController.GetLocationServiceSubscriptionStatusAsync(account);
+    ApiResponse<DeviceLocationSubscription> result = await devicesLocationSubscriptionsController.GetLocationServiceSubscriptionStatusAsync(accountName);
 }
 catch (ApiException e)
 {

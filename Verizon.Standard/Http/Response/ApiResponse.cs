@@ -1,11 +1,11 @@
 // <copyright file="ApiResponse.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System.Collections.Generic;
+using APIMatic.Core.Types.Sdk;
+
 namespace Verizon.Standard.Http.Response
 {
-    using System.Collections.Generic;
-    using APIMatic.Core.Types.Sdk;
-
     /// <summary>
     /// ApiResponse Class.
     /// </summary>

@@ -1,21 +1,21 @@
 // <copyright file="DeviceList2.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using APIMatic.Core.Utilities.Converters;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Verizon.Standard;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using APIMatic.Core.Utilities.Converters;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-    using Verizon.Standard;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// DeviceList2.
     /// </summary>
@@ -33,7 +33,7 @@ namespace Verizon.Standard.Models
         /// </summary>
         /// <param name="ids">ids.</param>
         public DeviceList2(
-            List<Models.ESIMDeviceId> ids = null)
+            List<Models.DeviceId2> ids = null)
         {
             this.Ids = ids;
         }
@@ -42,7 +42,7 @@ namespace Verizon.Standard.Models
         /// Gets or sets Ids.
         /// </summary>
         [JsonProperty("ids", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Models.ESIMDeviceId> Ids { get; set; }
+        public List<Models.DeviceId2> Ids { get; set; }
 
         /// <inheritdoc/>
         public override string ToString()

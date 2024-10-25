@@ -10,9 +10,183 @@ DeviceActionsController deviceActionsController = client.DeviceActionsController
 
 ## Methods
 
+* [Aggregate Usage](../../doc/controllers/device-actions.md#aggregate-usage)
+* [Daily Usage](../../doc/controllers/device-actions.md#daily-usage)
+* [Service Plan List](../../doc/controllers/device-actions.md#service-plan-list)
+* [Account Information](../../doc/controllers/device-actions.md#account-information)
 * [Retrieve the Global Device List](../../doc/controllers/device-actions.md#retrieve-the-global-device-list)
 * [Retrieve Device Provisioning History](../../doc/controllers/device-actions.md#retrieve-device-provisioning-history)
 * [Get Asynchronous Request Status](../../doc/controllers/device-actions.md#get-asynchronous-request-status)
+
+
+# Aggregate Usage
+
+Retrieve the aggregate usage for a device or a number of devices.
+
+```csharp
+AggregateUsageAsync(
+    Models.AggregateUsage body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`AggregateUsage`](../../doc/models/aggregate-usage.md) | Body, Required | - |
+
+## Response Type
+
+[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+
+## Example Usage
+
+```csharp
+AggregateUsage body = new AggregateUsage
+{
+};
+
+try
+{
+    ApiResponse<GIORequestResponse> result = await deviceActionsController.AggregateUsageAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | Error response | [`GIORestErrorResponseException`](../../doc/models/gio-rest-error-response-exception.md) |
+
+
+# Daily Usage
+
+Retrieve the daily usage for a device, for a specified period of time, segmented by day
+
+```csharp
+DailyUsageAsync(
+    Models.DailyUsage body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`DailyUsage`](../../doc/models/daily-usage.md) | Body, Required | - |
+
+## Response Type
+
+[`Task<ApiResponse<Models.DailyUsageResponse>>`](../../doc/models/daily-usage-response.md)
+
+## Example Usage
+
+```csharp
+DailyUsage body = new DailyUsage
+{
+};
+
+try
+{
+    ApiResponse<DailyUsageResponse> result = await deviceActionsController.DailyUsageAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | Error response | [`GIORestErrorResponseException`](../../doc/models/gio-rest-error-response-exception.md) |
+
+
+# Service Plan List
+
+Retrieve all of the service plans, features and carriers associated with the account specified.
+
+```csharp
+ServicePlanListAsync(
+    string accountName)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountName` | `string` | Template, Required | **Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9]{3,32}$` |
+
+## Response Type
+
+[`Task<ApiResponse<Models.AccountDetails>>`](../../doc/models/account-details.md)
+
+## Example Usage
+
+```csharp
+string accountName = "accountName4";
+try
+{
+    ApiResponse<AccountDetails> result = await deviceActionsController.ServicePlanListAsync(accountName);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | Error response | [`GIORestErrorResponseException`](../../doc/models/gio-rest-error-response-exception.md) |
+
+
+# Account Information
+
+Retrieve all of the service plans, features and carriers associated with the account specified.
+
+```csharp
+AccountInformationAsync(
+    string accountName)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountName` | `string` | Template, Required | **Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9]{3,32}$` |
+
+## Response Type
+
+[`Task<ApiResponse<Models.AccountDetails>>`](../../doc/models/account-details.md)
+
+## Example Usage
+
+```csharp
+string accountName = "accountName4";
+try
+{
+    ApiResponse<AccountDetails> result = await deviceActionsController.AccountInformationAsync(accountName);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | Error response | [`GIORestErrorResponseException`](../../doc/models/gio-rest-error-response-exception.md) |
 
 
 # Retrieve the Global Device List
@@ -64,7 +238,7 @@ catch (ApiException e)
 
 # Retrieve Device Provisioning History
 
-Retreive the provisioning history of a specific device or devices.
+Retrieve the provisioning history of a specific device or devices.
 
 ```csharp
 RetrieveDeviceProvisioningHistoryAsync(
@@ -127,8 +301,8 @@ GetAsynchronousRequestStatusAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `accountName` | `string` | Template, Required | - |
-| `requestID` | `string` | Template, Required | - |
+| `accountName` | `string` | Template, Required | **Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9\-]{3,32}$` |
+| `requestID` | `string` | Template, Required | **Constraints**: *Minimum Length*: `3`, *Maximum Length*: `64`, *Pattern*: `^[A-Za-z0-9\-]{3,64}$` |
 
 ## Response Type
 

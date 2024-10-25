@@ -1,13 +1,13 @@
 // <copyright file="IConfiguration.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Net;
+using Verizon.Standard.Authentication;
+using Verizon.Standard.Models;
+
 namespace Verizon.Standard
 {
-    using System;
-    using System.Net;
-    using Verizon.Standard.Authentication;
-    using Verizon.Standard.Models;
-
     /// <summary>
     /// IConfiguration.
     /// </summary>

@@ -223,8 +223,6 @@ catch (ApiException e)
 
 Create a unique string that ThingSpace will pass to AWS for increased security.
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```csharp
 GenerateTargetExternalIDAsync(
     Models.GenerateExternalIDRequest body)

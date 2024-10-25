@@ -38,11 +38,11 @@ NotificationReportRequest body = new NotificationReportRequest
 {
     AccountName = "0242072320-00001",
     RequestType = "REACHABLE_FOR_DATA",
-    Devices = new List<Models.DeviceList>
+    Devices = new List<DeviceList>
     {
         new DeviceList
         {
-            DeviceIds = new List<Models.DeviceId>
+            DeviceIds = new List<DeviceId>
             {
                 new DeviceId
                 {

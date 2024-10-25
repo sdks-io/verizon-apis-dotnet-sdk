@@ -1,21 +1,21 @@
 // <copyright file="CampaignFirmwareUpgrade.cs" company="APIMatic">
 // Copyright (c) APIMatic. All rights reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using APIMatic.Core.Utilities.Converters;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Verizon.Standard;
+using Verizon.Standard.Utilities;
+
 namespace Verizon.Standard.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using APIMatic.Core.Utilities.Converters;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-    using Verizon.Standard;
-    using Verizon.Standard.Utilities;
-
     /// <summary>
     /// CampaignFirmwareUpgrade.
     /// </summary>
@@ -38,6 +38,8 @@ namespace Verizon.Standard.Models
         /// <param name="startDate">startDate.</param>
         /// <param name="endDate">endDate.</param>
         /// <param name="deviceList">deviceList.</param>
+        /// <param name="autoAssignLicenseFlag">autoAssignLicenseFlag.</param>
+        /// <param name="autoAddDevicesFlag">autoAddDevicesFlag.</param>
         /// <param name="campaignName">campaignName.</param>
         /// <param name="campaignTimeWindowList">campaignTimeWindowList.</param>
         public CampaignFirmwareUpgrade(
@@ -48,6 +50,8 @@ namespace Verizon.Standard.Models
             DateTime startDate,
             DateTime endDate,
             List<string> deviceList,
+            bool autoAssignLicenseFlag,
+            bool autoAddDevicesFlag,
             string campaignName = null,
             List<Models.V3TimeWindow> campaignTimeWindowList = null)
         {
@@ -60,6 +64,8 @@ namespace Verizon.Standard.Models
             this.EndDate = endDate;
             this.CampaignTimeWindowList = campaignTimeWindowList;
             this.DeviceList = deviceList;
+            this.AutoAssignLicenseFlag = autoAssignLicenseFlag;
+            this.AutoAddDevicesFlag = autoAddDevicesFlag;
         }
 
         /// <summary>
@@ -118,6 +124,18 @@ namespace Verizon.Standard.Models
         [JsonProperty("deviceList")]
         public List<string> DeviceList { get; set; }
 
+        /// <summary>
+        /// This flag, when set to true, will assign a FOTA license automatically if the device does not have one already.
+        /// </summary>
+        [JsonProperty("autoAssignLicenseFlag")]
+        public bool AutoAssignLicenseFlag { get; set; }
+
+        /// <summary>
+        /// this flag, when set to true, will automatically add a device of the same make and model to a campaign.
+        /// </summary>
+        [JsonProperty("autoAddDevicesFlag")]
+        public bool AutoAddDevicesFlag { get; set; }
+
         /// <inheritdoc/>
         public override string ToString()
         {
@@ -148,7 +166,9 @@ namespace Verizon.Standard.Models
                 this.StartDate.Equals(other.StartDate) &&
                 this.EndDate.Equals(other.EndDate) &&
                 ((this.CampaignTimeWindowList == null && other.CampaignTimeWindowList == null) || (this.CampaignTimeWindowList?.Equals(other.CampaignTimeWindowList) == true)) &&
-                ((this.DeviceList == null && other.DeviceList == null) || (this.DeviceList?.Equals(other.DeviceList) == true));
+                ((this.DeviceList == null && other.DeviceList == null) || (this.DeviceList?.Equals(other.DeviceList) == true)) &&
+                this.AutoAssignLicenseFlag.Equals(other.AutoAssignLicenseFlag) &&
+                this.AutoAddDevicesFlag.Equals(other.AutoAddDevicesFlag);
         }
         
         /// <summary>
@@ -166,6 +186,8 @@ namespace Verizon.Standard.Models
             toStringOutput.Add($"this.EndDate = {this.EndDate}");
             toStringOutput.Add($"this.CampaignTimeWindowList = {(this.CampaignTimeWindowList == null ? "null" : $"[{string.Join(", ", this.CampaignTimeWindowList)} ]")}");
             toStringOutput.Add($"this.DeviceList = {(this.DeviceList == null ? "null" : $"[{string.Join(", ", this.DeviceList)} ]")}");
+            toStringOutput.Add($"this.AutoAssignLicenseFlag = {this.AutoAssignLicenseFlag}");
+            toStringOutput.Add($"this.AutoAddDevicesFlag = {this.AutoAddDevicesFlag}");
         }
     }
 }

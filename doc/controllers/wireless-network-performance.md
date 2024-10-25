@@ -78,7 +78,7 @@ catch (ApiException e)
 
 # Domestic 4 G and 5G Nationwide Network Coverage
 
-Run a report to determine network types available and available coverage. Network types covered include: CAT-M, NB-IOT, LTE, LTE-AWS and 5GNW.
+Run a report to determine network types available and available coverage. Network types covered include: CAT-M, NB-IOT, LTE, LTE-AWS, 5GNW and C-BAND.
 
 ```csharp
 Domestic4GAnd5gNationwideNetworkCoverageAsync(
@@ -105,7 +105,7 @@ GetWirelessCoverageRequest body = new GetWirelessCoverageRequest
     LocationType = "LONGLAT",
     Locations = new Locationscoord
     {
-        CoordinatesList = new List<Models.Coordinates>
+        CoordinatesList = new List<Coordinates>
         {
             new Coordinates
             {
@@ -114,7 +114,7 @@ GetWirelessCoverageRequest body = new GetWirelessCoverageRequest
             },
         },
     },
-    NetworkTypesList = new List<Models.NetworkType>
+    NetworkTypesList = new List<NetworkType>
     {
         new NetworkType
         {
@@ -292,7 +292,7 @@ DeviceExperienceBulkLatestAsync(
 GetDeviceExperienceScoreBulkRequest body = new GetDeviceExperienceScoreBulkRequest
 {
     AccountName = "0000123456-00001",
-    DeviceList = new List<Models.DeviceIdentifier>
+    DeviceList = new List<DeviceIdentifier>
     {
         new DeviceIdentifier
         {

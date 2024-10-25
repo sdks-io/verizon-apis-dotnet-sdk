@@ -38,7 +38,7 @@ GetWirelessCoverageRequestFWA body = new GetWirelessCoverageRequestFWA
     LocationType = "ADDRESS",
     Locations = new Locations
     {
-        AddressList = new List<Models.AddressItem>
+        AddressList = new List<AddressItem>
         {
             new AddressItem
             {
@@ -50,7 +50,7 @@ GetWirelessCoverageRequestFWA body = new GetWirelessCoverageRequestFWA
             },
         },
     },
-    NetworkTypesList = new List<Models.NetworkType>
+    NetworkTypesList = new List<NetworkType>
     {
         new NetworkType
         {
