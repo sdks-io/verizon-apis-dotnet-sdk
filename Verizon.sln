@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verizon.Standard", "Verizon.Standard/Verizon.Standard.csproj", "{f8af8cd0-ee79-4281-b11e-3796357b36fc}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verizon.Standard", "Verizon.Standard/Verizon.Standard.csproj", "{e720938d-a3cf-42d8-b51e-8c14470e8ec1}"
 EndProject
 Global
     GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -10,10 +10,10 @@ Global
         Release|Any CPU = Release|Any CPU
     EndGlobalSection
     GlobalSection(ProjectConfigurationPlatforms) = postSolution
-        {f8af8cd0-ee79-4281-b11e-3796357b36fc}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-        {f8af8cd0-ee79-4281-b11e-3796357b36fc}.Debug|Any CPU.Build.0 = Debug|Any CPU
-        {f8af8cd0-ee79-4281-b11e-3796357b36fc}.Release|Any CPU.ActiveCfg = Release|Any CPU
-        {f8af8cd0-ee79-4281-b11e-3796357b36fc}.Release|Any CPU.Build.0 = Release|Any CPU
+        {e720938d-a3cf-42d8-b51e-8c14470e8ec1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {e720938d-a3cf-42d8-b51e-8c14470e8ec1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {e720938d-a3cf-42d8-b51e-8c14470e8ec1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {e720938d-a3cf-42d8-b51e-8c14470e8ec1}.Release|Any CPU.Build.0 = Release|Any CPU
     EndGlobalSection
     GlobalSection(SolutionProperties) = preSolution
         HideSolutionNode = FALSE

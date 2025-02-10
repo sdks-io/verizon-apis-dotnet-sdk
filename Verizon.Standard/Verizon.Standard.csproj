@@ -8,18 +8,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>VerizonApisSDK</AssemblyName>
-    <Version>1.7.1.0</Version>
+    <AssemblyName>sdksio.VerizonApisSDK</AssemblyName>
+    <Version>1.7.2.0</Version>
     <Authors>developer-sdksio</Authors>
     <Owners></Owners>
     <Product>Verizon.Standard</Product>
     <Copyright>Copyright ©  2019</Copyright>
-    <AssemblyVersion>1.7.1.0</AssemblyVersion>
-    <FileVersion>1.7.1.0</FileVersion>
+    <AssemblyVersion>1.7.2.0</AssemblyVersion>
+    <FileVersion>1.7.2.0</FileVersion>
     <Description>Use the Verizon API for connectivity management, device diagnostics, device location, edge discovery service, edge performance, software management and much more.</Description>
     <LangVersion>7.3</LangVersion>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <PackageId>VerizonApisSDK</PackageId>
+    <PackageId>sdksio.VerizonApisSDK</PackageId>
     <PackageTags>API;SDK;Verizon;Thingspace</PackageTags>
     <RepositoryUrl>https://github.com/sdks-io/verizon-apis-dotnet-sdk.git</RepositoryUrl>
     <PackRepositoryTypeageId>git</PackRepositoryTypeageId>
