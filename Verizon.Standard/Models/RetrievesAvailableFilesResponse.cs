@@ -111,48 +111,49 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"RetrievesAvailableFilesResponse : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is RetrievesAvailableFilesResponse other &&                ((this.FileName == null && other.FileName == null) || (this.FileName?.Equals(other.FileName) == true)) &&
-                ((this.FileVersion == null && other.FileVersion == null) || (this.FileVersion?.Equals(other.FileVersion) == true)) &&
-                ((this.ReleaseNote == null && other.ReleaseNote == null) || (this.ReleaseNote?.Equals(other.ReleaseNote) == true)) &&
-                ((this.Make == null && other.Make == null) || (this.Make?.Equals(other.Make) == true)) &&
-                ((this.Model == null && other.Model == null) || (this.Model?.Equals(other.Model) == true)) &&
-                ((this.LocalTargetPath == null && other.LocalTargetPath == null) || (this.LocalTargetPath?.Equals(other.LocalTargetPath) == true)) &&
-                ((this.DistributionType == null && other.DistributionType == null) || (this.DistributionType?.Equals(other.DistributionType) == true)) &&
-                ((this.DevicePlatformId == null && other.DevicePlatformId == null) || (this.DevicePlatformId?.Equals(other.DevicePlatformId) == true));
+            return obj is RetrievesAvailableFilesResponse other &&
+                (this.FileName == null && other.FileName == null ||
+                 this.FileName?.Equals(other.FileName) == true) &&
+                (this.FileVersion == null && other.FileVersion == null ||
+                 this.FileVersion?.Equals(other.FileVersion) == true) &&
+                (this.ReleaseNote == null && other.ReleaseNote == null ||
+                 this.ReleaseNote?.Equals(other.ReleaseNote) == true) &&
+                (this.Make == null && other.Make == null ||
+                 this.Make?.Equals(other.Make) == true) &&
+                (this.Model == null && other.Model == null ||
+                 this.Model?.Equals(other.Model) == true) &&
+                (this.LocalTargetPath == null && other.LocalTargetPath == null ||
+                 this.LocalTargetPath?.Equals(other.LocalTargetPath) == true) &&
+                (this.DistributionType == null && other.DistributionType == null ||
+                 this.DistributionType?.Equals(other.DistributionType) == true) &&
+                (this.DevicePlatformId == null && other.DevicePlatformId == null ||
+                 this.DevicePlatformId?.Equals(other.DevicePlatformId) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.FileName = {(this.FileName == null ? "null" : this.FileName)}");
-            toStringOutput.Add($"this.FileVersion = {(this.FileVersion == null ? "null" : this.FileVersion)}");
-            toStringOutput.Add($"this.ReleaseNote = {(this.ReleaseNote == null ? "null" : this.ReleaseNote)}");
-            toStringOutput.Add($"this.Make = {(this.Make == null ? "null" : this.Make)}");
-            toStringOutput.Add($"this.Model = {(this.Model == null ? "null" : this.Model)}");
-            toStringOutput.Add($"this.LocalTargetPath = {(this.LocalTargetPath == null ? "null" : this.LocalTargetPath)}");
-            toStringOutput.Add($"this.DistributionType = {(this.DistributionType == null ? "null" : this.DistributionType)}");
-            toStringOutput.Add($"this.DevicePlatformId = {(this.DevicePlatformId == null ? "null" : this.DevicePlatformId)}");
+            toStringOutput.Add($"FileName = {this.FileName ?? "null"}");
+            toStringOutput.Add($"FileVersion = {this.FileVersion ?? "null"}");
+            toStringOutput.Add($"ReleaseNote = {this.ReleaseNote ?? "null"}");
+            toStringOutput.Add($"Make = {this.Make ?? "null"}");
+            toStringOutput.Add($"Model = {this.Model ?? "null"}");
+            toStringOutput.Add($"LocalTargetPath = {this.LocalTargetPath ?? "null"}");
+            toStringOutput.Add($"DistributionType = {this.DistributionType ?? "null"}");
+            toStringOutput.Add($"DevicePlatformId = {this.DevicePlatformId ?? "null"}");
         }
     }
 }

@@ -120,50 +120,52 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"CreateTriggerRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is CreateTriggerRequest other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.AnomalyTriggerRequest == null && other.AnomalyTriggerRequest == null) || (this.AnomalyTriggerRequest?.Equals(other.AnomalyTriggerRequest) == true)) &&
-                ((this.DataTriggerRequest == null && other.DataTriggerRequest == null) || (this.DataTriggerRequest?.Equals(other.DataTriggerRequest) == true)) &&
-                ((this.GroupName == null && other.GroupName == null) || (this.GroupName?.Equals(other.GroupName) == true)) &&
-                ((this.Name == null && other.Name == null) || (this.Name?.Equals(other.Name) == true)) &&
-                ((this.SessionTriggerRequest == null && other.SessionTriggerRequest == null) || (this.SessionTriggerRequest?.Equals(other.SessionTriggerRequest) == true)) &&
-                ((this.SmsTriggerRequest == null && other.SmsTriggerRequest == null) || (this.SmsTriggerRequest?.Equals(other.SmsTriggerRequest) == true)) &&
-                ((this.TriggerCategory == null && other.TriggerCategory == null) || (this.TriggerCategory?.Equals(other.TriggerCategory) == true)) &&
-                ((this.TriggerCycle == null && other.TriggerCycle == null) || (this.TriggerCycle?.Equals(other.TriggerCycle) == true));
+            return obj is CreateTriggerRequest other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.AnomalyTriggerRequest == null && other.AnomalyTriggerRequest == null ||
+                 this.AnomalyTriggerRequest?.Equals(other.AnomalyTriggerRequest) == true) &&
+                (this.DataTriggerRequest == null && other.DataTriggerRequest == null ||
+                 this.DataTriggerRequest?.Equals(other.DataTriggerRequest) == true) &&
+                (this.GroupName == null && other.GroupName == null ||
+                 this.GroupName?.Equals(other.GroupName) == true) &&
+                (this.Name == null && other.Name == null ||
+                 this.Name?.Equals(other.Name) == true) &&
+                (this.SessionTriggerRequest == null && other.SessionTriggerRequest == null ||
+                 this.SessionTriggerRequest?.Equals(other.SessionTriggerRequest) == true) &&
+                (this.SmsTriggerRequest == null && other.SmsTriggerRequest == null ||
+                 this.SmsTriggerRequest?.Equals(other.SmsTriggerRequest) == true) &&
+                (this.TriggerCategory == null && other.TriggerCategory == null ||
+                 this.TriggerCategory?.Equals(other.TriggerCategory) == true) &&
+                (this.TriggerCycle == null && other.TriggerCycle == null ||
+                 this.TriggerCycle?.Equals(other.TriggerCycle) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.AnomalyTriggerRequest = {(this.AnomalyTriggerRequest == null ? "null" : this.AnomalyTriggerRequest.ToString())}");
-            toStringOutput.Add($"this.DataTriggerRequest = {(this.DataTriggerRequest == null ? "null" : this.DataTriggerRequest.ToString())}");
-            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName)}");
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
-            toStringOutput.Add($"this.SessionTriggerRequest = {(this.SessionTriggerRequest == null ? "null" : this.SessionTriggerRequest.ToString())}");
-            toStringOutput.Add($"this.SmsTriggerRequest = {(this.SmsTriggerRequest == null ? "null" : this.SmsTriggerRequest.ToString())}");
-            toStringOutput.Add($"this.TriggerCategory = {(this.TriggerCategory == null ? "null" : this.TriggerCategory)}");
-            toStringOutput.Add($"this.TriggerCycle = {(this.TriggerCycle == null ? "null" : this.TriggerCycle)}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"AnomalyTriggerRequest = {(this.AnomalyTriggerRequest == null ? "null" : this.AnomalyTriggerRequest.ToString())}");
+            toStringOutput.Add($"DataTriggerRequest = {(this.DataTriggerRequest == null ? "null" : this.DataTriggerRequest.ToString())}");
+            toStringOutput.Add($"GroupName = {this.GroupName ?? "null"}");
+            toStringOutput.Add($"Name = {this.Name ?? "null"}");
+            toStringOutput.Add($"SessionTriggerRequest = {(this.SessionTriggerRequest == null ? "null" : this.SessionTriggerRequest.ToString())}");
+            toStringOutput.Add($"SmsTriggerRequest = {(this.SmsTriggerRequest == null ? "null" : this.SmsTriggerRequest.ToString())}");
+            toStringOutput.Add($"TriggerCategory = {this.TriggerCategory ?? "null"}");
+            toStringOutput.Add($"TriggerCycle = {this.TriggerCycle ?? "null"}");
         }
     }
 }

@@ -75,40 +75,37 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"V1LicensesAssignedRemovedResult : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is V1LicensesAssignedRemovedResult other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.LicCount == null && other.LicCount == null) || (this.LicCount?.Equals(other.LicCount) == true)) &&
-                ((this.LicUsedCount == null && other.LicUsedCount == null) || (this.LicUsedCount?.Equals(other.LicUsedCount) == true)) &&
-                ((this.DeviceList == null && other.DeviceList == null) || (this.DeviceList?.Equals(other.DeviceList) == true));
+            return obj is V1LicensesAssignedRemovedResult other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.LicCount == null && other.LicCount == null ||
+                 this.LicCount?.Equals(other.LicCount) == true) &&
+                (this.LicUsedCount == null && other.LicUsedCount == null ||
+                 this.LicUsedCount?.Equals(other.LicUsedCount) == true) &&
+                (this.DeviceList == null && other.DeviceList == null ||
+                 this.DeviceList?.Equals(other.DeviceList) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.LicCount = {(this.LicCount == null ? "null" : this.LicCount.ToString())}");
-            toStringOutput.Add($"this.LicUsedCount = {(this.LicUsedCount == null ? "null" : this.LicUsedCount.ToString())}");
-            toStringOutput.Add($"this.DeviceList = {(this.DeviceList == null ? "null" : $"[{string.Join(", ", this.DeviceList)} ]")}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"LicCount = {(this.LicCount == null ? "null" : this.LicCount.ToString())}");
+            toStringOutput.Add($"LicUsedCount = {(this.LicUsedCount == null ? "null" : this.LicUsedCount.ToString())}");
+            toStringOutput.Add($"DeviceList = {(this.DeviceList == null ? "null" : $"[{string.Join(", ", this.DeviceList)} ]")}");
         }
     }
 }

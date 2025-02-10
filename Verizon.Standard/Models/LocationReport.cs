@@ -84,42 +84,40 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"LocationReport : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is LocationReport other &&                ((this.DevLocationList == null && other.DevLocationList == null) || (this.DevLocationList?.Equals(other.DevLocationList) == true)) &&
-                ((this.HasMoreData == null && other.HasMoreData == null) || (this.HasMoreData?.Equals(other.HasMoreData) == true)) &&
-                ((this.StartIndex == null && other.StartIndex == null) || (this.StartIndex?.Equals(other.StartIndex) == true)) &&
-                ((this.TotalCount == null && other.TotalCount == null) || (this.TotalCount?.Equals(other.TotalCount) == true)) &&
-                ((this.Txid == null && other.Txid == null) || (this.Txid?.Equals(other.Txid) == true));
+            return obj is LocationReport other &&
+                (this.DevLocationList == null && other.DevLocationList == null ||
+                 this.DevLocationList?.Equals(other.DevLocationList) == true) &&
+                (this.HasMoreData == null && other.HasMoreData == null ||
+                 this.HasMoreData?.Equals(other.HasMoreData) == true) &&
+                (this.StartIndex == null && other.StartIndex == null ||
+                 this.StartIndex?.Equals(other.StartIndex) == true) &&
+                (this.TotalCount == null && other.TotalCount == null ||
+                 this.TotalCount?.Equals(other.TotalCount) == true) &&
+                (this.Txid == null && other.Txid == null ||
+                 this.Txid?.Equals(other.Txid) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.DevLocationList = {(this.DevLocationList == null ? "null" : $"[{string.Join(", ", this.DevLocationList)} ]")}");
-            toStringOutput.Add($"this.HasMoreData = {(this.HasMoreData == null ? "null" : this.HasMoreData.ToString())}");
-            toStringOutput.Add($"this.StartIndex = {(this.StartIndex == null ? "null" : this.StartIndex)}");
-            toStringOutput.Add($"this.TotalCount = {(this.TotalCount == null ? "null" : this.TotalCount.ToString())}");
-            toStringOutput.Add($"this.Txid = {(this.Txid == null ? "null" : this.Txid)}");
+            toStringOutput.Add($"DevLocationList = {(this.DevLocationList == null ? "null" : $"[{string.Join(", ", this.DevLocationList)} ]")}");
+            toStringOutput.Add($"HasMoreData = {(this.HasMoreData == null ? "null" : this.HasMoreData.ToString())}");
+            toStringOutput.Add($"StartIndex = {this.StartIndex ?? "null"}");
+            toStringOutput.Add($"TotalCount = {(this.TotalCount == null ? "null" : this.TotalCount.ToString())}");
+            toStringOutput.Add($"Txid = {this.Txid ?? "null"}");
         }
     }
 }

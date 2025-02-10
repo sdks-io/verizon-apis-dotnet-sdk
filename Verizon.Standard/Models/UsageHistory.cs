@@ -103,46 +103,46 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"UsageHistory : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is UsageHistory other &&                ((this.BytesUsed == null && other.BytesUsed == null) || (this.BytesUsed?.Equals(other.BytesUsed) == true)) &&
-                ((this.Serviceplan == null && other.Serviceplan == null) || (this.Serviceplan?.Equals(other.Serviceplan) == true)) &&
-                ((this.SmsUsed == null && other.SmsUsed == null) || (this.SmsUsed?.Equals(other.SmsUsed) == true)) &&
-                ((this.MoSMS == null && other.MoSMS == null) || (this.MoSMS?.Equals(other.MoSMS) == true)) &&
-                ((this.MtSMS == null && other.MtSMS == null) || (this.MtSMS?.Equals(other.MtSMS) == true)) &&
-                ((this.Source == null && other.Source == null) || (this.Source?.Equals(other.Source) == true)) &&
-                ((this.EventDateTime == null && other.EventDateTime == null) || (this.EventDateTime?.Equals(other.EventDateTime) == true));
+            return obj is UsageHistory other &&
+                (this.BytesUsed == null && other.BytesUsed == null ||
+                 this.BytesUsed?.Equals(other.BytesUsed) == true) &&
+                (this.Serviceplan == null && other.Serviceplan == null ||
+                 this.Serviceplan?.Equals(other.Serviceplan) == true) &&
+                (this.SmsUsed == null && other.SmsUsed == null ||
+                 this.SmsUsed?.Equals(other.SmsUsed) == true) &&
+                (this.MoSMS == null && other.MoSMS == null ||
+                 this.MoSMS?.Equals(other.MoSMS) == true) &&
+                (this.MtSMS == null && other.MtSMS == null ||
+                 this.MtSMS?.Equals(other.MtSMS) == true) &&
+                (this.Source == null && other.Source == null ||
+                 this.Source?.Equals(other.Source) == true) &&
+                (this.EventDateTime == null && other.EventDateTime == null ||
+                 this.EventDateTime?.Equals(other.EventDateTime) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.BytesUsed = {(this.BytesUsed == null ? "null" : this.BytesUsed.ToString())}");
-            toStringOutput.Add($"this.Serviceplan = {(this.Serviceplan == null ? "null" : this.Serviceplan)}");
-            toStringOutput.Add($"this.SmsUsed = {(this.SmsUsed == null ? "null" : this.SmsUsed.ToString())}");
-            toStringOutput.Add($"this.MoSMS = {(this.MoSMS == null ? "null" : this.MoSMS.ToString())}");
-            toStringOutput.Add($"this.MtSMS = {(this.MtSMS == null ? "null" : this.MtSMS.ToString())}");
-            toStringOutput.Add($"this.Source = {(this.Source == null ? "null" : this.Source)}");
-            toStringOutput.Add($"this.EventDateTime = {(this.EventDateTime == null ? "null" : this.EventDateTime.ToString())}");
+            toStringOutput.Add($"BytesUsed = {(this.BytesUsed == null ? "null" : this.BytesUsed.ToString())}");
+            toStringOutput.Add($"Serviceplan = {this.Serviceplan ?? "null"}");
+            toStringOutput.Add($"SmsUsed = {(this.SmsUsed == null ? "null" : this.SmsUsed.ToString())}");
+            toStringOutput.Add($"MoSMS = {(this.MoSMS == null ? "null" : this.MoSMS.ToString())}");
+            toStringOutput.Add($"MtSMS = {(this.MtSMS == null ? "null" : this.MtSMS.ToString())}");
+            toStringOutput.Add($"Source = {this.Source ?? "null"}");
+            toStringOutput.Add($"EventDateTime = {(this.EventDateTime == null ? "null" : this.EventDateTime.ToString())}");
         }
     }
 }

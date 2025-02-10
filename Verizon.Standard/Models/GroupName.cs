@@ -48,34 +48,28 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"GroupName : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is GroupName other &&                ((this.MDefault == null && other.MDefault == null) || (this.MDefault?.Equals(other.MDefault) == true));
+            return obj is GroupName other &&
+                (this.MDefault == null && other.MDefault == null ||
+                 this.MDefault?.Equals(other.MDefault) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.MDefault = {(this.MDefault == null ? "null" : this.MDefault)}");
+            toStringOutput.Add($"MDefault = {this.MDefault ?? "null"}");
         }
     }
 }

@@ -174,62 +174,68 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"V3AccountDevice : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is V3AccountDevice other &&                ((this.DeviceId == null && other.DeviceId == null) || (this.DeviceId?.Equals(other.DeviceId) == true)) &&
-                ((this.Mdn == null && other.Mdn == null) || (this.Mdn?.Equals(other.Mdn) == true)) &&
-                ((this.Model == null && other.Model == null) || (this.Model?.Equals(other.Model) == true)) &&
-                ((this.Make == null && other.Make == null) || (this.Make?.Equals(other.Make) == true)) &&
-                ((this.Firmware == null && other.Firmware == null) || (this.Firmware?.Equals(other.Firmware) == true)) &&
-                this.FotaEligible.Equals(other.FotaEligible) &&
-                ((this.Status == null && other.Status == null) || (this.Status?.Equals(other.Status) == true)) &&
-                this.LicenseAssigned.Equals(other.LicenseAssigned) &&
-                ((this.Protocol == null && other.Protocol == null) || (this.Protocol?.Equals(other.Protocol) == true)) &&
-                ((this.SoftwareList == null && other.SoftwareList == null) || (this.SoftwareList?.Equals(other.SoftwareList) == true)) &&
-                ((this.FileList == null && other.FileList == null) || (this.FileList?.Equals(other.FileList) == true)) &&
-                ((this.CreateTime == null && other.CreateTime == null) || (this.CreateTime?.Equals(other.CreateTime) == true)) &&
-                ((this.UpgradeTime == null && other.UpgradeTime == null) || (this.UpgradeTime?.Equals(other.UpgradeTime) == true)) &&
-                ((this.UpdateTime == null && other.UpdateTime == null) || (this.UpdateTime?.Equals(other.UpdateTime) == true)) &&
-                ((this.RefreshTime == null && other.RefreshTime == null) || (this.RefreshTime?.Equals(other.RefreshTime) == true));
+            return obj is V3AccountDevice other &&
+                (this.DeviceId == null && other.DeviceId == null ||
+                 this.DeviceId?.Equals(other.DeviceId) == true) &&
+                (this.Mdn == null && other.Mdn == null ||
+                 this.Mdn?.Equals(other.Mdn) == true) &&
+                (this.Model == null && other.Model == null ||
+                 this.Model?.Equals(other.Model) == true) &&
+                (this.Make == null && other.Make == null ||
+                 this.Make?.Equals(other.Make) == true) &&
+                (this.Firmware == null && other.Firmware == null ||
+                 this.Firmware?.Equals(other.Firmware) == true) &&
+                (this.FotaEligible.Equals(other.FotaEligible)) &&
+                (this.Status == null && other.Status == null ||
+                 this.Status?.Equals(other.Status) == true) &&
+                (this.LicenseAssigned.Equals(other.LicenseAssigned)) &&
+                (this.Protocol == null && other.Protocol == null ||
+                 this.Protocol?.Equals(other.Protocol) == true) &&
+                (this.SoftwareList == null && other.SoftwareList == null ||
+                 this.SoftwareList?.Equals(other.SoftwareList) == true) &&
+                (this.FileList == null && other.FileList == null ||
+                 this.FileList?.Equals(other.FileList) == true) &&
+                (this.CreateTime == null && other.CreateTime == null ||
+                 this.CreateTime?.Equals(other.CreateTime) == true) &&
+                (this.UpgradeTime == null && other.UpgradeTime == null ||
+                 this.UpgradeTime?.Equals(other.UpgradeTime) == true) &&
+                (this.UpdateTime == null && other.UpdateTime == null ||
+                 this.UpdateTime?.Equals(other.UpdateTime) == true) &&
+                (this.RefreshTime == null && other.RefreshTime == null ||
+                 this.RefreshTime?.Equals(other.RefreshTime) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId)}");
-            toStringOutput.Add($"this.Mdn = {(this.Mdn == null ? "null" : this.Mdn)}");
-            toStringOutput.Add($"this.Model = {(this.Model == null ? "null" : this.Model)}");
-            toStringOutput.Add($"this.Make = {(this.Make == null ? "null" : this.Make)}");
-            toStringOutput.Add($"this.Firmware = {(this.Firmware == null ? "null" : this.Firmware)}");
-            toStringOutput.Add($"this.FotaEligible = {this.FotaEligible}");
-            toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status)}");
-            toStringOutput.Add($"this.LicenseAssigned = {this.LicenseAssigned}");
-            toStringOutput.Add($"this.Protocol = {(this.Protocol == null ? "null" : this.Protocol)}");
-            toStringOutput.Add($"this.SoftwareList = {(this.SoftwareList == null ? "null" : $"[{string.Join(", ", this.SoftwareList)} ]")}");
-            toStringOutput.Add($"this.FileList = {(this.FileList == null ? "null" : $"[{string.Join(", ", this.FileList)} ]")}");
-            toStringOutput.Add($"this.CreateTime = {(this.CreateTime == null ? "null" : this.CreateTime)}");
-            toStringOutput.Add($"this.UpgradeTime = {(this.UpgradeTime == null ? "null" : this.UpgradeTime)}");
-            toStringOutput.Add($"this.UpdateTime = {(this.UpdateTime == null ? "null" : this.UpdateTime)}");
-            toStringOutput.Add($"this.RefreshTime = {(this.RefreshTime == null ? "null" : this.RefreshTime)}");
+            toStringOutput.Add($"DeviceId = {this.DeviceId ?? "null"}");
+            toStringOutput.Add($"Mdn = {this.Mdn ?? "null"}");
+            toStringOutput.Add($"Model = {this.Model ?? "null"}");
+            toStringOutput.Add($"Make = {this.Make ?? "null"}");
+            toStringOutput.Add($"Firmware = {this.Firmware ?? "null"}");
+            toStringOutput.Add($"FotaEligible = {this.FotaEligible}");
+            toStringOutput.Add($"Status = {this.Status ?? "null"}");
+            toStringOutput.Add($"LicenseAssigned = {this.LicenseAssigned}");
+            toStringOutput.Add($"Protocol = {this.Protocol ?? "null"}");
+            toStringOutput.Add($"SoftwareList = {(this.SoftwareList == null ? "null" : $"[{string.Join(", ", this.SoftwareList)} ]")}");
+            toStringOutput.Add($"FileList = {(this.FileList == null ? "null" : $"[{string.Join(", ", this.FileList)} ]")}");
+            toStringOutput.Add($"CreateTime = {this.CreateTime ?? "null"}");
+            toStringOutput.Add($"UpgradeTime = {this.UpgradeTime ?? "null"}");
+            toStringOutput.Add($"UpdateTime = {this.UpdateTime ?? "null"}");
+            toStringOutput.Add($"RefreshTime = {this.RefreshTime ?? "null"}");
         }
     }
 }

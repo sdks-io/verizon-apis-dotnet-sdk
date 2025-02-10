@@ -59,36 +59,29 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"V2TimeWindow : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is V2TimeWindow other &&                this.StartTime.Equals(other.StartTime) &&
-                this.EndTime.Equals(other.EndTime);
+            return obj is V2TimeWindow other &&
+                (this.StartTime.Equals(other.StartTime)) &&
+                (this.EndTime.Equals(other.EndTime));
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.StartTime = {this.StartTime}");
-            toStringOutput.Add($"this.EndTime = {this.EndTime}");
+            toStringOutput.Add($"StartTime = {this.StartTime}");
+            toStringOutput.Add($"EndTime = {this.EndTime}");
         }
     }
 }

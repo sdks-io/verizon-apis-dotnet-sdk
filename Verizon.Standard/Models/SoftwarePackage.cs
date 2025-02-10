@@ -103,46 +103,45 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"SoftwarePackage : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is SoftwarePackage other &&                ((this.SoftwareName == null && other.SoftwareName == null) || (this.SoftwareName?.Equals(other.SoftwareName) == true)) &&
-                this.LaunchDate.Equals(other.LaunchDate) &&
-                ((this.ReleaseNote == null && other.ReleaseNote == null) || (this.ReleaseNote?.Equals(other.ReleaseNote) == true)) &&
-                ((this.Model == null && other.Model == null) || (this.Model?.Equals(other.Model) == true)) &&
-                ((this.Make == null && other.Make == null) || (this.Make?.Equals(other.Make) == true)) &&
-                ((this.DistributionType == null && other.DistributionType == null) || (this.DistributionType?.Equals(other.DistributionType) == true)) &&
-                ((this.DevicePlatformId == null && other.DevicePlatformId == null) || (this.DevicePlatformId?.Equals(other.DevicePlatformId) == true));
+            return obj is SoftwarePackage other &&
+                (this.SoftwareName == null && other.SoftwareName == null ||
+                 this.SoftwareName?.Equals(other.SoftwareName) == true) &&
+                (this.LaunchDate.Equals(other.LaunchDate)) &&
+                (this.ReleaseNote == null && other.ReleaseNote == null ||
+                 this.ReleaseNote?.Equals(other.ReleaseNote) == true) &&
+                (this.Model == null && other.Model == null ||
+                 this.Model?.Equals(other.Model) == true) &&
+                (this.Make == null && other.Make == null ||
+                 this.Make?.Equals(other.Make) == true) &&
+                (this.DistributionType == null && other.DistributionType == null ||
+                 this.DistributionType?.Equals(other.DistributionType) == true) &&
+                (this.DevicePlatformId == null && other.DevicePlatformId == null ||
+                 this.DevicePlatformId?.Equals(other.DevicePlatformId) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.SoftwareName = {(this.SoftwareName == null ? "null" : this.SoftwareName)}");
-            toStringOutput.Add($"this.LaunchDate = {this.LaunchDate}");
-            toStringOutput.Add($"this.ReleaseNote = {(this.ReleaseNote == null ? "null" : this.ReleaseNote)}");
-            toStringOutput.Add($"this.Model = {(this.Model == null ? "null" : this.Model)}");
-            toStringOutput.Add($"this.Make = {(this.Make == null ? "null" : this.Make)}");
-            toStringOutput.Add($"this.DistributionType = {(this.DistributionType == null ? "null" : this.DistributionType)}");
-            toStringOutput.Add($"this.DevicePlatformId = {(this.DevicePlatformId == null ? "null" : this.DevicePlatformId)}");
+            toStringOutput.Add($"SoftwareName = {this.SoftwareName ?? "null"}");
+            toStringOutput.Add($"LaunchDate = {this.LaunchDate}");
+            toStringOutput.Add($"ReleaseNote = {this.ReleaseNote ?? "null"}");
+            toStringOutput.Add($"Model = {this.Model ?? "null"}");
+            toStringOutput.Add($"Make = {this.Make ?? "null"}");
+            toStringOutput.Add($"DistributionType = {this.DistributionType ?? "null"}");
+            toStringOutput.Add($"DevicePlatformId = {this.DevicePlatformId ?? "null"}");
         }
     }
 }

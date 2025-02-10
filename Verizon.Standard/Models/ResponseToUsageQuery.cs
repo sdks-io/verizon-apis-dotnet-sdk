@@ -66,38 +66,34 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"ResponseToUsageQuery : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is ResponseToUsageQuery other &&                ((this.Hasmoredata == null && other.Hasmoredata == null) || (this.Hasmoredata?.Equals(other.Hasmoredata) == true)) &&
-                ((this.DeviceId == null && other.DeviceId == null) || (this.DeviceId?.Equals(other.DeviceId) == true)) &&
-                ((this.UsageHistory == null && other.UsageHistory == null) || (this.UsageHistory?.Equals(other.UsageHistory) == true));
+            return obj is ResponseToUsageQuery other &&
+                (this.Hasmoredata == null && other.Hasmoredata == null ||
+                 this.Hasmoredata?.Equals(other.Hasmoredata) == true) &&
+                (this.DeviceId == null && other.DeviceId == null ||
+                 this.DeviceId?.Equals(other.DeviceId) == true) &&
+                (this.UsageHistory == null && other.UsageHistory == null ||
+                 this.UsageHistory?.Equals(other.UsageHistory) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Hasmoredata = {(this.Hasmoredata == null ? "null" : this.Hasmoredata.ToString())}");
-            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId.ToString())}");
-            toStringOutput.Add($"this.UsageHistory = {(this.UsageHistory == null ? "null" : $"[{string.Join(", ", this.UsageHistory)} ]")}");
+            toStringOutput.Add($"Hasmoredata = {(this.Hasmoredata == null ? "null" : this.Hasmoredata.ToString())}");
+            toStringOutput.Add($"DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId.ToString())}");
+            toStringOutput.Add($"UsageHistory = {(this.UsageHistory == null ? "null" : $"[{string.Join(", ", this.UsageHistory)} ]")}");
         }
     }
 }

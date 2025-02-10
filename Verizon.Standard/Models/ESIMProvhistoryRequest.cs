@@ -77,40 +77,37 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"ESIMProvhistoryRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is ESIMProvhistoryRequest other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.DeviceFilter == null && other.DeviceFilter == null) || (this.DeviceFilter?.Equals(other.DeviceFilter) == true)) &&
-                ((this.Earliest == null && other.Earliest == null) || (this.Earliest?.Equals(other.Earliest) == true)) &&
-                ((this.Latest == null && other.Latest == null) || (this.Latest?.Equals(other.Latest) == true));
+            return obj is ESIMProvhistoryRequest other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.DeviceFilter == null && other.DeviceFilter == null ||
+                 this.DeviceFilter?.Equals(other.DeviceFilter) == true) &&
+                (this.Earliest == null && other.Earliest == null ||
+                 this.Earliest?.Equals(other.Earliest) == true) &&
+                (this.Latest == null && other.Latest == null ||
+                 this.Latest?.Equals(other.Latest) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.DeviceFilter = {(this.DeviceFilter == null ? "null" : $"[{string.Join(", ", this.DeviceFilter)} ]")}");
-            toStringOutput.Add($"this.Earliest = {(this.Earliest == null ? "null" : this.Earliest.ToString())}");
-            toStringOutput.Add($"this.Latest = {(this.Latest == null ? "null" : this.Latest.ToString())}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"DeviceFilter = {(this.DeviceFilter == null ? "null" : $"[{string.Join(", ", this.DeviceFilter)} ]")}");
+            toStringOutput.Add($"Earliest = {(this.Earliest == null ? "null" : this.Earliest.ToString())}");
+            toStringOutput.Add($"Latest = {(this.Latest == null ? "null" : this.Latest.ToString())}");
         }
     }
 }

@@ -44,5 +44,24 @@ namespace Verizon.Standard.Exceptions
         /// </summary>
         [JsonProperty("errorMessage")]
         public string ErrorMessage { get; set; }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            var toStringOutput = new List<string>();
+            this.ToString(toStringOutput);
+            return $"FotaV3ResultException : ({string.Join(", ", toStringOutput)})";
+        }
+
+        /// <summary>
+        /// ToString overload.
+        /// </summary>
+        /// <param name="toStringOutput">List of strings.</param>
+        protected void ToString(List<string> toStringOutput)
+        {
+            base.ToString(toStringOutput);
+            toStringOutput.Add($"ErrorCode = {this.ErrorCode ?? "null"}");
+            toStringOutput.Add($"ErrorMessage = {this.ErrorMessage ?? "null"}");
+        }
     }
 }

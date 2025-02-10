@@ -66,38 +66,34 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"Engagement : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is Engagement other &&                ((this.EngagementId == null && other.EngagementId == null) || (this.EngagementId?.Equals(other.EngagementId) == true)) &&
-                ((this.ChargingGroup == null && other.ChargingGroup == null) || (this.ChargingGroup?.Equals(other.ChargingGroup) == true)) &&
-                ((this.Services == null && other.Services == null) || (this.Services?.Equals(other.Services) == true));
+            return obj is Engagement other &&
+                (this.EngagementId == null && other.EngagementId == null ||
+                 this.EngagementId?.Equals(other.EngagementId) == true) &&
+                (this.ChargingGroup == null && other.ChargingGroup == null ||
+                 this.ChargingGroup?.Equals(other.ChargingGroup) == true) &&
+                (this.Services == null && other.Services == null ||
+                 this.Services?.Equals(other.Services) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.EngagementId = {(this.EngagementId == null ? "null" : this.EngagementId)}");
-            toStringOutput.Add($"this.ChargingGroup = {(this.ChargingGroup == null ? "null" : this.ChargingGroup)}");
-            toStringOutput.Add($"this.Services = {(this.Services == null ? "null" : $"[{string.Join(", ", this.Services)} ]")}");
+            toStringOutput.Add($"EngagementId = {this.EngagementId ?? "null"}");
+            toStringOutput.Add($"ChargingGroup = {this.ChargingGroup ?? "null"}");
+            toStringOutput.Add($"Services = {(this.Services == null ? "null" : $"[{string.Join(", ", this.Services)} ]")}");
         }
     }
 }

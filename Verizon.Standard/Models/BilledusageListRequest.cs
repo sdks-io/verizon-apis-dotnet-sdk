@@ -75,40 +75,37 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"BilledusageListRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is BilledusageListRequest other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.Labels == null && other.Labels == null) || (this.Labels?.Equals(other.Labels) == true)) &&
-                ((this.DeviceIds == null && other.DeviceIds == null) || (this.DeviceIds?.Equals(other.DeviceIds) == true)) &&
-                ((this.BillingCycle == null && other.BillingCycle == null) || (this.BillingCycle?.Equals(other.BillingCycle) == true));
+            return obj is BilledusageListRequest other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.Labels == null && other.Labels == null ||
+                 this.Labels?.Equals(other.Labels) == true) &&
+                (this.DeviceIds == null && other.DeviceIds == null ||
+                 this.DeviceIds?.Equals(other.DeviceIds) == true) &&
+                (this.BillingCycle == null && other.BillingCycle == null ||
+                 this.BillingCycle?.Equals(other.BillingCycle) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.Labels = {(this.Labels == null ? "null" : this.Labels.ToString())}");
-            toStringOutput.Add($"this.DeviceIds = {(this.DeviceIds == null ? "null" : $"[{string.Join(", ", this.DeviceIds)} ]")}");
-            toStringOutput.Add($"this.BillingCycle = {(this.BillingCycle == null ? "null" : this.BillingCycle.ToString())}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"Labels = {(this.Labels == null ? "null" : this.Labels.ToString())}");
+            toStringOutput.Add($"DeviceIds = {(this.DeviceIds == null ? "null" : $"[{string.Join(", ", this.DeviceIds)} ]")}");
+            toStringOutput.Add($"BillingCycle = {(this.BillingCycle == null ? "null" : this.BillingCycle.ToString())}");
         }
     }
 }

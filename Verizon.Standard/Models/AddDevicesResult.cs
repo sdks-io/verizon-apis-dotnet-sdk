@@ -57,36 +57,31 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"AddDevicesResult : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is AddDevicesResult other &&                ((this.DeviceIds == null && other.DeviceIds == null) || (this.DeviceIds?.Equals(other.DeviceIds) == true)) &&
-                ((this.Response == null && other.Response == null) || (this.Response?.Equals(other.Response) == true));
+            return obj is AddDevicesResult other &&
+                (this.DeviceIds == null && other.DeviceIds == null ||
+                 this.DeviceIds?.Equals(other.DeviceIds) == true) &&
+                (this.Response == null && other.Response == null ||
+                 this.Response?.Equals(other.Response) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.DeviceIds = {(this.DeviceIds == null ? "null" : $"[{string.Join(", ", this.DeviceIds)} ]")}");
-            toStringOutput.Add($"this.Response = {(this.Response == null ? "null" : this.Response)}");
+            toStringOutput.Add($"DeviceIds = {(this.DeviceIds == null ? "null" : $"[{string.Join(", ", this.DeviceIds)} ]")}");
+            toStringOutput.Add($"Response = {this.Response ?? "null"}");
         }
     }
 }

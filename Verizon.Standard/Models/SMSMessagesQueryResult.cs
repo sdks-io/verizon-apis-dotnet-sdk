@@ -57,36 +57,31 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"SMSMessagesQueryResult : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is SMSMessagesQueryResult other &&                ((this.HasMoreData == null && other.HasMoreData == null) || (this.HasMoreData?.Equals(other.HasMoreData) == true)) &&
-                ((this.Messages == null && other.Messages == null) || (this.Messages?.Equals(other.Messages) == true));
+            return obj is SMSMessagesQueryResult other &&
+                (this.HasMoreData == null && other.HasMoreData == null ||
+                 this.HasMoreData?.Equals(other.HasMoreData) == true) &&
+                (this.Messages == null && other.Messages == null ||
+                 this.Messages?.Equals(other.Messages) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.HasMoreData = {(this.HasMoreData == null ? "null" : this.HasMoreData.ToString())}");
-            toStringOutput.Add($"this.Messages = {(this.Messages == null ? "null" : $"[{string.Join(", ", this.Messages)} ]")}");
+            toStringOutput.Add($"HasMoreData = {(this.HasMoreData == null ? "null" : this.HasMoreData.ToString())}");
+            toStringOutput.Add($"Messages = {(this.Messages == null ? "null" : $"[{string.Join(", ", this.Messages)} ]")}");
         }
     }
 }

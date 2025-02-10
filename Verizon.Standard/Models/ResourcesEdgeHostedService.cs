@@ -84,42 +84,40 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"ResourcesEdgeHostedService : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is ResourcesEdgeHostedService other &&                ((this.Ern == null && other.Ern == null) || (this.Ern?.Equals(other.Ern) == true)) &&
-                ((this.ServiceEndpoint == null && other.ServiceEndpoint == null) || (this.ServiceEndpoint?.Equals(other.ServiceEndpoint) == true)) &&
-                ((this.ApplicationServerProviderId == null && other.ApplicationServerProviderId == null) || (this.ApplicationServerProviderId?.Equals(other.ApplicationServerProviderId) == true)) &&
-                ((this.ApplicationId == null && other.ApplicationId == null) || (this.ApplicationId?.Equals(other.ApplicationId) == true)) &&
-                ((this.ServiceDescription == null && other.ServiceDescription == null) || (this.ServiceDescription?.Equals(other.ServiceDescription) == true));
+            return obj is ResourcesEdgeHostedService other &&
+                (this.Ern == null && other.Ern == null ||
+                 this.Ern?.Equals(other.Ern) == true) &&
+                (this.ServiceEndpoint == null && other.ServiceEndpoint == null ||
+                 this.ServiceEndpoint?.Equals(other.ServiceEndpoint) == true) &&
+                (this.ApplicationServerProviderId == null && other.ApplicationServerProviderId == null ||
+                 this.ApplicationServerProviderId?.Equals(other.ApplicationServerProviderId) == true) &&
+                (this.ApplicationId == null && other.ApplicationId == null ||
+                 this.ApplicationId?.Equals(other.ApplicationId) == true) &&
+                (this.ServiceDescription == null && other.ServiceDescription == null ||
+                 this.ServiceDescription?.Equals(other.ServiceDescription) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Ern = {(this.Ern == null ? "null" : this.Ern)}");
-            toStringOutput.Add($"this.ServiceEndpoint = {(this.ServiceEndpoint == null ? "null" : this.ServiceEndpoint.ToString())}");
-            toStringOutput.Add($"this.ApplicationServerProviderId = {(this.ApplicationServerProviderId == null ? "null" : this.ApplicationServerProviderId)}");
-            toStringOutput.Add($"this.ApplicationId = {(this.ApplicationId == null ? "null" : this.ApplicationId)}");
-            toStringOutput.Add($"this.ServiceDescription = {(this.ServiceDescription == null ? "null" : this.ServiceDescription)}");
+            toStringOutput.Add($"Ern = {this.Ern ?? "null"}");
+            toStringOutput.Add($"ServiceEndpoint = {(this.ServiceEndpoint == null ? "null" : this.ServiceEndpoint.ToString())}");
+            toStringOutput.Add($"ApplicationServerProviderId = {this.ApplicationServerProviderId ?? "null"}");
+            toStringOutput.Add($"ApplicationId = {this.ApplicationId ?? "null"}");
+            toStringOutput.Add($"ServiceDescription = {this.ServiceDescription ?? "null"}");
         }
     }
 }

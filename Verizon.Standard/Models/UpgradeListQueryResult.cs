@@ -47,11 +47,11 @@ namespace Verizon.Standard.Models
         {
             this.HasMoreFlag = hasMoreFlag;
             this.LastSeenUpgradeId = lastSeenUpgradeId;
+
             if (reportList != null)
             {
                 this.ReportList = reportList;
             }
-
         }
 
         /// <summary>
@@ -88,14 +88,12 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"UpgradeListQueryResult : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <summary>
-        /// Marks the field to not be serailized.
+        /// Marks the field to not be serialized.
         /// </summary>
         public void UnsetReportList()
         {
@@ -114,29 +112,27 @@ namespace Verizon.Standard.Models
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is UpgradeListQueryResult other &&                ((this.HasMoreFlag == null && other.HasMoreFlag == null) || (this.HasMoreFlag?.Equals(other.HasMoreFlag) == true)) &&
-                ((this.LastSeenUpgradeId == null && other.LastSeenUpgradeId == null) || (this.LastSeenUpgradeId?.Equals(other.LastSeenUpgradeId) == true)) &&
-                ((this.ReportList == null && other.ReportList == null) || (this.ReportList?.Equals(other.ReportList) == true));
+            return obj is UpgradeListQueryResult other &&
+                (this.HasMoreFlag == null && other.HasMoreFlag == null ||
+                 this.HasMoreFlag?.Equals(other.HasMoreFlag) == true) &&
+                (this.LastSeenUpgradeId == null && other.LastSeenUpgradeId == null ||
+                 this.LastSeenUpgradeId?.Equals(other.LastSeenUpgradeId) == true) &&
+                (this.ReportList == null && other.ReportList == null ||
+                 this.ReportList?.Equals(other.ReportList) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.HasMoreFlag = {(this.HasMoreFlag == null ? "null" : this.HasMoreFlag.ToString())}");
-            toStringOutput.Add($"this.LastSeenUpgradeId = {(this.LastSeenUpgradeId == null ? "null" : this.LastSeenUpgradeId.ToString())}");
-            toStringOutput.Add($"this.ReportList = {(this.ReportList == null ? "null" : $"[{string.Join(", ", this.ReportList)} ]")}");
+            toStringOutput.Add($"HasMoreFlag = {(this.HasMoreFlag == null ? "null" : this.HasMoreFlag.ToString())}");
+            toStringOutput.Add($"LastSeenUpgradeId = {(this.LastSeenUpgradeId == null ? "null" : this.LastSeenUpgradeId.ToString())}");
+            toStringOutput.Add($"ReportList = {(this.ReportList == null ? "null" : $"[{string.Join(", ", this.ReportList)} ]")}");
         }
     }
 }

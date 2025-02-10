@@ -111,48 +111,49 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"CarrierDeactivateRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is CarrierDeactivateRequest other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.Devices == null && other.Devices == null) || (this.Devices?.Equals(other.Devices) == true)) &&
-                ((this.ReasonCode == null && other.ReasonCode == null) || (this.ReasonCode?.Equals(other.ReasonCode) == true)) &&
-                ((this.CustomFields == null && other.CustomFields == null) || (this.CustomFields?.Equals(other.CustomFields) == true)) &&
-                ((this.EtfWaiver == null && other.EtfWaiver == null) || (this.EtfWaiver?.Equals(other.EtfWaiver) == true)) &&
-                ((this.GroupName == null && other.GroupName == null) || (this.GroupName?.Equals(other.GroupName) == true)) &&
-                ((this.ServicePlan == null && other.ServicePlan == null) || (this.ServicePlan?.Equals(other.ServicePlan) == true)) &&
-                ((this.DeleteAfterDeactivation == null && other.DeleteAfterDeactivation == null) || (this.DeleteAfterDeactivation?.Equals(other.DeleteAfterDeactivation) == true));
+            return obj is CarrierDeactivateRequest other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.Devices == null && other.Devices == null ||
+                 this.Devices?.Equals(other.Devices) == true) &&
+                (this.ReasonCode == null && other.ReasonCode == null ||
+                 this.ReasonCode?.Equals(other.ReasonCode) == true) &&
+                (this.CustomFields == null && other.CustomFields == null ||
+                 this.CustomFields?.Equals(other.CustomFields) == true) &&
+                (this.EtfWaiver == null && other.EtfWaiver == null ||
+                 this.EtfWaiver?.Equals(other.EtfWaiver) == true) &&
+                (this.GroupName == null && other.GroupName == null ||
+                 this.GroupName?.Equals(other.GroupName) == true) &&
+                (this.ServicePlan == null && other.ServicePlan == null ||
+                 this.ServicePlan?.Equals(other.ServicePlan) == true) &&
+                (this.DeleteAfterDeactivation == null && other.DeleteAfterDeactivation == null ||
+                 this.DeleteAfterDeactivation?.Equals(other.DeleteAfterDeactivation) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.Devices = {(this.Devices == null ? "null" : $"[{string.Join(", ", this.Devices)} ]")}");
-            toStringOutput.Add($"this.ReasonCode = {(this.ReasonCode == null ? "null" : this.ReasonCode)}");
-            toStringOutput.Add($"this.CustomFields = {(this.CustomFields == null ? "null" : $"[{string.Join(", ", this.CustomFields)} ]")}");
-            toStringOutput.Add($"this.EtfWaiver = {(this.EtfWaiver == null ? "null" : this.EtfWaiver.ToString())}");
-            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName)}");
-            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan)}");
-            toStringOutput.Add($"this.DeleteAfterDeactivation = {(this.DeleteAfterDeactivation == null ? "null" : this.DeleteAfterDeactivation.ToString())}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"Devices = {(this.Devices == null ? "null" : $"[{string.Join(", ", this.Devices)} ]")}");
+            toStringOutput.Add($"ReasonCode = {this.ReasonCode ?? "null"}");
+            toStringOutput.Add($"CustomFields = {(this.CustomFields == null ? "null" : $"[{string.Join(", ", this.CustomFields)} ]")}");
+            toStringOutput.Add($"EtfWaiver = {(this.EtfWaiver == null ? "null" : this.EtfWaiver.ToString())}");
+            toStringOutput.Add($"GroupName = {this.GroupName ?? "null"}");
+            toStringOutput.Add($"ServicePlan = {this.ServicePlan ?? "null"}");
+            toStringOutput.Add($"DeleteAfterDeactivation = {(this.DeleteAfterDeactivation == null ? "null" : this.DeleteAfterDeactivation.ToString())}");
         }
     }
 }

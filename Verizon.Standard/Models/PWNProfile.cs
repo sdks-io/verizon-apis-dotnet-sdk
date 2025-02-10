@@ -57,36 +57,31 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"PWNProfile : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is PWNProfile other &&                ((this.ProfileId == null && other.ProfileId == null) || (this.ProfileId?.Equals(other.ProfileId) == true)) &&
-                ((this.ProfileName == null && other.ProfileName == null) || (this.ProfileName?.Equals(other.ProfileName) == true));
+            return obj is PWNProfile other &&
+                (this.ProfileId == null && other.ProfileId == null ||
+                 this.ProfileId?.Equals(other.ProfileId) == true) &&
+                (this.ProfileName == null && other.ProfileName == null ||
+                 this.ProfileName?.Equals(other.ProfileName) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.ProfileId = {(this.ProfileId == null ? "null" : this.ProfileId)}");
-            toStringOutput.Add($"this.ProfileName = {(this.ProfileName == null ? "null" : this.ProfileName)}");
+            toStringOutput.Add($"ProfileId = {this.ProfileId ?? "null"}");
+            toStringOutput.Add($"ProfileName = {this.ProfileName ?? "null"}");
         }
     }
 }

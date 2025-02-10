@@ -111,48 +111,49 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"KPIInfo : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is KPIInfo other &&                ((this.Name == null && other.Name == null) || (this.Name?.Equals(other.Name) == true)) &&
-                ((this.MValue == null && other.MValue == null) || (this.MValue?.Equals(other.MValue) == true)) &&
-                ((this.NodeName == null && other.NodeName == null) || (this.NodeName?.Equals(other.NodeName) == true)) &&
-                ((this.NodeType == null && other.NodeType == null) || (this.NodeType?.Equals(other.NodeType) == true)) &&
-                ((this.Description == null && other.Description == null) || (this.Description?.Equals(other.Description) == true)) &&
-                ((this.Unit == null && other.Unit == null) || (this.Unit?.Equals(other.Unit) == true)) &&
-                ((this.Category == null && other.Category == null) || (this.Category?.Equals(other.Category) == true)) &&
-                ((this.TimeOfLastUpdate == null && other.TimeOfLastUpdate == null) || (this.TimeOfLastUpdate?.Equals(other.TimeOfLastUpdate) == true));
+            return obj is KPIInfo other &&
+                (this.Name == null && other.Name == null ||
+                 this.Name?.Equals(other.Name) == true) &&
+                (this.MValue == null && other.MValue == null ||
+                 this.MValue?.Equals(other.MValue) == true) &&
+                (this.NodeName == null && other.NodeName == null ||
+                 this.NodeName?.Equals(other.NodeName) == true) &&
+                (this.NodeType == null && other.NodeType == null ||
+                 this.NodeType?.Equals(other.NodeType) == true) &&
+                (this.Description == null && other.Description == null ||
+                 this.Description?.Equals(other.Description) == true) &&
+                (this.Unit == null && other.Unit == null ||
+                 this.Unit?.Equals(other.Unit) == true) &&
+                (this.Category == null && other.Category == null ||
+                 this.Category?.Equals(other.Category) == true) &&
+                (this.TimeOfLastUpdate == null && other.TimeOfLastUpdate == null ||
+                 this.TimeOfLastUpdate?.Equals(other.TimeOfLastUpdate) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
-            toStringOutput.Add($"this.MValue = {(this.MValue == null ? "null" : this.MValue)}");
-            toStringOutput.Add($"this.NodeName = {(this.NodeName == null ? "null" : this.NodeName)}");
-            toStringOutput.Add($"this.NodeType = {(this.NodeType == null ? "null" : this.NodeType)}");
-            toStringOutput.Add($"this.Description = {(this.Description == null ? "null" : this.Description)}");
-            toStringOutput.Add($"this.Unit = {(this.Unit == null ? "null" : this.Unit)}");
-            toStringOutput.Add($"this.Category = {(this.Category == null ? "null" : this.Category)}");
-            toStringOutput.Add($"this.TimeOfLastUpdate = {(this.TimeOfLastUpdate == null ? "null" : this.TimeOfLastUpdate)}");
+            toStringOutput.Add($"Name = {this.Name ?? "null"}");
+            toStringOutput.Add($"MValue = {this.MValue ?? "null"}");
+            toStringOutput.Add($"NodeName = {this.NodeName ?? "null"}");
+            toStringOutput.Add($"NodeType = {this.NodeType ?? "null"}");
+            toStringOutput.Add($"Description = {this.Description ?? "null"}");
+            toStringOutput.Add($"Unit = {this.Unit ?? "null"}");
+            toStringOutput.Add($"Category = {this.Category ?? "null"}");
+            toStringOutput.Add($"TimeOfLastUpdate = {this.TimeOfLastUpdate ?? "null"}");
         }
     }
 }

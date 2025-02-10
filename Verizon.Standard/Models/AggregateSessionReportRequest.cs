@@ -63,6 +63,7 @@ namespace Verizon.Standard.Models
             this.StartDate = startDate;
             this.EndDate = endDate;
             this.Imei = imei;
+
             if (deviceGroup != null)
             {
                 this.DeviceGroup = deviceGroup;
@@ -77,7 +78,6 @@ namespace Verizon.Standard.Models
             {
                 this.DataPlan = dataPlan;
             }
-
             this.NoSessionFlag = noSessionFlag;
         }
 
@@ -169,14 +169,12 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"AggregateSessionReportRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <summary>
-        /// Marks the field to not be serailized.
+        /// Marks the field to not be serialized.
         /// </summary>
         public void UnsetDeviceGroup()
         {
@@ -184,7 +182,7 @@ namespace Verizon.Standard.Models
         }
 
         /// <summary>
-        /// Marks the field to not be serailized.
+        /// Marks the field to not be serialized.
         /// </summary>
         public void UnsetDeviceLabel()
         {
@@ -192,7 +190,7 @@ namespace Verizon.Standard.Models
         }
 
         /// <summary>
-        /// Marks the field to not be serailized.
+        /// Marks the field to not be serialized.
         /// </summary>
         public void UnsetDataPlan()
         {
@@ -229,39 +227,42 @@ namespace Verizon.Standard.Models
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is AggregateSessionReportRequest other &&                ((this.AccountNumber == null && other.AccountNumber == null) || (this.AccountNumber?.Equals(other.AccountNumber) == true)) &&
-                ((this.StartDate == null && other.StartDate == null) || (this.StartDate?.Equals(other.StartDate) == true)) &&
-                ((this.EndDate == null && other.EndDate == null) || (this.EndDate?.Equals(other.EndDate) == true)) &&
-                ((this.Imei == null && other.Imei == null) || (this.Imei?.Equals(other.Imei) == true)) &&
-                ((this.DeviceGroup == null && other.DeviceGroup == null) || (this.DeviceGroup?.Equals(other.DeviceGroup) == true)) &&
-                ((this.DeviceLabel == null && other.DeviceLabel == null) || (this.DeviceLabel?.Equals(other.DeviceLabel) == true)) &&
-                ((this.DataPlan == null && other.DataPlan == null) || (this.DataPlan?.Equals(other.DataPlan) == true)) &&
-                ((this.NoSessionFlag == null && other.NoSessionFlag == null) || (this.NoSessionFlag?.Equals(other.NoSessionFlag) == true));
+            return obj is AggregateSessionReportRequest other &&
+                (this.AccountNumber == null && other.AccountNumber == null ||
+                 this.AccountNumber?.Equals(other.AccountNumber) == true) &&
+                (this.StartDate == null && other.StartDate == null ||
+                 this.StartDate?.Equals(other.StartDate) == true) &&
+                (this.EndDate == null && other.EndDate == null ||
+                 this.EndDate?.Equals(other.EndDate) == true) &&
+                (this.Imei == null && other.Imei == null ||
+                 this.Imei?.Equals(other.Imei) == true) &&
+                (this.DeviceGroup == null && other.DeviceGroup == null ||
+                 this.DeviceGroup?.Equals(other.DeviceGroup) == true) &&
+                (this.DeviceLabel == null && other.DeviceLabel == null ||
+                 this.DeviceLabel?.Equals(other.DeviceLabel) == true) &&
+                (this.DataPlan == null && other.DataPlan == null ||
+                 this.DataPlan?.Equals(other.DataPlan) == true) &&
+                (this.NoSessionFlag == null && other.NoSessionFlag == null ||
+                 this.NoSessionFlag?.Equals(other.NoSessionFlag) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountNumber = {(this.AccountNumber == null ? "null" : this.AccountNumber)}");
-            toStringOutput.Add($"this.StartDate = {(this.StartDate == null ? "null" : this.StartDate)}");
-            toStringOutput.Add($"this.EndDate = {(this.EndDate == null ? "null" : this.EndDate)}");
-            toStringOutput.Add($"this.Imei = {(this.Imei == null ? "null" : $"[{string.Join(", ", this.Imei)} ]")}");
-            toStringOutput.Add($"this.DeviceGroup = {(this.DeviceGroup == null ? "null" : this.DeviceGroup)}");
-            toStringOutput.Add($"this.DeviceLabel = {(this.DeviceLabel == null ? "null" : this.DeviceLabel)}");
-            toStringOutput.Add($"this.DataPlan = {(this.DataPlan == null ? "null" : this.DataPlan)}");
-            toStringOutput.Add($"this.NoSessionFlag = {(this.NoSessionFlag == null ? "null" : this.NoSessionFlag)}");
+            toStringOutput.Add($"AccountNumber = {this.AccountNumber ?? "null"}");
+            toStringOutput.Add($"StartDate = {this.StartDate ?? "null"}");
+            toStringOutput.Add($"EndDate = {this.EndDate ?? "null"}");
+            toStringOutput.Add($"Imei = {(this.Imei == null ? "null" : $"[{string.Join(", ", this.Imei)} ]")}");
+            toStringOutput.Add($"DeviceGroup = {this.DeviceGroup ?? "null"}");
+            toStringOutput.Add($"DeviceLabel = {this.DeviceLabel ?? "null"}");
+            toStringOutput.Add($"DataPlan = {this.DataPlan ?? "null"}");
+            toStringOutput.Add($"NoSessionFlag = {this.NoSessionFlag ?? "null"}");
         }
     }
 }

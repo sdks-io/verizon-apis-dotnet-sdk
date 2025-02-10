@@ -93,44 +93,43 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"PositionData : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is PositionData other &&                ((this.Time == null && other.Time == null) || (this.Time?.Equals(other.Time) == true)) &&
-                ((this.Utcoffset == null && other.Utcoffset == null) || (this.Utcoffset?.Equals(other.Utcoffset) == true)) &&
-                ((this.X == null && other.X == null) || (this.X?.Equals(other.X) == true)) &&
-                ((this.Y == null && other.Y == null) || (this.Y?.Equals(other.Y) == true)) &&
-                ((this.Radius == null && other.Radius == null) || (this.Radius?.Equals(other.Radius) == true)) &&
-                ((this.Qos == null && other.Qos == null) || (this.Qos?.Equals(other.Qos) == true));
+            return obj is PositionData other &&
+                (this.Time == null && other.Time == null ||
+                 this.Time?.Equals(other.Time) == true) &&
+                (this.Utcoffset == null && other.Utcoffset == null ||
+                 this.Utcoffset?.Equals(other.Utcoffset) == true) &&
+                (this.X == null && other.X == null ||
+                 this.X?.Equals(other.X) == true) &&
+                (this.Y == null && other.Y == null ||
+                 this.Y?.Equals(other.Y) == true) &&
+                (this.Radius == null && other.Radius == null ||
+                 this.Radius?.Equals(other.Radius) == true) &&
+                (this.Qos == null && other.Qos == null ||
+                 this.Qos?.Equals(other.Qos) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Time = {(this.Time == null ? "null" : this.Time)}");
-            toStringOutput.Add($"this.Utcoffset = {(this.Utcoffset == null ? "null" : this.Utcoffset)}");
-            toStringOutput.Add($"this.X = {(this.X == null ? "null" : this.X)}");
-            toStringOutput.Add($"this.Y = {(this.Y == null ? "null" : this.Y)}");
-            toStringOutput.Add($"this.Radius = {(this.Radius == null ? "null" : this.Radius)}");
-            toStringOutput.Add($"this.Qos = {(this.Qos == null ? "null" : this.Qos.ToString())}");
+            toStringOutput.Add($"Time = {this.Time ?? "null"}");
+            toStringOutput.Add($"Utcoffset = {this.Utcoffset ?? "null"}");
+            toStringOutput.Add($"X = {this.X ?? "null"}");
+            toStringOutput.Add($"Y = {this.Y ?? "null"}");
+            toStringOutput.Add($"Radius = {this.Radius ?? "null"}");
+            toStringOutput.Add($"Qos = {(this.Qos == null ? "null" : this.Qos.ToString())}");
         }
     }
 }

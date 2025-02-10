@@ -66,38 +66,34 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"AnomalyDetectionRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is AnomalyDetectionRequest other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.RequestType == null && other.RequestType == null) || (this.RequestType?.Equals(other.RequestType) == true)) &&
-                ((this.SensitivityParameter == null && other.SensitivityParameter == null) || (this.SensitivityParameter?.Equals(other.SensitivityParameter) == true));
+            return obj is AnomalyDetectionRequest other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.RequestType == null && other.RequestType == null ||
+                 this.RequestType?.Equals(other.RequestType) == true) &&
+                (this.SensitivityParameter == null && other.SensitivityParameter == null ||
+                 this.SensitivityParameter?.Equals(other.SensitivityParameter) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.RequestType = {(this.RequestType == null ? "null" : this.RequestType)}");
-            toStringOutput.Add($"this.SensitivityParameter = {(this.SensitivityParameter == null ? "null" : this.SensitivityParameter.ToString())}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"RequestType = {this.RequestType ?? "null"}");
+            toStringOutput.Add($"SensitivityParameter = {(this.SensitivityParameter == null ? "null" : this.SensitivityParameter.ToString())}");
         }
     }
 }

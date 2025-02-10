@@ -48,34 +48,28 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"ListOptimalServiceEndpointsResult : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is ListOptimalServiceEndpointsResult other &&                ((this.ServiceEndpoints == null && other.ServiceEndpoints == null) || (this.ServiceEndpoints?.Equals(other.ServiceEndpoints) == true));
+            return obj is ListOptimalServiceEndpointsResult other &&
+                (this.ServiceEndpoints == null && other.ServiceEndpoints == null ||
+                 this.ServiceEndpoints?.Equals(other.ServiceEndpoints) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.ServiceEndpoints = {(this.ServiceEndpoints == null ? "null" : $"[{string.Join(", ", this.ServiceEndpoints)} ]")}");
+            toStringOutput.Add($"ServiceEndpoints = {(this.ServiceEndpoints == null ? "null" : $"[{string.Join(", ", this.ServiceEndpoints)} ]")}");
         }
     }
 }

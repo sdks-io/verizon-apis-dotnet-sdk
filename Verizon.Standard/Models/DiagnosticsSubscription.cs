@@ -95,44 +95,39 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"DiagnosticsSubscription : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is DiagnosticsSubscription other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                this.CreatedOn.Equals(other.CreatedOn) &&
-                this.LastUpdated.Equals(other.LastUpdated) &&
-                this.TotalAllowed.Equals(other.TotalAllowed) &&
-                this.TotalUsed.Equals(other.TotalUsed) &&
-                ((this.SkuName == null && other.SkuName == null) || (this.SkuName?.Equals(other.SkuName) == true));
+            return obj is DiagnosticsSubscription other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.CreatedOn.Equals(other.CreatedOn)) &&
+                (this.LastUpdated.Equals(other.LastUpdated)) &&
+                (this.TotalAllowed.Equals(other.TotalAllowed)) &&
+                (this.TotalUsed.Equals(other.TotalUsed)) &&
+                (this.SkuName == null && other.SkuName == null ||
+                 this.SkuName?.Equals(other.SkuName) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.CreatedOn = {this.CreatedOn}");
-            toStringOutput.Add($"this.LastUpdated = {this.LastUpdated}");
-            toStringOutput.Add($"this.TotalAllowed = {this.TotalAllowed}");
-            toStringOutput.Add($"this.TotalUsed = {this.TotalUsed}");
-            toStringOutput.Add($"this.SkuName = {(this.SkuName == null ? "null" : this.SkuName)}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"CreatedOn = {this.CreatedOn}");
+            toStringOutput.Add($"LastUpdated = {this.LastUpdated}");
+            toStringOutput.Add($"TotalAllowed = {this.TotalAllowed}");
+            toStringOutput.Add($"TotalUsed = {this.TotalUsed}");
+            toStringOutput.Add($"SkuName = {this.SkuName ?? "null"}");
         }
     }
 }

@@ -57,36 +57,31 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"TriggerType2 : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is TriggerType2 other &&                ((this.Anomalyattributes == null && other.Anomalyattributes == null) || (this.Anomalyattributes?.Equals(other.Anomalyattributes) == true)) &&
-                ((this.Notification == null && other.Notification == null) || (this.Notification?.Equals(other.Notification) == true));
+            return obj is TriggerType2 other &&
+                (this.Anomalyattributes == null && other.Anomalyattributes == null ||
+                 this.Anomalyattributes?.Equals(other.Anomalyattributes) == true) &&
+                (this.Notification == null && other.Notification == null ||
+                 this.Notification?.Equals(other.Notification) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Anomalyattributes = {(this.Anomalyattributes == null ? "null" : this.Anomalyattributes.ToString())}");
-            toStringOutput.Add($"this.Notification = {(this.Notification == null ? "null" : this.Notification.ToString())}");
+            toStringOutput.Add($"Anomalyattributes = {(this.Anomalyattributes == null ? "null" : this.Anomalyattributes.ToString())}");
+            toStringOutput.Add($"Notification = {(this.Notification == null ? "null" : this.Notification.ToString())}");
         }
     }
 }

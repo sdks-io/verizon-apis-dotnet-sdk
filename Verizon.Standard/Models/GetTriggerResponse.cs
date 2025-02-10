@@ -167,60 +167,67 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"GetTriggerResponse : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is GetTriggerResponse other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.Comparator == null && other.Comparator == null) || (this.Comparator?.Equals(other.Comparator) == true)) &&
-                ((this.CreatedAt == null && other.CreatedAt == null) || (this.CreatedAt?.Equals(other.CreatedAt) == true)) &&
-                ((this.GroupName == null && other.GroupName == null) || (this.GroupName?.Equals(other.GroupName) == true)) &&
-                ((this.ModifiedAt == null && other.ModifiedAt == null) || (this.ModifiedAt?.Equals(other.ModifiedAt) == true)) &&
-                ((this.NotificationGroupName == null && other.NotificationGroupName == null) || (this.NotificationGroupName?.Equals(other.NotificationGroupName) == true)) &&
-                ((this.OrganizationName == null && other.OrganizationName == null) || (this.OrganizationName?.Equals(other.OrganizationName) == true)) &&
-                ((this.SmsType == null && other.SmsType == null) || (this.SmsType?.Equals(other.SmsType) == true)) &&
-                ((this.Threshold == null && other.Threshold == null) || (this.Threshold?.Equals(other.Threshold) == true)) &&
-                ((this.ThresholdUnit == null && other.ThresholdUnit == null) || (this.ThresholdUnit?.Equals(other.ThresholdUnit) == true)) &&
-                ((this.TriggerCategory == null && other.TriggerCategory == null) || (this.TriggerCategory?.Equals(other.TriggerCategory) == true)) &&
-                ((this.TriggerCycle == null && other.TriggerCycle == null) || (this.TriggerCycle?.Equals(other.TriggerCycle) == true)) &&
-                ((this.TriggerId == null && other.TriggerId == null) || (this.TriggerId?.Equals(other.TriggerId) == true)) &&
-                ((this.TriggerName == null && other.TriggerName == null) || (this.TriggerName?.Equals(other.TriggerName) == true));
+            return obj is GetTriggerResponse other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.Comparator == null && other.Comparator == null ||
+                 this.Comparator?.Equals(other.Comparator) == true) &&
+                (this.CreatedAt == null && other.CreatedAt == null ||
+                 this.CreatedAt?.Equals(other.CreatedAt) == true) &&
+                (this.GroupName == null && other.GroupName == null ||
+                 this.GroupName?.Equals(other.GroupName) == true) &&
+                (this.ModifiedAt == null && other.ModifiedAt == null ||
+                 this.ModifiedAt?.Equals(other.ModifiedAt) == true) &&
+                (this.NotificationGroupName == null && other.NotificationGroupName == null ||
+                 this.NotificationGroupName?.Equals(other.NotificationGroupName) == true) &&
+                (this.OrganizationName == null && other.OrganizationName == null ||
+                 this.OrganizationName?.Equals(other.OrganizationName) == true) &&
+                (this.SmsType == null && other.SmsType == null ||
+                 this.SmsType?.Equals(other.SmsType) == true) &&
+                (this.Threshold == null && other.Threshold == null ||
+                 this.Threshold?.Equals(other.Threshold) == true) &&
+                (this.ThresholdUnit == null && other.ThresholdUnit == null ||
+                 this.ThresholdUnit?.Equals(other.ThresholdUnit) == true) &&
+                (this.TriggerCategory == null && other.TriggerCategory == null ||
+                 this.TriggerCategory?.Equals(other.TriggerCategory) == true) &&
+                (this.TriggerCycle == null && other.TriggerCycle == null ||
+                 this.TriggerCycle?.Equals(other.TriggerCycle) == true) &&
+                (this.TriggerId == null && other.TriggerId == null ||
+                 this.TriggerId?.Equals(other.TriggerId) == true) &&
+                (this.TriggerName == null && other.TriggerName == null ||
+                 this.TriggerName?.Equals(other.TriggerName) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.Comparator = {(this.Comparator == null ? "null" : this.Comparator)}");
-            toStringOutput.Add($"this.CreatedAt = {(this.CreatedAt == null ? "null" : this.CreatedAt.ToString())}");
-            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName)}");
-            toStringOutput.Add($"this.ModifiedAt = {(this.ModifiedAt == null ? "null" : this.ModifiedAt.ToString())}");
-            toStringOutput.Add($"this.NotificationGroupName = {(this.NotificationGroupName == null ? "null" : this.NotificationGroupName)}");
-            toStringOutput.Add($"this.OrganizationName = {(this.OrganizationName == null ? "null" : this.OrganizationName)}");
-            toStringOutput.Add($"this.SmsType = {(this.SmsType == null ? "null" : this.SmsType)}");
-            toStringOutput.Add($"this.Threshold = {(this.Threshold == null ? "null" : this.Threshold)}");
-            toStringOutput.Add($"this.ThresholdUnit = {(this.ThresholdUnit == null ? "null" : this.ThresholdUnit)}");
-            toStringOutput.Add($"this.TriggerCategory = {(this.TriggerCategory == null ? "null" : this.TriggerCategory)}");
-            toStringOutput.Add($"this.TriggerCycle = {(this.TriggerCycle == null ? "null" : this.TriggerCycle)}");
-            toStringOutput.Add($"this.TriggerId = {(this.TriggerId == null ? "null" : this.TriggerId)}");
-            toStringOutput.Add($"this.TriggerName = {(this.TriggerName == null ? "null" : this.TriggerName)}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"Comparator = {this.Comparator ?? "null"}");
+            toStringOutput.Add($"CreatedAt = {(this.CreatedAt == null ? "null" : this.CreatedAt.ToString())}");
+            toStringOutput.Add($"GroupName = {this.GroupName ?? "null"}");
+            toStringOutput.Add($"ModifiedAt = {(this.ModifiedAt == null ? "null" : this.ModifiedAt.ToString())}");
+            toStringOutput.Add($"NotificationGroupName = {this.NotificationGroupName ?? "null"}");
+            toStringOutput.Add($"OrganizationName = {this.OrganizationName ?? "null"}");
+            toStringOutput.Add($"SmsType = {this.SmsType ?? "null"}");
+            toStringOutput.Add($"Threshold = {this.Threshold ?? "null"}");
+            toStringOutput.Add($"ThresholdUnit = {this.ThresholdUnit ?? "null"}");
+            toStringOutput.Add($"TriggerCategory = {this.TriggerCategory ?? "null"}");
+            toStringOutput.Add($"TriggerCycle = {this.TriggerCycle ?? "null"}");
+            toStringOutput.Add($"TriggerId = {this.TriggerId ?? "null"}");
+            toStringOutput.Add($"TriggerName = {this.TriggerName ?? "null"}");
         }
     }
 }

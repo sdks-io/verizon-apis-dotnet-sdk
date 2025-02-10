@@ -84,42 +84,40 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"V1AccountSubscription : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is V1AccountSubscription other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.PurchaseType == null && other.PurchaseType == null) || (this.PurchaseType?.Equals(other.PurchaseType) == true)) &&
-                ((this.LicenseCount == null && other.LicenseCount == null) || (this.LicenseCount?.Equals(other.LicenseCount) == true)) &&
-                ((this.LicenseUsedCount == null && other.LicenseUsedCount == null) || (this.LicenseUsedCount?.Equals(other.LicenseUsedCount) == true)) &&
-                ((this.UpdateTime == null && other.UpdateTime == null) || (this.UpdateTime?.Equals(other.UpdateTime) == true));
+            return obj is V1AccountSubscription other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.PurchaseType == null && other.PurchaseType == null ||
+                 this.PurchaseType?.Equals(other.PurchaseType) == true) &&
+                (this.LicenseCount == null && other.LicenseCount == null ||
+                 this.LicenseCount?.Equals(other.LicenseCount) == true) &&
+                (this.LicenseUsedCount == null && other.LicenseUsedCount == null ||
+                 this.LicenseUsedCount?.Equals(other.LicenseUsedCount) == true) &&
+                (this.UpdateTime == null && other.UpdateTime == null ||
+                 this.UpdateTime?.Equals(other.UpdateTime) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.PurchaseType = {(this.PurchaseType == null ? "null" : this.PurchaseType)}");
-            toStringOutput.Add($"this.LicenseCount = {(this.LicenseCount == null ? "null" : this.LicenseCount.ToString())}");
-            toStringOutput.Add($"this.LicenseUsedCount = {(this.LicenseUsedCount == null ? "null" : this.LicenseUsedCount.ToString())}");
-            toStringOutput.Add($"this.UpdateTime = {(this.UpdateTime == null ? "null" : this.UpdateTime)}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"PurchaseType = {this.PurchaseType ?? "null"}");
+            toStringOutput.Add($"LicenseCount = {(this.LicenseCount == null ? "null" : this.LicenseCount.ToString())}");
+            toStringOutput.Add($"LicenseUsedCount = {(this.LicenseUsedCount == null ? "null" : this.LicenseUsedCount.ToString())}");
+            toStringOutput.Add($"UpdateTime = {this.UpdateTime ?? "null"}");
         }
     }
 }

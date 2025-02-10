@@ -66,38 +66,34 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"ComputeResourcesType : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is ComputeResourcesType other &&                ((this.GPU == null && other.GPU == null) || (this.GPU?.Equals(other.GPU) == true)) &&
-                ((this.MinRAMGB == null && other.MinRAMGB == null) || (this.MinRAMGB?.Equals(other.MinRAMGB) == true)) &&
-                ((this.MinStorageGB == null && other.MinStorageGB == null) || (this.MinStorageGB?.Equals(other.MinStorageGB) == true));
+            return obj is ComputeResourcesType other &&
+                (this.GPU == null && other.GPU == null ||
+                 this.GPU?.Equals(other.GPU) == true) &&
+                (this.MinRAMGB == null && other.MinRAMGB == null ||
+                 this.MinRAMGB?.Equals(other.MinRAMGB) == true) &&
+                (this.MinStorageGB == null && other.MinStorageGB == null ||
+                 this.MinStorageGB?.Equals(other.MinStorageGB) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.GPU = {(this.GPU == null ? "null" : this.GPU.ToString())}");
-            toStringOutput.Add($"this.MinRAMGB = {(this.MinRAMGB == null ? "null" : this.MinRAMGB.ToString())}");
-            toStringOutput.Add($"this.MinStorageGB = {(this.MinStorageGB == null ? "null" : this.MinStorageGB.ToString())}");
+            toStringOutput.Add($"GPU = {(this.GPU == null ? "null" : this.GPU.ToString())}");
+            toStringOutput.Add($"MinRAMGB = {(this.MinRAMGB == null ? "null" : this.MinRAMGB.ToString())}");
+            toStringOutput.Add($"MinStorageGB = {(this.MinStorageGB == null ? "null" : this.MinStorageGB.ToString())}");
         }
     }
 }

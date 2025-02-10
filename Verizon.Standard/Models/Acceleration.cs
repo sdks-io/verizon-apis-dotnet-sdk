@@ -66,38 +66,34 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"Acceleration : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is Acceleration other &&                ((this.X == null && other.X == null) || (this.X?.Equals(other.X) == true)) &&
-                ((this.Y == null && other.Y == null) || (this.Y?.Equals(other.Y) == true)) &&
-                ((this.Z == null && other.Z == null) || (this.Z?.Equals(other.Z) == true));
+            return obj is Acceleration other &&
+                (this.X == null && other.X == null ||
+                 this.X?.Equals(other.X) == true) &&
+                (this.Y == null && other.Y == null ||
+                 this.Y?.Equals(other.Y) == true) &&
+                (this.Z == null && other.Z == null ||
+                 this.Z?.Equals(other.Z) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.X = {(this.X == null ? "null" : this.X)}");
-            toStringOutput.Add($"this.Y = {(this.Y == null ? "null" : this.Y)}");
-            toStringOutput.Add($"this.Z = {(this.Z == null ? "null" : this.Z)}");
+            toStringOutput.Add($"X = {this.X ?? "null"}");
+            toStringOutput.Add($"Y = {this.Y ?? "null"}");
+            toStringOutput.Add($"Z = {this.Z ?? "null"}");
         }
     }
 }

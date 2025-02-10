@@ -57,6 +57,7 @@ namespace Verizon.Standard.Models
             string metro = null,
             string area = null)
         {
+
             if (regionId != null)
             {
                 this.RegionId = regionId;
@@ -81,7 +82,6 @@ namespace Verizon.Standard.Models
             {
                 this.Area = area;
             }
-
         }
 
         /// <summary>
@@ -178,14 +178,12 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"Region : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <summary>
-        /// Marks the field to not be serailized.
+        /// Marks the field to not be serialized.
         /// </summary>
         public void UnsetRegionId()
         {
@@ -193,7 +191,7 @@ namespace Verizon.Standard.Models
         }
 
         /// <summary>
-        /// Marks the field to not be serailized.
+        /// Marks the field to not be serialized.
         /// </summary>
         public void UnsetName()
         {
@@ -201,7 +199,7 @@ namespace Verizon.Standard.Models
         }
 
         /// <summary>
-        /// Marks the field to not be serailized.
+        /// Marks the field to not be serialized.
         /// </summary>
         public void UnsetCountryCode()
         {
@@ -209,7 +207,7 @@ namespace Verizon.Standard.Models
         }
 
         /// <summary>
-        /// Marks the field to not be serailized.
+        /// Marks the field to not be serialized.
         /// </summary>
         public void UnsetMetro()
         {
@@ -217,7 +215,7 @@ namespace Verizon.Standard.Models
         }
 
         /// <summary>
-        /// Marks the field to not be serailized.
+        /// Marks the field to not be serialized.
         /// </summary>
         public void UnsetArea()
         {
@@ -272,33 +270,33 @@ namespace Verizon.Standard.Models
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is Region other &&                ((this.RegionId == null && other.RegionId == null) || (this.RegionId?.Equals(other.RegionId) == true)) &&
-                ((this.Name == null && other.Name == null) || (this.Name?.Equals(other.Name) == true)) &&
-                ((this.CountryCode == null && other.CountryCode == null) || (this.CountryCode?.Equals(other.CountryCode) == true)) &&
-                ((this.Metro == null && other.Metro == null) || (this.Metro?.Equals(other.Metro) == true)) &&
-                ((this.Area == null && other.Area == null) || (this.Area?.Equals(other.Area) == true));
+            return obj is Region other &&
+                (this.RegionId == null && other.RegionId == null ||
+                 this.RegionId?.Equals(other.RegionId) == true) &&
+                (this.Name == null && other.Name == null ||
+                 this.Name?.Equals(other.Name) == true) &&
+                (this.CountryCode == null && other.CountryCode == null ||
+                 this.CountryCode?.Equals(other.CountryCode) == true) &&
+                (this.Metro == null && other.Metro == null ||
+                 this.Metro?.Equals(other.Metro) == true) &&
+                (this.Area == null && other.Area == null ||
+                 this.Area?.Equals(other.Area) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.RegionId = {(this.RegionId == null ? "null" : this.RegionId)}");
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
-            toStringOutput.Add($"this.CountryCode = {(this.CountryCode == null ? "null" : this.CountryCode)}");
-            toStringOutput.Add($"this.Metro = {(this.Metro == null ? "null" : this.Metro)}");
-            toStringOutput.Add($"this.Area = {(this.Area == null ? "null" : this.Area)}");
+            toStringOutput.Add($"RegionId = {this.RegionId ?? "null"}");
+            toStringOutput.Add($"Name = {this.Name ?? "null"}");
+            toStringOutput.Add($"CountryCode = {this.CountryCode ?? "null"}");
+            toStringOutput.Add($"Metro = {this.Metro ?? "null"}");
+            toStringOutput.Add($"Area = {this.Area ?? "null"}");
         }
     }
 }

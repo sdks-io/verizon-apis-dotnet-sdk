@@ -93,44 +93,43 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"SecuritySubscription : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is SecuritySubscription other &&                ((this.ExtendedAttributes == null && other.ExtendedAttributes == null) || (this.ExtendedAttributes?.Equals(other.ExtendedAttributes) == true)) &&
-                ((this.LicenseAssigned == null && other.LicenseAssigned == null) || (this.LicenseAssigned?.Equals(other.LicenseAssigned) == true)) &&
-                ((this.LicenseAvailable == null && other.LicenseAvailable == null) || (this.LicenseAvailable?.Equals(other.LicenseAvailable) == true)) &&
-                ((this.LicensePurchased == null && other.LicensePurchased == null) || (this.LicensePurchased?.Equals(other.LicensePurchased) == true)) &&
-                ((this.LicenseType == null && other.LicenseType == null) || (this.LicenseType?.Equals(other.LicenseType) == true)) &&
-                ((this.SkuNumber == null && other.SkuNumber == null) || (this.SkuNumber?.Equals(other.SkuNumber) == true));
+            return obj is SecuritySubscription other &&
+                (this.ExtendedAttributes == null && other.ExtendedAttributes == null ||
+                 this.ExtendedAttributes?.Equals(other.ExtendedAttributes) == true) &&
+                (this.LicenseAssigned == null && other.LicenseAssigned == null ||
+                 this.LicenseAssigned?.Equals(other.LicenseAssigned) == true) &&
+                (this.LicenseAvailable == null && other.LicenseAvailable == null ||
+                 this.LicenseAvailable?.Equals(other.LicenseAvailable) == true) &&
+                (this.LicensePurchased == null && other.LicensePurchased == null ||
+                 this.LicensePurchased?.Equals(other.LicensePurchased) == true) &&
+                (this.LicenseType == null && other.LicenseType == null ||
+                 this.LicenseType?.Equals(other.LicenseType) == true) &&
+                (this.SkuNumber == null && other.SkuNumber == null ||
+                 this.SkuNumber?.Equals(other.SkuNumber) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.ExtendedAttributes = {(this.ExtendedAttributes == null ? "null" : $"[{string.Join(", ", this.ExtendedAttributes)} ]")}");
-            toStringOutput.Add($"this.LicenseAssigned = {(this.LicenseAssigned == null ? "null" : this.LicenseAssigned.ToString())}");
-            toStringOutput.Add($"this.LicenseAvailable = {(this.LicenseAvailable == null ? "null" : this.LicenseAvailable.ToString())}");
-            toStringOutput.Add($"this.LicensePurchased = {(this.LicensePurchased == null ? "null" : this.LicensePurchased.ToString())}");
-            toStringOutput.Add($"this.LicenseType = {(this.LicenseType == null ? "null" : this.LicenseType)}");
-            toStringOutput.Add($"this.SkuNumber = {(this.SkuNumber == null ? "null" : this.SkuNumber)}");
+            toStringOutput.Add($"ExtendedAttributes = {(this.ExtendedAttributes == null ? "null" : $"[{string.Join(", ", this.ExtendedAttributes)} ]")}");
+            toStringOutput.Add($"LicenseAssigned = {(this.LicenseAssigned == null ? "null" : this.LicenseAssigned.ToString())}");
+            toStringOutput.Add($"LicenseAvailable = {(this.LicenseAvailable == null ? "null" : this.LicenseAvailable.ToString())}");
+            toStringOutput.Add($"LicensePurchased = {(this.LicensePurchased == null ? "null" : this.LicensePurchased.ToString())}");
+            toStringOutput.Add($"LicenseType = {this.LicenseType ?? "null"}");
+            toStringOutput.Add($"SkuNumber = {this.SkuNumber ?? "null"}");
         }
     }
 }

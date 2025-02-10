@@ -111,48 +111,49 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"UpdateTriggerV2Request : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is UpdateTriggerV2Request other &&                ((this.TriggerId == null && other.TriggerId == null) || (this.TriggerId?.Equals(other.TriggerId) == true)) &&
-                ((this.TriggerName == null && other.TriggerName == null) || (this.TriggerName?.Equals(other.TriggerName) == true)) &&
-                ((this.EcpdId == null && other.EcpdId == null) || (this.EcpdId?.Equals(other.EcpdId) == true)) &&
-                ((this.DeviceGroupName == null && other.DeviceGroupName == null) || (this.DeviceGroupName?.Equals(other.DeviceGroupName) == true)) &&
-                ((this.TriggerCategory == null && other.TriggerCategory == null) || (this.TriggerCategory?.Equals(other.TriggerCategory) == true)) &&
-                ((this.PricePlanTrigger == null && other.PricePlanTrigger == null) || (this.PricePlanTrigger?.Equals(other.PricePlanTrigger) == true)) &&
-                ((this.Notification == null && other.Notification == null) || (this.Notification?.Equals(other.Notification) == true)) &&
-                ((this.Active == null && other.Active == null) || (this.Active?.Equals(other.Active) == true));
+            return obj is UpdateTriggerV2Request other &&
+                (this.TriggerId == null && other.TriggerId == null ||
+                 this.TriggerId?.Equals(other.TriggerId) == true) &&
+                (this.TriggerName == null && other.TriggerName == null ||
+                 this.TriggerName?.Equals(other.TriggerName) == true) &&
+                (this.EcpdId == null && other.EcpdId == null ||
+                 this.EcpdId?.Equals(other.EcpdId) == true) &&
+                (this.DeviceGroupName == null && other.DeviceGroupName == null ||
+                 this.DeviceGroupName?.Equals(other.DeviceGroupName) == true) &&
+                (this.TriggerCategory == null && other.TriggerCategory == null ||
+                 this.TriggerCategory?.Equals(other.TriggerCategory) == true) &&
+                (this.PricePlanTrigger == null && other.PricePlanTrigger == null ||
+                 this.PricePlanTrigger?.Equals(other.PricePlanTrigger) == true) &&
+                (this.Notification == null && other.Notification == null ||
+                 this.Notification?.Equals(other.Notification) == true) &&
+                (this.Active == null && other.Active == null ||
+                 this.Active?.Equals(other.Active) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.TriggerId = {(this.TriggerId == null ? "null" : this.TriggerId)}");
-            toStringOutput.Add($"this.TriggerName = {(this.TriggerName == null ? "null" : this.TriggerName)}");
-            toStringOutput.Add($"this.EcpdId = {(this.EcpdId == null ? "null" : this.EcpdId)}");
-            toStringOutput.Add($"this.DeviceGroupName = {(this.DeviceGroupName == null ? "null" : this.DeviceGroupName)}");
-            toStringOutput.Add($"this.TriggerCategory = {(this.TriggerCategory == null ? "null" : this.TriggerCategory)}");
-            toStringOutput.Add($"this.PricePlanTrigger = {(this.PricePlanTrigger == null ? "null" : this.PricePlanTrigger.ToString())}");
-            toStringOutput.Add($"this.Notification = {(this.Notification == null ? "null" : this.Notification.ToString())}");
-            toStringOutput.Add($"this.Active = {(this.Active == null ? "null" : this.Active.ToString())}");
+            toStringOutput.Add($"TriggerId = {this.TriggerId ?? "null"}");
+            toStringOutput.Add($"TriggerName = {this.TriggerName ?? "null"}");
+            toStringOutput.Add($"EcpdId = {this.EcpdId ?? "null"}");
+            toStringOutput.Add($"DeviceGroupName = {this.DeviceGroupName ?? "null"}");
+            toStringOutput.Add($"TriggerCategory = {this.TriggerCategory ?? "null"}");
+            toStringOutput.Add($"PricePlanTrigger = {(this.PricePlanTrigger == null ? "null" : this.PricePlanTrigger.ToString())}");
+            toStringOutput.Add($"Notification = {(this.Notification == null ? "null" : this.Notification.ToString())}");
+            toStringOutput.Add($"Active = {(this.Active == null ? "null" : this.Active.ToString())}");
         }
     }
 }

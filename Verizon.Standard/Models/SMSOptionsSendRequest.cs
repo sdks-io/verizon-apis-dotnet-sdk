@@ -57,36 +57,31 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"SMSOptionsSendRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is SMSOptionsSendRequest other &&                ((this.ServicePlan == null && other.ServicePlan == null) || (this.ServicePlan?.Equals(other.ServicePlan) == true)) &&
-                ((this.SmsMessage == null && other.SmsMessage == null) || (this.SmsMessage?.Equals(other.SmsMessage) == true));
+            return obj is SMSOptionsSendRequest other &&
+                (this.ServicePlan == null && other.ServicePlan == null ||
+                 this.ServicePlan?.Equals(other.ServicePlan) == true) &&
+                (this.SmsMessage == null && other.SmsMessage == null ||
+                 this.SmsMessage?.Equals(other.SmsMessage) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan)}");
-            toStringOutput.Add($"this.SmsMessage = {(this.SmsMessage == null ? "null" : this.SmsMessage)}");
+            toStringOutput.Add($"ServicePlan = {this.ServicePlan ?? "null"}");
+            toStringOutput.Add($"SmsMessage = {this.SmsMessage ?? "null"}");
         }
     }
 }

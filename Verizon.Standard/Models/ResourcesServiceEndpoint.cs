@@ -84,42 +84,40 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"ResourcesServiceEndpoint : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is ResourcesServiceEndpoint other &&                ((this.URI == null && other.URI == null) || (this.URI?.Equals(other.URI) == true)) &&
-                ((this.FQDN == null && other.FQDN == null) || (this.FQDN?.Equals(other.FQDN) == true)) &&
-                ((this.IPv4Address == null && other.IPv4Address == null) || (this.IPv4Address?.Equals(other.IPv4Address) == true)) &&
-                ((this.IPv6Address == null && other.IPv6Address == null) || (this.IPv6Address?.Equals(other.IPv6Address) == true)) &&
-                ((this.Port == null && other.Port == null) || (this.Port?.Equals(other.Port) == true));
+            return obj is ResourcesServiceEndpoint other &&
+                (this.URI == null && other.URI == null ||
+                 this.URI?.Equals(other.URI) == true) &&
+                (this.FQDN == null && other.FQDN == null ||
+                 this.FQDN?.Equals(other.FQDN) == true) &&
+                (this.IPv4Address == null && other.IPv4Address == null ||
+                 this.IPv4Address?.Equals(other.IPv4Address) == true) &&
+                (this.IPv6Address == null && other.IPv6Address == null ||
+                 this.IPv6Address?.Equals(other.IPv6Address) == true) &&
+                (this.Port == null && other.Port == null ||
+                 this.Port?.Equals(other.Port) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.URI = {(this.URI == null ? "null" : this.URI)}");
-            toStringOutput.Add($"this.FQDN = {(this.FQDN == null ? "null" : this.FQDN)}");
-            toStringOutput.Add($"this.IPv4Address = {(this.IPv4Address == null ? "null" : this.IPv4Address)}");
-            toStringOutput.Add($"this.IPv6Address = {(this.IPv6Address == null ? "null" : this.IPv6Address)}");
-            toStringOutput.Add($"this.Port = {(this.Port == null ? "null" : this.Port.ToString())}");
+            toStringOutput.Add($"URI = {this.URI ?? "null"}");
+            toStringOutput.Add($"FQDN = {this.FQDN ?? "null"}");
+            toStringOutput.Add($"IPv4Address = {this.IPv4Address ?? "null"}");
+            toStringOutput.Add($"IPv6Address = {this.IPv6Address ?? "null"}");
+            toStringOutput.Add($"Port = {(this.Port == null ? "null" : this.Port.ToString())}");
         }
     }
 }

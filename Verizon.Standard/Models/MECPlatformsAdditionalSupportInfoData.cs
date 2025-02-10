@@ -48,34 +48,28 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"MECPlatformsAdditionalSupportInfoData : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is MECPlatformsAdditionalSupportInfoData other &&                ((this.AdditionalInfo == null && other.AdditionalInfo == null) || (this.AdditionalInfo?.Equals(other.AdditionalInfo) == true));
+            return obj is MECPlatformsAdditionalSupportInfoData other &&
+                (this.AdditionalInfo == null && other.AdditionalInfo == null ||
+                 this.AdditionalInfo?.Equals(other.AdditionalInfo) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AdditionalInfo = {(this.AdditionalInfo == null ? "null" : this.AdditionalInfo)}");
+            toStringOutput.Add($"AdditionalInfo = {this.AdditionalInfo ?? "null"}");
         }
     }
 }

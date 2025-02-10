@@ -111,48 +111,48 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"ResourcesServiceProfileWithId : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is ResourcesServiceProfileWithId other &&                ((this.ServiceProfileId == null && other.ServiceProfileId == null) || (this.ServiceProfileId?.Equals(other.ServiceProfileId) == true)) &&
-                this.ClientType.Equals(other.ClientType) &&
-                ((this.EcspFilter == null && other.EcspFilter == null) || (this.EcspFilter?.Equals(other.EcspFilter) == true)) &&
-                ((this.ClientSchedule == null && other.ClientSchedule == null) || (this.ClientSchedule?.Equals(other.ClientSchedule) == true)) &&
-                ((this.ClientServiceArea == null && other.ClientServiceArea == null) || (this.ClientServiceArea?.Equals(other.ClientServiceArea) == true)) &&
-                ((this.NetworkResources == null && other.NetworkResources == null) || (this.NetworkResources?.Equals(other.NetworkResources) == true)) &&
-                ((this.ComputeResources == null && other.ComputeResources == null) || (this.ComputeResources?.Equals(other.ComputeResources) == true)) &&
-                ((this.Properties == null && other.Properties == null) || (this.Properties?.Equals(other.Properties) == true));
+            return obj is ResourcesServiceProfileWithId other &&
+                (this.ServiceProfileId == null && other.ServiceProfileId == null ||
+                 this.ServiceProfileId?.Equals(other.ServiceProfileId) == true) &&
+                (this.ClientType.Equals(other.ClientType)) &&
+                (this.EcspFilter == null && other.EcspFilter == null ||
+                 this.EcspFilter?.Equals(other.EcspFilter) == true) &&
+                (this.ClientSchedule == null && other.ClientSchedule == null ||
+                 this.ClientSchedule?.Equals(other.ClientSchedule) == true) &&
+                (this.ClientServiceArea == null && other.ClientServiceArea == null ||
+                 this.ClientServiceArea?.Equals(other.ClientServiceArea) == true) &&
+                (this.NetworkResources == null && other.NetworkResources == null ||
+                 this.NetworkResources?.Equals(other.NetworkResources) == true) &&
+                (this.ComputeResources == null && other.ComputeResources == null ||
+                 this.ComputeResources?.Equals(other.ComputeResources) == true) &&
+                (this.Properties == null && other.Properties == null ||
+                 this.Properties?.Equals(other.Properties) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.ServiceProfileId = {(this.ServiceProfileId == null ? "null" : this.ServiceProfileId)}");
-            toStringOutput.Add($"this.ClientType = {this.ClientType}");
-            toStringOutput.Add($"this.EcspFilter = {(this.EcspFilter == null ? "null" : this.EcspFilter)}");
-            toStringOutput.Add($"this.ClientSchedule = {(this.ClientSchedule == null ? "null" : this.ClientSchedule)}");
-            toStringOutput.Add($"this.ClientServiceArea = {(this.ClientServiceArea == null ? "null" : this.ClientServiceArea)}");
-            toStringOutput.Add($"this.NetworkResources = {(this.NetworkResources == null ? "null" : this.NetworkResources.ToString())}");
-            toStringOutput.Add($"this.ComputeResources = {(this.ComputeResources == null ? "null" : this.ComputeResources.ToString())}");
-            toStringOutput.Add($"this.Properties = {(this.Properties == null ? "null" : this.Properties.ToString())}");
+            toStringOutput.Add($"ServiceProfileId = {this.ServiceProfileId ?? "null"}");
+            toStringOutput.Add($"ClientType = {this.ClientType}");
+            toStringOutput.Add($"EcspFilter = {this.EcspFilter ?? "null"}");
+            toStringOutput.Add($"ClientSchedule = {this.ClientSchedule ?? "null"}");
+            toStringOutput.Add($"ClientServiceArea = {this.ClientServiceArea ?? "null"}");
+            toStringOutput.Add($"NetworkResources = {(this.NetworkResources == null ? "null" : this.NetworkResources.ToString())}");
+            toStringOutput.Add($"ComputeResources = {(this.ComputeResources == null ? "null" : this.ComputeResources.ToString())}");
+            toStringOutput.Add($"Properties = {(this.Properties == null ? "null" : this.Properties.ToString())}");
         }
     }
 }

@@ -48,34 +48,28 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"EnablePromoExp : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is EnablePromoExp other &&                ((this.EnablePromoExpProp == null && other.EnablePromoExpProp == null) || (this.EnablePromoExpProp?.Equals(other.EnablePromoExpProp) == true));
+            return obj is EnablePromoExp other &&
+                (this.EnablePromoExpProp == null && other.EnablePromoExpProp == null ||
+                 this.EnablePromoExpProp?.Equals(other.EnablePromoExpProp) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.EnablePromoExpProp = {(this.EnablePromoExpProp == null ? "null" : this.EnablePromoExpProp.ToString())}");
+            toStringOutput.Add($"EnablePromoExpProp = {(this.EnablePromoExpProp == null ? "null" : this.EnablePromoExpProp.ToString())}");
         }
     }
 }

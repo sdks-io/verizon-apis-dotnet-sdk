@@ -66,38 +66,34 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"ConnectionEvent : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is ConnectionEvent other &&                ((this.ConnectionEventAttributes == null && other.ConnectionEventAttributes == null) || (this.ConnectionEventAttributes?.Equals(other.ConnectionEventAttributes) == true)) &&
-                ((this.ExtendedAttributes == null && other.ExtendedAttributes == null) || (this.ExtendedAttributes?.Equals(other.ExtendedAttributes) == true)) &&
-                ((this.OccurredAt == null && other.OccurredAt == null) || (this.OccurredAt?.Equals(other.OccurredAt) == true));
+            return obj is ConnectionEvent other &&
+                (this.ConnectionEventAttributes == null && other.ConnectionEventAttributes == null ||
+                 this.ConnectionEventAttributes?.Equals(other.ConnectionEventAttributes) == true) &&
+                (this.ExtendedAttributes == null && other.ExtendedAttributes == null ||
+                 this.ExtendedAttributes?.Equals(other.ExtendedAttributes) == true) &&
+                (this.OccurredAt == null && other.OccurredAt == null ||
+                 this.OccurredAt?.Equals(other.OccurredAt) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.ConnectionEventAttributes = {(this.ConnectionEventAttributes == null ? "null" : $"[{string.Join(", ", this.ConnectionEventAttributes)} ]")}");
-            toStringOutput.Add($"this.ExtendedAttributes = {(this.ExtendedAttributes == null ? "null" : $"[{string.Join(", ", this.ExtendedAttributes)} ]")}");
-            toStringOutput.Add($"this.OccurredAt = {(this.OccurredAt == null ? "null" : this.OccurredAt)}");
+            toStringOutput.Add($"ConnectionEventAttributes = {(this.ConnectionEventAttributes == null ? "null" : $"[{string.Join(", ", this.ConnectionEventAttributes)} ]")}");
+            toStringOutput.Add($"ExtendedAttributes = {(this.ExtendedAttributes == null ? "null" : $"[{string.Join(", ", this.ExtendedAttributes)} ]")}");
+            toStringOutput.Add($"OccurredAt = {this.OccurredAt ?? "null"}");
         }
     }
 }

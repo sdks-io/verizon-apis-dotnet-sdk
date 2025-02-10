@@ -75,40 +75,37 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"SensitivityParameters : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is SensitivityParameters other &&                ((this.AbnormalMaxValue == null && other.AbnormalMaxValue == null) || (this.AbnormalMaxValue?.Equals(other.AbnormalMaxValue) == true)) &&
-                ((this.EnableAbnormal == null && other.EnableAbnormal == null) || (this.EnableAbnormal?.Equals(other.EnableAbnormal) == true)) &&
-                ((this.EnableVeryAbnormal == null && other.EnableVeryAbnormal == null) || (this.EnableVeryAbnormal?.Equals(other.EnableVeryAbnormal) == true)) &&
-                ((this.VeryAbnormalMaxValue == null && other.VeryAbnormalMaxValue == null) || (this.VeryAbnormalMaxValue?.Equals(other.VeryAbnormalMaxValue) == true));
+            return obj is SensitivityParameters other &&
+                (this.AbnormalMaxValue == null && other.AbnormalMaxValue == null ||
+                 this.AbnormalMaxValue?.Equals(other.AbnormalMaxValue) == true) &&
+                (this.EnableAbnormal == null && other.EnableAbnormal == null ||
+                 this.EnableAbnormal?.Equals(other.EnableAbnormal) == true) &&
+                (this.EnableVeryAbnormal == null && other.EnableVeryAbnormal == null ||
+                 this.EnableVeryAbnormal?.Equals(other.EnableVeryAbnormal) == true) &&
+                (this.VeryAbnormalMaxValue == null && other.VeryAbnormalMaxValue == null ||
+                 this.VeryAbnormalMaxValue?.Equals(other.VeryAbnormalMaxValue) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AbnormalMaxValue = {(this.AbnormalMaxValue == null ? "null" : this.AbnormalMaxValue.ToString())}");
-            toStringOutput.Add($"this.EnableAbnormal = {(this.EnableAbnormal == null ? "null" : this.EnableAbnormal.ToString())}");
-            toStringOutput.Add($"this.EnableVeryAbnormal = {(this.EnableVeryAbnormal == null ? "null" : this.EnableVeryAbnormal.ToString())}");
-            toStringOutput.Add($"this.VeryAbnormalMaxValue = {(this.VeryAbnormalMaxValue == null ? "null" : this.VeryAbnormalMaxValue.ToString())}");
+            toStringOutput.Add($"AbnormalMaxValue = {(this.AbnormalMaxValue == null ? "null" : this.AbnormalMaxValue.ToString())}");
+            toStringOutput.Add($"EnableAbnormal = {(this.EnableAbnormal == null ? "null" : this.EnableAbnormal.ToString())}");
+            toStringOutput.Add($"EnableVeryAbnormal = {(this.EnableVeryAbnormal == null ? "null" : this.EnableVeryAbnormal.ToString())}");
+            toStringOutput.Add($"VeryAbnormalMaxValue = {(this.VeryAbnormalMaxValue == null ? "null" : this.VeryAbnormalMaxValue.ToString())}");
         }
     }
 }

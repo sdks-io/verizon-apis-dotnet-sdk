@@ -156,58 +156,64 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"Target : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is Target other &&                ((this.Address == null && other.Address == null) || (this.Address?.Equals(other.Address) == true)) &&
-                ((this.Addressscheme == null && other.Addressscheme == null) || (this.Addressscheme?.Equals(other.Addressscheme) == true)) &&
-                ((this.Billingaccountid == null && other.Billingaccountid == null) || (this.Billingaccountid?.Equals(other.Billingaccountid) == true)) &&
-                ((this.Createdon == null && other.Createdon == null) || (this.Createdon?.Equals(other.Createdon) == true)) &&
-                ((this.Externalid == null && other.Externalid == null) || (this.Externalid?.Equals(other.Externalid) == true)) &&
-                ((this.Id == null && other.Id == null) || (this.Id?.Equals(other.Id) == true)) &&
-                ((this.Kind == null && other.Kind == null) || (this.Kind?.Equals(other.Kind) == true)) &&
-                ((this.Lastupdated == null && other.Lastupdated == null) || (this.Lastupdated?.Equals(other.Lastupdated) == true)) &&
-                ((this.Name == null && other.Name == null) || (this.Name?.Equals(other.Name) == true)) &&
-                ((this.Region == null && other.Region == null) || (this.Region?.Equals(other.Region) == true)) &&
-                ((this.Version == null && other.Version == null) || (this.Version?.Equals(other.Version) == true)) &&
-                ((this.Versionid == null && other.Versionid == null) || (this.Versionid?.Equals(other.Versionid) == true)) &&
-                ((this.Description == null && other.Description == null) || (this.Description?.Equals(other.Description) == true));
+            return obj is Target other &&
+                (this.Address == null && other.Address == null ||
+                 this.Address?.Equals(other.Address) == true) &&
+                (this.Addressscheme == null && other.Addressscheme == null ||
+                 this.Addressscheme?.Equals(other.Addressscheme) == true) &&
+                (this.Billingaccountid == null && other.Billingaccountid == null ||
+                 this.Billingaccountid?.Equals(other.Billingaccountid) == true) &&
+                (this.Createdon == null && other.Createdon == null ||
+                 this.Createdon?.Equals(other.Createdon) == true) &&
+                (this.Externalid == null && other.Externalid == null ||
+                 this.Externalid?.Equals(other.Externalid) == true) &&
+                (this.Id == null && other.Id == null ||
+                 this.Id?.Equals(other.Id) == true) &&
+                (this.Kind == null && other.Kind == null ||
+                 this.Kind?.Equals(other.Kind) == true) &&
+                (this.Lastupdated == null && other.Lastupdated == null ||
+                 this.Lastupdated?.Equals(other.Lastupdated) == true) &&
+                (this.Name == null && other.Name == null ||
+                 this.Name?.Equals(other.Name) == true) &&
+                (this.Region == null && other.Region == null ||
+                 this.Region?.Equals(other.Region) == true) &&
+                (this.Version == null && other.Version == null ||
+                 this.Version?.Equals(other.Version) == true) &&
+                (this.Versionid == null && other.Versionid == null ||
+                 this.Versionid?.Equals(other.Versionid) == true) &&
+                (this.Description == null && other.Description == null ||
+                 this.Description?.Equals(other.Description) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Address = {(this.Address == null ? "null" : this.Address)}");
-            toStringOutput.Add($"this.Addressscheme = {(this.Addressscheme == null ? "null" : this.Addressscheme)}");
-            toStringOutput.Add($"this.Billingaccountid = {(this.Billingaccountid == null ? "null" : this.Billingaccountid)}");
-            toStringOutput.Add($"this.Createdon = {(this.Createdon == null ? "null" : this.Createdon)}");
-            toStringOutput.Add($"this.Externalid = {(this.Externalid == null ? "null" : this.Externalid)}");
-            toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id)}");
-            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind)}");
-            toStringOutput.Add($"this.Lastupdated = {(this.Lastupdated == null ? "null" : this.Lastupdated)}");
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
-            toStringOutput.Add($"this.Region = {(this.Region == null ? "null" : this.Region)}");
-            toStringOutput.Add($"this.Version = {(this.Version == null ? "null" : this.Version)}");
-            toStringOutput.Add($"this.Versionid = {(this.Versionid == null ? "null" : this.Versionid)}");
-            toStringOutput.Add($"this.Description = {(this.Description == null ? "null" : this.Description)}");
+            toStringOutput.Add($"Address = {this.Address ?? "null"}");
+            toStringOutput.Add($"Addressscheme = {this.Addressscheme ?? "null"}");
+            toStringOutput.Add($"Billingaccountid = {this.Billingaccountid ?? "null"}");
+            toStringOutput.Add($"Createdon = {this.Createdon ?? "null"}");
+            toStringOutput.Add($"Externalid = {this.Externalid ?? "null"}");
+            toStringOutput.Add($"Id = {this.Id ?? "null"}");
+            toStringOutput.Add($"Kind = {this.Kind ?? "null"}");
+            toStringOutput.Add($"Lastupdated = {this.Lastupdated ?? "null"}");
+            toStringOutput.Add($"Name = {this.Name ?? "null"}");
+            toStringOutput.Add($"Region = {this.Region ?? "null"}");
+            toStringOutput.Add($"Version = {this.Version ?? "null"}");
+            toStringOutput.Add($"Versionid = {this.Versionid ?? "null"}");
+            toStringOutput.Add($"Description = {this.Description ?? "null"}");
         }
     }
 }

@@ -48,34 +48,28 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"RetrievesAvailableFilesResponseList : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is RetrievesAvailableFilesResponseList other &&                ((this.AvailableFilesResponse == null && other.AvailableFilesResponse == null) || (this.AvailableFilesResponse?.Equals(other.AvailableFilesResponse) == true));
+            return obj is RetrievesAvailableFilesResponseList other &&
+                (this.AvailableFilesResponse == null && other.AvailableFilesResponse == null ||
+                 this.AvailableFilesResponse?.Equals(other.AvailableFilesResponse) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AvailableFilesResponse = {(this.AvailableFilesResponse == null ? "null" : $"[{string.Join(", ", this.AvailableFilesResponse)} ]")}");
+            toStringOutput.Add($"AvailableFilesResponse = {(this.AvailableFilesResponse == null ? "null" : $"[{string.Join(", ", this.AvailableFilesResponse)} ]")}");
         }
     }
 }

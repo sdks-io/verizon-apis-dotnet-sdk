@@ -94,44 +94,42 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"DeviceLog : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is DeviceLog other &&                ((this.DeviceId == null && other.DeviceId == null) || (this.DeviceId?.Equals(other.DeviceId) == true)) &&
-                this.LogTime.Equals(other.LogTime) &&
-                ((this.LogType == null && other.LogType == null) || (this.LogType?.Equals(other.LogType) == true)) &&
-                ((this.EventLog == null && other.EventLog == null) || (this.EventLog?.Equals(other.EventLog) == true)) &&
-                ((this.BinaryLogFileBase64 == null && other.BinaryLogFileBase64 == null) || (this.BinaryLogFileBase64?.Equals(other.BinaryLogFileBase64) == true)) &&
-                ((this.BinaryLogFilename == null && other.BinaryLogFilename == null) || (this.BinaryLogFilename?.Equals(other.BinaryLogFilename) == true));
+            return obj is DeviceLog other &&
+                (this.DeviceId == null && other.DeviceId == null ||
+                 this.DeviceId?.Equals(other.DeviceId) == true) &&
+                (this.LogTime.Equals(other.LogTime)) &&
+                (this.LogType == null && other.LogType == null ||
+                 this.LogType?.Equals(other.LogType) == true) &&
+                (this.EventLog == null && other.EventLog == null ||
+                 this.EventLog?.Equals(other.EventLog) == true) &&
+                (this.BinaryLogFileBase64 == null && other.BinaryLogFileBase64 == null ||
+                 this.BinaryLogFileBase64?.Equals(other.BinaryLogFileBase64) == true) &&
+                (this.BinaryLogFilename == null && other.BinaryLogFilename == null ||
+                 this.BinaryLogFilename?.Equals(other.BinaryLogFilename) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId)}");
-            toStringOutput.Add($"this.LogTime = {this.LogTime}");
-            toStringOutput.Add($"this.LogType = {(this.LogType == null ? "null" : this.LogType)}");
-            toStringOutput.Add($"this.EventLog = {(this.EventLog == null ? "null" : this.EventLog)}");
-            toStringOutput.Add($"this.BinaryLogFileBase64 = {(this.BinaryLogFileBase64 == null ? "null" : this.BinaryLogFileBase64)}");
-            toStringOutput.Add($"this.BinaryLogFilename = {(this.BinaryLogFilename == null ? "null" : this.BinaryLogFilename)}");
+            toStringOutput.Add($"DeviceId = {this.DeviceId ?? "null"}");
+            toStringOutput.Add($"LogTime = {this.LogTime}");
+            toStringOutput.Add($"LogType = {this.LogType ?? "null"}");
+            toStringOutput.Add($"EventLog = {this.EventLog ?? "null"}");
+            toStringOutput.Add($"BinaryLogFileBase64 = {this.BinaryLogFileBase64 ?? "null"}");
+            toStringOutput.Add($"BinaryLogFilename = {this.BinaryLogFilename ?? "null"}");
         }
     }
 }

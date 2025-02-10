@@ -58,36 +58,31 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"HistorySearchLimitTime : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is HistorySearchLimitTime other &&                ((this.StartOn == null && other.StartOn == null) || (this.StartOn?.Equals(other.StartOn) == true)) &&
-                ((this.Duration == null && other.Duration == null) || (this.Duration?.Equals(other.Duration) == true));
+            return obj is HistorySearchLimitTime other &&
+                (this.StartOn == null && other.StartOn == null ||
+                 this.StartOn?.Equals(other.StartOn) == true) &&
+                (this.Duration == null && other.Duration == null ||
+                 this.Duration?.Equals(other.Duration) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.StartOn = {(this.StartOn == null ? "null" : this.StartOn.ToString())}");
-            toStringOutput.Add($"this.Duration = {(this.Duration == null ? "null" : this.Duration.ToString())}");
+            toStringOutput.Add($"StartOn = {(this.StartOn == null ? "null" : this.StartOn.ToString())}");
+            toStringOutput.Add($"Duration = {(this.Duration == null ? "null" : this.Duration.ToString())}");
         }
     }
 }

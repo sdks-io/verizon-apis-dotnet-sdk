@@ -75,39 +75,36 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"CallbackRegistrationRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is CallbackRegistrationRequest other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.ServiceName == null && other.ServiceName == null) || (this.ServiceName?.Equals(other.ServiceName) == true)) &&
-                ((this.Endpoint == null && other.Endpoint == null) || (this.Endpoint?.Equals(other.Endpoint) == true)) &&
-                ((this.HttpHeaders == null && other.HttpHeaders == null) || (this.HttpHeaders?.Equals(other.HttpHeaders) == true));
+            return obj is CallbackRegistrationRequest other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.ServiceName == null && other.ServiceName == null ||
+                 this.ServiceName?.Equals(other.ServiceName) == true) &&
+                (this.Endpoint == null && other.Endpoint == null ||
+                 this.Endpoint?.Equals(other.Endpoint) == true) &&
+                (this.HttpHeaders == null && other.HttpHeaders == null ||
+                 this.HttpHeaders?.Equals(other.HttpHeaders) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.ServiceName = {(this.ServiceName == null ? "null" : this.ServiceName)}");
-            toStringOutput.Add($"this.Endpoint = {(this.Endpoint == null ? "null" : this.Endpoint)}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"ServiceName = {this.ServiceName ?? "null"}");
+            toStringOutput.Add($"Endpoint = {this.Endpoint ?? "null"}");
             toStringOutput.Add($"HttpHeaders = {(this.HttpHeaders == null ? "null" : this.HttpHeaders.ToString())}");
         }
     }

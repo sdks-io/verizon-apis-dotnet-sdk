@@ -96,44 +96,43 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"V3DeviceStatus : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is V3DeviceStatus other &&                ((this.DeviceId == null && other.DeviceId == null) || (this.DeviceId?.Equals(other.DeviceId) == true)) &&
-                ((this.Status == null && other.Status == null) || (this.Status?.Equals(other.Status) == true)) &&
-                ((this.ResultReason == null && other.ResultReason == null) || (this.ResultReason?.Equals(other.ResultReason) == true)) &&
-                ((this.UpdatedTime == null && other.UpdatedTime == null) || (this.UpdatedTime?.Equals(other.UpdatedTime) == true)) &&
-                ((this.RecentAttemptTime == null && other.RecentAttemptTime == null) || (this.RecentAttemptTime?.Equals(other.RecentAttemptTime) == true)) &&
-                ((this.NextAttemptTime == null && other.NextAttemptTime == null) || (this.NextAttemptTime?.Equals(other.NextAttemptTime) == true));
+            return obj is V3DeviceStatus other &&
+                (this.DeviceId == null && other.DeviceId == null ||
+                 this.DeviceId?.Equals(other.DeviceId) == true) &&
+                (this.Status == null && other.Status == null ||
+                 this.Status?.Equals(other.Status) == true) &&
+                (this.ResultReason == null && other.ResultReason == null ||
+                 this.ResultReason?.Equals(other.ResultReason) == true) &&
+                (this.UpdatedTime == null && other.UpdatedTime == null ||
+                 this.UpdatedTime?.Equals(other.UpdatedTime) == true) &&
+                (this.RecentAttemptTime == null && other.RecentAttemptTime == null ||
+                 this.RecentAttemptTime?.Equals(other.RecentAttemptTime) == true) &&
+                (this.NextAttemptTime == null && other.NextAttemptTime == null ||
+                 this.NextAttemptTime?.Equals(other.NextAttemptTime) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId)}");
-            toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status)}");
-            toStringOutput.Add($"this.ResultReason = {(this.ResultReason == null ? "null" : this.ResultReason)}");
-            toStringOutput.Add($"this.UpdatedTime = {(this.UpdatedTime == null ? "null" : this.UpdatedTime.ToString())}");
-            toStringOutput.Add($"this.RecentAttemptTime = {(this.RecentAttemptTime == null ? "null" : this.RecentAttemptTime.ToString())}");
-            toStringOutput.Add($"this.NextAttemptTime = {(this.NextAttemptTime == null ? "null" : this.NextAttemptTime.ToString())}");
+            toStringOutput.Add($"DeviceId = {this.DeviceId ?? "null"}");
+            toStringOutput.Add($"Status = {this.Status ?? "null"}");
+            toStringOutput.Add($"ResultReason = {this.ResultReason ?? "null"}");
+            toStringOutput.Add($"UpdatedTime = {(this.UpdatedTime == null ? "null" : this.UpdatedTime.ToString())}");
+            toStringOutput.Add($"RecentAttemptTime = {(this.RecentAttemptTime == null ? "null" : this.RecentAttemptTime.ToString())}");
+            toStringOutput.Add($"NextAttemptTime = {(this.NextAttemptTime == null ? "null" : this.NextAttemptTime.ToString())}");
         }
     }
 }

@@ -66,38 +66,34 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"AccountLead : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is AccountLead other &&                ((this.Address == null && other.Address == null) || (this.Address?.Equals(other.Address) == true)) &&
-                ((this.LeadId == null && other.LeadId == null) || (this.LeadId?.Equals(other.LeadId) == true)) &&
-                ((this.LeadState == null && other.LeadState == null) || (this.LeadState?.Equals(other.LeadState) == true));
+            return obj is AccountLead other &&
+                (this.Address == null && other.Address == null ||
+                 this.Address?.Equals(other.Address) == true) &&
+                (this.LeadId == null && other.LeadId == null ||
+                 this.LeadId?.Equals(other.LeadId) == true) &&
+                (this.LeadState == null && other.LeadState == null ||
+                 this.LeadState?.Equals(other.LeadState) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Address = {(this.Address == null ? "null" : this.Address.ToString())}");
-            toStringOutput.Add($"this.LeadId = {(this.LeadId == null ? "null" : this.LeadId)}");
-            toStringOutput.Add($"this.LeadState = {(this.LeadState == null ? "null" : this.LeadState)}");
+            toStringOutput.Add($"Address = {(this.Address == null ? "null" : this.Address.ToString())}");
+            toStringOutput.Add($"LeadId = {this.LeadId ?? "null"}");
+            toStringOutput.Add($"LeadState = {this.LeadState ?? "null"}");
         }
     }
 }

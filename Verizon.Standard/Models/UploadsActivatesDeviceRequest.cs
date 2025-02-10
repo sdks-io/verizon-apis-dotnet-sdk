@@ -111,48 +111,49 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"UploadsActivatesDeviceRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is UploadsActivatesDeviceRequest other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.EmailAddress == null && other.EmailAddress == null) || (this.EmailAddress?.Equals(other.EmailAddress) == true)) &&
-                ((this.DeviceSku == null && other.DeviceSku == null) || (this.DeviceSku?.Equals(other.DeviceSku) == true)) &&
-                ((this.UploadType == null && other.UploadType == null) || (this.UploadType?.Equals(other.UploadType) == true)) &&
-                ((this.ServicePlan == null && other.ServicePlan == null) || (this.ServicePlan?.Equals(other.ServicePlan) == true)) &&
-                ((this.CarrierIpPoolName == null && other.CarrierIpPoolName == null) || (this.CarrierIpPoolName?.Equals(other.CarrierIpPoolName) == true)) &&
-                ((this.MdnZipCode == null && other.MdnZipCode == null) || (this.MdnZipCode?.Equals(other.MdnZipCode) == true)) &&
-                ((this.Devices == null && other.Devices == null) || (this.Devices?.Equals(other.Devices) == true));
+            return obj is UploadsActivatesDeviceRequest other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.EmailAddress == null && other.EmailAddress == null ||
+                 this.EmailAddress?.Equals(other.EmailAddress) == true) &&
+                (this.DeviceSku == null && other.DeviceSku == null ||
+                 this.DeviceSku?.Equals(other.DeviceSku) == true) &&
+                (this.UploadType == null && other.UploadType == null ||
+                 this.UploadType?.Equals(other.UploadType) == true) &&
+                (this.ServicePlan == null && other.ServicePlan == null ||
+                 this.ServicePlan?.Equals(other.ServicePlan) == true) &&
+                (this.CarrierIpPoolName == null && other.CarrierIpPoolName == null ||
+                 this.CarrierIpPoolName?.Equals(other.CarrierIpPoolName) == true) &&
+                (this.MdnZipCode == null && other.MdnZipCode == null ||
+                 this.MdnZipCode?.Equals(other.MdnZipCode) == true) &&
+                (this.Devices == null && other.Devices == null ||
+                 this.Devices?.Equals(other.Devices) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.EmailAddress = {(this.EmailAddress == null ? "null" : this.EmailAddress)}");
-            toStringOutput.Add($"this.DeviceSku = {(this.DeviceSku == null ? "null" : this.DeviceSku)}");
-            toStringOutput.Add($"this.UploadType = {(this.UploadType == null ? "null" : this.UploadType)}");
-            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan)}");
-            toStringOutput.Add($"this.CarrierIpPoolName = {(this.CarrierIpPoolName == null ? "null" : this.CarrierIpPoolName)}");
-            toStringOutput.Add($"this.MdnZipCode = {(this.MdnZipCode == null ? "null" : this.MdnZipCode)}");
-            toStringOutput.Add($"this.Devices = {(this.Devices == null ? "null" : $"[{string.Join(", ", this.Devices)} ]")}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"EmailAddress = {this.EmailAddress ?? "null"}");
+            toStringOutput.Add($"DeviceSku = {this.DeviceSku ?? "null"}");
+            toStringOutput.Add($"UploadType = {this.UploadType ?? "null"}");
+            toStringOutput.Add($"ServicePlan = {this.ServicePlan ?? "null"}");
+            toStringOutput.Add($"CarrierIpPoolName = {this.CarrierIpPoolName ?? "null"}");
+            toStringOutput.Add($"MdnZipCode = {this.MdnZipCode ?? "null"}");
+            toStringOutput.Add($"Devices = {(this.Devices == null ? "null" : $"[{string.Join(", ", this.Devices)} ]")}");
         }
     }
 }

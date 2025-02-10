@@ -210,70 +210,82 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"UploadAndScheduleFileResponse : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is UploadAndScheduleFileResponse other &&                ((this.Id == null && other.Id == null) || (this.Id?.Equals(other.Id) == true)) &&
-                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.CampaignName == null && other.CampaignName == null) || (this.CampaignName?.Equals(other.CampaignName) == true)) &&
-                ((this.SoftwareName == null && other.SoftwareName == null) || (this.SoftwareName?.Equals(other.SoftwareName) == true)) &&
-                ((this.SoftwareFrom == null && other.SoftwareFrom == null) || (this.SoftwareFrom?.Equals(other.SoftwareFrom) == true)) &&
-                ((this.SoftwareTo == null && other.SoftwareTo == null) || (this.SoftwareTo?.Equals(other.SoftwareTo) == true)) &&
-                ((this.FileName == null && other.FileName == null) || (this.FileName?.Equals(other.FileName) == true)) &&
-                ((this.FileVersion == null && other.FileVersion == null) || (this.FileVersion?.Equals(other.FileVersion) == true)) &&
-                ((this.DistributionType == null && other.DistributionType == null) || (this.DistributionType?.Equals(other.DistributionType) == true)) &&
-                ((this.Make == null && other.Make == null) || (this.Make?.Equals(other.Make) == true)) &&
-                ((this.Model == null && other.Model == null) || (this.Model?.Equals(other.Model) == true)) &&
-                ((this.StartDate == null && other.StartDate == null) || (this.StartDate?.Equals(other.StartDate) == true)) &&
-                ((this.EndDate == null && other.EndDate == null) || (this.EndDate?.Equals(other.EndDate) == true)) &&
-                ((this.DownloadAfterDate == null && other.DownloadAfterDate == null) || (this.DownloadAfterDate?.Equals(other.DownloadAfterDate) == true)) &&
-                ((this.DownloadTimeWindowList == null && other.DownloadTimeWindowList == null) || (this.DownloadTimeWindowList?.Equals(other.DownloadTimeWindowList) == true)) &&
-                ((this.InstallAfterDate == null && other.InstallAfterDate == null) || (this.InstallAfterDate?.Equals(other.InstallAfterDate) == true)) &&
-                ((this.InstallTimeWindowList == null && other.InstallTimeWindowList == null) || (this.InstallTimeWindowList?.Equals(other.InstallTimeWindowList) == true)) &&
-                ((this.DeviceList == null && other.DeviceList == null) || (this.DeviceList?.Equals(other.DeviceList) == true)) &&
-                ((this.Status == null && other.Status == null) || (this.Status?.Equals(other.Status) == true));
+            return obj is UploadAndScheduleFileResponse other &&
+                (this.Id == null && other.Id == null ||
+                 this.Id?.Equals(other.Id) == true) &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.CampaignName == null && other.CampaignName == null ||
+                 this.CampaignName?.Equals(other.CampaignName) == true) &&
+                (this.SoftwareName == null && other.SoftwareName == null ||
+                 this.SoftwareName?.Equals(other.SoftwareName) == true) &&
+                (this.SoftwareFrom == null && other.SoftwareFrom == null ||
+                 this.SoftwareFrom?.Equals(other.SoftwareFrom) == true) &&
+                (this.SoftwareTo == null && other.SoftwareTo == null ||
+                 this.SoftwareTo?.Equals(other.SoftwareTo) == true) &&
+                (this.FileName == null && other.FileName == null ||
+                 this.FileName?.Equals(other.FileName) == true) &&
+                (this.FileVersion == null && other.FileVersion == null ||
+                 this.FileVersion?.Equals(other.FileVersion) == true) &&
+                (this.DistributionType == null && other.DistributionType == null ||
+                 this.DistributionType?.Equals(other.DistributionType) == true) &&
+                (this.Make == null && other.Make == null ||
+                 this.Make?.Equals(other.Make) == true) &&
+                (this.Model == null && other.Model == null ||
+                 this.Model?.Equals(other.Model) == true) &&
+                (this.StartDate == null && other.StartDate == null ||
+                 this.StartDate?.Equals(other.StartDate) == true) &&
+                (this.EndDate == null && other.EndDate == null ||
+                 this.EndDate?.Equals(other.EndDate) == true) &&
+                (this.DownloadAfterDate == null && other.DownloadAfterDate == null ||
+                 this.DownloadAfterDate?.Equals(other.DownloadAfterDate) == true) &&
+                (this.DownloadTimeWindowList == null && other.DownloadTimeWindowList == null ||
+                 this.DownloadTimeWindowList?.Equals(other.DownloadTimeWindowList) == true) &&
+                (this.InstallAfterDate == null && other.InstallAfterDate == null ||
+                 this.InstallAfterDate?.Equals(other.InstallAfterDate) == true) &&
+                (this.InstallTimeWindowList == null && other.InstallTimeWindowList == null ||
+                 this.InstallTimeWindowList?.Equals(other.InstallTimeWindowList) == true) &&
+                (this.DeviceList == null && other.DeviceList == null ||
+                 this.DeviceList?.Equals(other.DeviceList) == true) &&
+                (this.Status == null && other.Status == null ||
+                 this.Status?.Equals(other.Status) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id)}");
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.CampaignName = {(this.CampaignName == null ? "null" : this.CampaignName)}");
-            toStringOutput.Add($"this.SoftwareName = {(this.SoftwareName == null ? "null" : this.SoftwareName)}");
-            toStringOutput.Add($"this.SoftwareFrom = {(this.SoftwareFrom == null ? "null" : this.SoftwareFrom)}");
-            toStringOutput.Add($"this.SoftwareTo = {(this.SoftwareTo == null ? "null" : this.SoftwareTo)}");
-            toStringOutput.Add($"this.FileName = {(this.FileName == null ? "null" : this.FileName)}");
-            toStringOutput.Add($"this.FileVersion = {(this.FileVersion == null ? "null" : this.FileVersion)}");
-            toStringOutput.Add($"this.DistributionType = {(this.DistributionType == null ? "null" : this.DistributionType)}");
-            toStringOutput.Add($"this.Make = {(this.Make == null ? "null" : this.Make)}");
-            toStringOutput.Add($"this.Model = {(this.Model == null ? "null" : this.Model)}");
-            toStringOutput.Add($"this.StartDate = {(this.StartDate == null ? "null" : this.StartDate)}");
-            toStringOutput.Add($"this.EndDate = {(this.EndDate == null ? "null" : this.EndDate)}");
-            toStringOutput.Add($"this.DownloadAfterDate = {(this.DownloadAfterDate == null ? "null" : this.DownloadAfterDate)}");
-            toStringOutput.Add($"this.DownloadTimeWindowList = {(this.DownloadTimeWindowList == null ? "null" : $"[{string.Join(", ", this.DownloadTimeWindowList)} ]")}");
-            toStringOutput.Add($"this.InstallAfterDate = {(this.InstallAfterDate == null ? "null" : this.InstallAfterDate)}");
-            toStringOutput.Add($"this.InstallTimeWindowList = {(this.InstallTimeWindowList == null ? "null" : $"[{string.Join(", ", this.InstallTimeWindowList)} ]")}");
-            toStringOutput.Add($"this.DeviceList = {(this.DeviceList == null ? "null" : $"[{string.Join(", ", this.DeviceList)} ]")}");
-            toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status)}");
+            toStringOutput.Add($"Id = {this.Id ?? "null"}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"CampaignName = {this.CampaignName ?? "null"}");
+            toStringOutput.Add($"SoftwareName = {this.SoftwareName ?? "null"}");
+            toStringOutput.Add($"SoftwareFrom = {this.SoftwareFrom ?? "null"}");
+            toStringOutput.Add($"SoftwareTo = {this.SoftwareTo ?? "null"}");
+            toStringOutput.Add($"FileName = {this.FileName ?? "null"}");
+            toStringOutput.Add($"FileVersion = {this.FileVersion ?? "null"}");
+            toStringOutput.Add($"DistributionType = {this.DistributionType ?? "null"}");
+            toStringOutput.Add($"Make = {this.Make ?? "null"}");
+            toStringOutput.Add($"Model = {this.Model ?? "null"}");
+            toStringOutput.Add($"StartDate = {this.StartDate ?? "null"}");
+            toStringOutput.Add($"EndDate = {this.EndDate ?? "null"}");
+            toStringOutput.Add($"DownloadAfterDate = {this.DownloadAfterDate ?? "null"}");
+            toStringOutput.Add($"DownloadTimeWindowList = {(this.DownloadTimeWindowList == null ? "null" : $"[{string.Join(", ", this.DownloadTimeWindowList)} ]")}");
+            toStringOutput.Add($"InstallAfterDate = {this.InstallAfterDate ?? "null"}");
+            toStringOutput.Add($"InstallTimeWindowList = {(this.InstallTimeWindowList == null ? "null" : $"[{string.Join(", ", this.InstallTimeWindowList)} ]")}");
+            toStringOutput.Add($"DeviceList = {(this.DeviceList == null ? "null" : $"[{string.Join(", ", this.DeviceList)} ]")}");
+            toStringOutput.Add($"Status = {this.Status ?? "null"}");
         }
     }
 }

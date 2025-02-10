@@ -138,54 +138,58 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"AccountDeviceListRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is AccountDeviceListRequest other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.DeviceId == null && other.DeviceId == null) || (this.DeviceId?.Equals(other.DeviceId) == true)) &&
-                ((this.Filter == null && other.Filter == null) || (this.Filter?.Equals(other.Filter) == true)) &&
-                ((this.CurrentState == null && other.CurrentState == null) || (this.CurrentState?.Equals(other.CurrentState) == true)) &&
-                ((this.CustomFields == null && other.CustomFields == null) || (this.CustomFields?.Equals(other.CustomFields) == true)) &&
-                ((this.Earliest == null && other.Earliest == null) || (this.Earliest?.Equals(other.Earliest) == true)) &&
-                ((this.GroupName == null && other.GroupName == null) || (this.GroupName?.Equals(other.GroupName) == true)) &&
-                ((this.Latest == null && other.Latest == null) || (this.Latest?.Equals(other.Latest) == true)) &&
-                ((this.ServicePlan == null && other.ServicePlan == null) || (this.ServicePlan?.Equals(other.ServicePlan) == true)) &&
-                ((this.MaxNumberOfDevices == null && other.MaxNumberOfDevices == null) || (this.MaxNumberOfDevices?.Equals(other.MaxNumberOfDevices) == true)) &&
-                ((this.LargestDeviceIdSeen == null && other.LargestDeviceIdSeen == null) || (this.LargestDeviceIdSeen?.Equals(other.LargestDeviceIdSeen) == true));
+            return obj is AccountDeviceListRequest other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.DeviceId == null && other.DeviceId == null ||
+                 this.DeviceId?.Equals(other.DeviceId) == true) &&
+                (this.Filter == null && other.Filter == null ||
+                 this.Filter?.Equals(other.Filter) == true) &&
+                (this.CurrentState == null && other.CurrentState == null ||
+                 this.CurrentState?.Equals(other.CurrentState) == true) &&
+                (this.CustomFields == null && other.CustomFields == null ||
+                 this.CustomFields?.Equals(other.CustomFields) == true) &&
+                (this.Earliest == null && other.Earliest == null ||
+                 this.Earliest?.Equals(other.Earliest) == true) &&
+                (this.GroupName == null && other.GroupName == null ||
+                 this.GroupName?.Equals(other.GroupName) == true) &&
+                (this.Latest == null && other.Latest == null ||
+                 this.Latest?.Equals(other.Latest) == true) &&
+                (this.ServicePlan == null && other.ServicePlan == null ||
+                 this.ServicePlan?.Equals(other.ServicePlan) == true) &&
+                (this.MaxNumberOfDevices == null && other.MaxNumberOfDevices == null ||
+                 this.MaxNumberOfDevices?.Equals(other.MaxNumberOfDevices) == true) &&
+                (this.LargestDeviceIdSeen == null && other.LargestDeviceIdSeen == null ||
+                 this.LargestDeviceIdSeen?.Equals(other.LargestDeviceIdSeen) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId.ToString())}");
-            toStringOutput.Add($"this.Filter = {(this.Filter == null ? "null" : this.Filter.ToString())}");
-            toStringOutput.Add($"this.CurrentState = {(this.CurrentState == null ? "null" : this.CurrentState)}");
-            toStringOutput.Add($"this.CustomFields = {(this.CustomFields == null ? "null" : $"[{string.Join(", ", this.CustomFields)} ]")}");
-            toStringOutput.Add($"this.Earliest = {(this.Earliest == null ? "null" : this.Earliest)}");
-            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName)}");
-            toStringOutput.Add($"this.Latest = {(this.Latest == null ? "null" : this.Latest)}");
-            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan)}");
-            toStringOutput.Add($"this.MaxNumberOfDevices = {(this.MaxNumberOfDevices == null ? "null" : this.MaxNumberOfDevices.ToString())}");
-            toStringOutput.Add($"this.LargestDeviceIdSeen = {(this.LargestDeviceIdSeen == null ? "null" : this.LargestDeviceIdSeen.ToString())}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId.ToString())}");
+            toStringOutput.Add($"Filter = {(this.Filter == null ? "null" : this.Filter.ToString())}");
+            toStringOutput.Add($"CurrentState = {this.CurrentState ?? "null"}");
+            toStringOutput.Add($"CustomFields = {(this.CustomFields == null ? "null" : $"[{string.Join(", ", this.CustomFields)} ]")}");
+            toStringOutput.Add($"Earliest = {this.Earliest ?? "null"}");
+            toStringOutput.Add($"GroupName = {this.GroupName ?? "null"}");
+            toStringOutput.Add($"Latest = {this.Latest ?? "null"}");
+            toStringOutput.Add($"ServicePlan = {this.ServicePlan ?? "null"}");
+            toStringOutput.Add($"MaxNumberOfDevices = {(this.MaxNumberOfDevices == null ? "null" : this.MaxNumberOfDevices.ToString())}");
+            toStringOutput.Add($"LargestDeviceIdSeen = {(this.LargestDeviceIdSeen == null ? "null" : this.LargestDeviceIdSeen.ToString())}");
         }
     }
 }

@@ -75,40 +75,37 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"DeviceLocationSubscription : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is DeviceLocationSubscription other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.LocType == null && other.LocType == null) || (this.LocType?.Equals(other.LocType) == true)) &&
-                ((this.MaxAllowance == null && other.MaxAllowance == null) || (this.MaxAllowance?.Equals(other.MaxAllowance) == true)) &&
-                ((this.PurchaseTime == null && other.PurchaseTime == null) || (this.PurchaseTime?.Equals(other.PurchaseTime) == true));
+            return obj is DeviceLocationSubscription other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.LocType == null && other.LocType == null ||
+                 this.LocType?.Equals(other.LocType) == true) &&
+                (this.MaxAllowance == null && other.MaxAllowance == null ||
+                 this.MaxAllowance?.Equals(other.MaxAllowance) == true) &&
+                (this.PurchaseTime == null && other.PurchaseTime == null ||
+                 this.PurchaseTime?.Equals(other.PurchaseTime) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.LocType = {(this.LocType == null ? "null" : this.LocType)}");
-            toStringOutput.Add($"this.MaxAllowance = {(this.MaxAllowance == null ? "null" : this.MaxAllowance)}");
-            toStringOutput.Add($"this.PurchaseTime = {(this.PurchaseTime == null ? "null" : this.PurchaseTime)}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"LocType = {this.LocType ?? "null"}");
+            toStringOutput.Add($"MaxAllowance = {this.MaxAllowance ?? "null"}");
+            toStringOutput.Add($"PurchaseTime = {this.PurchaseTime ?? "null"}");
         }
     }
 }

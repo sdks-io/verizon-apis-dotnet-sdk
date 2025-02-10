@@ -75,40 +75,37 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"DeviceUsageListRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is DeviceUsageListRequest other &&                ((this.Earliest == null && other.Earliest == null) || (this.Earliest?.Equals(other.Earliest) == true)) &&
-                ((this.Latest == null && other.Latest == null) || (this.Latest?.Equals(other.Latest) == true)) &&
-                ((this.DeviceId == null && other.DeviceId == null) || (this.DeviceId?.Equals(other.DeviceId) == true)) &&
-                ((this.Label == null && other.Label == null) || (this.Label?.Equals(other.Label) == true));
+            return obj is DeviceUsageListRequest other &&
+                (this.Earliest == null && other.Earliest == null ||
+                 this.Earliest?.Equals(other.Earliest) == true) &&
+                (this.Latest == null && other.Latest == null ||
+                 this.Latest?.Equals(other.Latest) == true) &&
+                (this.DeviceId == null && other.DeviceId == null ||
+                 this.DeviceId?.Equals(other.DeviceId) == true) &&
+                (this.Label == null && other.Label == null ||
+                 this.Label?.Equals(other.Label) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Earliest = {(this.Earliest == null ? "null" : this.Earliest)}");
-            toStringOutput.Add($"this.Latest = {(this.Latest == null ? "null" : this.Latest)}");
-            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId.ToString())}");
-            toStringOutput.Add($"this.Label = {(this.Label == null ? "null" : this.Label.ToString())}");
+            toStringOutput.Add($"Earliest = {this.Earliest ?? "null"}");
+            toStringOutput.Add($"Latest = {this.Latest ?? "null"}");
+            toStringOutput.Add($"DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId.ToString())}");
+            toStringOutput.Add($"Label = {(this.Label == null ? "null" : this.Label.ToString())}");
         }
     }
 }

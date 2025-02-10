@@ -66,38 +66,34 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"DailyUsageItem : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is DailyUsageItem other &&                ((this.StartTime == null && other.StartTime == null) || (this.StartTime?.Equals(other.StartTime) == true)) &&
-                ((this.EndTime == null && other.EndTime == null) || (this.EndTime?.Equals(other.EndTime) == true)) &&
-                ((this.NumBytes == null && other.NumBytes == null) || (this.NumBytes?.Equals(other.NumBytes) == true));
+            return obj is DailyUsageItem other &&
+                (this.StartTime == null && other.StartTime == null ||
+                 this.StartTime?.Equals(other.StartTime) == true) &&
+                (this.EndTime == null && other.EndTime == null ||
+                 this.EndTime?.Equals(other.EndTime) == true) &&
+                (this.NumBytes == null && other.NumBytes == null ||
+                 this.NumBytes?.Equals(other.NumBytes) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.StartTime = {(this.StartTime == null ? "null" : this.StartTime)}");
-            toStringOutput.Add($"this.EndTime = {(this.EndTime == null ? "null" : this.EndTime)}");
-            toStringOutput.Add($"this.NumBytes = {(this.NumBytes == null ? "null" : this.NumBytes.ToString())}");
+            toStringOutput.Add($"StartTime = {this.StartTime ?? "null"}");
+            toStringOutput.Add($"EndTime = {this.EndTime ?? "null"}");
+            toStringOutput.Add($"NumBytes = {(this.NumBytes == null ? "null" : this.NumBytes.ToString())}");
         }
     }
 }

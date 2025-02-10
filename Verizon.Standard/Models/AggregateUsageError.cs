@@ -66,38 +66,34 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"AggregateUsageError : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is AggregateUsageError other &&                ((this.Imei == null && other.Imei == null) || (this.Imei?.Equals(other.Imei) == true)) &&
-                ((this.ErrorMessage == null && other.ErrorMessage == null) || (this.ErrorMessage?.Equals(other.ErrorMessage) == true)) &&
-                ((this.ErrorResponse == null && other.ErrorResponse == null) || (this.ErrorResponse?.Equals(other.ErrorResponse) == true));
+            return obj is AggregateUsageError other &&
+                (this.Imei == null && other.Imei == null ||
+                 this.Imei?.Equals(other.Imei) == true) &&
+                (this.ErrorMessage == null && other.ErrorMessage == null ||
+                 this.ErrorMessage?.Equals(other.ErrorMessage) == true) &&
+                (this.ErrorResponse == null && other.ErrorResponse == null ||
+                 this.ErrorResponse?.Equals(other.ErrorResponse) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Imei = {(this.Imei == null ? "null" : this.Imei)}");
-            toStringOutput.Add($"this.ErrorMessage = {(this.ErrorMessage == null ? "null" : this.ErrorMessage)}");
-            toStringOutput.Add($"this.ErrorResponse = {(this.ErrorResponse == null ? "null" : this.ErrorResponse.ToString())}");
+            toStringOutput.Add($"Imei = {this.Imei ?? "null"}");
+            toStringOutput.Add($"ErrorMessage = {this.ErrorMessage ?? "null"}");
+            toStringOutput.Add($"ErrorResponse = {(this.ErrorResponse == null ? "null" : this.ErrorResponse.ToString())}");
         }
     }
 }

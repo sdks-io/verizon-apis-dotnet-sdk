@@ -147,56 +147,61 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"CreateTargetRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is CreateTargetRequest other &&                ((this.Accountidentifier == null && other.Accountidentifier == null) || (this.Accountidentifier?.Equals(other.Accountidentifier) == true)) &&
-                ((this.Billingaccountid == null && other.Billingaccountid == null) || (this.Billingaccountid?.Equals(other.Billingaccountid) == true)) &&
-                ((this.Kind == null && other.Kind == null) || (this.Kind?.Equals(other.Kind) == true)) &&
-                ((this.Address == null && other.Address == null) || (this.Address?.Equals(other.Address) == true)) &&
-                ((this.Addressscheme == null && other.Addressscheme == null) || (this.Addressscheme?.Equals(other.Addressscheme) == true)) &&
-                ((this.Fields == null && other.Fields == null) || (this.Fields?.Equals(other.Fields) == true)) &&
-                ((this.Description == null && other.Description == null) || (this.Description?.Equals(other.Description) == true)) &&
-                ((this.Externalid == null && other.Externalid == null) || (this.Externalid?.Equals(other.Externalid) == true)) &&
-                ((this.Name == null && other.Name == null) || (this.Name?.Equals(other.Name) == true)) &&
-                ((this.Region == null && other.Region == null) || (this.Region?.Equals(other.Region) == true)) &&
-                ((this.Key1 == null && other.Key1 == null) || (this.Key1?.Equals(other.Key1) == true)) &&
-                ((this.Oauth == null && other.Oauth == null) || (this.Oauth?.Equals(other.Oauth) == true));
+            return obj is CreateTargetRequest other &&
+                (this.Accountidentifier == null && other.Accountidentifier == null ||
+                 this.Accountidentifier?.Equals(other.Accountidentifier) == true) &&
+                (this.Billingaccountid == null && other.Billingaccountid == null ||
+                 this.Billingaccountid?.Equals(other.Billingaccountid) == true) &&
+                (this.Kind == null && other.Kind == null ||
+                 this.Kind?.Equals(other.Kind) == true) &&
+                (this.Address == null && other.Address == null ||
+                 this.Address?.Equals(other.Address) == true) &&
+                (this.Addressscheme == null && other.Addressscheme == null ||
+                 this.Addressscheme?.Equals(other.Addressscheme) == true) &&
+                (this.Fields == null && other.Fields == null ||
+                 this.Fields?.Equals(other.Fields) == true) &&
+                (this.Description == null && other.Description == null ||
+                 this.Description?.Equals(other.Description) == true) &&
+                (this.Externalid == null && other.Externalid == null ||
+                 this.Externalid?.Equals(other.Externalid) == true) &&
+                (this.Name == null && other.Name == null ||
+                 this.Name?.Equals(other.Name) == true) &&
+                (this.Region == null && other.Region == null ||
+                 this.Region?.Equals(other.Region) == true) &&
+                (this.Key1 == null && other.Key1 == null ||
+                 this.Key1?.Equals(other.Key1) == true) &&
+                (this.Oauth == null && other.Oauth == null ||
+                 this.Oauth?.Equals(other.Oauth) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Accountidentifier = {(this.Accountidentifier == null ? "null" : this.Accountidentifier.ToString())}");
-            toStringOutput.Add($"this.Billingaccountid = {(this.Billingaccountid == null ? "null" : this.Billingaccountid)}");
-            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind)}");
-            toStringOutput.Add($"this.Address = {(this.Address == null ? "null" : this.Address)}");
-            toStringOutput.Add($"this.Addressscheme = {(this.Addressscheme == null ? "null" : this.Addressscheme)}");
-            toStringOutput.Add($"this.Fields = {(this.Fields == null ? "null" : this.Fields.ToString())}");
-            toStringOutput.Add($"this.Description = {(this.Description == null ? "null" : this.Description)}");
-            toStringOutput.Add($"this.Externalid = {(this.Externalid == null ? "null" : this.Externalid)}");
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
-            toStringOutput.Add($"this.Region = {(this.Region == null ? "null" : this.Region)}");
-            toStringOutput.Add($"this.Key1 = {(this.Key1 == null ? "null" : this.Key1)}");
-            toStringOutput.Add($"this.Oauth = {(this.Oauth == null ? "null" : this.Oauth.ToString())}");
+            toStringOutput.Add($"Accountidentifier = {(this.Accountidentifier == null ? "null" : this.Accountidentifier.ToString())}");
+            toStringOutput.Add($"Billingaccountid = {this.Billingaccountid ?? "null"}");
+            toStringOutput.Add($"Kind = {this.Kind ?? "null"}");
+            toStringOutput.Add($"Address = {this.Address ?? "null"}");
+            toStringOutput.Add($"Addressscheme = {this.Addressscheme ?? "null"}");
+            toStringOutput.Add($"Fields = {(this.Fields == null ? "null" : this.Fields.ToString())}");
+            toStringOutput.Add($"Description = {this.Description ?? "null"}");
+            toStringOutput.Add($"Externalid = {this.Externalid ?? "null"}");
+            toStringOutput.Add($"Name = {this.Name ?? "null"}");
+            toStringOutput.Add($"Region = {this.Region ?? "null"}");
+            toStringOutput.Add($"Key1 = {this.Key1 ?? "null"}");
+            toStringOutput.Add($"Oauth = {(this.Oauth == null ? "null" : this.Oauth.ToString())}");
         }
     }
 }

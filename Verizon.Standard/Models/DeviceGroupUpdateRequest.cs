@@ -75,40 +75,37 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"DeviceGroupUpdateRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is DeviceGroupUpdateRequest other &&                ((this.DevicesToAdd == null && other.DevicesToAdd == null) || (this.DevicesToAdd?.Equals(other.DevicesToAdd) == true)) &&
-                ((this.DevicesToRemove == null && other.DevicesToRemove == null) || (this.DevicesToRemove?.Equals(other.DevicesToRemove) == true)) &&
-                ((this.NewGroupDescription == null && other.NewGroupDescription == null) || (this.NewGroupDescription?.Equals(other.NewGroupDescription) == true)) &&
-                ((this.NewGroupName == null && other.NewGroupName == null) || (this.NewGroupName?.Equals(other.NewGroupName) == true));
+            return obj is DeviceGroupUpdateRequest other &&
+                (this.DevicesToAdd == null && other.DevicesToAdd == null ||
+                 this.DevicesToAdd?.Equals(other.DevicesToAdd) == true) &&
+                (this.DevicesToRemove == null && other.DevicesToRemove == null ||
+                 this.DevicesToRemove?.Equals(other.DevicesToRemove) == true) &&
+                (this.NewGroupDescription == null && other.NewGroupDescription == null ||
+                 this.NewGroupDescription?.Equals(other.NewGroupDescription) == true) &&
+                (this.NewGroupName == null && other.NewGroupName == null ||
+                 this.NewGroupName?.Equals(other.NewGroupName) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.DevicesToAdd = {(this.DevicesToAdd == null ? "null" : $"[{string.Join(", ", this.DevicesToAdd)} ]")}");
-            toStringOutput.Add($"this.DevicesToRemove = {(this.DevicesToRemove == null ? "null" : $"[{string.Join(", ", this.DevicesToRemove)} ]")}");
-            toStringOutput.Add($"this.NewGroupDescription = {(this.NewGroupDescription == null ? "null" : this.NewGroupDescription)}");
-            toStringOutput.Add($"this.NewGroupName = {(this.NewGroupName == null ? "null" : this.NewGroupName)}");
+            toStringOutput.Add($"DevicesToAdd = {(this.DevicesToAdd == null ? "null" : $"[{string.Join(", ", this.DevicesToAdd)} ]")}");
+            toStringOutput.Add($"DevicesToRemove = {(this.DevicesToRemove == null ? "null" : $"[{string.Join(", ", this.DevicesToRemove)} ]")}");
+            toStringOutput.Add($"NewGroupDescription = {this.NewGroupDescription ?? "null"}");
+            toStringOutput.Add($"NewGroupName = {this.NewGroupName ?? "null"}");
         }
     }
 }

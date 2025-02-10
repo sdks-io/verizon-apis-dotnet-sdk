@@ -93,44 +93,43 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"ManagedAccountsProvisionResponse : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is ManagedAccountsProvisionResponse other &&                ((this.Txid == null && other.Txid == null) || (this.Txid?.Equals(other.Txid) == true)) &&
-                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.PaccountName == null && other.PaccountName == null) || (this.PaccountName?.Equals(other.PaccountName) == true)) &&
-                ((this.ServiceName == null && other.ServiceName == null) || (this.ServiceName?.Equals(other.ServiceName) == true)) &&
-                ((this.Status == null && other.Status == null) || (this.Status?.Equals(other.Status) == true)) &&
-                ((this.Reason == null && other.Reason == null) || (this.Reason?.Equals(other.Reason) == true));
+            return obj is ManagedAccountsProvisionResponse other &&
+                (this.Txid == null && other.Txid == null ||
+                 this.Txid?.Equals(other.Txid) == true) &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.PaccountName == null && other.PaccountName == null ||
+                 this.PaccountName?.Equals(other.PaccountName) == true) &&
+                (this.ServiceName == null && other.ServiceName == null ||
+                 this.ServiceName?.Equals(other.ServiceName) == true) &&
+                (this.Status == null && other.Status == null ||
+                 this.Status?.Equals(other.Status) == true) &&
+                (this.Reason == null && other.Reason == null ||
+                 this.Reason?.Equals(other.Reason) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Txid = {(this.Txid == null ? "null" : this.Txid)}");
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.PaccountName = {(this.PaccountName == null ? "null" : this.PaccountName)}");
-            toStringOutput.Add($"this.ServiceName = {(this.ServiceName == null ? "null" : this.ServiceName.ToString())}");
-            toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status)}");
-            toStringOutput.Add($"this.Reason = {(this.Reason == null ? "null" : this.Reason)}");
+            toStringOutput.Add($"Txid = {this.Txid ?? "null"}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"PaccountName = {this.PaccountName ?? "null"}");
+            toStringOutput.Add($"ServiceName = {(this.ServiceName == null ? "null" : this.ServiceName.ToString())}");
+            toStringOutput.Add($"Status = {this.Status ?? "null"}");
+            toStringOutput.Add($"Reason = {this.Reason ?? "null"}");
         }
     }
 }

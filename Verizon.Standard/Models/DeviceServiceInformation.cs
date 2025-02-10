@@ -66,38 +66,33 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"DeviceServiceInformation : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is DeviceServiceInformation other &&                ((this.ResponseType == null && other.ResponseType == null) || (this.ResponseType?.Equals(other.ResponseType) == true)) &&
-                ((this.Imei == null && other.Imei == null) || (this.Imei?.Equals(other.Imei) == true)) &&
-                this.BullseyeEnable.Equals(other.BullseyeEnable);
+            return obj is DeviceServiceInformation other &&
+                (this.ResponseType == null && other.ResponseType == null ||
+                 this.ResponseType?.Equals(other.ResponseType) == true) &&
+                (this.Imei == null && other.Imei == null ||
+                 this.Imei?.Equals(other.Imei) == true) &&
+                (this.BullseyeEnable.Equals(other.BullseyeEnable));
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.ResponseType = {(this.ResponseType == null ? "null" : this.ResponseType.ToString())}");
-            toStringOutput.Add($"this.Imei = {(this.Imei == null ? "null" : this.Imei)}");
-            toStringOutput.Add($"this.BullseyeEnable = {this.BullseyeEnable}");
+            toStringOutput.Add($"ResponseType = {(this.ResponseType == null ? "null" : this.ResponseType.ToString())}");
+            toStringOutput.Add($"Imei = {this.Imei ?? "null"}");
+            toStringOutput.Add($"BullseyeEnable = {this.BullseyeEnable}");
         }
     }
 }

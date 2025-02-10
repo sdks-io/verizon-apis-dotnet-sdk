@@ -94,44 +94,43 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"AttributeSetting : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is AttributeSetting other &&                ((this.Name == null && other.Name == null) || (this.Name?.Equals(other.Name) == true)) &&
-                ((this.MValue == null && other.MValue == null) || (this.MValue?.Equals(other.MValue) == true)) &&
-                ((this.CreatedOn == null && other.CreatedOn == null) || (this.CreatedOn?.Equals(other.CreatedOn) == true)) &&
-                ((this.IsObservable == null && other.IsObservable == null) || (this.IsObservable?.Equals(other.IsObservable) == true)) &&
-                ((this.IsObserving == null && other.IsObserving == null) || (this.IsObserving?.Equals(other.IsObserving) == true)) &&
-                ((this.Frequency == null && other.Frequency == null) || (this.Frequency?.Equals(other.Frequency) == true));
+            return obj is AttributeSetting other &&
+                (this.Name == null && other.Name == null ||
+                 this.Name?.Equals(other.Name) == true) &&
+                (this.MValue == null && other.MValue == null ||
+                 this.MValue?.Equals(other.MValue) == true) &&
+                (this.CreatedOn == null && other.CreatedOn == null ||
+                 this.CreatedOn?.Equals(other.CreatedOn) == true) &&
+                (this.IsObservable == null && other.IsObservable == null ||
+                 this.IsObservable?.Equals(other.IsObservable) == true) &&
+                (this.IsObserving == null && other.IsObserving == null ||
+                 this.IsObserving?.Equals(other.IsObserving) == true) &&
+                (this.Frequency == null && other.Frequency == null ||
+                 this.Frequency?.Equals(other.Frequency) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name.ToString())}");
-            toStringOutput.Add($"this.MValue = {(this.MValue == null ? "null" : this.MValue)}");
-            toStringOutput.Add($"this.CreatedOn = {(this.CreatedOn == null ? "null" : this.CreatedOn.ToString())}");
-            toStringOutput.Add($"this.IsObservable = {(this.IsObservable == null ? "null" : this.IsObservable.ToString())}");
-            toStringOutput.Add($"this.IsObserving = {(this.IsObserving == null ? "null" : this.IsObserving.ToString())}");
-            toStringOutput.Add($"this.Frequency = {(this.Frequency == null ? "null" : this.Frequency.ToString())}");
+            toStringOutput.Add($"Name = {(this.Name == null ? "null" : this.Name.ToString())}");
+            toStringOutput.Add($"MValue = {this.MValue ?? "null"}");
+            toStringOutput.Add($"CreatedOn = {(this.CreatedOn == null ? "null" : this.CreatedOn.ToString())}");
+            toStringOutput.Add($"IsObservable = {(this.IsObservable == null ? "null" : this.IsObservable.ToString())}");
+            toStringOutput.Add($"IsObserving = {(this.IsObserving == null ? "null" : this.IsObserving.ToString())}");
+            toStringOutput.Add($"Frequency = {(this.Frequency == null ? "null" : this.Frequency.ToString())}");
         }
     }
 }

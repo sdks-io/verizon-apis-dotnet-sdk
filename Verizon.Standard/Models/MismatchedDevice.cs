@@ -102,46 +102,46 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"MismatchedDevice : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is MismatchedDevice other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.Mdn == null && other.Mdn == null) || (this.Mdn?.Equals(other.Mdn) == true)) &&
-                ((this.ActivationDate == null && other.ActivationDate == null) || (this.ActivationDate?.Equals(other.ActivationDate) == true)) &&
-                ((this.Iccid == null && other.Iccid == null) || (this.Iccid?.Equals(other.Iccid) == true)) &&
-                ((this.PreImei == null && other.PreImei == null) || (this.PreImei?.Equals(other.PreImei) == true)) &&
-                ((this.PostImei == null && other.PostImei == null) || (this.PostImei?.Equals(other.PostImei) == true)) &&
-                ((this.SimOtaDate == null && other.SimOtaDate == null) || (this.SimOtaDate?.Equals(other.SimOtaDate) == true));
+            return obj is MismatchedDevice other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.Mdn == null && other.Mdn == null ||
+                 this.Mdn?.Equals(other.Mdn) == true) &&
+                (this.ActivationDate == null && other.ActivationDate == null ||
+                 this.ActivationDate?.Equals(other.ActivationDate) == true) &&
+                (this.Iccid == null && other.Iccid == null ||
+                 this.Iccid?.Equals(other.Iccid) == true) &&
+                (this.PreImei == null && other.PreImei == null ||
+                 this.PreImei?.Equals(other.PreImei) == true) &&
+                (this.PostImei == null && other.PostImei == null ||
+                 this.PostImei?.Equals(other.PostImei) == true) &&
+                (this.SimOtaDate == null && other.SimOtaDate == null ||
+                 this.SimOtaDate?.Equals(other.SimOtaDate) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.Mdn = {(this.Mdn == null ? "null" : this.Mdn)}");
-            toStringOutput.Add($"this.ActivationDate = {(this.ActivationDate == null ? "null" : this.ActivationDate)}");
-            toStringOutput.Add($"this.Iccid = {(this.Iccid == null ? "null" : this.Iccid)}");
-            toStringOutput.Add($"this.PreImei = {(this.PreImei == null ? "null" : this.PreImei)}");
-            toStringOutput.Add($"this.PostImei = {(this.PostImei == null ? "null" : this.PostImei)}");
-            toStringOutput.Add($"this.SimOtaDate = {(this.SimOtaDate == null ? "null" : this.SimOtaDate)}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"Mdn = {this.Mdn ?? "null"}");
+            toStringOutput.Add($"ActivationDate = {this.ActivationDate ?? "null"}");
+            toStringOutput.Add($"Iccid = {this.Iccid ?? "null"}");
+            toStringOutput.Add($"PreImei = {this.PreImei ?? "null"}");
+            toStringOutput.Add($"PostImei = {this.PostImei ?? "null"}");
+            toStringOutput.Add($"SimOtaDate = {this.SimOtaDate ?? "null"}");
         }
     }
 }

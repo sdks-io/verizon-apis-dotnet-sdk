@@ -84,42 +84,40 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"UsageTriggerUpdateRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is UsageTriggerUpdateRequest other &&                ((this.TriggerName == null && other.TriggerName == null) || (this.TriggerName?.Equals(other.TriggerName) == true)) &&
-                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.ThresholdValue == null && other.ThresholdValue == null) || (this.ThresholdValue?.Equals(other.ThresholdValue) == true)) &&
-                ((this.SmsPhoneNumbers == null && other.SmsPhoneNumbers == null) || (this.SmsPhoneNumbers?.Equals(other.SmsPhoneNumbers) == true)) &&
-                ((this.EmailAddresses == null && other.EmailAddresses == null) || (this.EmailAddresses?.Equals(other.EmailAddresses) == true));
+            return obj is UsageTriggerUpdateRequest other &&
+                (this.TriggerName == null && other.TriggerName == null ||
+                 this.TriggerName?.Equals(other.TriggerName) == true) &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.ThresholdValue == null && other.ThresholdValue == null ||
+                 this.ThresholdValue?.Equals(other.ThresholdValue) == true) &&
+                (this.SmsPhoneNumbers == null && other.SmsPhoneNumbers == null ||
+                 this.SmsPhoneNumbers?.Equals(other.SmsPhoneNumbers) == true) &&
+                (this.EmailAddresses == null && other.EmailAddresses == null ||
+                 this.EmailAddresses?.Equals(other.EmailAddresses) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.TriggerName = {(this.TriggerName == null ? "null" : this.TriggerName)}");
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.ThresholdValue = {(this.ThresholdValue == null ? "null" : this.ThresholdValue)}");
-            toStringOutput.Add($"this.SmsPhoneNumbers = {(this.SmsPhoneNumbers == null ? "null" : this.SmsPhoneNumbers)}");
-            toStringOutput.Add($"this.EmailAddresses = {(this.EmailAddresses == null ? "null" : this.EmailAddresses)}");
+            toStringOutput.Add($"TriggerName = {this.TriggerName ?? "null"}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"ThresholdValue = {this.ThresholdValue ?? "null"}");
+            toStringOutput.Add($"SmsPhoneNumbers = {this.SmsPhoneNumbers ?? "null"}");
+            toStringOutput.Add($"EmailAddresses = {this.EmailAddresses ?? "null"}");
         }
     }
 }

@@ -48,34 +48,28 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"NetworkType : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is NetworkType other &&                ((this.NetworkTypeProp == null && other.NetworkTypeProp == null) || (this.NetworkTypeProp?.Equals(other.NetworkTypeProp) == true));
+            return obj is NetworkType other &&
+                (this.NetworkTypeProp == null && other.NetworkTypeProp == null ||
+                 this.NetworkTypeProp?.Equals(other.NetworkTypeProp) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.NetworkTypeProp = {(this.NetworkTypeProp == null ? "null" : this.NetworkTypeProp)}");
+            toStringOutput.Add($"NetworkTypeProp = {this.NetworkTypeProp ?? "null"}");
         }
     }
 }

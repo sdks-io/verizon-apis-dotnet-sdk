@@ -138,54 +138,58 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"Notification : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is Notification other &&                ((this.NotificationType == null && other.NotificationType == null) || (this.NotificationType?.Equals(other.NotificationType) == true)) &&
-                ((this.Callback == null && other.Callback == null) || (this.Callback?.Equals(other.Callback) == true)) &&
-                ((this.EmailNotification == null && other.EmailNotification == null) || (this.EmailNotification?.Equals(other.EmailNotification) == true)) &&
-                ((this.NotificationGroupName == null && other.NotificationGroupName == null) || (this.NotificationGroupName?.Equals(other.NotificationGroupName) == true)) &&
-                ((this.NotificationFrequencyFactor == null && other.NotificationFrequencyFactor == null) || (this.NotificationFrequencyFactor?.Equals(other.NotificationFrequencyFactor) == true)) &&
-                ((this.NotificationFrequencyInterval == null && other.NotificationFrequencyInterval == null) || (this.NotificationFrequencyInterval?.Equals(other.NotificationFrequencyInterval) == true)) &&
-                ((this.ExternalEmailRecipients == null && other.ExternalEmailRecipients == null) || (this.ExternalEmailRecipients?.Equals(other.ExternalEmailRecipients) == true)) &&
-                ((this.SmsNotification == null && other.SmsNotification == null) || (this.SmsNotification?.Equals(other.SmsNotification) == true)) &&
-                ((this.SmsNumbers == null && other.SmsNumbers == null) || (this.SmsNumbers?.Equals(other.SmsNumbers) == true)) &&
-                ((this.Reminder == null && other.Reminder == null) || (this.Reminder?.Equals(other.Reminder) == true)) &&
-                ((this.Severity == null && other.Severity == null) || (this.Severity?.Equals(other.Severity) == true));
+            return obj is Notification other &&
+                (this.NotificationType == null && other.NotificationType == null ||
+                 this.NotificationType?.Equals(other.NotificationType) == true) &&
+                (this.Callback == null && other.Callback == null ||
+                 this.Callback?.Equals(other.Callback) == true) &&
+                (this.EmailNotification == null && other.EmailNotification == null ||
+                 this.EmailNotification?.Equals(other.EmailNotification) == true) &&
+                (this.NotificationGroupName == null && other.NotificationGroupName == null ||
+                 this.NotificationGroupName?.Equals(other.NotificationGroupName) == true) &&
+                (this.NotificationFrequencyFactor == null && other.NotificationFrequencyFactor == null ||
+                 this.NotificationFrequencyFactor?.Equals(other.NotificationFrequencyFactor) == true) &&
+                (this.NotificationFrequencyInterval == null && other.NotificationFrequencyInterval == null ||
+                 this.NotificationFrequencyInterval?.Equals(other.NotificationFrequencyInterval) == true) &&
+                (this.ExternalEmailRecipients == null && other.ExternalEmailRecipients == null ||
+                 this.ExternalEmailRecipients?.Equals(other.ExternalEmailRecipients) == true) &&
+                (this.SmsNotification == null && other.SmsNotification == null ||
+                 this.SmsNotification?.Equals(other.SmsNotification) == true) &&
+                (this.SmsNumbers == null && other.SmsNumbers == null ||
+                 this.SmsNumbers?.Equals(other.SmsNumbers) == true) &&
+                (this.Reminder == null && other.Reminder == null ||
+                 this.Reminder?.Equals(other.Reminder) == true) &&
+                (this.Severity == null && other.Severity == null ||
+                 this.Severity?.Equals(other.Severity) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.NotificationType = {(this.NotificationType == null ? "null" : this.NotificationType)}");
-            toStringOutput.Add($"this.Callback = {(this.Callback == null ? "null" : this.Callback.ToString())}");
-            toStringOutput.Add($"this.EmailNotification = {(this.EmailNotification == null ? "null" : this.EmailNotification.ToString())}");
-            toStringOutput.Add($"this.NotificationGroupName = {(this.NotificationGroupName == null ? "null" : this.NotificationGroupName)}");
-            toStringOutput.Add($"this.NotificationFrequencyFactor = {(this.NotificationFrequencyFactor == null ? "null" : this.NotificationFrequencyFactor.ToString())}");
-            toStringOutput.Add($"this.NotificationFrequencyInterval = {(this.NotificationFrequencyInterval == null ? "null" : this.NotificationFrequencyInterval)}");
-            toStringOutput.Add($"this.ExternalEmailRecipients = {(this.ExternalEmailRecipients == null ? "null" : this.ExternalEmailRecipients)}");
-            toStringOutput.Add($"this.SmsNotification = {(this.SmsNotification == null ? "null" : this.SmsNotification.ToString())}");
-            toStringOutput.Add($"this.SmsNumbers = {(this.SmsNumbers == null ? "null" : $"[{string.Join(", ", this.SmsNumbers)} ]")}");
-            toStringOutput.Add($"this.Reminder = {(this.Reminder == null ? "null" : this.Reminder.ToString())}");
-            toStringOutput.Add($"this.Severity = {(this.Severity == null ? "null" : this.Severity)}");
+            toStringOutput.Add($"NotificationType = {this.NotificationType ?? "null"}");
+            toStringOutput.Add($"Callback = {(this.Callback == null ? "null" : this.Callback.ToString())}");
+            toStringOutput.Add($"EmailNotification = {(this.EmailNotification == null ? "null" : this.EmailNotification.ToString())}");
+            toStringOutput.Add($"NotificationGroupName = {this.NotificationGroupName ?? "null"}");
+            toStringOutput.Add($"NotificationFrequencyFactor = {(this.NotificationFrequencyFactor == null ? "null" : this.NotificationFrequencyFactor.ToString())}");
+            toStringOutput.Add($"NotificationFrequencyInterval = {this.NotificationFrequencyInterval ?? "null"}");
+            toStringOutput.Add($"ExternalEmailRecipients = {this.ExternalEmailRecipients ?? "null"}");
+            toStringOutput.Add($"SmsNotification = {(this.SmsNotification == null ? "null" : this.SmsNotification.ToString())}");
+            toStringOutput.Add($"SmsNumbers = {(this.SmsNumbers == null ? "null" : $"[{string.Join(", ", this.SmsNumbers)} ]")}");
+            toStringOutput.Add($"Reminder = {(this.Reminder == null ? "null" : this.Reminder.ToString())}");
+            toStringOutput.Add($"Severity = {this.Severity ?? "null"}");
         }
     }
 }

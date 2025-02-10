@@ -66,38 +66,34 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"Location : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is Location other &&                ((this.Msid == null && other.Msid == null) || (this.Msid?.Equals(other.Msid) == true)) &&
-                ((this.Pd == null && other.Pd == null) || (this.Pd?.Equals(other.Pd) == true)) &&
-                ((this.Error == null && other.Error == null) || (this.Error?.Equals(other.Error) == true));
+            return obj is Location other &&
+                (this.Msid == null && other.Msid == null ||
+                 this.Msid?.Equals(other.Msid) == true) &&
+                (this.Pd == null && other.Pd == null ||
+                 this.Pd?.Equals(other.Pd) == true) &&
+                (this.Error == null && other.Error == null ||
+                 this.Error?.Equals(other.Error) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Msid = {(this.Msid == null ? "null" : this.Msid)}");
-            toStringOutput.Add($"this.Pd = {(this.Pd == null ? "null" : this.Pd.ToString())}");
-            toStringOutput.Add($"this.Error = {(this.Error == null ? "null" : this.Error.ToString())}");
+            toStringOutput.Add($"Msid = {this.Msid ?? "null"}");
+            toStringOutput.Add($"Pd = {(this.Pd == null ? "null" : this.Pd.ToString())}");
+            toStringOutput.Add($"Error = {(this.Error == null ? "null" : this.Error.ToString())}");
         }
     }
 }

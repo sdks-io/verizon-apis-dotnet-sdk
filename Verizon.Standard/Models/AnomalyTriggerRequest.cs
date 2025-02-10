@@ -84,42 +84,40 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"AnomalyTriggerRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is AnomalyTriggerRequest other &&                ((this.AccountNames == null && other.AccountNames == null) || (this.AccountNames?.Equals(other.AccountNames) == true)) &&
-                ((this.IncludeAbnormal == null && other.IncludeAbnormal == null) || (this.IncludeAbnormal?.Equals(other.IncludeAbnormal) == true)) &&
-                ((this.IncludeVeryAbnormal == null && other.IncludeVeryAbnormal == null) || (this.IncludeVeryAbnormal?.Equals(other.IncludeVeryAbnormal) == true)) &&
-                ((this.IncludeUnderExpectedUsage == null && other.IncludeUnderExpectedUsage == null) || (this.IncludeUnderExpectedUsage?.Equals(other.IncludeUnderExpectedUsage) == true)) &&
-                ((this.IncludeOverExpectedUsage == null && other.IncludeOverExpectedUsage == null) || (this.IncludeOverExpectedUsage?.Equals(other.IncludeOverExpectedUsage) == true));
+            return obj is AnomalyTriggerRequest other &&
+                (this.AccountNames == null && other.AccountNames == null ||
+                 this.AccountNames?.Equals(other.AccountNames) == true) &&
+                (this.IncludeAbnormal == null && other.IncludeAbnormal == null ||
+                 this.IncludeAbnormal?.Equals(other.IncludeAbnormal) == true) &&
+                (this.IncludeVeryAbnormal == null && other.IncludeVeryAbnormal == null ||
+                 this.IncludeVeryAbnormal?.Equals(other.IncludeVeryAbnormal) == true) &&
+                (this.IncludeUnderExpectedUsage == null && other.IncludeUnderExpectedUsage == null ||
+                 this.IncludeUnderExpectedUsage?.Equals(other.IncludeUnderExpectedUsage) == true) &&
+                (this.IncludeOverExpectedUsage == null && other.IncludeOverExpectedUsage == null ||
+                 this.IncludeOverExpectedUsage?.Equals(other.IncludeOverExpectedUsage) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountNames = {(this.AccountNames == null ? "null" : this.AccountNames)}");
-            toStringOutput.Add($"this.IncludeAbnormal = {(this.IncludeAbnormal == null ? "null" : this.IncludeAbnormal.ToString())}");
-            toStringOutput.Add($"this.IncludeVeryAbnormal = {(this.IncludeVeryAbnormal == null ? "null" : this.IncludeVeryAbnormal.ToString())}");
-            toStringOutput.Add($"this.IncludeUnderExpectedUsage = {(this.IncludeUnderExpectedUsage == null ? "null" : this.IncludeUnderExpectedUsage.ToString())}");
-            toStringOutput.Add($"this.IncludeOverExpectedUsage = {(this.IncludeOverExpectedUsage == null ? "null" : this.IncludeOverExpectedUsage.ToString())}");
+            toStringOutput.Add($"AccountNames = {this.AccountNames ?? "null"}");
+            toStringOutput.Add($"IncludeAbnormal = {(this.IncludeAbnormal == null ? "null" : this.IncludeAbnormal.ToString())}");
+            toStringOutput.Add($"IncludeVeryAbnormal = {(this.IncludeVeryAbnormal == null ? "null" : this.IncludeVeryAbnormal.ToString())}");
+            toStringOutput.Add($"IncludeUnderExpectedUsage = {(this.IncludeUnderExpectedUsage == null ? "null" : this.IncludeUnderExpectedUsage.ToString())}");
+            toStringOutput.Add($"IncludeOverExpectedUsage = {(this.IncludeOverExpectedUsage == null ? "null" : this.IncludeOverExpectedUsage.ToString())}");
         }
     }
 }

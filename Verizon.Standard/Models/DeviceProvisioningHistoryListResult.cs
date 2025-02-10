@@ -57,36 +57,31 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"DeviceProvisioningHistoryListResult : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is DeviceProvisioningHistoryListResult other &&                ((this.HasMoreData == null && other.HasMoreData == null) || (this.HasMoreData?.Equals(other.HasMoreData) == true)) &&
-                ((this.ProvisioningHistory == null && other.ProvisioningHistory == null) || (this.ProvisioningHistory?.Equals(other.ProvisioningHistory) == true));
+            return obj is DeviceProvisioningHistoryListResult other &&
+                (this.HasMoreData == null && other.HasMoreData == null ||
+                 this.HasMoreData?.Equals(other.HasMoreData) == true) &&
+                (this.ProvisioningHistory == null && other.ProvisioningHistory == null ||
+                 this.ProvisioningHistory?.Equals(other.ProvisioningHistory) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.HasMoreData = {(this.HasMoreData == null ? "null" : this.HasMoreData.ToString())}");
-            toStringOutput.Add($"this.ProvisioningHistory = {(this.ProvisioningHistory == null ? "null" : $"[{string.Join(", ", this.ProvisioningHistory)} ]")}");
+            toStringOutput.Add($"HasMoreData = {(this.HasMoreData == null ? "null" : this.HasMoreData.ToString())}");
+            toStringOutput.Add($"ProvisioningHistory = {(this.ProvisioningHistory == null ? "null" : $"[{string.Join(", ", this.ProvisioningHistory)} ]")}");
         }
     }
 }

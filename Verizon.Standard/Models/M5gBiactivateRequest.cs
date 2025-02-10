@@ -93,44 +93,43 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"M5gBiactivateRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is M5gBiactivateRequest other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.ServicePlan == null && other.ServicePlan == null) || (this.ServicePlan?.Equals(other.ServicePlan) == true)) &&
-                ((this.DeviceListWithServiceAddress == null && other.DeviceListWithServiceAddress == null) || (this.DeviceListWithServiceAddress?.Equals(other.DeviceListWithServiceAddress) == true)) &&
-                ((this.PublicIpRestriction == null && other.PublicIpRestriction == null) || (this.PublicIpRestriction?.Equals(other.PublicIpRestriction) == true)) &&
-                ((this.CarrierName == null && other.CarrierName == null) || (this.CarrierName?.Equals(other.CarrierName) == true)) &&
-                ((this.MdnZipCode == null && other.MdnZipCode == null) || (this.MdnZipCode?.Equals(other.MdnZipCode) == true));
+            return obj is M5gBiactivateRequest other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.ServicePlan == null && other.ServicePlan == null ||
+                 this.ServicePlan?.Equals(other.ServicePlan) == true) &&
+                (this.DeviceListWithServiceAddress == null && other.DeviceListWithServiceAddress == null ||
+                 this.DeviceListWithServiceAddress?.Equals(other.DeviceListWithServiceAddress) == true) &&
+                (this.PublicIpRestriction == null && other.PublicIpRestriction == null ||
+                 this.PublicIpRestriction?.Equals(other.PublicIpRestriction) == true) &&
+                (this.CarrierName == null && other.CarrierName == null ||
+                 this.CarrierName?.Equals(other.CarrierName) == true) &&
+                (this.MdnZipCode == null && other.MdnZipCode == null ||
+                 this.MdnZipCode?.Equals(other.MdnZipCode) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan)}");
-            toStringOutput.Add($"this.DeviceListWithServiceAddress = {(this.DeviceListWithServiceAddress == null ? "null" : $"[{string.Join(", ", this.DeviceListWithServiceAddress)} ]")}");
-            toStringOutput.Add($"this.PublicIpRestriction = {(this.PublicIpRestriction == null ? "null" : this.PublicIpRestriction)}");
-            toStringOutput.Add($"this.CarrierName = {(this.CarrierName == null ? "null" : this.CarrierName)}");
-            toStringOutput.Add($"this.MdnZipCode = {(this.MdnZipCode == null ? "null" : this.MdnZipCode)}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"ServicePlan = {this.ServicePlan ?? "null"}");
+            toStringOutput.Add($"DeviceListWithServiceAddress = {(this.DeviceListWithServiceAddress == null ? "null" : $"[{string.Join(", ", this.DeviceListWithServiceAddress)} ]")}");
+            toStringOutput.Add($"PublicIpRestriction = {this.PublicIpRestriction ?? "null"}");
+            toStringOutput.Add($"CarrierName = {this.CarrierName ?? "null"}");
+            toStringOutput.Add($"MdnZipCode = {this.MdnZipCode ?? "null"}");
         }
     }
 }

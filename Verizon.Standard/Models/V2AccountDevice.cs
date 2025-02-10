@@ -156,58 +156,61 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"V2AccountDevice : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is V2AccountDevice other &&                ((this.DeviceId == null && other.DeviceId == null) || (this.DeviceId?.Equals(other.DeviceId) == true)) &&
-                ((this.Mdn == null && other.Mdn == null) || (this.Mdn?.Equals(other.Mdn) == true)) &&
-                ((this.Model == null && other.Model == null) || (this.Model?.Equals(other.Model) == true)) &&
-                ((this.Make == null && other.Make == null) || (this.Make?.Equals(other.Make) == true)) &&
-                this.FotaEligible.Equals(other.FotaEligible) &&
-                this.AppFotaEligible.Equals(other.AppFotaEligible) &&
-                this.LicenseAssigned.Equals(other.LicenseAssigned) &&
-                ((this.DistributionType == null && other.DistributionType == null) || (this.DistributionType?.Equals(other.DistributionType) == true)) &&
-                ((this.SoftwareList == null && other.SoftwareList == null) || (this.SoftwareList?.Equals(other.SoftwareList) == true)) &&
-                ((this.CreateTime == null && other.CreateTime == null) || (this.CreateTime?.Equals(other.CreateTime) == true)) &&
-                ((this.UpgradeTime == null && other.UpgradeTime == null) || (this.UpgradeTime?.Equals(other.UpgradeTime) == true)) &&
-                ((this.UpdateTime == null && other.UpdateTime == null) || (this.UpdateTime?.Equals(other.UpdateTime) == true)) &&
-                ((this.RefreshTime == null && other.RefreshTime == null) || (this.RefreshTime?.Equals(other.RefreshTime) == true));
+            return obj is V2AccountDevice other &&
+                (this.DeviceId == null && other.DeviceId == null ||
+                 this.DeviceId?.Equals(other.DeviceId) == true) &&
+                (this.Mdn == null && other.Mdn == null ||
+                 this.Mdn?.Equals(other.Mdn) == true) &&
+                (this.Model == null && other.Model == null ||
+                 this.Model?.Equals(other.Model) == true) &&
+                (this.Make == null && other.Make == null ||
+                 this.Make?.Equals(other.Make) == true) &&
+                (this.FotaEligible.Equals(other.FotaEligible)) &&
+                (this.AppFotaEligible.Equals(other.AppFotaEligible)) &&
+                (this.LicenseAssigned.Equals(other.LicenseAssigned)) &&
+                (this.DistributionType == null && other.DistributionType == null ||
+                 this.DistributionType?.Equals(other.DistributionType) == true) &&
+                (this.SoftwareList == null && other.SoftwareList == null ||
+                 this.SoftwareList?.Equals(other.SoftwareList) == true) &&
+                (this.CreateTime == null && other.CreateTime == null ||
+                 this.CreateTime?.Equals(other.CreateTime) == true) &&
+                (this.UpgradeTime == null && other.UpgradeTime == null ||
+                 this.UpgradeTime?.Equals(other.UpgradeTime) == true) &&
+                (this.UpdateTime == null && other.UpdateTime == null ||
+                 this.UpdateTime?.Equals(other.UpdateTime) == true) &&
+                (this.RefreshTime == null && other.RefreshTime == null ||
+                 this.RefreshTime?.Equals(other.RefreshTime) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId)}");
-            toStringOutput.Add($"this.Mdn = {(this.Mdn == null ? "null" : this.Mdn)}");
-            toStringOutput.Add($"this.Model = {(this.Model == null ? "null" : this.Model)}");
-            toStringOutput.Add($"this.Make = {(this.Make == null ? "null" : this.Make)}");
-            toStringOutput.Add($"this.FotaEligible = {this.FotaEligible}");
-            toStringOutput.Add($"this.AppFotaEligible = {this.AppFotaEligible}");
-            toStringOutput.Add($"this.LicenseAssigned = {this.LicenseAssigned}");
-            toStringOutput.Add($"this.DistributionType = {(this.DistributionType == null ? "null" : this.DistributionType)}");
-            toStringOutput.Add($"this.SoftwareList = {(this.SoftwareList == null ? "null" : $"[{string.Join(", ", this.SoftwareList)} ]")}");
-            toStringOutput.Add($"this.CreateTime = {(this.CreateTime == null ? "null" : this.CreateTime)}");
-            toStringOutput.Add($"this.UpgradeTime = {(this.UpgradeTime == null ? "null" : this.UpgradeTime)}");
-            toStringOutput.Add($"this.UpdateTime = {(this.UpdateTime == null ? "null" : this.UpdateTime)}");
-            toStringOutput.Add($"this.RefreshTime = {(this.RefreshTime == null ? "null" : this.RefreshTime)}");
+            toStringOutput.Add($"DeviceId = {this.DeviceId ?? "null"}");
+            toStringOutput.Add($"Mdn = {this.Mdn ?? "null"}");
+            toStringOutput.Add($"Model = {this.Model ?? "null"}");
+            toStringOutput.Add($"Make = {this.Make ?? "null"}");
+            toStringOutput.Add($"FotaEligible = {this.FotaEligible}");
+            toStringOutput.Add($"AppFotaEligible = {this.AppFotaEligible}");
+            toStringOutput.Add($"LicenseAssigned = {this.LicenseAssigned}");
+            toStringOutput.Add($"DistributionType = {this.DistributionType ?? "null"}");
+            toStringOutput.Add($"SoftwareList = {(this.SoftwareList == null ? "null" : $"[{string.Join(", ", this.SoftwareList)} ]")}");
+            toStringOutput.Add($"CreateTime = {this.CreateTime ?? "null"}");
+            toStringOutput.Add($"UpgradeTime = {this.UpgradeTime ?? "null"}");
+            toStringOutput.Add($"UpdateTime = {this.UpdateTime ?? "null"}");
+            toStringOutput.Add($"RefreshTime = {this.RefreshTime ?? "null"}");
         }
     }
 }

@@ -50,5 +50,25 @@ namespace Verizon.Standard.Exceptions
         /// </summary>
         [JsonProperty("errorUrl", NullValueHandling = NullValueHandling.Ignore)]
         public string ErrorUrl { get; set; }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            var toStringOutput = new List<string>();
+            this.ToString(toStringOutput);
+            return $"SecurityResultException : ({string.Join(", ", toStringOutput)})";
+        }
+
+        /// <summary>
+        /// ToString overload.
+        /// </summary>
+        /// <param name="toStringOutput">List of strings.</param>
+        protected void ToString(List<string> toStringOutput)
+        {
+            base.ToString(toStringOutput);
+            toStringOutput.Add($"ErrorCode = {this.ErrorCode ?? "null"}");
+            toStringOutput.Add($"ErrorMessage = {this.ErrorMessage ?? "null"}");
+            toStringOutput.Add($"ErrorUrl = {this.ErrorUrl ?? "null"}");
+        }
     }
 }

@@ -75,40 +75,37 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"CarrierServicePlan : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is CarrierServicePlan other &&                ((this.Name == null && other.Name == null) || (this.Name?.Equals(other.Name) == true)) &&
-                ((this.Code == null && other.Code == null) || (this.Code?.Equals(other.Code) == true)) &&
-                ((this.SizeKb == null && other.SizeKb == null) || (this.SizeKb?.Equals(other.SizeKb) == true)) &&
-                ((this.CarrierServicePlanCode == null && other.CarrierServicePlanCode == null) || (this.CarrierServicePlanCode?.Equals(other.CarrierServicePlanCode) == true));
+            return obj is CarrierServicePlan other &&
+                (this.Name == null && other.Name == null ||
+                 this.Name?.Equals(other.Name) == true) &&
+                (this.Code == null && other.Code == null ||
+                 this.Code?.Equals(other.Code) == true) &&
+                (this.SizeKb == null && other.SizeKb == null ||
+                 this.SizeKb?.Equals(other.SizeKb) == true) &&
+                (this.CarrierServicePlanCode == null && other.CarrierServicePlanCode == null ||
+                 this.CarrierServicePlanCode?.Equals(other.CarrierServicePlanCode) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
-            toStringOutput.Add($"this.Code = {(this.Code == null ? "null" : this.Code)}");
-            toStringOutput.Add($"this.SizeKb = {(this.SizeKb == null ? "null" : this.SizeKb)}");
-            toStringOutput.Add($"this.CarrierServicePlanCode = {(this.CarrierServicePlanCode == null ? "null" : this.CarrierServicePlanCode)}");
+            toStringOutput.Add($"Name = {this.Name ?? "null"}");
+            toStringOutput.Add($"Code = {this.Code ?? "null"}");
+            toStringOutput.Add($"SizeKb = {this.SizeKb ?? "null"}");
+            toStringOutput.Add($"CarrierServicePlanCode = {this.CarrierServicePlanCode ?? "null"}");
         }
     }
 }

@@ -129,52 +129,55 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"CreateSubscriptionRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is CreateSubscriptionRequest other &&                ((this.Accountidentifier == null && other.Accountidentifier == null) || (this.Accountidentifier?.Equals(other.Accountidentifier) == true)) &&
-                ((this.Description == null && other.Description == null) || (this.Description?.Equals(other.Description) == true)) &&
-                ((this.Disabled == null && other.Disabled == null) || (this.Disabled?.Equals(other.Disabled) == true)) &&
-                ((this.Email == null && other.Email == null) || (this.Email?.Equals(other.Email) == true)) &&
-                ((this.Filter == null && other.Filter == null) || (this.Filter?.Equals(other.Filter) == true)) &&
-                ((this.Billingaccountid == null && other.Billingaccountid == null) || (this.Billingaccountid?.Equals(other.Billingaccountid) == true)) &&
-                ((this.Streamkind == null && other.Streamkind == null) || (this.Streamkind?.Equals(other.Streamkind) == true)) &&
-                ((this.Targetid == null && other.Targetid == null) || (this.Targetid?.Equals(other.Targetid) == true)) &&
-                ((this.Name == null && other.Name == null) || (this.Name?.Equals(other.Name) == true)) &&
-                ((this.Allowaggregation == null && other.Allowaggregation == null) || (this.Allowaggregation?.Equals(other.Allowaggregation) == true));
+            return obj is CreateSubscriptionRequest other &&
+                (this.Accountidentifier == null && other.Accountidentifier == null ||
+                 this.Accountidentifier?.Equals(other.Accountidentifier) == true) &&
+                (this.Description == null && other.Description == null ||
+                 this.Description?.Equals(other.Description) == true) &&
+                (this.Disabled == null && other.Disabled == null ||
+                 this.Disabled?.Equals(other.Disabled) == true) &&
+                (this.Email == null && other.Email == null ||
+                 this.Email?.Equals(other.Email) == true) &&
+                (this.Filter == null && other.Filter == null ||
+                 this.Filter?.Equals(other.Filter) == true) &&
+                (this.Billingaccountid == null && other.Billingaccountid == null ||
+                 this.Billingaccountid?.Equals(other.Billingaccountid) == true) &&
+                (this.Streamkind == null && other.Streamkind == null ||
+                 this.Streamkind?.Equals(other.Streamkind) == true) &&
+                (this.Targetid == null && other.Targetid == null ||
+                 this.Targetid?.Equals(other.Targetid) == true) &&
+                (this.Name == null && other.Name == null ||
+                 this.Name?.Equals(other.Name) == true) &&
+                (this.Allowaggregation == null && other.Allowaggregation == null ||
+                 this.Allowaggregation?.Equals(other.Allowaggregation) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Accountidentifier = {(this.Accountidentifier == null ? "null" : this.Accountidentifier.ToString())}");
-            toStringOutput.Add($"this.Description = {(this.Description == null ? "null" : this.Description)}");
-            toStringOutput.Add($"this.Disabled = {(this.Disabled == null ? "null" : this.Disabled.ToString())}");
-            toStringOutput.Add($"this.Email = {(this.Email == null ? "null" : this.Email)}");
-            toStringOutput.Add($"this.Filter = {(this.Filter == null ? "null" : this.Filter)}");
-            toStringOutput.Add($"this.Billingaccountid = {(this.Billingaccountid == null ? "null" : this.Billingaccountid)}");
-            toStringOutput.Add($"this.Streamkind = {(this.Streamkind == null ? "null" : this.Streamkind)}");
-            toStringOutput.Add($"this.Targetid = {(this.Targetid == null ? "null" : this.Targetid)}");
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
-            toStringOutput.Add($"this.Allowaggregation = {(this.Allowaggregation == null ? "null" : this.Allowaggregation.ToString())}");
+            toStringOutput.Add($"Accountidentifier = {(this.Accountidentifier == null ? "null" : this.Accountidentifier.ToString())}");
+            toStringOutput.Add($"Description = {this.Description ?? "null"}");
+            toStringOutput.Add($"Disabled = {(this.Disabled == null ? "null" : this.Disabled.ToString())}");
+            toStringOutput.Add($"Email = {this.Email ?? "null"}");
+            toStringOutput.Add($"Filter = {this.Filter ?? "null"}");
+            toStringOutput.Add($"Billingaccountid = {this.Billingaccountid ?? "null"}");
+            toStringOutput.Add($"Streamkind = {this.Streamkind ?? "null"}");
+            toStringOutput.Add($"Targetid = {this.Targetid ?? "null"}");
+            toStringOutput.Add($"Name = {this.Name ?? "null"}");
+            toStringOutput.Add($"Allowaggregation = {(this.Allowaggregation == null ? "null" : this.Allowaggregation.ToString())}");
         }
     }
 }

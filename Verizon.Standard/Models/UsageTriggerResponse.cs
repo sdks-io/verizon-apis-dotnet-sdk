@@ -147,56 +147,57 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"UsageTriggerResponse : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is UsageTriggerResponse other &&                ((this.TriggerId == null && other.TriggerId == null) || (this.TriggerId?.Equals(other.TriggerId) == true)) &&
-                ((this.TriggerName == null && other.TriggerName == null) || (this.TriggerName?.Equals(other.TriggerName) == true)) &&
-                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                this.ServiceName.Equals(other.ServiceName) &&
-                ((this.ThresholdValue == null && other.ThresholdValue == null) || (this.ThresholdValue?.Equals(other.ThresholdValue) == true)) &&
-                this.AllowExcess.Equals(other.AllowExcess) &&
-                this.SendSmsNotification.Equals(other.SendSmsNotification) &&
-                ((this.SmsPhoneNumbers == null && other.SmsPhoneNumbers == null) || (this.SmsPhoneNumbers?.Equals(other.SmsPhoneNumbers) == true)) &&
-                this.SendEmailNotification.Equals(other.SendEmailNotification) &&
-                ((this.EmailAddresses == null && other.EmailAddresses == null) || (this.EmailAddresses?.Equals(other.EmailAddresses) == true)) &&
-                ((this.CreateDate == null && other.CreateDate == null) || (this.CreateDate?.Equals(other.CreateDate) == true)) &&
-                ((this.UpdateDate == null && other.UpdateDate == null) || (this.UpdateDate?.Equals(other.UpdateDate) == true));
+            return obj is UsageTriggerResponse other &&
+                (this.TriggerId == null && other.TriggerId == null ||
+                 this.TriggerId?.Equals(other.TriggerId) == true) &&
+                (this.TriggerName == null && other.TriggerName == null ||
+                 this.TriggerName?.Equals(other.TriggerName) == true) &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.ServiceName.Equals(other.ServiceName)) &&
+                (this.ThresholdValue == null && other.ThresholdValue == null ||
+                 this.ThresholdValue?.Equals(other.ThresholdValue) == true) &&
+                (this.AllowExcess.Equals(other.AllowExcess)) &&
+                (this.SendSmsNotification.Equals(other.SendSmsNotification)) &&
+                (this.SmsPhoneNumbers == null && other.SmsPhoneNumbers == null ||
+                 this.SmsPhoneNumbers?.Equals(other.SmsPhoneNumbers) == true) &&
+                (this.SendEmailNotification.Equals(other.SendEmailNotification)) &&
+                (this.EmailAddresses == null && other.EmailAddresses == null ||
+                 this.EmailAddresses?.Equals(other.EmailAddresses) == true) &&
+                (this.CreateDate == null && other.CreateDate == null ||
+                 this.CreateDate?.Equals(other.CreateDate) == true) &&
+                (this.UpdateDate == null && other.UpdateDate == null ||
+                 this.UpdateDate?.Equals(other.UpdateDate) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.TriggerId = {(this.TriggerId == null ? "null" : this.TriggerId)}");
-            toStringOutput.Add($"this.TriggerName = {(this.TriggerName == null ? "null" : this.TriggerName)}");
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.ServiceName = {this.ServiceName}");
-            toStringOutput.Add($"this.ThresholdValue = {(this.ThresholdValue == null ? "null" : this.ThresholdValue)}");
-            toStringOutput.Add($"this.AllowExcess = {this.AllowExcess}");
-            toStringOutput.Add($"this.SendSmsNotification = {this.SendSmsNotification}");
-            toStringOutput.Add($"this.SmsPhoneNumbers = {(this.SmsPhoneNumbers == null ? "null" : this.SmsPhoneNumbers)}");
-            toStringOutput.Add($"this.SendEmailNotification = {this.SendEmailNotification}");
-            toStringOutput.Add($"this.EmailAddresses = {(this.EmailAddresses == null ? "null" : this.EmailAddresses)}");
-            toStringOutput.Add($"this.CreateDate = {(this.CreateDate == null ? "null" : this.CreateDate)}");
-            toStringOutput.Add($"this.UpdateDate = {(this.UpdateDate == null ? "null" : this.UpdateDate)}");
+            toStringOutput.Add($"TriggerId = {this.TriggerId ?? "null"}");
+            toStringOutput.Add($"TriggerName = {this.TriggerName ?? "null"}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"ServiceName = {this.ServiceName}");
+            toStringOutput.Add($"ThresholdValue = {this.ThresholdValue ?? "null"}");
+            toStringOutput.Add($"AllowExcess = {this.AllowExcess}");
+            toStringOutput.Add($"SendSmsNotification = {this.SendSmsNotification}");
+            toStringOutput.Add($"SmsPhoneNumbers = {this.SmsPhoneNumbers ?? "null"}");
+            toStringOutput.Add($"SendEmailNotification = {this.SendEmailNotification}");
+            toStringOutput.Add($"EmailAddresses = {this.EmailAddresses ?? "null"}");
+            toStringOutput.Add($"CreateDate = {this.CreateDate ?? "null"}");
+            toStringOutput.Add($"UpdateDate = {this.UpdateDate ?? "null"}");
         }
     }
 }

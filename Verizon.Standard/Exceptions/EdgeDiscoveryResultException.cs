@@ -50,5 +50,25 @@ namespace Verizon.Standard.Exceptions
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
         public new Models.EdgeDiscoveryResultData Data { get; set; }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            var toStringOutput = new List<string>();
+            this.ToString(toStringOutput);
+            return $"EdgeDiscoveryResultException : ({string.Join(", ", toStringOutput)})";
+        }
+
+        /// <summary>
+        /// ToString overload.
+        /// </summary>
+        /// <param name="toStringOutput">List of strings.</param>
+        protected void ToString(List<string> toStringOutput)
+        {
+            base.ToString(toStringOutput);
+            toStringOutput.Add($"Status = {this.Status ?? "null"}");
+            toStringOutput.Add($"Message = {this.Message ?? "null"}");
+            toStringOutput.Add($"Data = {(this.Data == null ? "null" : this.Data.ToString())}");
+        }
     }
 }

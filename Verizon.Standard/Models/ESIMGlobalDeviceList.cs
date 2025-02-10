@@ -84,42 +84,40 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"ESIMGlobalDeviceList : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is ESIMGlobalDeviceList other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.ProvisioningStatusFilter == null && other.ProvisioningStatusFilter == null) || (this.ProvisioningStatusFilter?.Equals(other.ProvisioningStatusFilter) == true)) &&
-                ((this.ProfileStatusFilter == null && other.ProfileStatusFilter == null) || (this.ProfileStatusFilter?.Equals(other.ProfileStatusFilter) == true)) &&
-                ((this.CarrierNameFilter == null && other.CarrierNameFilter == null) || (this.CarrierNameFilter?.Equals(other.CarrierNameFilter) == true)) &&
-                ((this.DeviceFilter == null && other.DeviceFilter == null) || (this.DeviceFilter?.Equals(other.DeviceFilter) == true));
+            return obj is ESIMGlobalDeviceList other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.ProvisioningStatusFilter == null && other.ProvisioningStatusFilter == null ||
+                 this.ProvisioningStatusFilter?.Equals(other.ProvisioningStatusFilter) == true) &&
+                (this.ProfileStatusFilter == null && other.ProfileStatusFilter == null ||
+                 this.ProfileStatusFilter?.Equals(other.ProfileStatusFilter) == true) &&
+                (this.CarrierNameFilter == null && other.CarrierNameFilter == null ||
+                 this.CarrierNameFilter?.Equals(other.CarrierNameFilter) == true) &&
+                (this.DeviceFilter == null && other.DeviceFilter == null ||
+                 this.DeviceFilter?.Equals(other.DeviceFilter) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.ProvisioningStatusFilter = {(this.ProvisioningStatusFilter == null ? "null" : this.ProvisioningStatusFilter.ToString())}");
-            toStringOutput.Add($"this.ProfileStatusFilter = {(this.ProfileStatusFilter == null ? "null" : this.ProfileStatusFilter.ToString())}");
-            toStringOutput.Add($"this.CarrierNameFilter = {(this.CarrierNameFilter == null ? "null" : this.CarrierNameFilter)}");
-            toStringOutput.Add($"this.DeviceFilter = {(this.DeviceFilter == null ? "null" : $"[{string.Join(", ", this.DeviceFilter)} ]")}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"ProvisioningStatusFilter = {(this.ProvisioningStatusFilter == null ? "null" : this.ProvisioningStatusFilter.ToString())}");
+            toStringOutput.Add($"ProfileStatusFilter = {(this.ProfileStatusFilter == null ? "null" : this.ProfileStatusFilter.ToString())}");
+            toStringOutput.Add($"CarrierNameFilter = {this.CarrierNameFilter ?? "null"}");
+            toStringOutput.Add($"DeviceFilter = {(this.DeviceFilter == null ? "null" : $"[{string.Join(", ", this.DeviceFilter)} ]")}");
         }
     }
 }

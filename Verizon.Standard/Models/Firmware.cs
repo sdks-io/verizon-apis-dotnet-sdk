@@ -112,48 +112,49 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"Firmware : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is Firmware other &&                ((this.FirmwareName == null && other.FirmwareName == null) || (this.FirmwareName?.Equals(other.FirmwareName) == true)) &&
-                ((this.ParticipantName == null && other.ParticipantName == null) || (this.ParticipantName?.Equals(other.ParticipantName) == true)) &&
-                ((this.LaunchDate == null && other.LaunchDate == null) || (this.LaunchDate?.Equals(other.LaunchDate) == true)) &&
-                ((this.ReleaseNote == null && other.ReleaseNote == null) || (this.ReleaseNote?.Equals(other.ReleaseNote) == true)) &&
-                ((this.Model == null && other.Model == null) || (this.Model?.Equals(other.Model) == true)) &&
-                ((this.Make == null && other.Make == null) || (this.Make?.Equals(other.Make) == true)) &&
-                ((this.FromVersion == null && other.FromVersion == null) || (this.FromVersion?.Equals(other.FromVersion) == true)) &&
-                ((this.ToVersion == null && other.ToVersion == null) || (this.ToVersion?.Equals(other.ToVersion) == true));
+            return obj is Firmware other &&
+                (this.FirmwareName == null && other.FirmwareName == null ||
+                 this.FirmwareName?.Equals(other.FirmwareName) == true) &&
+                (this.ParticipantName == null && other.ParticipantName == null ||
+                 this.ParticipantName?.Equals(other.ParticipantName) == true) &&
+                (this.LaunchDate == null && other.LaunchDate == null ||
+                 this.LaunchDate?.Equals(other.LaunchDate) == true) &&
+                (this.ReleaseNote == null && other.ReleaseNote == null ||
+                 this.ReleaseNote?.Equals(other.ReleaseNote) == true) &&
+                (this.Model == null && other.Model == null ||
+                 this.Model?.Equals(other.Model) == true) &&
+                (this.Make == null && other.Make == null ||
+                 this.Make?.Equals(other.Make) == true) &&
+                (this.FromVersion == null && other.FromVersion == null ||
+                 this.FromVersion?.Equals(other.FromVersion) == true) &&
+                (this.ToVersion == null && other.ToVersion == null ||
+                 this.ToVersion?.Equals(other.ToVersion) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.FirmwareName = {(this.FirmwareName == null ? "null" : this.FirmwareName)}");
-            toStringOutput.Add($"this.ParticipantName = {(this.ParticipantName == null ? "null" : this.ParticipantName)}");
-            toStringOutput.Add($"this.LaunchDate = {(this.LaunchDate == null ? "null" : this.LaunchDate.ToString())}");
-            toStringOutput.Add($"this.ReleaseNote = {(this.ReleaseNote == null ? "null" : this.ReleaseNote)}");
-            toStringOutput.Add($"this.Model = {(this.Model == null ? "null" : this.Model)}");
-            toStringOutput.Add($"this.Make = {(this.Make == null ? "null" : this.Make)}");
-            toStringOutput.Add($"this.FromVersion = {(this.FromVersion == null ? "null" : this.FromVersion)}");
-            toStringOutput.Add($"this.ToVersion = {(this.ToVersion == null ? "null" : this.ToVersion)}");
+            toStringOutput.Add($"FirmwareName = {this.FirmwareName ?? "null"}");
+            toStringOutput.Add($"ParticipantName = {this.ParticipantName ?? "null"}");
+            toStringOutput.Add($"LaunchDate = {(this.LaunchDate == null ? "null" : this.LaunchDate.ToString())}");
+            toStringOutput.Add($"ReleaseNote = {this.ReleaseNote ?? "null"}");
+            toStringOutput.Add($"Model = {this.Model ?? "null"}");
+            toStringOutput.Add($"Make = {this.Make ?? "null"}");
+            toStringOutput.Add($"FromVersion = {this.FromVersion ?? "null"}");
+            toStringOutput.Add($"ToVersion = {this.ToVersion ?? "null"}");
         }
     }
 }

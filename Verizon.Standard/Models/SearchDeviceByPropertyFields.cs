@@ -111,48 +111,49 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"SearchDeviceByPropertyFields : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is SearchDeviceByPropertyFields other &&                ((this.Acceleration == null && other.Acceleration == null) || (this.Acceleration?.Equals(other.Acceleration) == true)) &&
-                ((this.Battery == null && other.Battery == null) || (this.Battery?.Equals(other.Battery) == true)) &&
-                ((this.Humidity == null && other.Humidity == null) || (this.Humidity?.Equals(other.Humidity) == true)) &&
-                ((this.Light == null && other.Light == null) || (this.Light?.Equals(other.Light) == true)) &&
-                ((this.Pressure == null && other.Pressure == null) || (this.Pressure?.Equals(other.Pressure) == true)) &&
-                ((this.SignalStrength == null && other.SignalStrength == null) || (this.SignalStrength?.Equals(other.SignalStrength) == true)) &&
-                ((this.Temperature == null && other.Temperature == null) || (this.Temperature?.Equals(other.Temperature) == true)) &&
-                ((this.DevicePropertylocation == null && other.DevicePropertylocation == null) || (this.DevicePropertylocation?.Equals(other.DevicePropertylocation) == true));
+            return obj is SearchDeviceByPropertyFields other &&
+                (this.Acceleration == null && other.Acceleration == null ||
+                 this.Acceleration?.Equals(other.Acceleration) == true) &&
+                (this.Battery == null && other.Battery == null ||
+                 this.Battery?.Equals(other.Battery) == true) &&
+                (this.Humidity == null && other.Humidity == null ||
+                 this.Humidity?.Equals(other.Humidity) == true) &&
+                (this.Light == null && other.Light == null ||
+                 this.Light?.Equals(other.Light) == true) &&
+                (this.Pressure == null && other.Pressure == null ||
+                 this.Pressure?.Equals(other.Pressure) == true) &&
+                (this.SignalStrength == null && other.SignalStrength == null ||
+                 this.SignalStrength?.Equals(other.SignalStrength) == true) &&
+                (this.Temperature == null && other.Temperature == null ||
+                 this.Temperature?.Equals(other.Temperature) == true) &&
+                (this.DevicePropertylocation == null && other.DevicePropertylocation == null ||
+                 this.DevicePropertylocation?.Equals(other.DevicePropertylocation) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Acceleration = {(this.Acceleration == null ? "null" : this.Acceleration.ToString())}");
-            toStringOutput.Add($"this.Battery = {(this.Battery == null ? "null" : this.Battery)}");
-            toStringOutput.Add($"this.Humidity = {(this.Humidity == null ? "null" : this.Humidity)}");
-            toStringOutput.Add($"this.Light = {(this.Light == null ? "null" : this.Light)}");
-            toStringOutput.Add($"this.Pressure = {(this.Pressure == null ? "null" : this.Pressure)}");
-            toStringOutput.Add($"this.SignalStrength = {(this.SignalStrength == null ? "null" : this.SignalStrength)}");
-            toStringOutput.Add($"this.Temperature = {(this.Temperature == null ? "null" : this.Temperature)}");
-            toStringOutput.Add($"this.DevicePropertylocation = {(this.DevicePropertylocation == null ? "null" : this.DevicePropertylocation.ToString())}");
+            toStringOutput.Add($"Acceleration = {(this.Acceleration == null ? "null" : this.Acceleration.ToString())}");
+            toStringOutput.Add($"Battery = {this.Battery ?? "null"}");
+            toStringOutput.Add($"Humidity = {this.Humidity ?? "null"}");
+            toStringOutput.Add($"Light = {this.Light ?? "null"}");
+            toStringOutput.Add($"Pressure = {this.Pressure ?? "null"}");
+            toStringOutput.Add($"SignalStrength = {this.SignalStrength ?? "null"}");
+            toStringOutput.Add($"Temperature = {this.Temperature ?? "null"}");
+            toStringOutput.Add($"DevicePropertylocation = {(this.DevicePropertylocation == null ? "null" : this.DevicePropertylocation.ToString())}");
         }
     }
 }

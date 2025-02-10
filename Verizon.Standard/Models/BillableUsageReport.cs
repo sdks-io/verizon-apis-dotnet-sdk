@@ -102,46 +102,46 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"BillableUsageReport : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is BillableUsageReport other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.UsageForAllAccounts == null && other.UsageForAllAccounts == null) || (this.UsageForAllAccounts?.Equals(other.UsageForAllAccounts) == true)) &&
-                ((this.SkuName == null && other.SkuName == null) || (this.SkuName?.Equals(other.SkuName) == true)) &&
-                ((this.TransactionsAllowed == null && other.TransactionsAllowed == null) || (this.TransactionsAllowed?.Equals(other.TransactionsAllowed) == true)) &&
-                ((this.TotalTransactionCount == null && other.TotalTransactionCount == null) || (this.TotalTransactionCount?.Equals(other.TotalTransactionCount) == true)) &&
-                ((this.PrimaryAccount == null && other.PrimaryAccount == null) || (this.PrimaryAccount?.Equals(other.PrimaryAccount) == true)) &&
-                ((this.ManagedAccounts == null && other.ManagedAccounts == null) || (this.ManagedAccounts?.Equals(other.ManagedAccounts) == true));
+            return obj is BillableUsageReport other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.UsageForAllAccounts == null && other.UsageForAllAccounts == null ||
+                 this.UsageForAllAccounts?.Equals(other.UsageForAllAccounts) == true) &&
+                (this.SkuName == null && other.SkuName == null ||
+                 this.SkuName?.Equals(other.SkuName) == true) &&
+                (this.TransactionsAllowed == null && other.TransactionsAllowed == null ||
+                 this.TransactionsAllowed?.Equals(other.TransactionsAllowed) == true) &&
+                (this.TotalTransactionCount == null && other.TotalTransactionCount == null ||
+                 this.TotalTransactionCount?.Equals(other.TotalTransactionCount) == true) &&
+                (this.PrimaryAccount == null && other.PrimaryAccount == null ||
+                 this.PrimaryAccount?.Equals(other.PrimaryAccount) == true) &&
+                (this.ManagedAccounts == null && other.ManagedAccounts == null ||
+                 this.ManagedAccounts?.Equals(other.ManagedAccounts) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.UsageForAllAccounts = {(this.UsageForAllAccounts == null ? "null" : this.UsageForAllAccounts.ToString())}");
-            toStringOutput.Add($"this.SkuName = {(this.SkuName == null ? "null" : this.SkuName)}");
-            toStringOutput.Add($"this.TransactionsAllowed = {(this.TransactionsAllowed == null ? "null" : this.TransactionsAllowed)}");
-            toStringOutput.Add($"this.TotalTransactionCount = {(this.TotalTransactionCount == null ? "null" : this.TotalTransactionCount)}");
-            toStringOutput.Add($"this.PrimaryAccount = {(this.PrimaryAccount == null ? "null" : this.PrimaryAccount.ToString())}");
-            toStringOutput.Add($"this.ManagedAccounts = {(this.ManagedAccounts == null ? "null" : $"[{string.Join(", ", this.ManagedAccounts)} ]")}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"UsageForAllAccounts = {(this.UsageForAllAccounts == null ? "null" : this.UsageForAllAccounts.ToString())}");
+            toStringOutput.Add($"SkuName = {this.SkuName ?? "null"}");
+            toStringOutput.Add($"TransactionsAllowed = {this.TransactionsAllowed ?? "null"}");
+            toStringOutput.Add($"TotalTransactionCount = {this.TotalTransactionCount ?? "null"}");
+            toStringOutput.Add($"PrimaryAccount = {(this.PrimaryAccount == null ? "null" : this.PrimaryAccount.ToString())}");
+            toStringOutput.Add($"ManagedAccounts = {(this.ManagedAccounts == null ? "null" : $"[{string.Join(", ", this.ManagedAccounts)} ]")}");
         }
     }
 }

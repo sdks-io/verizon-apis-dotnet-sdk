@@ -48,34 +48,28 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"SessionResetPasswordResult : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is SessionResetPasswordResult other &&                ((this.NewPassword == null && other.NewPassword == null) || (this.NewPassword?.Equals(other.NewPassword) == true));
+            return obj is SessionResetPasswordResult other &&
+                (this.NewPassword == null && other.NewPassword == null ||
+                 this.NewPassword?.Equals(other.NewPassword) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.NewPassword = {(this.NewPassword == null ? "null" : this.NewPassword)}");
+            toStringOutput.Add($"NewPassword = {this.NewPassword ?? "null"}");
         }
     }
 }

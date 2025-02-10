@@ -111,48 +111,49 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"ChangeDeviceIdRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is ChangeDeviceIdRequest other &&                ((this.AssignNonGeoMdn == null && other.AssignNonGeoMdn == null) || (this.AssignNonGeoMdn?.Equals(other.AssignNonGeoMdn) == true)) &&
-                ((this.Change4gOption == null && other.Change4gOption == null) || (this.Change4gOption?.Equals(other.Change4gOption) == true)) &&
-                ((this.DeviceIds == null && other.DeviceIds == null) || (this.DeviceIds?.Equals(other.DeviceIds) == true)) &&
-                ((this.DeviceIdsTo == null && other.DeviceIdsTo == null) || (this.DeviceIdsTo?.Equals(other.DeviceIdsTo) == true)) &&
-                ((this.NpaNxx == null && other.NpaNxx == null) || (this.NpaNxx?.Equals(other.NpaNxx) == true)) &&
-                ((this.ServicePlan == null && other.ServicePlan == null) || (this.ServicePlan?.Equals(other.ServicePlan) == true)) &&
-                ((this.ZipCode == null && other.ZipCode == null) || (this.ZipCode?.Equals(other.ZipCode) == true)) &&
-                ((this.SmsrOid == null && other.SmsrOid == null) || (this.SmsrOid?.Equals(other.SmsrOid) == true));
+            return obj is ChangeDeviceIdRequest other &&
+                (this.AssignNonGeoMdn == null && other.AssignNonGeoMdn == null ||
+                 this.AssignNonGeoMdn?.Equals(other.AssignNonGeoMdn) == true) &&
+                (this.Change4gOption == null && other.Change4gOption == null ||
+                 this.Change4gOption?.Equals(other.Change4gOption) == true) &&
+                (this.DeviceIds == null && other.DeviceIds == null ||
+                 this.DeviceIds?.Equals(other.DeviceIds) == true) &&
+                (this.DeviceIdsTo == null && other.DeviceIdsTo == null ||
+                 this.DeviceIdsTo?.Equals(other.DeviceIdsTo) == true) &&
+                (this.NpaNxx == null && other.NpaNxx == null ||
+                 this.NpaNxx?.Equals(other.NpaNxx) == true) &&
+                (this.ServicePlan == null && other.ServicePlan == null ||
+                 this.ServicePlan?.Equals(other.ServicePlan) == true) &&
+                (this.ZipCode == null && other.ZipCode == null ||
+                 this.ZipCode?.Equals(other.ZipCode) == true) &&
+                (this.SmsrOid == null && other.SmsrOid == null ||
+                 this.SmsrOid?.Equals(other.SmsrOid) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AssignNonGeoMdn = {(this.AssignNonGeoMdn == null ? "null" : this.AssignNonGeoMdn.ToString())}");
-            toStringOutput.Add($"this.Change4gOption = {(this.Change4gOption == null ? "null" : this.Change4gOption)}");
-            toStringOutput.Add($"this.DeviceIds = {(this.DeviceIds == null ? "null" : $"[{string.Join(", ", this.DeviceIds)} ]")}");
-            toStringOutput.Add($"this.DeviceIdsTo = {(this.DeviceIdsTo == null ? "null" : $"[{string.Join(", ", this.DeviceIdsTo)} ]")}");
-            toStringOutput.Add($"this.NpaNxx = {(this.NpaNxx == null ? "null" : this.NpaNxx)}");
-            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan)}");
-            toStringOutput.Add($"this.ZipCode = {(this.ZipCode == null ? "null" : this.ZipCode)}");
-            toStringOutput.Add($"this.SmsrOid = {(this.SmsrOid == null ? "null" : this.SmsrOid)}");
+            toStringOutput.Add($"AssignNonGeoMdn = {(this.AssignNonGeoMdn == null ? "null" : this.AssignNonGeoMdn.ToString())}");
+            toStringOutput.Add($"Change4gOption = {this.Change4gOption ?? "null"}");
+            toStringOutput.Add($"DeviceIds = {(this.DeviceIds == null ? "null" : $"[{string.Join(", ", this.DeviceIds)} ]")}");
+            toStringOutput.Add($"DeviceIdsTo = {(this.DeviceIdsTo == null ? "null" : $"[{string.Join(", ", this.DeviceIdsTo)} ]")}");
+            toStringOutput.Add($"NpaNxx = {this.NpaNxx ?? "null"}");
+            toStringOutput.Add($"ServicePlan = {this.ServicePlan ?? "null"}");
+            toStringOutput.Add($"ZipCode = {this.ZipCode ?? "null"}");
+            toStringOutput.Add($"SmsrOid = {this.SmsrOid ?? "null"}");
         }
     }
 }

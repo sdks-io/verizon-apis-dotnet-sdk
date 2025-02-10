@@ -57,36 +57,31 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"SessionTriggerRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is SessionTriggerRequest other &&                ((this.Comparator == null && other.Comparator == null) || (this.Comparator?.Equals(other.Comparator) == true)) &&
-                ((this.Threshold == null && other.Threshold == null) || (this.Threshold?.Equals(other.Threshold) == true));
+            return obj is SessionTriggerRequest other &&
+                (this.Comparator == null && other.Comparator == null ||
+                 this.Comparator?.Equals(other.Comparator) == true) &&
+                (this.Threshold == null && other.Threshold == null ||
+                 this.Threshold?.Equals(other.Threshold) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Comparator = {(this.Comparator == null ? "null" : this.Comparator)}");
-            toStringOutput.Add($"this.Threshold = {(this.Threshold == null ? "null" : this.Threshold.ToString())}");
+            toStringOutput.Add($"Comparator = {this.Comparator ?? "null"}");
+            toStringOutput.Add($"Threshold = {(this.Threshold == null ? "null" : this.Threshold.ToString())}");
         }
     }
 }

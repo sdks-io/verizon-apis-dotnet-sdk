@@ -140,54 +140,54 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"CampaignFirmwareUpgrade : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is CampaignFirmwareUpgrade other &&                ((this.CampaignName == null && other.CampaignName == null) || (this.CampaignName?.Equals(other.CampaignName) == true)) &&
-                ((this.FirmwareName == null && other.FirmwareName == null) || (this.FirmwareName?.Equals(other.FirmwareName) == true)) &&
-                ((this.FirmwareFrom == null && other.FirmwareFrom == null) || (this.FirmwareFrom?.Equals(other.FirmwareFrom) == true)) &&
-                ((this.FirmwareTo == null && other.FirmwareTo == null) || (this.FirmwareTo?.Equals(other.FirmwareTo) == true)) &&
-                ((this.Protocol == null && other.Protocol == null) || (this.Protocol?.Equals(other.Protocol) == true)) &&
-                this.StartDate.Equals(other.StartDate) &&
-                this.EndDate.Equals(other.EndDate) &&
-                ((this.CampaignTimeWindowList == null && other.CampaignTimeWindowList == null) || (this.CampaignTimeWindowList?.Equals(other.CampaignTimeWindowList) == true)) &&
-                ((this.DeviceList == null && other.DeviceList == null) || (this.DeviceList?.Equals(other.DeviceList) == true)) &&
-                this.AutoAssignLicenseFlag.Equals(other.AutoAssignLicenseFlag) &&
-                this.AutoAddDevicesFlag.Equals(other.AutoAddDevicesFlag);
+            return obj is CampaignFirmwareUpgrade other &&
+                (this.CampaignName == null && other.CampaignName == null ||
+                 this.CampaignName?.Equals(other.CampaignName) == true) &&
+                (this.FirmwareName == null && other.FirmwareName == null ||
+                 this.FirmwareName?.Equals(other.FirmwareName) == true) &&
+                (this.FirmwareFrom == null && other.FirmwareFrom == null ||
+                 this.FirmwareFrom?.Equals(other.FirmwareFrom) == true) &&
+                (this.FirmwareTo == null && other.FirmwareTo == null ||
+                 this.FirmwareTo?.Equals(other.FirmwareTo) == true) &&
+                (this.Protocol == null && other.Protocol == null ||
+                 this.Protocol?.Equals(other.Protocol) == true) &&
+                (this.StartDate.Equals(other.StartDate)) &&
+                (this.EndDate.Equals(other.EndDate)) &&
+                (this.CampaignTimeWindowList == null && other.CampaignTimeWindowList == null ||
+                 this.CampaignTimeWindowList?.Equals(other.CampaignTimeWindowList) == true) &&
+                (this.DeviceList == null && other.DeviceList == null ||
+                 this.DeviceList?.Equals(other.DeviceList) == true) &&
+                (this.AutoAssignLicenseFlag.Equals(other.AutoAssignLicenseFlag)) &&
+                (this.AutoAddDevicesFlag.Equals(other.AutoAddDevicesFlag));
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.CampaignName = {(this.CampaignName == null ? "null" : this.CampaignName)}");
-            toStringOutput.Add($"this.FirmwareName = {(this.FirmwareName == null ? "null" : this.FirmwareName)}");
-            toStringOutput.Add($"this.FirmwareFrom = {(this.FirmwareFrom == null ? "null" : this.FirmwareFrom)}");
-            toStringOutput.Add($"this.FirmwareTo = {(this.FirmwareTo == null ? "null" : this.FirmwareTo)}");
-            toStringOutput.Add($"this.Protocol = {(this.Protocol == null ? "null" : this.Protocol)}");
-            toStringOutput.Add($"this.StartDate = {this.StartDate}");
-            toStringOutput.Add($"this.EndDate = {this.EndDate}");
-            toStringOutput.Add($"this.CampaignTimeWindowList = {(this.CampaignTimeWindowList == null ? "null" : $"[{string.Join(", ", this.CampaignTimeWindowList)} ]")}");
-            toStringOutput.Add($"this.DeviceList = {(this.DeviceList == null ? "null" : $"[{string.Join(", ", this.DeviceList)} ]")}");
-            toStringOutput.Add($"this.AutoAssignLicenseFlag = {this.AutoAssignLicenseFlag}");
-            toStringOutput.Add($"this.AutoAddDevicesFlag = {this.AutoAddDevicesFlag}");
+            toStringOutput.Add($"CampaignName = {this.CampaignName ?? "null"}");
+            toStringOutput.Add($"FirmwareName = {this.FirmwareName ?? "null"}");
+            toStringOutput.Add($"FirmwareFrom = {this.FirmwareFrom ?? "null"}");
+            toStringOutput.Add($"FirmwareTo = {this.FirmwareTo ?? "null"}");
+            toStringOutput.Add($"Protocol = {this.Protocol ?? "null"}");
+            toStringOutput.Add($"StartDate = {this.StartDate}");
+            toStringOutput.Add($"EndDate = {this.EndDate}");
+            toStringOutput.Add($"CampaignTimeWindowList = {(this.CampaignTimeWindowList == null ? "null" : $"[{string.Join(", ", this.CampaignTimeWindowList)} ]")}");
+            toStringOutput.Add($"DeviceList = {(this.DeviceList == null ? "null" : $"[{string.Join(", ", this.DeviceList)} ]")}");
+            toStringOutput.Add($"AutoAssignLicenseFlag = {this.AutoAssignLicenseFlag}");
+            toStringOutput.Add($"AutoAddDevicesFlag = {this.AutoAddDevicesFlag}");
         }
     }
 }

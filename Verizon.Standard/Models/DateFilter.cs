@@ -57,36 +57,31 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"DateFilter : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is DateFilter other &&                ((this.Earliest == null && other.Earliest == null) || (this.Earliest?.Equals(other.Earliest) == true)) &&
-                ((this.Latest == null && other.Latest == null) || (this.Latest?.Equals(other.Latest) == true));
+            return obj is DateFilter other &&
+                (this.Earliest == null && other.Earliest == null ||
+                 this.Earliest?.Equals(other.Earliest) == true) &&
+                (this.Latest == null && other.Latest == null ||
+                 this.Latest?.Equals(other.Latest) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Earliest = {(this.Earliest == null ? "null" : this.Earliest)}");
-            toStringOutput.Add($"this.Latest = {(this.Latest == null ? "null" : this.Latest)}");
+            toStringOutput.Add($"Earliest = {this.Earliest ?? "null"}");
+            toStringOutput.Add($"Latest = {this.Latest ?? "null"}");
         }
     }
 }

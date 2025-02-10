@@ -57,36 +57,31 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"BillingCycle : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is BillingCycle other &&                ((this.Year == null && other.Year == null) || (this.Year?.Equals(other.Year) == true)) &&
-                ((this.Month == null && other.Month == null) || (this.Month?.Equals(other.Month) == true));
+            return obj is BillingCycle other &&
+                (this.Year == null && other.Year == null ||
+                 this.Year?.Equals(other.Year) == true) &&
+                (this.Month == null && other.Month == null ||
+                 this.Month?.Equals(other.Month) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Year = {(this.Year == null ? "null" : this.Year)}");
-            toStringOutput.Add($"this.Month = {(this.Month == null ? "null" : this.Month)}");
+            toStringOutput.Add($"Year = {this.Year ?? "null"}");
+            toStringOutput.Add($"Month = {this.Month ?? "null"}");
         }
     }
 }

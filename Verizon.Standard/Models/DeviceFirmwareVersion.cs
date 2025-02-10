@@ -85,42 +85,40 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"DeviceFirmwareVersion : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is DeviceFirmwareVersion other &&                ((this.Status == null && other.Status == null) || (this.Status?.Equals(other.Status) == true)) &&
-                ((this.Reason == null && other.Reason == null) || (this.Reason?.Equals(other.Reason) == true)) &&
-                ((this.DeviceId == null && other.DeviceId == null) || (this.DeviceId?.Equals(other.DeviceId) == true)) &&
-                ((this.FirmwareVersion == null && other.FirmwareVersion == null) || (this.FirmwareVersion?.Equals(other.FirmwareVersion) == true)) &&
-                ((this.FirmwareVersionUpdateTime == null && other.FirmwareVersionUpdateTime == null) || (this.FirmwareVersionUpdateTime?.Equals(other.FirmwareVersionUpdateTime) == true));
+            return obj is DeviceFirmwareVersion other &&
+                (this.Status == null && other.Status == null ||
+                 this.Status?.Equals(other.Status) == true) &&
+                (this.Reason == null && other.Reason == null ||
+                 this.Reason?.Equals(other.Reason) == true) &&
+                (this.DeviceId == null && other.DeviceId == null ||
+                 this.DeviceId?.Equals(other.DeviceId) == true) &&
+                (this.FirmwareVersion == null && other.FirmwareVersion == null ||
+                 this.FirmwareVersion?.Equals(other.FirmwareVersion) == true) &&
+                (this.FirmwareVersionUpdateTime == null && other.FirmwareVersionUpdateTime == null ||
+                 this.FirmwareVersionUpdateTime?.Equals(other.FirmwareVersionUpdateTime) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status)}");
-            toStringOutput.Add($"this.Reason = {(this.Reason == null ? "null" : this.Reason)}");
-            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId)}");
-            toStringOutput.Add($"this.FirmwareVersion = {(this.FirmwareVersion == null ? "null" : this.FirmwareVersion)}");
-            toStringOutput.Add($"this.FirmwareVersionUpdateTime = {(this.FirmwareVersionUpdateTime == null ? "null" : this.FirmwareVersionUpdateTime.ToString())}");
+            toStringOutput.Add($"Status = {this.Status ?? "null"}");
+            toStringOutput.Add($"Reason = {this.Reason ?? "null"}");
+            toStringOutput.Add($"DeviceId = {this.DeviceId ?? "null"}");
+            toStringOutput.Add($"FirmwareVersion = {this.FirmwareVersion ?? "null"}");
+            toStringOutput.Add($"FirmwareVersionUpdateTime = {(this.FirmwareVersionUpdateTime == null ? "null" : this.FirmwareVersionUpdateTime.ToString())}");
         }
     }
 }

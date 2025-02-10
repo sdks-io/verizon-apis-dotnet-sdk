@@ -75,40 +75,37 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"IErrorMessage : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is IErrorMessage other &&                ((this.ErrorCode == null && other.ErrorCode == null) || (this.ErrorCode?.Equals(other.ErrorCode) == true)) &&
-                ((this.ErrorMessage == null && other.ErrorMessage == null) || (this.ErrorMessage?.Equals(other.ErrorMessage) == true)) &&
-                ((this.HttpStatusCode == null && other.HttpStatusCode == null) || (this.HttpStatusCode?.Equals(other.HttpStatusCode) == true)) &&
-                ((this.DetailErrorMessage == null && other.DetailErrorMessage == null) || (this.DetailErrorMessage?.Equals(other.DetailErrorMessage) == true));
+            return obj is IErrorMessage other &&
+                (this.ErrorCode == null && other.ErrorCode == null ||
+                 this.ErrorCode?.Equals(other.ErrorCode) == true) &&
+                (this.ErrorMessage == null && other.ErrorMessage == null ||
+                 this.ErrorMessage?.Equals(other.ErrorMessage) == true) &&
+                (this.HttpStatusCode == null && other.HttpStatusCode == null ||
+                 this.HttpStatusCode?.Equals(other.HttpStatusCode) == true) &&
+                (this.DetailErrorMessage == null && other.DetailErrorMessage == null ||
+                 this.DetailErrorMessage?.Equals(other.DetailErrorMessage) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.ErrorCode = {(this.ErrorCode == null ? "null" : this.ErrorCode.ToString())}");
-            toStringOutput.Add($"this.ErrorMessage = {(this.ErrorMessage == null ? "null" : this.ErrorMessage)}");
-            toStringOutput.Add($"this.HttpStatusCode = {(this.HttpStatusCode == null ? "null" : this.HttpStatusCode.ToString())}");
-            toStringOutput.Add($"this.DetailErrorMessage = {(this.DetailErrorMessage == null ? "null" : this.DetailErrorMessage)}");
+            toStringOutput.Add($"ErrorCode = {(this.ErrorCode == null ? "null" : this.ErrorCode.ToString())}");
+            toStringOutput.Add($"ErrorMessage = {this.ErrorMessage ?? "null"}");
+            toStringOutput.Add($"HttpStatusCode = {(this.HttpStatusCode == null ? "null" : this.HttpStatusCode.ToString())}");
+            toStringOutput.Add($"DetailErrorMessage = {this.DetailErrorMessage ?? "null"}");
         }
     }
 }

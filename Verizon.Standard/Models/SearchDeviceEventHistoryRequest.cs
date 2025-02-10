@@ -84,42 +84,40 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"SearchDeviceEventHistoryRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is SearchDeviceEventHistoryRequest other &&                ((this.Accountidentifier == null && other.Accountidentifier == null) || (this.Accountidentifier?.Equals(other.Accountidentifier) == true)) &&
-                ((this.Selection == null && other.Selection == null) || (this.Selection?.Equals(other.Selection) == true)) &&
-                ((this.Resourceidentifier == null && other.Resourceidentifier == null) || (this.Resourceidentifier?.Equals(other.Resourceidentifier) == true)) &&
-                ((this.Limitnumber == null && other.Limitnumber == null) || (this.Limitnumber?.Equals(other.Limitnumber) == true)) &&
-                ((this.Page == null && other.Page == null) || (this.Page?.Equals(other.Page) == true));
+            return obj is SearchDeviceEventHistoryRequest other &&
+                (this.Accountidentifier == null && other.Accountidentifier == null ||
+                 this.Accountidentifier?.Equals(other.Accountidentifier) == true) &&
+                (this.Selection == null && other.Selection == null ||
+                 this.Selection?.Equals(other.Selection) == true) &&
+                (this.Resourceidentifier == null && other.Resourceidentifier == null ||
+                 this.Resourceidentifier?.Equals(other.Resourceidentifier) == true) &&
+                (this.Limitnumber == null && other.Limitnumber == null ||
+                 this.Limitnumber?.Equals(other.Limitnumber) == true) &&
+                (this.Page == null && other.Page == null ||
+                 this.Page?.Equals(other.Page) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Accountidentifier = {(this.Accountidentifier == null ? "null" : this.Accountidentifier.ToString())}");
+            toStringOutput.Add($"Accountidentifier = {(this.Accountidentifier == null ? "null" : this.Accountidentifier.ToString())}");
             toStringOutput.Add($"Selection = {(this.Selection == null ? "null" : this.Selection.ToString())}");
-            toStringOutput.Add($"this.Resourceidentifier = {(this.Resourceidentifier == null ? "null" : this.Resourceidentifier.ToString())}");
-            toStringOutput.Add($"this.Limitnumber = {(this.Limitnumber == null ? "null" : this.Limitnumber.ToString())}");
-            toStringOutput.Add($"this.Page = {(this.Page == null ? "null" : this.Page)}");
+            toStringOutput.Add($"Resourceidentifier = {(this.Resourceidentifier == null ? "null" : this.Resourceidentifier.ToString())}");
+            toStringOutput.Add($"Limitnumber = {(this.Limitnumber == null ? "null" : this.Limitnumber.ToString())}");
+            toStringOutput.Add($"Page = {this.Page ?? "null"}");
         }
     }
 }

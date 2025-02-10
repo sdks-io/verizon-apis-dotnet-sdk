@@ -111,48 +111,49 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"DeviceListQueryItem : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is DeviceListQueryItem other &&                ((this.DeviceId == null && other.DeviceId == null) || (this.DeviceId?.Equals(other.DeviceId) == true)) &&
-                ((this.Mdn == null && other.Mdn == null) || (this.Mdn?.Equals(other.Mdn) == true)) &&
-                ((this.Model == null && other.Model == null) || (this.Model?.Equals(other.Model) == true)) &&
-                ((this.Make == null && other.Make == null) || (this.Make?.Equals(other.Make) == true)) &&
-                ((this.Firmware == null && other.Firmware == null) || (this.Firmware?.Equals(other.Firmware) == true)) &&
-                ((this.FotaEligible == null && other.FotaEligible == null) || (this.FotaEligible?.Equals(other.FotaEligible) == true)) &&
-                ((this.LicenseAssigned == null && other.LicenseAssigned == null) || (this.LicenseAssigned?.Equals(other.LicenseAssigned) == true)) &&
-                ((this.UpgradeTime == null && other.UpgradeTime == null) || (this.UpgradeTime?.Equals(other.UpgradeTime) == true));
+            return obj is DeviceListQueryItem other &&
+                (this.DeviceId == null && other.DeviceId == null ||
+                 this.DeviceId?.Equals(other.DeviceId) == true) &&
+                (this.Mdn == null && other.Mdn == null ||
+                 this.Mdn?.Equals(other.Mdn) == true) &&
+                (this.Model == null && other.Model == null ||
+                 this.Model?.Equals(other.Model) == true) &&
+                (this.Make == null && other.Make == null ||
+                 this.Make?.Equals(other.Make) == true) &&
+                (this.Firmware == null && other.Firmware == null ||
+                 this.Firmware?.Equals(other.Firmware) == true) &&
+                (this.FotaEligible == null && other.FotaEligible == null ||
+                 this.FotaEligible?.Equals(other.FotaEligible) == true) &&
+                (this.LicenseAssigned == null && other.LicenseAssigned == null ||
+                 this.LicenseAssigned?.Equals(other.LicenseAssigned) == true) &&
+                (this.UpgradeTime == null && other.UpgradeTime == null ||
+                 this.UpgradeTime?.Equals(other.UpgradeTime) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId)}");
-            toStringOutput.Add($"this.Mdn = {(this.Mdn == null ? "null" : this.Mdn)}");
-            toStringOutput.Add($"this.Model = {(this.Model == null ? "null" : this.Model)}");
-            toStringOutput.Add($"this.Make = {(this.Make == null ? "null" : this.Make)}");
-            toStringOutput.Add($"this.Firmware = {(this.Firmware == null ? "null" : this.Firmware)}");
-            toStringOutput.Add($"this.FotaEligible = {(this.FotaEligible == null ? "null" : this.FotaEligible.ToString())}");
-            toStringOutput.Add($"this.LicenseAssigned = {(this.LicenseAssigned == null ? "null" : this.LicenseAssigned.ToString())}");
-            toStringOutput.Add($"this.UpgradeTime = {(this.UpgradeTime == null ? "null" : this.UpgradeTime)}");
+            toStringOutput.Add($"DeviceId = {this.DeviceId ?? "null"}");
+            toStringOutput.Add($"Mdn = {this.Mdn ?? "null"}");
+            toStringOutput.Add($"Model = {this.Model ?? "null"}");
+            toStringOutput.Add($"Make = {this.Make ?? "null"}");
+            toStringOutput.Add($"Firmware = {this.Firmware ?? "null"}");
+            toStringOutput.Add($"FotaEligible = {(this.FotaEligible == null ? "null" : this.FotaEligible.ToString())}");
+            toStringOutput.Add($"LicenseAssigned = {(this.LicenseAssigned == null ? "null" : this.LicenseAssigned.ToString())}");
+            toStringOutput.Add($"UpgradeTime = {this.UpgradeTime ?? "null"}");
         }
     }
 }

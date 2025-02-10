@@ -219,72 +219,85 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"Subscription : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is Subscription other &&                ((this.Configurationfailures == null && other.Configurationfailures == null) || (this.Configurationfailures?.Equals(other.Configurationfailures) == true)) &&
-                ((this.Createdon == null && other.Createdon == null) || (this.Createdon?.Equals(other.Createdon) == true)) &&
-                ((this.Delegateid == null && other.Delegateid == null) || (this.Delegateid?.Equals(other.Delegateid) == true)) &&
-                ((this.Description == null && other.Description == null) || (this.Description?.Equals(other.Description) == true)) &&
-                ((this.Disabled == null && other.Disabled == null) || (this.Disabled?.Equals(other.Disabled) == true)) &&
-                ((this.Email == null && other.Email == null) || (this.Email?.Equals(other.Email) == true)) &&
-                ((this.Filter == null && other.Filter == null) || (this.Filter?.Equals(other.Filter) == true)) &&
-                ((this.Id == null && other.Id == null) || (this.Id?.Equals(other.Id) == true)) &&
-                ((this.Kind == null && other.Kind == null) || (this.Kind?.Equals(other.Kind) == true)) &&
-                ((this.Laststreamingstatus == null && other.Laststreamingstatus == null) || (this.Laststreamingstatus?.Equals(other.Laststreamingstatus) == true)) &&
-                ((this.Laststreamingtime == null && other.Laststreamingtime == null) || (this.Laststreamingtime?.Equals(other.Laststreamingtime) == true)) &&
-                ((this.Lastupdated == null && other.Lastupdated == null) || (this.Lastupdated?.Equals(other.Lastupdated) == true)) &&
-                ((this.Name == null && other.Name == null) || (this.Name?.Equals(other.Name) == true)) &&
-                ((this.Networkfailures == null && other.Networkfailures == null) || (this.Networkfailures?.Equals(other.Networkfailures) == true)) &&
-                ((this.Streamfailures == null && other.Streamfailures == null) || (this.Streamfailures?.Equals(other.Streamfailures) == true)) &&
-                ((this.Streamkind == null && other.Streamkind == null) || (this.Streamkind?.Equals(other.Streamkind) == true)) &&
-                ((this.Targetid == null && other.Targetid == null) || (this.Targetid?.Equals(other.Targetid) == true)) &&
-                ((this.Targettype == null && other.Targettype == null) || (this.Targettype?.Equals(other.Targettype) == true)) &&
-                ((this.Version == null && other.Version == null) || (this.Version?.Equals(other.Version) == true)) &&
-                ((this.Versionid == null && other.Versionid == null) || (this.Versionid?.Equals(other.Versionid) == true));
+            return obj is Subscription other &&
+                (this.Configurationfailures == null && other.Configurationfailures == null ||
+                 this.Configurationfailures?.Equals(other.Configurationfailures) == true) &&
+                (this.Createdon == null && other.Createdon == null ||
+                 this.Createdon?.Equals(other.Createdon) == true) &&
+                (this.Delegateid == null && other.Delegateid == null ||
+                 this.Delegateid?.Equals(other.Delegateid) == true) &&
+                (this.Description == null && other.Description == null ||
+                 this.Description?.Equals(other.Description) == true) &&
+                (this.Disabled == null && other.Disabled == null ||
+                 this.Disabled?.Equals(other.Disabled) == true) &&
+                (this.Email == null && other.Email == null ||
+                 this.Email?.Equals(other.Email) == true) &&
+                (this.Filter == null && other.Filter == null ||
+                 this.Filter?.Equals(other.Filter) == true) &&
+                (this.Id == null && other.Id == null ||
+                 this.Id?.Equals(other.Id) == true) &&
+                (this.Kind == null && other.Kind == null ||
+                 this.Kind?.Equals(other.Kind) == true) &&
+                (this.Laststreamingstatus == null && other.Laststreamingstatus == null ||
+                 this.Laststreamingstatus?.Equals(other.Laststreamingstatus) == true) &&
+                (this.Laststreamingtime == null && other.Laststreamingtime == null ||
+                 this.Laststreamingtime?.Equals(other.Laststreamingtime) == true) &&
+                (this.Lastupdated == null && other.Lastupdated == null ||
+                 this.Lastupdated?.Equals(other.Lastupdated) == true) &&
+                (this.Name == null && other.Name == null ||
+                 this.Name?.Equals(other.Name) == true) &&
+                (this.Networkfailures == null && other.Networkfailures == null ||
+                 this.Networkfailures?.Equals(other.Networkfailures) == true) &&
+                (this.Streamfailures == null && other.Streamfailures == null ||
+                 this.Streamfailures?.Equals(other.Streamfailures) == true) &&
+                (this.Streamkind == null && other.Streamkind == null ||
+                 this.Streamkind?.Equals(other.Streamkind) == true) &&
+                (this.Targetid == null && other.Targetid == null ||
+                 this.Targetid?.Equals(other.Targetid) == true) &&
+                (this.Targettype == null && other.Targettype == null ||
+                 this.Targettype?.Equals(other.Targettype) == true) &&
+                (this.Version == null && other.Version == null ||
+                 this.Version?.Equals(other.Version) == true) &&
+                (this.Versionid == null && other.Versionid == null ||
+                 this.Versionid?.Equals(other.Versionid) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Configurationfailures = {(this.Configurationfailures == null ? "null" : this.Configurationfailures.ToString())}");
-            toStringOutput.Add($"this.Createdon = {(this.Createdon == null ? "null" : this.Createdon)}");
-            toStringOutput.Add($"this.Delegateid = {(this.Delegateid == null ? "null" : this.Delegateid)}");
-            toStringOutput.Add($"this.Description = {(this.Description == null ? "null" : this.Description)}");
-            toStringOutput.Add($"this.Disabled = {(this.Disabled == null ? "null" : this.Disabled.ToString())}");
-            toStringOutput.Add($"this.Email = {(this.Email == null ? "null" : this.Email)}");
-            toStringOutput.Add($"this.Filter = {(this.Filter == null ? "null" : this.Filter)}");
-            toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id)}");
-            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind)}");
-            toStringOutput.Add($"this.Laststreamingstatus = {(this.Laststreamingstatus == null ? "null" : this.Laststreamingstatus)}");
-            toStringOutput.Add($"this.Laststreamingtime = {(this.Laststreamingtime == null ? "null" : this.Laststreamingtime)}");
-            toStringOutput.Add($"this.Lastupdated = {(this.Lastupdated == null ? "null" : this.Lastupdated)}");
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
-            toStringOutput.Add($"this.Networkfailures = {(this.Networkfailures == null ? "null" : this.Networkfailures.ToString())}");
-            toStringOutput.Add($"this.Streamfailures = {(this.Streamfailures == null ? "null" : this.Streamfailures.ToString())}");
-            toStringOutput.Add($"this.Streamkind = {(this.Streamkind == null ? "null" : this.Streamkind)}");
-            toStringOutput.Add($"this.Targetid = {(this.Targetid == null ? "null" : this.Targetid)}");
-            toStringOutput.Add($"this.Targettype = {(this.Targettype == null ? "null" : this.Targettype)}");
-            toStringOutput.Add($"this.Version = {(this.Version == null ? "null" : this.Version)}");
-            toStringOutput.Add($"this.Versionid = {(this.Versionid == null ? "null" : this.Versionid)}");
+            toStringOutput.Add($"Configurationfailures = {(this.Configurationfailures == null ? "null" : this.Configurationfailures.ToString())}");
+            toStringOutput.Add($"Createdon = {this.Createdon ?? "null"}");
+            toStringOutput.Add($"Delegateid = {this.Delegateid ?? "null"}");
+            toStringOutput.Add($"Description = {this.Description ?? "null"}");
+            toStringOutput.Add($"Disabled = {(this.Disabled == null ? "null" : this.Disabled.ToString())}");
+            toStringOutput.Add($"Email = {this.Email ?? "null"}");
+            toStringOutput.Add($"Filter = {this.Filter ?? "null"}");
+            toStringOutput.Add($"Id = {this.Id ?? "null"}");
+            toStringOutput.Add($"Kind = {this.Kind ?? "null"}");
+            toStringOutput.Add($"Laststreamingstatus = {this.Laststreamingstatus ?? "null"}");
+            toStringOutput.Add($"Laststreamingtime = {this.Laststreamingtime ?? "null"}");
+            toStringOutput.Add($"Lastupdated = {this.Lastupdated ?? "null"}");
+            toStringOutput.Add($"Name = {this.Name ?? "null"}");
+            toStringOutput.Add($"Networkfailures = {(this.Networkfailures == null ? "null" : this.Networkfailures.ToString())}");
+            toStringOutput.Add($"Streamfailures = {(this.Streamfailures == null ? "null" : this.Streamfailures.ToString())}");
+            toStringOutput.Add($"Streamkind = {this.Streamkind ?? "null"}");
+            toStringOutput.Add($"Targetid = {this.Targetid ?? "null"}");
+            toStringOutput.Add($"Targettype = {this.Targettype ?? "null"}");
+            toStringOutput.Add($"Version = {this.Version ?? "null"}");
+            toStringOutput.Add($"Versionid = {this.Versionid ?? "null"}");
         }
     }
 }

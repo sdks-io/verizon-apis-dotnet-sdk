@@ -75,40 +75,37 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"GPU : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is GPU other &&                ((this.MinCoreClockMHz == null && other.MinCoreClockMHz == null) || (this.MinCoreClockMHz?.Equals(other.MinCoreClockMHz) == true)) &&
-                ((this.MinMemoryClockMHz == null && other.MinMemoryClockMHz == null) || (this.MinMemoryClockMHz?.Equals(other.MinMemoryClockMHz) == true)) &&
-                ((this.MinBandwidthGBs == null && other.MinBandwidthGBs == null) || (this.MinBandwidthGBs?.Equals(other.MinBandwidthGBs) == true)) &&
-                ((this.MinTFLOPS == null && other.MinTFLOPS == null) || (this.MinTFLOPS?.Equals(other.MinTFLOPS) == true));
+            return obj is GPU other &&
+                (this.MinCoreClockMHz == null && other.MinCoreClockMHz == null ||
+                 this.MinCoreClockMHz?.Equals(other.MinCoreClockMHz) == true) &&
+                (this.MinMemoryClockMHz == null && other.MinMemoryClockMHz == null ||
+                 this.MinMemoryClockMHz?.Equals(other.MinMemoryClockMHz) == true) &&
+                (this.MinBandwidthGBs == null && other.MinBandwidthGBs == null ||
+                 this.MinBandwidthGBs?.Equals(other.MinBandwidthGBs) == true) &&
+                (this.MinTFLOPS == null && other.MinTFLOPS == null ||
+                 this.MinTFLOPS?.Equals(other.MinTFLOPS) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.MinCoreClockMHz = {(this.MinCoreClockMHz == null ? "null" : this.MinCoreClockMHz.ToString())}");
-            toStringOutput.Add($"this.MinMemoryClockMHz = {(this.MinMemoryClockMHz == null ? "null" : this.MinMemoryClockMHz.ToString())}");
-            toStringOutput.Add($"this.MinBandwidthGBs = {(this.MinBandwidthGBs == null ? "null" : this.MinBandwidthGBs.ToString())}");
-            toStringOutput.Add($"this.MinTFLOPS = {(this.MinTFLOPS == null ? "null" : this.MinTFLOPS.ToString())}");
+            toStringOutput.Add($"MinCoreClockMHz = {(this.MinCoreClockMHz == null ? "null" : this.MinCoreClockMHz.ToString())}");
+            toStringOutput.Add($"MinMemoryClockMHz = {(this.MinMemoryClockMHz == null ? "null" : this.MinMemoryClockMHz.ToString())}");
+            toStringOutput.Add($"MinBandwidthGBs = {(this.MinBandwidthGBs == null ? "null" : this.MinBandwidthGBs.ToString())}");
+            toStringOutput.Add($"MinTFLOPS = {(this.MinTFLOPS == null ? "null" : this.MinTFLOPS.ToString())}");
         }
     }
 }

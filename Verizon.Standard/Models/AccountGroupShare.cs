@@ -48,34 +48,28 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"AccountGroupShare : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is AccountGroupShare other &&                ((this.AccountGroupShareIndividual == null && other.AccountGroupShareIndividual == null) || (this.AccountGroupShareIndividual?.Equals(other.AccountGroupShareIndividual) == true));
+            return obj is AccountGroupShare other &&
+                (this.AccountGroupShareIndividual == null && other.AccountGroupShareIndividual == null ||
+                 this.AccountGroupShareIndividual?.Equals(other.AccountGroupShareIndividual) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountGroupShareIndividual = {(this.AccountGroupShareIndividual == null ? "null" : this.AccountGroupShareIndividual.ToString())}");
+            toStringOutput.Add($"AccountGroupShareIndividual = {(this.AccountGroupShareIndividual == null ? "null" : this.AccountGroupShareIndividual.ToString())}");
         }
     }
 }

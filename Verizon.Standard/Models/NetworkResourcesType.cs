@@ -84,42 +84,39 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"NetworkResourcesType : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is NetworkResourcesType other &&                ((this.MinBandwidthKbits == null && other.MinBandwidthKbits == null) || (this.MinBandwidthKbits?.Equals(other.MinBandwidthKbits) == true)) &&
-                ((this.ServiceContinuitySupport == null && other.ServiceContinuitySupport == null) || (this.ServiceContinuitySupport?.Equals(other.ServiceContinuitySupport) == true)) &&
-                ((this.MaxRequestRate == null && other.MaxRequestRate == null) || (this.MaxRequestRate?.Equals(other.MaxRequestRate) == true)) &&
-                this.MaxLatencyMs.Equals(other.MaxLatencyMs) &&
-                ((this.MinAvailability == null && other.MinAvailability == null) || (this.MinAvailability?.Equals(other.MinAvailability) == true));
+            return obj is NetworkResourcesType other &&
+                (this.MinBandwidthKbits == null && other.MinBandwidthKbits == null ||
+                 this.MinBandwidthKbits?.Equals(other.MinBandwidthKbits) == true) &&
+                (this.ServiceContinuitySupport == null && other.ServiceContinuitySupport == null ||
+                 this.ServiceContinuitySupport?.Equals(other.ServiceContinuitySupport) == true) &&
+                (this.MaxRequestRate == null && other.MaxRequestRate == null ||
+                 this.MaxRequestRate?.Equals(other.MaxRequestRate) == true) &&
+                (this.MaxLatencyMs.Equals(other.MaxLatencyMs)) &&
+                (this.MinAvailability == null && other.MinAvailability == null ||
+                 this.MinAvailability?.Equals(other.MinAvailability) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.MinBandwidthKbits = {(this.MinBandwidthKbits == null ? "null" : this.MinBandwidthKbits.ToString())}");
-            toStringOutput.Add($"this.ServiceContinuitySupport = {(this.ServiceContinuitySupport == null ? "null" : this.ServiceContinuitySupport.ToString())}");
-            toStringOutput.Add($"this.MaxRequestRate = {(this.MaxRequestRate == null ? "null" : this.MaxRequestRate.ToString())}");
-            toStringOutput.Add($"this.MaxLatencyMs = {this.MaxLatencyMs}");
-            toStringOutput.Add($"this.MinAvailability = {(this.MinAvailability == null ? "null" : this.MinAvailability.ToString())}");
+            toStringOutput.Add($"MinBandwidthKbits = {(this.MinBandwidthKbits == null ? "null" : this.MinBandwidthKbits.ToString())}");
+            toStringOutput.Add($"ServiceContinuitySupport = {(this.ServiceContinuitySupport == null ? "null" : this.ServiceContinuitySupport.ToString())}");
+            toStringOutput.Add($"MaxRequestRate = {(this.MaxRequestRate == null ? "null" : this.MaxRequestRate.ToString())}");
+            toStringOutput.Add($"MaxLatencyMs = {this.MaxLatencyMs}");
+            toStringOutput.Add($"MinAvailability = {(this.MinAvailability == null ? "null" : this.MinAvailability.ToString())}");
         }
     }
 }

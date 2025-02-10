@@ -48,27 +48,21 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"Filtercriteria2 : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is Filtercriteria2 other &&                ((this.FilterCriteria == null && other.FilterCriteria == null) || (this.FilterCriteria?.Equals(other.FilterCriteria) == true));
+            return obj is Filtercriteria2 other &&
+                (this.FilterCriteria == null && other.FilterCriteria == null ||
+                 this.FilterCriteria?.Equals(other.FilterCriteria) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>

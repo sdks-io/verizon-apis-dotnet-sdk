@@ -66,38 +66,33 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"V2CampaignHistory : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is V2CampaignHistory other &&                this.HasMoreData.Equals(other.HasMoreData) &&
-                ((this.LastSeenCampaignId == null && other.LastSeenCampaignId == null) || (this.LastSeenCampaignId?.Equals(other.LastSeenCampaignId) == true)) &&
-                ((this.CampaignList == null && other.CampaignList == null) || (this.CampaignList?.Equals(other.CampaignList) == true));
+            return obj is V2CampaignHistory other &&
+                (this.HasMoreData.Equals(other.HasMoreData)) &&
+                (this.LastSeenCampaignId == null && other.LastSeenCampaignId == null ||
+                 this.LastSeenCampaignId?.Equals(other.LastSeenCampaignId) == true) &&
+                (this.CampaignList == null && other.CampaignList == null ||
+                 this.CampaignList?.Equals(other.CampaignList) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.HasMoreData = {this.HasMoreData}");
-            toStringOutput.Add($"this.LastSeenCampaignId = {(this.LastSeenCampaignId == null ? "null" : this.LastSeenCampaignId)}");
-            toStringOutput.Add($"this.CampaignList = {(this.CampaignList == null ? "null" : $"[{string.Join(", ", this.CampaignList)} ]")}");
+            toStringOutput.Add($"HasMoreData = {this.HasMoreData}");
+            toStringOutput.Add($"LastSeenCampaignId = {this.LastSeenCampaignId ?? "null"}");
+            toStringOutput.Add($"CampaignList = {(this.CampaignList == null ? "null" : $"[{string.Join(", ", this.CampaignList)} ]")}");
         }
     }
 }

@@ -156,58 +156,64 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"SearchDeviceResponse : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is SearchDeviceResponse other &&                ((this.Action == null && other.Action == null) || (this.Action?.Equals(other.Action) == true)) &&
-                ((this.Createdon == null && other.Createdon == null) || (this.Createdon?.Equals(other.Createdon) == true)) &&
-                ((this.Deviceid == null && other.Deviceid == null) || (this.Deviceid?.Equals(other.Deviceid) == true)) &&
-                ((this.Fields == null && other.Fields == null) || (this.Fields?.Equals(other.Fields) == true)) &&
-                ((this.Id == null && other.Id == null) || (this.Id?.Equals(other.Id) == true)) &&
-                ((this.Kind == null && other.Kind == null) || (this.Kind?.Equals(other.Kind) == true)) &&
-                ((this.Lastupdated == null && other.Lastupdated == null) || (this.Lastupdated?.Equals(other.Lastupdated) == true)) &&
-                ((this.Name == null && other.Name == null) || (this.Name?.Equals(other.Name) == true)) &&
-                ((this.State == null && other.State == null) || (this.State?.Equals(other.State) == true)) &&
-                ((this.Tagids == null && other.Tagids == null) || (this.Tagids?.Equals(other.Tagids) == true)) &&
-                ((this.Transactionid == null && other.Transactionid == null) || (this.Transactionid?.Equals(other.Transactionid) == true)) &&
-                ((this.Version == null && other.Version == null) || (this.Version?.Equals(other.Version) == true)) &&
-                ((this.Versionid == null && other.Versionid == null) || (this.Versionid?.Equals(other.Versionid) == true));
+            return obj is SearchDeviceResponse other &&
+                (this.Action == null && other.Action == null ||
+                 this.Action?.Equals(other.Action) == true) &&
+                (this.Createdon == null && other.Createdon == null ||
+                 this.Createdon?.Equals(other.Createdon) == true) &&
+                (this.Deviceid == null && other.Deviceid == null ||
+                 this.Deviceid?.Equals(other.Deviceid) == true) &&
+                (this.Fields == null && other.Fields == null ||
+                 this.Fields?.Equals(other.Fields) == true) &&
+                (this.Id == null && other.Id == null ||
+                 this.Id?.Equals(other.Id) == true) &&
+                (this.Kind == null && other.Kind == null ||
+                 this.Kind?.Equals(other.Kind) == true) &&
+                (this.Lastupdated == null && other.Lastupdated == null ||
+                 this.Lastupdated?.Equals(other.Lastupdated) == true) &&
+                (this.Name == null && other.Name == null ||
+                 this.Name?.Equals(other.Name) == true) &&
+                (this.State == null && other.State == null ||
+                 this.State?.Equals(other.State) == true) &&
+                (this.Tagids == null && other.Tagids == null ||
+                 this.Tagids?.Equals(other.Tagids) == true) &&
+                (this.Transactionid == null && other.Transactionid == null ||
+                 this.Transactionid?.Equals(other.Transactionid) == true) &&
+                (this.Version == null && other.Version == null ||
+                 this.Version?.Equals(other.Version) == true) &&
+                (this.Versionid == null && other.Versionid == null ||
+                 this.Versionid?.Equals(other.Versionid) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Action = {(this.Action == null ? "null" : this.Action)}");
-            toStringOutput.Add($"this.Createdon = {(this.Createdon == null ? "null" : this.Createdon)}");
-            toStringOutput.Add($"this.Deviceid = {(this.Deviceid == null ? "null" : this.Deviceid)}");
-            toStringOutput.Add($"this.Fields = {(this.Fields == null ? "null" : this.Fields.ToString())}");
-            toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id)}");
-            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind)}");
-            toStringOutput.Add($"this.Lastupdated = {(this.Lastupdated == null ? "null" : this.Lastupdated)}");
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
-            toStringOutput.Add($"this.State = {(this.State == null ? "null" : this.State)}");
-            toStringOutput.Add($"this.Tagids = {(this.Tagids == null ? "null" : $"[{string.Join(", ", this.Tagids)} ]")}");
-            toStringOutput.Add($"this.Transactionid = {(this.Transactionid == null ? "null" : this.Transactionid)}");
-            toStringOutput.Add($"this.Version = {(this.Version == null ? "null" : this.Version)}");
-            toStringOutput.Add($"this.Versionid = {(this.Versionid == null ? "null" : this.Versionid)}");
+            toStringOutput.Add($"Action = {this.Action ?? "null"}");
+            toStringOutput.Add($"Createdon = {this.Createdon ?? "null"}");
+            toStringOutput.Add($"Deviceid = {this.Deviceid ?? "null"}");
+            toStringOutput.Add($"Fields = {(this.Fields == null ? "null" : this.Fields.ToString())}");
+            toStringOutput.Add($"Id = {this.Id ?? "null"}");
+            toStringOutput.Add($"Kind = {this.Kind ?? "null"}");
+            toStringOutput.Add($"Lastupdated = {this.Lastupdated ?? "null"}");
+            toStringOutput.Add($"Name = {this.Name ?? "null"}");
+            toStringOutput.Add($"State = {this.State ?? "null"}");
+            toStringOutput.Add($"Tagids = {(this.Tagids == null ? "null" : $"[{string.Join(", ", this.Tagids)} ]")}");
+            toStringOutput.Add($"Transactionid = {this.Transactionid ?? "null"}");
+            toStringOutput.Add($"Version = {this.Version ?? "null"}");
+            toStringOutput.Add($"Versionid = {this.Versionid ?? "null"}");
         }
     }
 }

@@ -48,34 +48,28 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"Fields2 : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is Fields2 other &&                ((this.Temperature == null && other.Temperature == null) || (this.Temperature?.Equals(other.Temperature) == true));
+            return obj is Fields2 other &&
+                (this.Temperature == null && other.Temperature == null ||
+                 this.Temperature?.Equals(other.Temperature) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Temperature = {(this.Temperature == null ? "null" : this.Temperature)}");
+            toStringOutput.Add($"Temperature = {this.Temperature ?? "null"}");
         }
     }
 }

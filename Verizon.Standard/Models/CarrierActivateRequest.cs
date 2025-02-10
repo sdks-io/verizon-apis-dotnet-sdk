@@ -156,58 +156,64 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"CarrierActivateRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is CarrierActivateRequest other &&                ((this.Devices == null && other.Devices == null) || (this.Devices?.Equals(other.Devices) == true)) &&
-                ((this.ServicePlan == null && other.ServicePlan == null) || (this.ServicePlan?.Equals(other.ServicePlan) == true)) &&
-                ((this.MdnZipCode == null && other.MdnZipCode == null) || (this.MdnZipCode?.Equals(other.MdnZipCode) == true)) &&
-                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.CarrierIpPoolName == null && other.CarrierIpPoolName == null) || (this.CarrierIpPoolName?.Equals(other.CarrierIpPoolName) == true)) &&
-                ((this.CarrierName == null && other.CarrierName == null) || (this.CarrierName?.Equals(other.CarrierName) == true)) &&
-                ((this.CostCenterCode == null && other.CostCenterCode == null) || (this.CostCenterCode?.Equals(other.CostCenterCode) == true)) &&
-                ((this.CustomFields == null && other.CustomFields == null) || (this.CustomFields?.Equals(other.CustomFields) == true)) &&
-                ((this.GroupName == null && other.GroupName == null) || (this.GroupName?.Equals(other.GroupName) == true)) &&
-                ((this.LeadId == null && other.LeadId == null) || (this.LeadId?.Equals(other.LeadId) == true)) &&
-                ((this.PrimaryPlaceOfUse == null && other.PrimaryPlaceOfUse == null) || (this.PrimaryPlaceOfUse?.Equals(other.PrimaryPlaceOfUse) == true)) &&
-                ((this.PublicIpRestriction == null && other.PublicIpRestriction == null) || (this.PublicIpRestriction?.Equals(other.PublicIpRestriction) == true)) &&
-                ((this.SkuNumber == null && other.SkuNumber == null) || (this.SkuNumber?.Equals(other.SkuNumber) == true));
+            return obj is CarrierActivateRequest other &&
+                (this.Devices == null && other.Devices == null ||
+                 this.Devices?.Equals(other.Devices) == true) &&
+                (this.ServicePlan == null && other.ServicePlan == null ||
+                 this.ServicePlan?.Equals(other.ServicePlan) == true) &&
+                (this.MdnZipCode == null && other.MdnZipCode == null ||
+                 this.MdnZipCode?.Equals(other.MdnZipCode) == true) &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.CarrierIpPoolName == null && other.CarrierIpPoolName == null ||
+                 this.CarrierIpPoolName?.Equals(other.CarrierIpPoolName) == true) &&
+                (this.CarrierName == null && other.CarrierName == null ||
+                 this.CarrierName?.Equals(other.CarrierName) == true) &&
+                (this.CostCenterCode == null && other.CostCenterCode == null ||
+                 this.CostCenterCode?.Equals(other.CostCenterCode) == true) &&
+                (this.CustomFields == null && other.CustomFields == null ||
+                 this.CustomFields?.Equals(other.CustomFields) == true) &&
+                (this.GroupName == null && other.GroupName == null ||
+                 this.GroupName?.Equals(other.GroupName) == true) &&
+                (this.LeadId == null && other.LeadId == null ||
+                 this.LeadId?.Equals(other.LeadId) == true) &&
+                (this.PrimaryPlaceOfUse == null && other.PrimaryPlaceOfUse == null ||
+                 this.PrimaryPlaceOfUse?.Equals(other.PrimaryPlaceOfUse) == true) &&
+                (this.PublicIpRestriction == null && other.PublicIpRestriction == null ||
+                 this.PublicIpRestriction?.Equals(other.PublicIpRestriction) == true) &&
+                (this.SkuNumber == null && other.SkuNumber == null ||
+                 this.SkuNumber?.Equals(other.SkuNumber) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Devices = {(this.Devices == null ? "null" : $"[{string.Join(", ", this.Devices)} ]")}");
-            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan)}");
-            toStringOutput.Add($"this.MdnZipCode = {(this.MdnZipCode == null ? "null" : this.MdnZipCode)}");
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.CarrierIpPoolName = {(this.CarrierIpPoolName == null ? "null" : this.CarrierIpPoolName)}");
-            toStringOutput.Add($"this.CarrierName = {(this.CarrierName == null ? "null" : this.CarrierName)}");
-            toStringOutput.Add($"this.CostCenterCode = {(this.CostCenterCode == null ? "null" : this.CostCenterCode)}");
-            toStringOutput.Add($"this.CustomFields = {(this.CustomFields == null ? "null" : $"[{string.Join(", ", this.CustomFields)} ]")}");
-            toStringOutput.Add($"this.GroupName = {(this.GroupName == null ? "null" : this.GroupName)}");
-            toStringOutput.Add($"this.LeadId = {(this.LeadId == null ? "null" : this.LeadId)}");
-            toStringOutput.Add($"this.PrimaryPlaceOfUse = {(this.PrimaryPlaceOfUse == null ? "null" : this.PrimaryPlaceOfUse.ToString())}");
-            toStringOutput.Add($"this.PublicIpRestriction = {(this.PublicIpRestriction == null ? "null" : this.PublicIpRestriction)}");
-            toStringOutput.Add($"this.SkuNumber = {(this.SkuNumber == null ? "null" : this.SkuNumber)}");
+            toStringOutput.Add($"Devices = {(this.Devices == null ? "null" : $"[{string.Join(", ", this.Devices)} ]")}");
+            toStringOutput.Add($"ServicePlan = {this.ServicePlan ?? "null"}");
+            toStringOutput.Add($"MdnZipCode = {this.MdnZipCode ?? "null"}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"CarrierIpPoolName = {this.CarrierIpPoolName ?? "null"}");
+            toStringOutput.Add($"CarrierName = {this.CarrierName ?? "null"}");
+            toStringOutput.Add($"CostCenterCode = {this.CostCenterCode ?? "null"}");
+            toStringOutput.Add($"CustomFields = {(this.CustomFields == null ? "null" : $"[{string.Join(", ", this.CustomFields)} ]")}");
+            toStringOutput.Add($"GroupName = {this.GroupName ?? "null"}");
+            toStringOutput.Add($"LeadId = {this.LeadId ?? "null"}");
+            toStringOutput.Add($"PrimaryPlaceOfUse = {(this.PrimaryPlaceOfUse == null ? "null" : this.PrimaryPlaceOfUse.ToString())}");
+            toStringOutput.Add($"PublicIpRestriction = {this.PublicIpRestriction ?? "null"}");
+            toStringOutput.Add($"SkuNumber = {this.SkuNumber ?? "null"}");
         }
     }
 }

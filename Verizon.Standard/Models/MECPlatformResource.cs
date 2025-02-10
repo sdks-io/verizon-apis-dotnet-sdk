@@ -50,11 +50,11 @@ namespace Verizon.Standard.Models
             object properties = null)
         {
             this.Ern = ern;
+
             if (zone != null)
             {
                 this.Zone = zone;
             }
-
             this.Region = region;
             this.Status = status;
             this.Properties = properties;
@@ -106,14 +106,12 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"MECPlatformResource : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <summary>
-        /// Marks the field to not be serailized.
+        /// Marks the field to not be serialized.
         /// </summary>
         public void UnsetZone()
         {
@@ -132,32 +130,32 @@ namespace Verizon.Standard.Models
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is MECPlatformResource other &&                ((this.Ern == null && other.Ern == null) || (this.Ern?.Equals(other.Ern) == true)) &&
-                ((this.Zone == null && other.Zone == null) || (this.Zone?.Equals(other.Zone) == true)) &&
-                ((this.Region == null && other.Region == null) || (this.Region?.Equals(other.Region) == true)) &&
-                ((this.Status == null && other.Status == null) || (this.Status?.Equals(other.Status) == true)) &&
-                ((this.Properties == null && other.Properties == null) || (this.Properties?.Equals(other.Properties) == true));
+            return obj is MECPlatformResource other &&
+                (this.Ern == null && other.Ern == null ||
+                 this.Ern?.Equals(other.Ern) == true) &&
+                (this.Zone == null && other.Zone == null ||
+                 this.Zone?.Equals(other.Zone) == true) &&
+                (this.Region == null && other.Region == null ||
+                 this.Region?.Equals(other.Region) == true) &&
+                (this.Status == null && other.Status == null ||
+                 this.Status?.Equals(other.Status) == true) &&
+                (this.Properties == null && other.Properties == null ||
+                 this.Properties?.Equals(other.Properties) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Ern = {(this.Ern == null ? "null" : this.Ern)}");
-            toStringOutput.Add($"this.Zone = {(this.Zone == null ? "null" : this.Zone)}");
-            toStringOutput.Add($"this.Region = {(this.Region == null ? "null" : this.Region)}");
-            toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status.ToString())}");
+            toStringOutput.Add($"Ern = {this.Ern ?? "null"}");
+            toStringOutput.Add($"Zone = {this.Zone ?? "null"}");
+            toStringOutput.Add($"Region = {this.Region ?? "null"}");
+            toStringOutput.Add($"Status = {(this.Status == null ? "null" : this.Status.ToString())}");
             toStringOutput.Add($"Properties = {(this.Properties == null ? "null" : this.Properties.ToString())}");
         }
     }

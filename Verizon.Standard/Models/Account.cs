@@ -111,48 +111,49 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"Account : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is Account other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.AccountNumber == null && other.AccountNumber == null) || (this.AccountNumber?.Equals(other.AccountNumber) == true)) &&
-                ((this.OrganizationName == null && other.OrganizationName == null) || (this.OrganizationName?.Equals(other.OrganizationName) == true)) &&
-                ((this.IsProvisioningAllowed == null && other.IsProvisioningAllowed == null) || (this.IsProvisioningAllowed?.Equals(other.IsProvisioningAllowed) == true)) &&
-                ((this.Carriers == null && other.Carriers == null) || (this.Carriers?.Equals(other.Carriers) == true)) &&
-                ((this.Features == null && other.Features == null) || (this.Features?.Equals(other.Features) == true)) &&
-                ((this.IPPools == null && other.IPPools == null) || (this.IPPools?.Equals(other.IPPools) == true)) &&
-                ((this.ServicePlans == null && other.ServicePlans == null) || (this.ServicePlans?.Equals(other.ServicePlans) == true));
+            return obj is Account other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.AccountNumber == null && other.AccountNumber == null ||
+                 this.AccountNumber?.Equals(other.AccountNumber) == true) &&
+                (this.OrganizationName == null && other.OrganizationName == null ||
+                 this.OrganizationName?.Equals(other.OrganizationName) == true) &&
+                (this.IsProvisioningAllowed == null && other.IsProvisioningAllowed == null ||
+                 this.IsProvisioningAllowed?.Equals(other.IsProvisioningAllowed) == true) &&
+                (this.Carriers == null && other.Carriers == null ||
+                 this.Carriers?.Equals(other.Carriers) == true) &&
+                (this.Features == null && other.Features == null ||
+                 this.Features?.Equals(other.Features) == true) &&
+                (this.IPPools == null && other.IPPools == null ||
+                 this.IPPools?.Equals(other.IPPools) == true) &&
+                (this.ServicePlans == null && other.ServicePlans == null ||
+                 this.ServicePlans?.Equals(other.ServicePlans) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.AccountNumber = {(this.AccountNumber == null ? "null" : this.AccountNumber)}");
-            toStringOutput.Add($"this.OrganizationName = {(this.OrganizationName == null ? "null" : this.OrganizationName)}");
-            toStringOutput.Add($"this.IsProvisioningAllowed = {(this.IsProvisioningAllowed == null ? "null" : this.IsProvisioningAllowed.ToString())}");
-            toStringOutput.Add($"this.Carriers = {(this.Carriers == null ? "null" : $"[{string.Join(", ", this.Carriers)} ]")}");
-            toStringOutput.Add($"this.Features = {(this.Features == null ? "null" : $"[{string.Join(", ", this.Features)} ]")}");
-            toStringOutput.Add($"this.IPPools = {(this.IPPools == null ? "null" : $"[{string.Join(", ", this.IPPools)} ]")}");
-            toStringOutput.Add($"this.ServicePlans = {(this.ServicePlans == null ? "null" : $"[{string.Join(", ", this.ServicePlans)} ]")}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"AccountNumber = {this.AccountNumber ?? "null"}");
+            toStringOutput.Add($"OrganizationName = {this.OrganizationName ?? "null"}");
+            toStringOutput.Add($"IsProvisioningAllowed = {(this.IsProvisioningAllowed == null ? "null" : this.IsProvisioningAllowed.ToString())}");
+            toStringOutput.Add($"Carriers = {(this.Carriers == null ? "null" : $"[{string.Join(", ", this.Carriers)} ]")}");
+            toStringOutput.Add($"Features = {(this.Features == null ? "null" : $"[{string.Join(", ", this.Features)} ]")}");
+            toStringOutput.Add($"IPPools = {(this.IPPools == null ? "null" : $"[{string.Join(", ", this.IPPools)} ]")}");
+            toStringOutput.Add($"ServicePlans = {(this.ServicePlans == null ? "null" : $"[{string.Join(", ", this.ServicePlans)} ]")}");
         }
     }
 }

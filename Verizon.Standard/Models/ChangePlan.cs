@@ -57,36 +57,31 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"ChangePlan : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is ChangePlan other &&                ((this.TriggerDate == null && other.TriggerDate == null) || (this.TriggerDate?.Equals(other.TriggerDate) == true)) &&
-                ((this.SharePlan == null && other.SharePlan == null) || (this.SharePlan?.Equals(other.SharePlan) == true));
+            return obj is ChangePlan other &&
+                (this.TriggerDate == null && other.TriggerDate == null ||
+                 this.TriggerDate?.Equals(other.TriggerDate) == true) &&
+                (this.SharePlan == null && other.SharePlan == null ||
+                 this.SharePlan?.Equals(other.SharePlan) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.TriggerDate = {(this.TriggerDate == null ? "null" : this.TriggerDate)}");
-            toStringOutput.Add($"this.SharePlan = {(this.SharePlan == null ? "null" : $"[{string.Join(", ", this.SharePlan)} ]")}");
+            toStringOutput.Add($"TriggerDate = {this.TriggerDate ?? "null"}");
+            toStringOutput.Add($"SharePlan = {(this.SharePlan == null ? "null" : $"[{string.Join(", ", this.SharePlan)} ]")}");
         }
     }
 }

@@ -66,38 +66,34 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"ManagedAccountsGetAllResponse : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is ManagedAccountsGetAllResponse other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.ManagedAccAddedList == null && other.ManagedAccAddedList == null) || (this.ManagedAccAddedList?.Equals(other.ManagedAccAddedList) == true)) &&
-                ((this.ManagedAccProvisionedList == null && other.ManagedAccProvisionedList == null) || (this.ManagedAccProvisionedList?.Equals(other.ManagedAccProvisionedList) == true));
+            return obj is ManagedAccountsGetAllResponse other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.ManagedAccAddedList == null && other.ManagedAccAddedList == null ||
+                 this.ManagedAccAddedList?.Equals(other.ManagedAccAddedList) == true) &&
+                (this.ManagedAccProvisionedList == null && other.ManagedAccProvisionedList == null ||
+                 this.ManagedAccProvisionedList?.Equals(other.ManagedAccProvisionedList) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.ManagedAccAddedList = {(this.ManagedAccAddedList == null ? "null" : $"[{string.Join(", ", this.ManagedAccAddedList)} ]")}");
-            toStringOutput.Add($"this.ManagedAccProvisionedList = {(this.ManagedAccProvisionedList == null ? "null" : $"[{string.Join(", ", this.ManagedAccProvisionedList)} ]")}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"ManagedAccAddedList = {(this.ManagedAccAddedList == null ? "null" : $"[{string.Join(", ", this.ManagedAccAddedList)} ]")}");
+            toStringOutput.Add($"ManagedAccProvisionedList = {(this.ManagedAccProvisionedList == null ? "null" : $"[{string.Join(", ", this.ManagedAccProvisionedList)} ]")}");
         }
     }
 }

@@ -48,34 +48,28 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"FieldsHttpHeaders : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is FieldsHttpHeaders other &&                ((this.Authorization == null && other.Authorization == null) || (this.Authorization?.Equals(other.Authorization) == true));
+            return obj is FieldsHttpHeaders other &&
+                (this.Authorization == null && other.Authorization == null ||
+                 this.Authorization?.Equals(other.Authorization) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Authorization = {(this.Authorization == null ? "null" : this.Authorization)}");
+            toStringOutput.Add($"Authorization = {this.Authorization ?? "null"}");
         }
     }
 }

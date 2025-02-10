@@ -120,50 +120,52 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"TriggersListOptions : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is TriggersListOptions other &&                ((this.TriggerId == null && other.TriggerId == null) || (this.TriggerId?.Equals(other.TriggerId) == true)) &&
-                ((this.TriggerName == null && other.TriggerName == null) || (this.TriggerName?.Equals(other.TriggerName) == true)) &&
-                ((this.OrganizationName == null && other.OrganizationName == null) || (this.OrganizationName?.Equals(other.OrganizationName) == true)) &&
-                ((this.TriggerCategory == null && other.TriggerCategory == null) || (this.TriggerCategory?.Equals(other.TriggerCategory) == true)) &&
-                ((this.TriggerAttributes == null && other.TriggerAttributes == null) || (this.TriggerAttributes?.Equals(other.TriggerAttributes) == true)) &&
-                ((this.CreatedAt == null && other.CreatedAt == null) || (this.CreatedAt?.Equals(other.CreatedAt) == true)) &&
-                ((this.ModifiedAt == null && other.ModifiedAt == null) || (this.ModifiedAt?.Equals(other.ModifiedAt) == true)) &&
-                ((this.Anomalyattributes == null && other.Anomalyattributes == null) || (this.Anomalyattributes?.Equals(other.Anomalyattributes) == true)) &&
-                ((this.Notification == null && other.Notification == null) || (this.Notification?.Equals(other.Notification) == true));
+            return obj is TriggersListOptions other &&
+                (this.TriggerId == null && other.TriggerId == null ||
+                 this.TriggerId?.Equals(other.TriggerId) == true) &&
+                (this.TriggerName == null && other.TriggerName == null ||
+                 this.TriggerName?.Equals(other.TriggerName) == true) &&
+                (this.OrganizationName == null && other.OrganizationName == null ||
+                 this.OrganizationName?.Equals(other.OrganizationName) == true) &&
+                (this.TriggerCategory == null && other.TriggerCategory == null ||
+                 this.TriggerCategory?.Equals(other.TriggerCategory) == true) &&
+                (this.TriggerAttributes == null && other.TriggerAttributes == null ||
+                 this.TriggerAttributes?.Equals(other.TriggerAttributes) == true) &&
+                (this.CreatedAt == null && other.CreatedAt == null ||
+                 this.CreatedAt?.Equals(other.CreatedAt) == true) &&
+                (this.ModifiedAt == null && other.ModifiedAt == null ||
+                 this.ModifiedAt?.Equals(other.ModifiedAt) == true) &&
+                (this.Anomalyattributes == null && other.Anomalyattributes == null ||
+                 this.Anomalyattributes?.Equals(other.Anomalyattributes) == true) &&
+                (this.Notification == null && other.Notification == null ||
+                 this.Notification?.Equals(other.Notification) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.TriggerId = {(this.TriggerId == null ? "null" : this.TriggerId)}");
-            toStringOutput.Add($"this.TriggerName = {(this.TriggerName == null ? "null" : this.TriggerName)}");
-            toStringOutput.Add($"this.OrganizationName = {(this.OrganizationName == null ? "null" : this.OrganizationName)}");
-            toStringOutput.Add($"this.TriggerCategory = {(this.TriggerCategory == null ? "null" : this.TriggerCategory)}");
-            toStringOutput.Add($"this.TriggerAttributes = {(this.TriggerAttributes == null ? "null" : $"[{string.Join(", ", this.TriggerAttributes)} ]")}");
-            toStringOutput.Add($"this.CreatedAt = {(this.CreatedAt == null ? "null" : this.CreatedAt)}");
-            toStringOutput.Add($"this.ModifiedAt = {(this.ModifiedAt == null ? "null" : this.ModifiedAt)}");
-            toStringOutput.Add($"this.Anomalyattributes = {(this.Anomalyattributes == null ? "null" : this.Anomalyattributes.ToString())}");
-            toStringOutput.Add($"this.Notification = {(this.Notification == null ? "null" : this.Notification.ToString())}");
+            toStringOutput.Add($"TriggerId = {this.TriggerId ?? "null"}");
+            toStringOutput.Add($"TriggerName = {this.TriggerName ?? "null"}");
+            toStringOutput.Add($"OrganizationName = {this.OrganizationName ?? "null"}");
+            toStringOutput.Add($"TriggerCategory = {this.TriggerCategory ?? "null"}");
+            toStringOutput.Add($"TriggerAttributes = {(this.TriggerAttributes == null ? "null" : $"[{string.Join(", ", this.TriggerAttributes)} ]")}");
+            toStringOutput.Add($"CreatedAt = {this.CreatedAt ?? "null"}");
+            toStringOutput.Add($"ModifiedAt = {this.ModifiedAt ?? "null"}");
+            toStringOutput.Add($"Anomalyattributes = {(this.Anomalyattributes == null ? "null" : this.Anomalyattributes.ToString())}");
+            toStringOutput.Add($"Notification = {(this.Notification == null ? "null" : this.Notification.ToString())}");
         }
     }
 }

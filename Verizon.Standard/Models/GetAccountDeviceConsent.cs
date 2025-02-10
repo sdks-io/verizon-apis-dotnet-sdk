@@ -66,29 +66,25 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"GetAccountDeviceConsent : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is GetAccountDeviceConsent other &&                ((this.DeviceList == null && other.DeviceList == null) || (this.DeviceList?.Equals(other.DeviceList) == true)) &&
-                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.AllDeviceConsent == null && other.AllDeviceConsent == null) || (this.AllDeviceConsent?.Equals(other.AllDeviceConsent) == true));
+            return obj is GetAccountDeviceConsent other &&
+                (this.DeviceList == null && other.DeviceList == null ||
+                 this.DeviceList?.Equals(other.DeviceList) == true) &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.AllDeviceConsent == null && other.AllDeviceConsent == null ||
+                 this.AllDeviceConsent?.Equals(other.AllDeviceConsent) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
@@ -96,8 +92,8 @@ namespace Verizon.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"DeviceList = {(this.DeviceList == null ? "null" : this.DeviceList.ToString())}");
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.AllDeviceConsent = {(this.AllDeviceConsent == null ? "null" : this.AllDeviceConsent.ToString())}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"AllDeviceConsent = {(this.AllDeviceConsent == null ? "null" : this.AllDeviceConsent.ToString())}");
         }
     }
 }

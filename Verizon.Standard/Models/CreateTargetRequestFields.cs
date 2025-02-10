@@ -57,36 +57,31 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"CreateTargetRequestFields : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is CreateTargetRequestFields other &&                ((this.Httpheaders == null && other.Httpheaders == null) || (this.Httpheaders?.Equals(other.Httpheaders) == true)) &&
-                ((this.Devicetypes == null && other.Devicetypes == null) || (this.Devicetypes?.Equals(other.Devicetypes) == true));
+            return obj is CreateTargetRequestFields other &&
+                (this.Httpheaders == null && other.Httpheaders == null ||
+                 this.Httpheaders?.Equals(other.Httpheaders) == true) &&
+                (this.Devicetypes == null && other.Devicetypes == null ||
+                 this.Devicetypes?.Equals(other.Devicetypes) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Httpheaders = {(this.Httpheaders == null ? "null" : this.Httpheaders.ToString())}");
-            toStringOutput.Add($"this.Devicetypes = {(this.Devicetypes == null ? "null" : $"[{string.Join(", ", this.Devicetypes)} ]")}");
+            toStringOutput.Add($"Httpheaders = {(this.Httpheaders == null ? "null" : this.Httpheaders.ToString())}");
+            toStringOutput.Add($"Devicetypes = {(this.Devicetypes == null ? "null" : $"[{string.Join(", ", this.Devicetypes)} ]")}");
         }
     }
 }

@@ -75,40 +75,37 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"MECPerformanceMetrics : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is MECPerformanceMetrics other &&                ((this.QueryStatus == null && other.QueryStatus == null) || (this.QueryStatus?.Equals(other.QueryStatus) == true)) &&
-                ((this.Start == null && other.Start == null) || (this.Start?.Equals(other.Start) == true)) &&
-                ((this.End == null && other.End == null) || (this.End?.Equals(other.End) == true)) &&
-                ((this.QueryResult == null && other.QueryResult == null) || (this.QueryResult?.Equals(other.QueryResult) == true));
+            return obj is MECPerformanceMetrics other &&
+                (this.QueryStatus == null && other.QueryStatus == null ||
+                 this.QueryStatus?.Equals(other.QueryStatus) == true) &&
+                (this.Start == null && other.Start == null ||
+                 this.Start?.Equals(other.Start) == true) &&
+                (this.End == null && other.End == null ||
+                 this.End?.Equals(other.End) == true) &&
+                (this.QueryResult == null && other.QueryResult == null ||
+                 this.QueryResult?.Equals(other.QueryResult) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.QueryStatus = {(this.QueryStatus == null ? "null" : this.QueryStatus)}");
-            toStringOutput.Add($"this.Start = {(this.Start == null ? "null" : this.Start)}");
-            toStringOutput.Add($"this.End = {(this.End == null ? "null" : this.End)}");
-            toStringOutput.Add($"this.QueryResult = {(this.QueryResult == null ? "null" : $"[{string.Join(", ", this.QueryResult)} ]")}");
+            toStringOutput.Add($"QueryStatus = {this.QueryStatus ?? "null"}");
+            toStringOutput.Add($"Start = {this.Start ?? "null"}");
+            toStringOutput.Add($"End = {this.End ?? "null"}");
+            toStringOutput.Add($"QueryResult = {(this.QueryResult == null ? "null" : $"[{string.Join(", ", this.QueryResult)} ]")}");
         }
     }
 }

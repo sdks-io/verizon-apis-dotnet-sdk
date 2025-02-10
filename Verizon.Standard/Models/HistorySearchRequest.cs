@@ -75,40 +75,37 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"HistorySearchRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is HistorySearchRequest other &&                ((this.Filter == null && other.Filter == null) || (this.Filter?.Equals(other.Filter) == true)) &&
-                ((this.LimitNumber == null && other.LimitNumber == null) || (this.LimitNumber?.Equals(other.LimitNumber) == true)) &&
-                ((this.LimitTime == null && other.LimitTime == null) || (this.LimitTime?.Equals(other.LimitTime) == true)) &&
-                ((this.Page == null && other.Page == null) || (this.Page?.Equals(other.Page) == true));
+            return obj is HistorySearchRequest other &&
+                (this.Filter == null && other.Filter == null ||
+                 this.Filter?.Equals(other.Filter) == true) &&
+                (this.LimitNumber == null && other.LimitNumber == null ||
+                 this.LimitNumber?.Equals(other.LimitNumber) == true) &&
+                (this.LimitTime == null && other.LimitTime == null ||
+                 this.LimitTime?.Equals(other.LimitTime) == true) &&
+                (this.Page == null && other.Page == null ||
+                 this.Page?.Equals(other.Page) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Filter = {(this.Filter == null ? "null" : this.Filter.ToString())}");
-            toStringOutput.Add($"this.LimitNumber = {(this.LimitNumber == null ? "null" : this.LimitNumber.ToString())}");
-            toStringOutput.Add($"this.LimitTime = {(this.LimitTime == null ? "null" : this.LimitTime.ToString())}");
-            toStringOutput.Add($"this.Page = {(this.Page == null ? "null" : this.Page)}");
+            toStringOutput.Add($"Filter = {(this.Filter == null ? "null" : this.Filter.ToString())}");
+            toStringOutput.Add($"LimitNumber = {(this.LimitNumber == null ? "null" : this.LimitNumber.ToString())}");
+            toStringOutput.Add($"LimitTime = {(this.LimitTime == null ? "null" : this.LimitTime.ToString())}");
+            toStringOutput.Add($"Page = {this.Page ?? "null"}");
         }
     }
 }

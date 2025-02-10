@@ -102,46 +102,46 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"PromoAlertTriggerRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is PromoAlertTriggerRequest other &&                ((this.DataPercentage50 == null && other.DataPercentage50 == null) || (this.DataPercentage50?.Equals(other.DataPercentage50) == true)) &&
-                ((this.DataPercentage75 == null && other.DataPercentage75 == null) || (this.DataPercentage75?.Equals(other.DataPercentage75) == true)) &&
-                ((this.DataPercentage90 == null && other.DataPercentage90 == null) || (this.DataPercentage90?.Equals(other.DataPercentage90) == true)) &&
-                ((this.NoOfDaysB4PromoExp == null && other.NoOfDaysB4PromoExp == null) || (this.NoOfDaysB4PromoExp?.Equals(other.NoOfDaysB4PromoExp) == true)) &&
-                ((this.SmsPercentage50 == null && other.SmsPercentage50 == null) || (this.SmsPercentage50?.Equals(other.SmsPercentage50) == true)) &&
-                ((this.SmsPercentage75 == null && other.SmsPercentage75 == null) || (this.SmsPercentage75?.Equals(other.SmsPercentage75) == true)) &&
-                ((this.SmsPercentage90 == null && other.SmsPercentage90 == null) || (this.SmsPercentage90?.Equals(other.SmsPercentage90) == true));
+            return obj is PromoAlertTriggerRequest other &&
+                (this.DataPercentage50 == null && other.DataPercentage50 == null ||
+                 this.DataPercentage50?.Equals(other.DataPercentage50) == true) &&
+                (this.DataPercentage75 == null && other.DataPercentage75 == null ||
+                 this.DataPercentage75?.Equals(other.DataPercentage75) == true) &&
+                (this.DataPercentage90 == null && other.DataPercentage90 == null ||
+                 this.DataPercentage90?.Equals(other.DataPercentage90) == true) &&
+                (this.NoOfDaysB4PromoExp == null && other.NoOfDaysB4PromoExp == null ||
+                 this.NoOfDaysB4PromoExp?.Equals(other.NoOfDaysB4PromoExp) == true) &&
+                (this.SmsPercentage50 == null && other.SmsPercentage50 == null ||
+                 this.SmsPercentage50?.Equals(other.SmsPercentage50) == true) &&
+                (this.SmsPercentage75 == null && other.SmsPercentage75 == null ||
+                 this.SmsPercentage75?.Equals(other.SmsPercentage75) == true) &&
+                (this.SmsPercentage90 == null && other.SmsPercentage90 == null ||
+                 this.SmsPercentage90?.Equals(other.SmsPercentage90) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.DataPercentage50 = {(this.DataPercentage50 == null ? "null" : this.DataPercentage50.ToString())}");
-            toStringOutput.Add($"this.DataPercentage75 = {(this.DataPercentage75 == null ? "null" : this.DataPercentage75.ToString())}");
-            toStringOutput.Add($"this.DataPercentage90 = {(this.DataPercentage90 == null ? "null" : this.DataPercentage90.ToString())}");
-            toStringOutput.Add($"this.NoOfDaysB4PromoExp = {(this.NoOfDaysB4PromoExp == null ? "null" : this.NoOfDaysB4PromoExp.ToString())}");
-            toStringOutput.Add($"this.SmsPercentage50 = {(this.SmsPercentage50 == null ? "null" : this.SmsPercentage50.ToString())}");
-            toStringOutput.Add($"this.SmsPercentage75 = {(this.SmsPercentage75 == null ? "null" : this.SmsPercentage75.ToString())}");
-            toStringOutput.Add($"this.SmsPercentage90 = {(this.SmsPercentage90 == null ? "null" : this.SmsPercentage90.ToString())}");
+            toStringOutput.Add($"DataPercentage50 = {(this.DataPercentage50 == null ? "null" : this.DataPercentage50.ToString())}");
+            toStringOutput.Add($"DataPercentage75 = {(this.DataPercentage75 == null ? "null" : this.DataPercentage75.ToString())}");
+            toStringOutput.Add($"DataPercentage90 = {(this.DataPercentage90 == null ? "null" : this.DataPercentage90.ToString())}");
+            toStringOutput.Add($"NoOfDaysB4PromoExp = {(this.NoOfDaysB4PromoExp == null ? "null" : this.NoOfDaysB4PromoExp.ToString())}");
+            toStringOutput.Add($"SmsPercentage50 = {(this.SmsPercentage50 == null ? "null" : this.SmsPercentage50.ToString())}");
+            toStringOutput.Add($"SmsPercentage75 = {(this.SmsPercentage75 == null ? "null" : this.SmsPercentage75.ToString())}");
+            toStringOutput.Add($"SmsPercentage90 = {(this.SmsPercentage90 == null ? "null" : this.SmsPercentage90.ToString())}");
         }
     }
 }

@@ -174,62 +174,70 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"SearchDeviceByPropertyResponse : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is SearchDeviceByPropertyResponse other &&                ((this.Billingaccountid == null && other.Billingaccountid == null) || (this.Billingaccountid?.Equals(other.Billingaccountid) == true)) &&
-                ((this.Createdon == null && other.Createdon == null) || (this.Createdon?.Equals(other.Createdon) == true)) &&
-                ((this.Eventretention == null && other.Eventretention == null) || (this.Eventretention?.Equals(other.Eventretention) == true)) &&
-                ((this.Fields == null && other.Fields == null) || (this.Fields?.Equals(other.Fields) == true)) &&
-                ((this.Iccid == null && other.Iccid == null) || (this.Iccid?.Equals(other.Iccid) == true)) &&
-                ((this.Id == null && other.Id == null) || (this.Id?.Equals(other.Id) == true)) &&
-                ((this.Imei == null && other.Imei == null) || (this.Imei?.Equals(other.Imei) == true)) &&
-                ((this.Kind == null && other.Kind == null) || (this.Kind?.Equals(other.Kind) == true)) &&
-                ((this.Lastupdated == null && other.Lastupdated == null) || (this.Lastupdated?.Equals(other.Lastupdated) == true)) &&
-                ((this.Providerid == null && other.Providerid == null) || (this.Providerid?.Equals(other.Providerid) == true)) &&
-                ((this.Refid == null && other.Refid == null) || (this.Refid?.Equals(other.Refid) == true)) &&
-                ((this.Refidtype == null && other.Refidtype == null) || (this.Refidtype?.Equals(other.Refidtype) == true)) &&
-                ((this.State == null && other.State == null) || (this.State?.Equals(other.State) == true)) &&
-                ((this.Version == null && other.Version == null) || (this.Version?.Equals(other.Version) == true)) &&
-                ((this.Versionid == null && other.Versionid == null) || (this.Versionid?.Equals(other.Versionid) == true));
+            return obj is SearchDeviceByPropertyResponse other &&
+                (this.Billingaccountid == null && other.Billingaccountid == null ||
+                 this.Billingaccountid?.Equals(other.Billingaccountid) == true) &&
+                (this.Createdon == null && other.Createdon == null ||
+                 this.Createdon?.Equals(other.Createdon) == true) &&
+                (this.Eventretention == null && other.Eventretention == null ||
+                 this.Eventretention?.Equals(other.Eventretention) == true) &&
+                (this.Fields == null && other.Fields == null ||
+                 this.Fields?.Equals(other.Fields) == true) &&
+                (this.Iccid == null && other.Iccid == null ||
+                 this.Iccid?.Equals(other.Iccid) == true) &&
+                (this.Id == null && other.Id == null ||
+                 this.Id?.Equals(other.Id) == true) &&
+                (this.Imei == null && other.Imei == null ||
+                 this.Imei?.Equals(other.Imei) == true) &&
+                (this.Kind == null && other.Kind == null ||
+                 this.Kind?.Equals(other.Kind) == true) &&
+                (this.Lastupdated == null && other.Lastupdated == null ||
+                 this.Lastupdated?.Equals(other.Lastupdated) == true) &&
+                (this.Providerid == null && other.Providerid == null ||
+                 this.Providerid?.Equals(other.Providerid) == true) &&
+                (this.Refid == null && other.Refid == null ||
+                 this.Refid?.Equals(other.Refid) == true) &&
+                (this.Refidtype == null && other.Refidtype == null ||
+                 this.Refidtype?.Equals(other.Refidtype) == true) &&
+                (this.State == null && other.State == null ||
+                 this.State?.Equals(other.State) == true) &&
+                (this.Version == null && other.Version == null ||
+                 this.Version?.Equals(other.Version) == true) &&
+                (this.Versionid == null && other.Versionid == null ||
+                 this.Versionid?.Equals(other.Versionid) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Billingaccountid = {(this.Billingaccountid == null ? "null" : this.Billingaccountid)}");
-            toStringOutput.Add($"this.Createdon = {(this.Createdon == null ? "null" : this.Createdon)}");
-            toStringOutput.Add($"this.Eventretention = {(this.Eventretention == null ? "null" : this.Eventretention)}");
-            toStringOutput.Add($"this.Fields = {(this.Fields == null ? "null" : this.Fields.ToString())}");
-            toStringOutput.Add($"this.Iccid = {(this.Iccid == null ? "null" : this.Iccid)}");
-            toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id)}");
-            toStringOutput.Add($"this.Imei = {(this.Imei == null ? "null" : this.Imei)}");
-            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind)}");
-            toStringOutput.Add($"this.Lastupdated = {(this.Lastupdated == null ? "null" : this.Lastupdated)}");
-            toStringOutput.Add($"this.Providerid = {(this.Providerid == null ? "null" : this.Providerid)}");
-            toStringOutput.Add($"this.Refid = {(this.Refid == null ? "null" : this.Refid)}");
-            toStringOutput.Add($"this.Refidtype = {(this.Refidtype == null ? "null" : this.Refidtype)}");
-            toStringOutput.Add($"this.State = {(this.State == null ? "null" : this.State)}");
-            toStringOutput.Add($"this.Version = {(this.Version == null ? "null" : this.Version)}");
-            toStringOutput.Add($"this.Versionid = {(this.Versionid == null ? "null" : this.Versionid)}");
+            toStringOutput.Add($"Billingaccountid = {this.Billingaccountid ?? "null"}");
+            toStringOutput.Add($"Createdon = {this.Createdon ?? "null"}");
+            toStringOutput.Add($"Eventretention = {this.Eventretention ?? "null"}");
+            toStringOutput.Add($"Fields = {(this.Fields == null ? "null" : this.Fields.ToString())}");
+            toStringOutput.Add($"Iccid = {this.Iccid ?? "null"}");
+            toStringOutput.Add($"Id = {this.Id ?? "null"}");
+            toStringOutput.Add($"Imei = {this.Imei ?? "null"}");
+            toStringOutput.Add($"Kind = {this.Kind ?? "null"}");
+            toStringOutput.Add($"Lastupdated = {this.Lastupdated ?? "null"}");
+            toStringOutput.Add($"Providerid = {this.Providerid ?? "null"}");
+            toStringOutput.Add($"Refid = {this.Refid ?? "null"}");
+            toStringOutput.Add($"Refidtype = {this.Refidtype ?? "null"}");
+            toStringOutput.Add($"State = {this.State ?? "null"}");
+            toStringOutput.Add($"Version = {this.Version ?? "null"}");
+            toStringOutput.Add($"Versionid = {this.Versionid ?? "null"}");
         }
     }
 }

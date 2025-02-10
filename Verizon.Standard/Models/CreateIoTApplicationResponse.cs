@@ -66,38 +66,34 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"CreateIoTApplicationResponse : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is CreateIoTApplicationResponse other &&                ((this.AppName == null && other.AppName == null) || (this.AppName?.Equals(other.AppName) == true)) &&
-                ((this.SharedSecret == null && other.SharedSecret == null) || (this.SharedSecret?.Equals(other.SharedSecret) == true)) &&
-                ((this.Url == null && other.Url == null) || (this.Url?.Equals(other.Url) == true));
+            return obj is CreateIoTApplicationResponse other &&
+                (this.AppName == null && other.AppName == null ||
+                 this.AppName?.Equals(other.AppName) == true) &&
+                (this.SharedSecret == null && other.SharedSecret == null ||
+                 this.SharedSecret?.Equals(other.SharedSecret) == true) &&
+                (this.Url == null && other.Url == null ||
+                 this.Url?.Equals(other.Url) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AppName = {(this.AppName == null ? "null" : this.AppName)}");
-            toStringOutput.Add($"this.SharedSecret = {(this.SharedSecret == null ? "null" : this.SharedSecret)}");
-            toStringOutput.Add($"this.Url = {(this.Url == null ? "null" : this.Url)}");
+            toStringOutput.Add($"AppName = {this.AppName ?? "null"}");
+            toStringOutput.Add($"SharedSecret = {this.SharedSecret ?? "null"}");
+            toStringOutput.Add($"Url = {this.Url ?? "null"}");
         }
     }
 }

@@ -57,6 +57,7 @@ namespace Verizon.Standard.Models
             this.Imei = imei;
             this.StartDate = startDate;
             this.EndDate = endDate;
+
             if (durationLow != null)
             {
                 this.DurationLow = durationLow;
@@ -66,7 +67,6 @@ namespace Verizon.Standard.Models
             {
                 this.DurationHigh = durationHigh;
             }
-
         }
 
         /// <summary>
@@ -133,14 +133,12 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"SessionReportRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <summary>
-        /// Marks the field to not be serailized.
+        /// Marks the field to not be serialized.
         /// </summary>
         public void UnsetDurationLow()
         {
@@ -148,7 +146,7 @@ namespace Verizon.Standard.Models
         }
 
         /// <summary>
-        /// Marks the field to not be serailized.
+        /// Marks the field to not be serialized.
         /// </summary>
         public void UnsetDurationHigh()
         {
@@ -176,35 +174,36 @@ namespace Verizon.Standard.Models
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is SessionReportRequest other &&                ((this.AccountNumber == null && other.AccountNumber == null) || (this.AccountNumber?.Equals(other.AccountNumber) == true)) &&
-                ((this.Imei == null && other.Imei == null) || (this.Imei?.Equals(other.Imei) == true)) &&
-                ((this.StartDate == null && other.StartDate == null) || (this.StartDate?.Equals(other.StartDate) == true)) &&
-                ((this.EndDate == null && other.EndDate == null) || (this.EndDate?.Equals(other.EndDate) == true)) &&
-                ((this.DurationLow == null && other.DurationLow == null) || (this.DurationLow?.Equals(other.DurationLow) == true)) &&
-                ((this.DurationHigh == null && other.DurationHigh == null) || (this.DurationHigh?.Equals(other.DurationHigh) == true));
+            return obj is SessionReportRequest other &&
+                (this.AccountNumber == null && other.AccountNumber == null ||
+                 this.AccountNumber?.Equals(other.AccountNumber) == true) &&
+                (this.Imei == null && other.Imei == null ||
+                 this.Imei?.Equals(other.Imei) == true) &&
+                (this.StartDate == null && other.StartDate == null ||
+                 this.StartDate?.Equals(other.StartDate) == true) &&
+                (this.EndDate == null && other.EndDate == null ||
+                 this.EndDate?.Equals(other.EndDate) == true) &&
+                (this.DurationLow == null && other.DurationLow == null ||
+                 this.DurationLow?.Equals(other.DurationLow) == true) &&
+                (this.DurationHigh == null && other.DurationHigh == null ||
+                 this.DurationHigh?.Equals(other.DurationHigh) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountNumber = {(this.AccountNumber == null ? "null" : this.AccountNumber)}");
-            toStringOutput.Add($"this.Imei = {(this.Imei == null ? "null" : this.Imei)}");
-            toStringOutput.Add($"this.StartDate = {(this.StartDate == null ? "null" : this.StartDate)}");
-            toStringOutput.Add($"this.EndDate = {(this.EndDate == null ? "null" : this.EndDate)}");
-            toStringOutput.Add($"this.DurationLow = {(this.DurationLow == null ? "null" : this.DurationLow.ToString())}");
-            toStringOutput.Add($"this.DurationHigh = {(this.DurationHigh == null ? "null" : this.DurationHigh.ToString())}");
+            toStringOutput.Add($"AccountNumber = {this.AccountNumber ?? "null"}");
+            toStringOutput.Add($"Imei = {this.Imei ?? "null"}");
+            toStringOutput.Add($"StartDate = {this.StartDate ?? "null"}");
+            toStringOutput.Add($"EndDate = {this.EndDate ?? "null"}");
+            toStringOutput.Add($"DurationLow = {(this.DurationLow == null ? "null" : this.DurationLow.ToString())}");
+            toStringOutput.Add($"DurationHigh = {(this.DurationHigh == null ? "null" : this.DurationHigh.ToString())}");
         }
     }
 }

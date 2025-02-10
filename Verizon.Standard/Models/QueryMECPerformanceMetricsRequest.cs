@@ -57,36 +57,31 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"QueryMECPerformanceMetricsRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is QueryMECPerformanceMetricsRequest other &&                ((this.IMEI == null && other.IMEI == null) || (this.IMEI?.Equals(other.IMEI) == true)) &&
-                ((this.MSISDN == null && other.MSISDN == null) || (this.MSISDN?.Equals(other.MSISDN) == true));
+            return obj is QueryMECPerformanceMetricsRequest other &&
+                (this.IMEI == null && other.IMEI == null ||
+                 this.IMEI?.Equals(other.IMEI) == true) &&
+                (this.MSISDN == null && other.MSISDN == null ||
+                 this.MSISDN?.Equals(other.MSISDN) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.IMEI = {(this.IMEI == null ? "null" : this.IMEI)}");
-            toStringOutput.Add($"this.MSISDN = {(this.MSISDN == null ? "null" : this.MSISDN)}");
+            toStringOutput.Add($"IMEI = {this.IMEI ?? "null"}");
+            toStringOutput.Add($"MSISDN = {this.MSISDN ?? "null"}");
         }
     }
 }

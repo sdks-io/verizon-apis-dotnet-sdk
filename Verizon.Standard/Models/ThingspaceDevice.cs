@@ -156,58 +156,64 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"ThingspaceDevice : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is ThingspaceDevice other &&                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.BillingCycleEndDate == null && other.BillingCycleEndDate == null) || (this.BillingCycleEndDate?.Equals(other.BillingCycleEndDate) == true)) &&
-                ((this.CarrierInformations == null && other.CarrierInformations == null) || (this.CarrierInformations?.Equals(other.CarrierInformations) == true)) &&
-                ((this.Connected == null && other.Connected == null) || (this.Connected?.Equals(other.Connected) == true)) &&
-                ((this.CreatedAt == null && other.CreatedAt == null) || (this.CreatedAt?.Equals(other.CreatedAt) == true)) &&
-                ((this.CustomFields == null && other.CustomFields == null) || (this.CustomFields?.Equals(other.CustomFields) == true)) &&
-                ((this.DeviceIds == null && other.DeviceIds == null) || (this.DeviceIds?.Equals(other.DeviceIds) == true)) &&
-                ((this.ExtendedAttributes == null && other.ExtendedAttributes == null) || (this.ExtendedAttributes?.Equals(other.ExtendedAttributes) == true)) &&
-                ((this.GroupNames == null && other.GroupNames == null) || (this.GroupNames?.Equals(other.GroupNames) == true)) &&
-                ((this.Ipaddress == null && other.Ipaddress == null) || (this.Ipaddress?.Equals(other.Ipaddress) == true)) &&
-                ((this.LastActivationBy == null && other.LastActivationBy == null) || (this.LastActivationBy?.Equals(other.LastActivationBy) == true)) &&
-                ((this.LastActivationDate == null && other.LastActivationDate == null) || (this.LastActivationDate?.Equals(other.LastActivationDate) == true)) &&
-                ((this.LastConnectionDate == null && other.LastConnectionDate == null) || (this.LastConnectionDate?.Equals(other.LastConnectionDate) == true));
+            return obj is ThingspaceDevice other &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.BillingCycleEndDate == null && other.BillingCycleEndDate == null ||
+                 this.BillingCycleEndDate?.Equals(other.BillingCycleEndDate) == true) &&
+                (this.CarrierInformations == null && other.CarrierInformations == null ||
+                 this.CarrierInformations?.Equals(other.CarrierInformations) == true) &&
+                (this.Connected == null && other.Connected == null ||
+                 this.Connected?.Equals(other.Connected) == true) &&
+                (this.CreatedAt == null && other.CreatedAt == null ||
+                 this.CreatedAt?.Equals(other.CreatedAt) == true) &&
+                (this.CustomFields == null && other.CustomFields == null ||
+                 this.CustomFields?.Equals(other.CustomFields) == true) &&
+                (this.DeviceIds == null && other.DeviceIds == null ||
+                 this.DeviceIds?.Equals(other.DeviceIds) == true) &&
+                (this.ExtendedAttributes == null && other.ExtendedAttributes == null ||
+                 this.ExtendedAttributes?.Equals(other.ExtendedAttributes) == true) &&
+                (this.GroupNames == null && other.GroupNames == null ||
+                 this.GroupNames?.Equals(other.GroupNames) == true) &&
+                (this.Ipaddress == null && other.Ipaddress == null ||
+                 this.Ipaddress?.Equals(other.Ipaddress) == true) &&
+                (this.LastActivationBy == null && other.LastActivationBy == null ||
+                 this.LastActivationBy?.Equals(other.LastActivationBy) == true) &&
+                (this.LastActivationDate == null && other.LastActivationDate == null ||
+                 this.LastActivationDate?.Equals(other.LastActivationDate) == true) &&
+                (this.LastConnectionDate == null && other.LastConnectionDate == null ||
+                 this.LastConnectionDate?.Equals(other.LastConnectionDate) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.BillingCycleEndDate = {(this.BillingCycleEndDate == null ? "null" : this.BillingCycleEndDate)}");
-            toStringOutput.Add($"this.CarrierInformations = {(this.CarrierInformations == null ? "null" : $"[{string.Join(", ", this.CarrierInformations)} ]")}");
-            toStringOutput.Add($"this.Connected = {(this.Connected == null ? "null" : this.Connected.ToString())}");
-            toStringOutput.Add($"this.CreatedAt = {(this.CreatedAt == null ? "null" : this.CreatedAt)}");
-            toStringOutput.Add($"this.CustomFields = {(this.CustomFields == null ? "null" : $"[{string.Join(", ", this.CustomFields)} ]")}");
-            toStringOutput.Add($"this.DeviceIds = {(this.DeviceIds == null ? "null" : $"[{string.Join(", ", this.DeviceIds)} ]")}");
-            toStringOutput.Add($"this.ExtendedAttributes = {(this.ExtendedAttributes == null ? "null" : $"[{string.Join(", ", this.ExtendedAttributes)} ]")}");
-            toStringOutput.Add($"this.GroupNames = {(this.GroupNames == null ? "null" : $"[{string.Join(", ", this.GroupNames)} ]")}");
-            toStringOutput.Add($"this.Ipaddress = {(this.Ipaddress == null ? "null" : this.Ipaddress)}");
-            toStringOutput.Add($"this.LastActivationBy = {(this.LastActivationBy == null ? "null" : this.LastActivationBy)}");
-            toStringOutput.Add($"this.LastActivationDate = {(this.LastActivationDate == null ? "null" : this.LastActivationDate)}");
-            toStringOutput.Add($"this.LastConnectionDate = {(this.LastConnectionDate == null ? "null" : this.LastConnectionDate)}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"BillingCycleEndDate = {this.BillingCycleEndDate ?? "null"}");
+            toStringOutput.Add($"CarrierInformations = {(this.CarrierInformations == null ? "null" : $"[{string.Join(", ", this.CarrierInformations)} ]")}");
+            toStringOutput.Add($"Connected = {(this.Connected == null ? "null" : this.Connected.ToString())}");
+            toStringOutput.Add($"CreatedAt = {this.CreatedAt ?? "null"}");
+            toStringOutput.Add($"CustomFields = {(this.CustomFields == null ? "null" : $"[{string.Join(", ", this.CustomFields)} ]")}");
+            toStringOutput.Add($"DeviceIds = {(this.DeviceIds == null ? "null" : $"[{string.Join(", ", this.DeviceIds)} ]")}");
+            toStringOutput.Add($"ExtendedAttributes = {(this.ExtendedAttributes == null ? "null" : $"[{string.Join(", ", this.ExtendedAttributes)} ]")}");
+            toStringOutput.Add($"GroupNames = {(this.GroupNames == null ? "null" : $"[{string.Join(", ", this.GroupNames)} ]")}");
+            toStringOutput.Add($"Ipaddress = {this.Ipaddress ?? "null"}");
+            toStringOutput.Add($"LastActivationBy = {this.LastActivationBy ?? "null"}");
+            toStringOutput.Add($"LastActivationDate = {this.LastActivationDate ?? "null"}");
+            toStringOutput.Add($"LastConnectionDate = {this.LastConnectionDate ?? "null"}");
         }
     }
 }

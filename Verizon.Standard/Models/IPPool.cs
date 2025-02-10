@@ -66,38 +66,34 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"IPPool : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is IPPool other &&                ((this.PoolName == null && other.PoolName == null) || (this.PoolName?.Equals(other.PoolName) == true)) &&
-                ((this.PoolType == null && other.PoolType == null) || (this.PoolType?.Equals(other.PoolType) == true)) &&
-                ((this.IsDefaultPool == null && other.IsDefaultPool == null) || (this.IsDefaultPool?.Equals(other.IsDefaultPool) == true));
+            return obj is IPPool other &&
+                (this.PoolName == null && other.PoolName == null ||
+                 this.PoolName?.Equals(other.PoolName) == true) &&
+                (this.PoolType == null && other.PoolType == null ||
+                 this.PoolType?.Equals(other.PoolType) == true) &&
+                (this.IsDefaultPool == null && other.IsDefaultPool == null ||
+                 this.IsDefaultPool?.Equals(other.IsDefaultPool) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.PoolName = {(this.PoolName == null ? "null" : this.PoolName)}");
-            toStringOutput.Add($"this.PoolType = {(this.PoolType == null ? "null" : this.PoolType)}");
-            toStringOutput.Add($"this.IsDefaultPool = {(this.IsDefaultPool == null ? "null" : this.IsDefaultPool.ToString())}");
+            toStringOutput.Add($"PoolName = {this.PoolName ?? "null"}");
+            toStringOutput.Add($"PoolType = {this.PoolType ?? "null"}");
+            toStringOutput.Add($"IsDefaultPool = {(this.IsDefaultPool == null ? "null" : this.IsDefaultPool.ToString())}");
         }
     }
 }

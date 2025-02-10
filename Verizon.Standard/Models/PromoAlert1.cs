@@ -66,29 +66,25 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"PromoAlert1 : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is PromoAlert1 other &&                ((this.FilterCriteria == null && other.FilterCriteria == null) || (this.FilterCriteria?.Equals(other.FilterCriteria) == true)) &&
-                ((this.Condition == null && other.Condition == null) || (this.Condition?.Equals(other.Condition) == true)) &&
-                ((this.EnablePromoExp == null && other.EnablePromoExp == null) || (this.EnablePromoExp?.Equals(other.EnablePromoExp) == true));
+            return obj is PromoAlert1 other &&
+                (this.FilterCriteria == null && other.FilterCriteria == null ||
+                 this.FilterCriteria?.Equals(other.FilterCriteria) == true) &&
+                (this.Condition == null && other.Condition == null ||
+                 this.Condition?.Equals(other.Condition) == true) &&
+                (this.EnablePromoExp == null && other.EnablePromoExp == null ||
+                 this.EnablePromoExp?.Equals(other.EnablePromoExp) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
@@ -96,8 +92,8 @@ namespace Verizon.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"FilterCriteria = {(this.FilterCriteria == null ? "null" : this.FilterCriteria.ToString())}");
-            toStringOutput.Add($"this.Condition = {(this.Condition == null ? "null" : $"[{string.Join(", ", this.Condition)} ]")}");
-            toStringOutput.Add($"this.EnablePromoExp = {(this.EnablePromoExp == null ? "null" : this.EnablePromoExp.ToString())}");
+            toStringOutput.Add($"Condition = {(this.Condition == null ? "null" : $"[{string.Join(", ", this.Condition)} ]")}");
+            toStringOutput.Add($"EnablePromoExp = {(this.EnablePromoExp == null ? "null" : this.EnablePromoExp.ToString())}");
         }
     }
 }

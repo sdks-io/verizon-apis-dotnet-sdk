@@ -130,52 +130,54 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"DeviceFirmwareUpgrade : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is DeviceFirmwareUpgrade other &&                ((this.DeviceId == null && other.DeviceId == null) || (this.DeviceId?.Equals(other.DeviceId) == true)) &&
-                ((this.CampaignId == null && other.CampaignId == null) || (this.CampaignId?.Equals(other.CampaignId) == true)) &&
-                ((this.AccountName == null && other.AccountName == null) || (this.AccountName?.Equals(other.AccountName) == true)) &&
-                ((this.FirmwareName == null && other.FirmwareName == null) || (this.FirmwareName?.Equals(other.FirmwareName) == true)) &&
-                ((this.FirmwareFrom == null && other.FirmwareFrom == null) || (this.FirmwareFrom?.Equals(other.FirmwareFrom) == true)) &&
-                ((this.FirmwareTo == null && other.FirmwareTo == null) || (this.FirmwareTo?.Equals(other.FirmwareTo) == true)) &&
-                this.StartDate.Equals(other.StartDate) &&
-                ((this.Status == null && other.Status == null) || (this.Status?.Equals(other.Status) == true)) &&
-                ((this.Reason == null && other.Reason == null) || (this.Reason?.Equals(other.Reason) == true)) &&
-                ((this.ReportUpdatedTime == null && other.ReportUpdatedTime == null) || (this.ReportUpdatedTime?.Equals(other.ReportUpdatedTime) == true));
+            return obj is DeviceFirmwareUpgrade other &&
+                (this.DeviceId == null && other.DeviceId == null ||
+                 this.DeviceId?.Equals(other.DeviceId) == true) &&
+                (this.CampaignId == null && other.CampaignId == null ||
+                 this.CampaignId?.Equals(other.CampaignId) == true) &&
+                (this.AccountName == null && other.AccountName == null ||
+                 this.AccountName?.Equals(other.AccountName) == true) &&
+                (this.FirmwareName == null && other.FirmwareName == null ||
+                 this.FirmwareName?.Equals(other.FirmwareName) == true) &&
+                (this.FirmwareFrom == null && other.FirmwareFrom == null ||
+                 this.FirmwareFrom?.Equals(other.FirmwareFrom) == true) &&
+                (this.FirmwareTo == null && other.FirmwareTo == null ||
+                 this.FirmwareTo?.Equals(other.FirmwareTo) == true) &&
+                (this.StartDate.Equals(other.StartDate)) &&
+                (this.Status == null && other.Status == null ||
+                 this.Status?.Equals(other.Status) == true) &&
+                (this.Reason == null && other.Reason == null ||
+                 this.Reason?.Equals(other.Reason) == true) &&
+                (this.ReportUpdatedTime == null && other.ReportUpdatedTime == null ||
+                 this.ReportUpdatedTime?.Equals(other.ReportUpdatedTime) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId)}");
-            toStringOutput.Add($"this.CampaignId = {(this.CampaignId == null ? "null" : this.CampaignId)}");
-            toStringOutput.Add($"this.AccountName = {(this.AccountName == null ? "null" : this.AccountName)}");
-            toStringOutput.Add($"this.FirmwareName = {(this.FirmwareName == null ? "null" : this.FirmwareName)}");
-            toStringOutput.Add($"this.FirmwareFrom = {(this.FirmwareFrom == null ? "null" : this.FirmwareFrom)}");
-            toStringOutput.Add($"this.FirmwareTo = {(this.FirmwareTo == null ? "null" : this.FirmwareTo)}");
-            toStringOutput.Add($"this.StartDate = {this.StartDate}");
-            toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status)}");
-            toStringOutput.Add($"this.Reason = {(this.Reason == null ? "null" : this.Reason)}");
-            toStringOutput.Add($"this.ReportUpdatedTime = {(this.ReportUpdatedTime == null ? "null" : this.ReportUpdatedTime)}");
+            toStringOutput.Add($"DeviceId = {this.DeviceId ?? "null"}");
+            toStringOutput.Add($"CampaignId = {this.CampaignId ?? "null"}");
+            toStringOutput.Add($"AccountName = {this.AccountName ?? "null"}");
+            toStringOutput.Add($"FirmwareName = {this.FirmwareName ?? "null"}");
+            toStringOutput.Add($"FirmwareFrom = {this.FirmwareFrom ?? "null"}");
+            toStringOutput.Add($"FirmwareTo = {this.FirmwareTo ?? "null"}");
+            toStringOutput.Add($"StartDate = {this.StartDate}");
+            toStringOutput.Add($"Status = {this.Status ?? "null"}");
+            toStringOutput.Add($"Reason = {this.Reason ?? "null"}");
+            toStringOutput.Add($"ReportUpdatedTime = {this.ReportUpdatedTime ?? "null"}");
         }
     }
 }

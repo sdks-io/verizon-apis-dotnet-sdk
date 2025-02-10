@@ -111,48 +111,49 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"ProvisioningHistory : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is ProvisioningHistory other &&                ((this.OccurredAt == null && other.OccurredAt == null) || (this.OccurredAt?.Equals(other.OccurredAt) == true)) &&
-                ((this.Status == null && other.Status == null) || (this.Status?.Equals(other.Status) == true)) &&
-                ((this.EventBy == null && other.EventBy == null) || (this.EventBy?.Equals(other.EventBy) == true)) &&
-                ((this.EventType == null && other.EventType == null) || (this.EventType?.Equals(other.EventType) == true)) &&
-                ((this.Mdn == null && other.Mdn == null) || (this.Mdn?.Equals(other.Mdn) == true)) &&
-                ((this.Msisdn == null && other.Msisdn == null) || (this.Msisdn?.Equals(other.Msisdn) == true)) &&
-                ((this.ServicePlan == null && other.ServicePlan == null) || (this.ServicePlan?.Equals(other.ServicePlan) == true)) &&
-                ((this.ExtendedAttributes == null && other.ExtendedAttributes == null) || (this.ExtendedAttributes?.Equals(other.ExtendedAttributes) == true));
+            return obj is ProvisioningHistory other &&
+                (this.OccurredAt == null && other.OccurredAt == null ||
+                 this.OccurredAt?.Equals(other.OccurredAt) == true) &&
+                (this.Status == null && other.Status == null ||
+                 this.Status?.Equals(other.Status) == true) &&
+                (this.EventBy == null && other.EventBy == null ||
+                 this.EventBy?.Equals(other.EventBy) == true) &&
+                (this.EventType == null && other.EventType == null ||
+                 this.EventType?.Equals(other.EventType) == true) &&
+                (this.Mdn == null && other.Mdn == null ||
+                 this.Mdn?.Equals(other.Mdn) == true) &&
+                (this.Msisdn == null && other.Msisdn == null ||
+                 this.Msisdn?.Equals(other.Msisdn) == true) &&
+                (this.ServicePlan == null && other.ServicePlan == null ||
+                 this.ServicePlan?.Equals(other.ServicePlan) == true) &&
+                (this.ExtendedAttributes == null && other.ExtendedAttributes == null ||
+                 this.ExtendedAttributes?.Equals(other.ExtendedAttributes) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.OccurredAt = {(this.OccurredAt == null ? "null" : this.OccurredAt)}");
-            toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status)}");
-            toStringOutput.Add($"this.EventBy = {(this.EventBy == null ? "null" : this.EventBy)}");
-            toStringOutput.Add($"this.EventType = {(this.EventType == null ? "null" : this.EventType)}");
-            toStringOutput.Add($"this.Mdn = {(this.Mdn == null ? "null" : this.Mdn)}");
-            toStringOutput.Add($"this.Msisdn = {(this.Msisdn == null ? "null" : this.Msisdn)}");
-            toStringOutput.Add($"this.ServicePlan = {(this.ServicePlan == null ? "null" : this.ServicePlan)}");
-            toStringOutput.Add($"this.ExtendedAttributes = {(this.ExtendedAttributes == null ? "null" : $"[{string.Join(", ", this.ExtendedAttributes)} ]")}");
+            toStringOutput.Add($"OccurredAt = {this.OccurredAt ?? "null"}");
+            toStringOutput.Add($"Status = {this.Status ?? "null"}");
+            toStringOutput.Add($"EventBy = {this.EventBy ?? "null"}");
+            toStringOutput.Add($"EventType = {this.EventType ?? "null"}");
+            toStringOutput.Add($"Mdn = {this.Mdn ?? "null"}");
+            toStringOutput.Add($"Msisdn = {this.Msisdn ?? "null"}");
+            toStringOutput.Add($"ServicePlan = {this.ServicePlan ?? "null"}");
+            toStringOutput.Add($"ExtendedAttributes = {(this.ExtendedAttributes == null ? "null" : $"[{string.Join(", ", this.ExtendedAttributes)} ]")}");
         }
     }
 }

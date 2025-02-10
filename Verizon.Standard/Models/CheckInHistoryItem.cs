@@ -85,42 +85,39 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"CheckInHistoryItem : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is CheckInHistoryItem other &&                ((this.DeviceId == null && other.DeviceId == null) || (this.DeviceId?.Equals(other.DeviceId) == true)) &&
-                ((this.ClientType == null && other.ClientType == null) || (this.ClientType?.Equals(other.ClientType) == true)) &&
-                ((this.Result == null && other.Result == null) || (this.Result?.Equals(other.Result) == true)) &&
-                ((this.FailureType == null && other.FailureType == null) || (this.FailureType?.Equals(other.FailureType) == true)) &&
-                this.TimeCompleted.Equals(other.TimeCompleted);
+            return obj is CheckInHistoryItem other &&
+                (this.DeviceId == null && other.DeviceId == null ||
+                 this.DeviceId?.Equals(other.DeviceId) == true) &&
+                (this.ClientType == null && other.ClientType == null ||
+                 this.ClientType?.Equals(other.ClientType) == true) &&
+                (this.Result == null && other.Result == null ||
+                 this.Result?.Equals(other.Result) == true) &&
+                (this.FailureType == null && other.FailureType == null ||
+                 this.FailureType?.Equals(other.FailureType) == true) &&
+                (this.TimeCompleted.Equals(other.TimeCompleted));
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.DeviceId = {(this.DeviceId == null ? "null" : this.DeviceId)}");
-            toStringOutput.Add($"this.ClientType = {(this.ClientType == null ? "null" : this.ClientType)}");
-            toStringOutput.Add($"this.Result = {(this.Result == null ? "null" : this.Result)}");
-            toStringOutput.Add($"this.FailureType = {(this.FailureType == null ? "null" : this.FailureType)}");
-            toStringOutput.Add($"this.TimeCompleted = {this.TimeCompleted}");
+            toStringOutput.Add($"DeviceId = {this.DeviceId ?? "null"}");
+            toStringOutput.Add($"ClientType = {this.ClientType ?? "null"}");
+            toStringOutput.Add($"Result = {this.Result ?? "null"}");
+            toStringOutput.Add($"FailureType = {this.FailureType ?? "null"}");
+            toStringOutput.Add($"TimeCompleted = {this.TimeCompleted}");
         }
     }
 }

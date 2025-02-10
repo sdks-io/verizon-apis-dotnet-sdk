@@ -120,50 +120,52 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"CreateIoTApplicationRequest : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is CreateIoTApplicationRequest other &&                ((this.AppName == null && other.AppName == null) || (this.AppName?.Equals(other.AppName) == true)) &&
-                ((this.BillingAccountID == null && other.BillingAccountID == null) || (this.BillingAccountID?.Equals(other.BillingAccountID) == true)) &&
-                ((this.ClientID == null && other.ClientID == null) || (this.ClientID?.Equals(other.ClientID) == true)) &&
-                ((this.ClientSecret == null && other.ClientSecret == null) || (this.ClientSecret?.Equals(other.ClientSecret) == true)) &&
-                ((this.EmailIDs == null && other.EmailIDs == null) || (this.EmailIDs?.Equals(other.EmailIDs) == true)) &&
-                ((this.Resourcegroup == null && other.Resourcegroup == null) || (this.Resourcegroup?.Equals(other.Resourcegroup) == true)) &&
-                ((this.SampleIOTcApp == null && other.SampleIOTcApp == null) || (this.SampleIOTcApp?.Equals(other.SampleIOTcApp) == true)) &&
-                ((this.SubscriptionID == null && other.SubscriptionID == null) || (this.SubscriptionID?.Equals(other.SubscriptionID) == true)) &&
-                ((this.TenantID == null && other.TenantID == null) || (this.TenantID?.Equals(other.TenantID) == true));
+            return obj is CreateIoTApplicationRequest other &&
+                (this.AppName == null && other.AppName == null ||
+                 this.AppName?.Equals(other.AppName) == true) &&
+                (this.BillingAccountID == null && other.BillingAccountID == null ||
+                 this.BillingAccountID?.Equals(other.BillingAccountID) == true) &&
+                (this.ClientID == null && other.ClientID == null ||
+                 this.ClientID?.Equals(other.ClientID) == true) &&
+                (this.ClientSecret == null && other.ClientSecret == null ||
+                 this.ClientSecret?.Equals(other.ClientSecret) == true) &&
+                (this.EmailIDs == null && other.EmailIDs == null ||
+                 this.EmailIDs?.Equals(other.EmailIDs) == true) &&
+                (this.Resourcegroup == null && other.Resourcegroup == null ||
+                 this.Resourcegroup?.Equals(other.Resourcegroup) == true) &&
+                (this.SampleIOTcApp == null && other.SampleIOTcApp == null ||
+                 this.SampleIOTcApp?.Equals(other.SampleIOTcApp) == true) &&
+                (this.SubscriptionID == null && other.SubscriptionID == null ||
+                 this.SubscriptionID?.Equals(other.SubscriptionID) == true) &&
+                (this.TenantID == null && other.TenantID == null ||
+                 this.TenantID?.Equals(other.TenantID) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.AppName = {(this.AppName == null ? "null" : this.AppName)}");
-            toStringOutput.Add($"this.BillingAccountID = {(this.BillingAccountID == null ? "null" : this.BillingAccountID)}");
-            toStringOutput.Add($"this.ClientID = {(this.ClientID == null ? "null" : this.ClientID)}");
-            toStringOutput.Add($"this.ClientSecret = {(this.ClientSecret == null ? "null" : this.ClientSecret)}");
-            toStringOutput.Add($"this.EmailIDs = {(this.EmailIDs == null ? "null" : this.EmailIDs)}");
-            toStringOutput.Add($"this.Resourcegroup = {(this.Resourcegroup == null ? "null" : this.Resourcegroup)}");
-            toStringOutput.Add($"this.SampleIOTcApp = {(this.SampleIOTcApp == null ? "null" : this.SampleIOTcApp)}");
-            toStringOutput.Add($"this.SubscriptionID = {(this.SubscriptionID == null ? "null" : this.SubscriptionID)}");
-            toStringOutput.Add($"this.TenantID = {(this.TenantID == null ? "null" : this.TenantID)}");
+            toStringOutput.Add($"AppName = {this.AppName ?? "null"}");
+            toStringOutput.Add($"BillingAccountID = {this.BillingAccountID ?? "null"}");
+            toStringOutput.Add($"ClientID = {this.ClientID ?? "null"}");
+            toStringOutput.Add($"ClientSecret = {this.ClientSecret ?? "null"}");
+            toStringOutput.Add($"EmailIDs = {this.EmailIDs ?? "null"}");
+            toStringOutput.Add($"Resourcegroup = {this.Resourcegroup ?? "null"}");
+            toStringOutput.Add($"SampleIOTcApp = {this.SampleIOTcApp ?? "null"}");
+            toStringOutput.Add($"SubscriptionID = {this.SubscriptionID ?? "null"}");
+            toStringOutput.Add($"TenantID = {this.TenantID ?? "null"}");
         }
     }
 }

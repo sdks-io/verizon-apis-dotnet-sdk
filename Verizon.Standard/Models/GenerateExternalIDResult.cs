@@ -48,34 +48,28 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"GenerateExternalIDResult : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is GenerateExternalIDResult other &&                ((this.Externalid == null && other.Externalid == null) || (this.Externalid?.Equals(other.Externalid) == true));
+            return obj is GenerateExternalIDResult other &&
+                (this.Externalid == null && other.Externalid == null ||
+                 this.Externalid?.Equals(other.Externalid) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Externalid = {(this.Externalid == null ? "null" : this.Externalid)}");
+            toStringOutput.Add($"Externalid = {this.Externalid ?? "null"}");
         }
     }
 }

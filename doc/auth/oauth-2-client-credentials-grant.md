@@ -25,7 +25,7 @@ Documentation for accessing and setting credentials for thingspace_oauth.
 
 ### Client Initialization
 
-You must initialize the client with *OAuth 2.0 Client Credentials Grant* credentials as shown in the following code snippet. This will fetch the OAuth token automatically when any of the endpoints, requiring *OAuth 2.0 Client Credentials Grant* autentication, are called.
+You must initialize the client with *OAuth 2.0 Client Credentials Grant* credentials as shown in the following code snippet. This will fetch the OAuth token automatically when any of the endpoints, requiring *OAuth 2.0 Client Credentials Grant* authentication, are called.
 
 ```csharp
 VerizonClient client = new VerizonClient.Builder()
@@ -89,7 +89,7 @@ VerizonClient client = new VerizonClient.Builder()
                 OauthScopeThingspaceOauthEnum.Discoveryread,
                 OauthScopeThingspaceOauthEnum.Serviceprofileread,
             })
-        .oauthOnTokenUpdate(token -> 
+        .OauthOnTokenUpdate(token => 
         {
             // It will be triggered whenever the token gets updated
             SaveTokenToDatabase(token);
@@ -115,11 +115,11 @@ VerizonClient client = new VerizonClient.Builder()
                 OauthScopeThingspaceOauthEnum.Discoveryread,
                 OauthScopeThingspaceOauthEnum.Serviceprofileread,
             })
-        .oauthTokenProvider(async (token, credentialsManager) =>
+        .OauthTokenProvider(async (credentialsManager, token) =>
         {
             // Add the callback handler to provide a new OAuth token
-            // It will be triggered whenever the lastOAuthToken is undefined or expired
-            return LoadTokenFromDatabase() ?? await FetchTokenAsync()
+            // It will be triggered whenever the token is undefined or expired
+            return LoadTokenFromDatabase() ?? await credentialsManager.FetchTokenAsync();
         })
         .Build())
     .Build();

@@ -50,5 +50,25 @@ namespace Verizon.Standard.Exceptions
         /// </summary>
         [JsonProperty("fault", NullValueHandling = NullValueHandling.Ignore)]
         public Models.HyperPreciseLocationFault Fault { get; set; }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            var toStringOutput = new List<string>();
+            this.ToString(toStringOutput);
+            return $"HyperPreciseLocationResultException : ({string.Join(", ", toStringOutput)})";
+        }
+
+        /// <summary>
+        /// ToString overload.
+        /// </summary>
+        /// <param name="toStringOutput">List of strings.</param>
+        protected void ToString(List<string> toStringOutput)
+        {
+            base.ToString(toStringOutput);
+            toStringOutput.Add($"ResponseCode = {(this.ResponseCode == null ? "null" : this.ResponseCode.ToString())}");
+            toStringOutput.Add($"Message = {this.Message ?? "null"}");
+            toStringOutput.Add($"Fault = {(this.Fault == null ? "null" : this.Fault.ToString())}");
+        }
     }
 }

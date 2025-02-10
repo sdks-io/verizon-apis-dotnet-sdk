@@ -75,40 +75,37 @@ namespace Verizon.Standard.Models
         public override string ToString()
         {
             var toStringOutput = new List<string>();
-
             this.ToString(toStringOutput);
-
             return $"DeviceIdSearch : ({string.Join(", ", toStringOutput)})";
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            if (obj == this)
-            {
-                return true;
-            }
-            return obj is DeviceIdSearch other &&                ((this.Contains == null && other.Contains == null) || (this.Contains?.Equals(other.Contains) == true)) &&
-                ((this.Startswith == null && other.Startswith == null) || (this.Startswith?.Equals(other.Startswith) == true)) &&
-                ((this.Endswith == null && other.Endswith == null) || (this.Endswith?.Equals(other.Endswith) == true)) &&
-                ((this.Kind == null && other.Kind == null) || (this.Kind?.Equals(other.Kind) == true));
+            return obj is DeviceIdSearch other &&
+                (this.Contains == null && other.Contains == null ||
+                 this.Contains?.Equals(other.Contains) == true) &&
+                (this.Startswith == null && other.Startswith == null ||
+                 this.Startswith?.Equals(other.Startswith) == true) &&
+                (this.Endswith == null && other.Endswith == null ||
+                 this.Endswith?.Equals(other.Endswith) == true) &&
+                (this.Kind == null && other.Kind == null ||
+                 this.Kind?.Equals(other.Kind) == true);
         }
-        
+
         /// <summary>
         /// ToString overload.
         /// </summary>
         /// <param name="toStringOutput">List of strings.</param>
         protected void ToString(List<string> toStringOutput)
         {
-            toStringOutput.Add($"this.Contains = {(this.Contains == null ? "null" : this.Contains)}");
-            toStringOutput.Add($"this.Startswith = {(this.Startswith == null ? "null" : this.Startswith)}");
-            toStringOutput.Add($"this.Endswith = {(this.Endswith == null ? "null" : this.Endswith)}");
-            toStringOutput.Add($"this.Kind = {(this.Kind == null ? "null" : this.Kind)}");
+            toStringOutput.Add($"Contains = {this.Contains ?? "null"}");
+            toStringOutput.Add($"Startswith = {this.Startswith ?? "null"}");
+            toStringOutput.Add($"Endswith = {this.Endswith ?? "null"}");
+            toStringOutput.Add($"Kind = {this.Kind ?? "null"}");
         }
     }
 }
