@@ -14,7 +14,7 @@
 | `AccountName` | `string` | Optional | - |
 | `OrganizationName` | `string` | Optional | - |
 | `TriggerCategory` | `string` | Optional | - |
-| `TriggerAttributes` | [`List<KeyDataPercentage50>`](../../doc/models/key-data-percentage-50.md) | Optional | - |
+| `TriggerAttributes` | [`List<KeysChunk>`](../../doc/models/containers/keys-chunk.md) | Optional | - |
 | `CreatedAt` | `DateTime?` | Optional | - |
 | `ModifiedAt` | `DateTime?` | Optional | - |
 

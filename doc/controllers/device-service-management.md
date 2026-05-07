@@ -28,18 +28,18 @@ GetDeviceHyperPreciseStatusAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `imei` | `string` | Query, Required | A unique identifier for a device. |
-| `accountNumber` | `string` | Query, Required | A unique identifier for an account. |
+| `imei` | `string` | Query, Required | The International Mobile Equipment Identifier of the device. |
+| `accountNumber` | `string` | Query, Required | The numeric name of the account and must include leading zeroes. |
 
 ## Response Type
 
-[`Task<ApiResponse<Models.BullseyeServiceResult>>`](../../doc/models/bullseye-service-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.BullseyeServiceResult](../../doc/models/bullseye-service-result.md).
 
 ## Example Usage
 
 ```csharp
-string imei = "709312034493372";
-string accountNumber = "0844021539-00001";
+string imei = "15-digit IMEI";
+string accountNumber = "0000123456-00001";
 try
 {
     ApiResponse<BullseyeServiceResult> result = await deviceServiceManagementController.GetDeviceHyperPreciseStatusAsync(
@@ -49,22 +49,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "accountNumber": "0844021539-00001",
-  "deviceList": [
+    if (e is HyperPreciseLocationResultException)
     {
-      "imei": "709312034493372",
-      "BullseyeEnable": true
+       // TODO: Handle HyperPreciseLocationResultException exception here
     }
-  ]
 }
 ```
 
@@ -97,7 +86,7 @@ UpdateDeviceHyperPreciseStatusAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.BullseyeServiceResult>>`](../../doc/models/bullseye-service-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.BullseyeServiceResult](../../doc/models/bullseye-service-result.md).
 
 ## Example Usage
 
@@ -108,11 +97,14 @@ BullseyeServiceRequest body = new BullseyeServiceRequest
     {
         new DeviceServiceRequest
         {
-            Imei = "354658090356210",
-            BullseyeEnable = true,
+            Imei = "15-digit IMEI",
+            BullseyeEnable = new HplBullseyeEnable
+            {
+                BullseyeEnable = true,
+            },
         },
     },
-    AccountNumber = "0242080353-00001",
+    AccountNumber = "0000123456-00001",
 };
 
 try
@@ -121,22 +113,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "accountNumber": "0844021539-00001",
-  "deviceList": [
+    if (e is HyperPreciseLocationResultException)
     {
-      "imei": "709312034493372",
-      "BullseyeEnable": true
+       // TODO: Handle HyperPreciseLocationResultException exception here
     }
-  ]
 }
 ```
 

@@ -10,16 +10,22 @@
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `AccountName` | `string` | Required | - |
-| `MonitorIds` | `List<string>` | Required | - |
+| `Devices` | [`List<DeviceList>`](../../doc/models/device-list.md) | Required | - |
 
 ## Example (as JSON)
 
 ```json
 {
-  "accountName": "0242123520-00001",
-  "monitorIds": [
-    "35596ca6-bab4-4333-a914-42b4fc2da54c",
-    "35596ca6-bab4-4333-a914-42b4fc2da54b"
+  "accountName": "0000123456-00001",
+  "devices": [
+    {
+      "deviceIds": [
+        {
+          "id": "id0",
+          "kind": "kind8"
+        }
+      ]
+    }
   ]
 }
 ```

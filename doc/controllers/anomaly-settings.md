@@ -32,7 +32,7 @@ ActivateAnomalyDetectionAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.IntelligenceSuccessResult>>`](../../doc/models/intelligence-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.IntelligenceSuccessResult](../../doc/models/intelligence-success-result.md).
 
 ## Example Usage
 
@@ -56,8 +56,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is IntelligenceResultException)
+    {
+       // TODO: Handle IntelligenceResultException exception here
+    }
 }
 ```
 
@@ -93,7 +96,7 @@ ListAnomalyDetectionSettingsAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.AnomalyDetectionSettings>>`](../../doc/models/anomaly-detection-settings.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.AnomalyDetectionSettings](../../doc/models/anomaly-detection-settings.md).
 
 ## Example Usage
 
@@ -105,8 +108,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is IntelligenceResultException)
+    {
+       // TODO: Handle IntelligenceResultException exception here
+    }
 }
 ```
 
@@ -149,7 +155,7 @@ ResetAnomalyDetectionParametersAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.IntelligenceSuccessResult>>`](../../doc/models/intelligence-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.IntelligenceSuccessResult](../../doc/models/intelligence-success-result.md).
 
 ## Example Usage
 
@@ -161,8 +167,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is IntelligenceResultException)
+    {
+       // TODO: Handle IntelligenceResultException exception here
+    }
 }
 ```
 

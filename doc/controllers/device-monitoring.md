@@ -29,14 +29,14 @@ DeviceReachabilityAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.RequestResponse>>`](../../doc/models/request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.RequestResponse](../../doc/models/request-response.md).
 
 ## Example Usage
 
 ```csharp
 NotificationReportRequest body = new NotificationReportRequest
 {
-    AccountName = "0242072320-00001",
+    AccountName = "0000123456-00001",
     RequestType = "REACHABLE_FOR_DATA",
     Devices = new List<DeviceList>
     {
@@ -46,12 +46,12 @@ NotificationReportRequest body = new NotificationReportRequest
             {
                 new DeviceId
                 {
-                    Id = "89148000004292933820",
+                    Id = "20-digit ICCID",
                     Kind = "iccid",
                 },
                 new DeviceId
                 {
-                    Id = "89148000003164287919",
+                    Id = "20-digit ICCID",
                     Kind = "iccid",
                 },
             },
@@ -66,8 +66,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is RestErrorResponseException)
+    {
+       // TODO: Handle RestErrorResponseException exception here
+    }
 }
 ```
 
@@ -82,39 +85,52 @@ catch (ApiException e)
 
 ```csharp
 StopDeviceReachabilityAsync(
-    Models.StopMonitorRequest body = null)
+    Models.StopMonitorRequest stopreachabilitypayload)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`StopMonitorRequest`](../../doc/models/stop-monitor-request.md) | Body, Optional | - |
+| `stopreachabilitypayload` | [`StopMonitorRequest`](../../doc/models/stop-monitor-request.md) | Query, Required | Payload for the Stop Device Reachability monitors request. |
 
 ## Response Type
 
-[`Task<ApiResponse<Models.RequestResponse>>`](../../doc/models/request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.RequestResponse](../../doc/models/request-response.md).
 
 ## Example Usage
 
 ```csharp
-StopMonitorRequest body = new StopMonitorRequest
+StopMonitorRequest stopreachabilitypayload = new StopMonitorRequest
 {
-    AccountName = "0242123520-00001",
-    MonitorIds = new List<string>
+    AccountName = "0000123456-00001",
+    Devices = new List<DeviceList>
     {
-        "35596ca6-bab4-4333-a914-42b4fc2da54c",
+        new DeviceList
+        {
+            DeviceIds = new List<DeviceId>
+            {
+                new DeviceId
+                {
+                    Id = "1+ 10-digit phone number",
+                    Kind = "msisdn",
+                },
+            },
+        },
     },
 };
 
 try
 {
-    ApiResponse<RequestResponse> result = await deviceMonitoringController.StopDeviceReachabilityAsync(body);
+    ApiResponse<RequestResponse> result = await deviceMonitoringController.StopDeviceReachabilityAsync(stopreachabilitypayload);
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is RestErrorResponseException)
+    {
+       // TODO: Handle RestErrorResponseException exception here
+    }
 }
 ```
 

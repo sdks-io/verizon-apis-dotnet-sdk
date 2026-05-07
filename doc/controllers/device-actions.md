@@ -36,7 +36,7 @@ AggregateUsageAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GIORequestResponse](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 
@@ -51,8 +51,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -80,7 +83,7 @@ DailyUsageAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DailyUsageResponse>>`](../../doc/models/daily-usage-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DailyUsageResponse](../../doc/models/daily-usage-response.md).
 
 ## Example Usage
 
@@ -95,8 +98,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -124,7 +130,7 @@ ServicePlanListAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.AccountDetails>>`](../../doc/models/account-details.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.AccountDetails](../../doc/models/account-details.md).
 
 ## Example Usage
 
@@ -136,8 +142,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -165,7 +174,7 @@ AccountInformationAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.AccountDetails>>`](../../doc/models/account-details.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.AccountDetails](../../doc/models/account-details.md).
 
 ## Example Usage
 
@@ -177,8 +186,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -206,7 +218,7 @@ RetrieveTheGlobalDeviceListAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GIORequestResponse](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 
@@ -224,8 +236,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -253,7 +268,7 @@ RetrieveDeviceProvisioningHistoryAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GIORequestResponse](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 
@@ -275,8 +290,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -306,7 +324,7 @@ GetAsynchronousRequestStatusAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.StatusResponse>>`](../../doc/models/status-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.StatusResponse](../../doc/models/status-response.md).
 
 ## Example Usage
 
@@ -322,8 +340,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 

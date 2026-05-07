@@ -35,7 +35,7 @@ ListDevicesLocationsSynchronousAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.Location>>>`](../../doc/models/location.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.Location>](../../doc/models/location.md).
 
 ## Example Usage
 
@@ -68,8 +68,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -135,7 +138,7 @@ ListDevicesLocationsAsynchronousAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.SynchronousLocationRequestResult>>`](../../doc/models/synchronous-location-request-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.SynchronousLocationRequestResult](../../doc/models/synchronous-location-request-result.md).
 
 ## Example Usage
 
@@ -162,8 +165,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -200,7 +206,7 @@ CreateLocationReportAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.AsynchronousLocationRequestResult>>`](../../doc/models/asynchronous-location-request-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.AsynchronousLocationRequestResult](../../doc/models/asynchronous-location-request-result.md).
 
 ## Example Usage
 
@@ -239,8 +245,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -281,7 +290,7 @@ RetrieveLocationReportAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.LocationReport>>`](../../doc/models/location-report.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.LocationReport](../../doc/models/location-report.md).
 
 ## Example Usage
 
@@ -299,8 +308,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -374,7 +386,7 @@ GetLocationReportStatusAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.LocationReportStatus>>`](../../doc/models/location-report-status.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.LocationReportStatus](../../doc/models/location-report-status.md).
 
 ## Example Usage
 
@@ -390,8 +402,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -430,7 +445,7 @@ CancelQueuedLocationReportGenerationAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.TransactionID>>`](../../doc/models/transaction-id.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.TransactionID](../../doc/models/transaction-id.md).
 
 ## Example Usage
 
@@ -446,8 +461,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 

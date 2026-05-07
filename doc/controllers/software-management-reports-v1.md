@@ -34,7 +34,7 @@ ListAccountDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceListQueryResult>>`](../../doc/models/device-list-query-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceListQueryResult](../../doc/models/device-list-query-result.md).
 
 ## Example Usage
 
@@ -50,8 +50,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV1ResultException)
+    {
+       // TODO: Handle FotaV1ResultException exception here
+    }
 }
 ```
 
@@ -125,7 +128,7 @@ ListUpgradesForSpecifiedStatusAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.UpgradeListQueryResult>>`](../../doc/models/upgrade-list-query-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.UpgradeListQueryResult](../../doc/models/upgrade-list-query-result.md).
 
 ## Example Usage
 
@@ -143,8 +146,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV1ResultException)
+    {
+       // TODO: Handle FotaV1ResultException exception here
+    }
 }
 ```
 
@@ -174,7 +180,7 @@ GetDeviceFirmwareUpgradeHistoryAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.DeviceUpgradeHistory>>>`](../../doc/models/device-upgrade-history.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.DeviceUpgradeHistory>](../../doc/models/device-upgrade-history.md).
 
 ## Example Usage
 
@@ -190,8 +196,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV1ResultException)
+    {
+       // TODO: Handle FotaV1ResultException exception here
+    }
 }
 ```
 

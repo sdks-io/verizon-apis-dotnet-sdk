@@ -42,14 +42,8 @@ Used to define callbacks including the device identity, the attribute names, cor
       "kind": "IMEI"
     }
   ],
-  "frequency": {
-    "value": 76,
-    "unit": "SECOND"
-  },
-  "duration": {
-    "value": 176,
-    "unit": "SECOND"
-  }
+  "frequency": null,
+  "duration": null
 }
 ```
 

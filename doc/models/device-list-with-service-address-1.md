@@ -1,5 +1,5 @@
 
-# Device List With Service Address 1
+# Device List with Service Address 1
 
 ## Structure
 
@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `DeviceId` | [`List<M5gBideviceId1>`](../../doc/models/5g-bidevice-id-1.md) | Optional | - |
-| `PrimaryPlaceofuse` | [`M5gBiprimaryPlaceofuse`](../../doc/models/5g-biprimary-placeofuse.md) | Optional | - |
+| `DeviceId` | [`List<DeviceListWithServiceAddress1DeviceId>`](../../doc/models/containers/device-list-with-service-address-1-device-id.md) | Optional | This is List of a container for any-of cases. |
+| `PrimaryPlaceofuse` | [`M5gBiprimaryPlaceofuse`](../../doc/models/m5-g-biprimary-placeofuse.md) | Optional | - |
 
 ## Example (as JSON)
 

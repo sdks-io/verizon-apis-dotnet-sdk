@@ -34,7 +34,7 @@ KPIListAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.KPIInfoList>>`](../../doc/models/kpi-info-list.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.KPIInfoList](../../doc/models/kpi-info-list.md).
 
 ## Example Usage
 
@@ -46,7 +46,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -86,7 +85,7 @@ GetProfileListAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.PWNProfileList>>`](../../doc/models/pwn-profile-list.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.PWNProfileList](../../doc/models/pwn-profile-list.md).
 
 ## Example Usage
 
@@ -98,7 +97,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -132,7 +130,7 @@ ChangePWNDeviceStateActivateAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ChangePWNDeviceStateResponse>>`](../../doc/models/change-pwn-device-state-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ChangePWNDeviceStateResponse](../../doc/models/change-pwn-device-state-response.md).
 
 ## Example Usage
 
@@ -166,7 +164,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -195,7 +192,7 @@ ChangePWNDeviceStateDeactivateAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ChangePWNDeviceStateResponse>>`](../../doc/models/change-pwn-device-state-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ChangePWNDeviceStateResponse](../../doc/models/change-pwn-device-state-response.md).
 
 ## Example Usage
 
@@ -236,7 +233,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -265,7 +261,7 @@ ChangePWNDeviceProfileAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ChangePWNDeviceProfileResponse>>`](../../doc/models/change-pwn-device-profile-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ChangePWNDeviceProfileResponse](../../doc/models/change-pwn-device-profile-response.md).
 
 ## Example Usage
 
@@ -296,7 +292,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -325,7 +320,7 @@ ChangePWNDeviceIpaddressAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ChangePWNDeviceIpaddressResponse>>`](../../doc/models/change-pwn-device-ipaddress-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ChangePWNDeviceIpaddressResponse](../../doc/models/change-pwn-device-ipaddress-response.md).
 
 ## Example Usage
 
@@ -368,7 +363,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -397,7 +391,7 @@ GetPWNPerformanceConsentAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GetPWNPerformanceConsentResponse>>`](../../doc/models/get-pwn-performance-consent-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GetPWNPerformanceConsentResponse](../../doc/models/get-pwn-performance-consent-response.md).
 
 ## Example Usage
 
@@ -409,7 +403,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```

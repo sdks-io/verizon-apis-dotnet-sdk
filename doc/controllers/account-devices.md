@@ -31,11 +31,11 @@ GetAccountDeviceInformationAsync(
 |  --- | --- | --- | --- |
 | `acc` | `string` | Template, Required | Account identifier. |
 | `lastSeenDeviceId` | `string` | Query, Optional | Last seen device identifier. |
-| `protocol` | [`DevicesProtocolEnum?`](../../doc/models/devices-protocol-enum.md) | Query, Optional | Filter to retrieve a specific protocol type used.<br>**Default**: `DevicesProtocolEnum.LWM2M` |
+| `protocol` | [`DevicesProtocolEnum?`](../../doc/models/devices-protocol-enum.md) | Query, Optional | Filter to retrieve a specific protocol type used.<br><br>**Default**: `DevicesProtocolEnum.LWM2M` |
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V3AccountDeviceList>>`](../../doc/models/v3-account-device-list.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V3AccountDeviceList](../../doc/models/v3-account-device-list.md).
 
 ## Example Usage
 
@@ -53,8 +53,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 
@@ -84,7 +87,7 @@ ListAccountDevicesInformationAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceListResult>>`](../../doc/models/device-list-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceListResult](../../doc/models/device-list-result.md).
 
 ## Example Usage
 
@@ -107,8 +110,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 

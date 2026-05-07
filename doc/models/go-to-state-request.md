@@ -78,25 +78,7 @@ Changes the provisioning state of one or more devices to a specified customer-de
       "country": "USA"
     }
   },
-  "filter": {
-    "account": "account4",
-    "groupName": "groupName6",
-    "servicePlan": "servicePlan6",
-    "customFields": [
-      {
-        "key": "key0",
-        "value": "value2"
-      },
-      {
-        "key": "key0",
-        "value": "value2"
-      },
-      {
-        "key": "key0",
-        "value": "value2"
-      }
-    ]
-  },
+  "filter": null,
   "carrierIpPoolName": "carrierIpPoolName8",
   "skuNumber": "skuNumber6"
 }

@@ -37,39 +37,12 @@ Request to move active devices from one billing account to another within a cust
   "accountName": "0212345678-00001",
   "servicePlan": "M2M5GB",
   "customFields": [
-    {
-      "key": "key0",
-      "value": "value2"
-    }
+    null
   ],
   "devices": [
-    {
-      "deviceIds": [
-        {
-          "id": "id0",
-          "kind": "kind8"
-        }
-      ],
-      "ipAddress": "ipAddress4"
-    },
-    {
-      "deviceIds": [
-        {
-          "id": "id0",
-          "kind": "kind8"
-        }
-      ],
-      "ipAddress": "ipAddress4"
-    },
-    {
-      "deviceIds": [
-        {
-          "id": "id0",
-          "kind": "kind8"
-        }
-      ],
-      "ipAddress": "ipAddress4"
-    }
+    null,
+    {},
+    {}
   ],
   "groupName": "groupName2",
   "carrierIpPoolName": "carrierIpPoolName0"

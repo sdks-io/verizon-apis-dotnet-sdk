@@ -33,7 +33,7 @@ AddAccountAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ManagedAccountsAddResponse>>`](../../doc/models/managed-accounts-add-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ManagedAccountsAddResponse](../../doc/models/managed-accounts-add-response.md).
 
 ## Example Usage
 
@@ -57,8 +57,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -111,7 +114,7 @@ ManagedAccountActionAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ManagedAccountsProvisionResponse>>`](../../doc/models/managed-accounts-provision-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ManagedAccountsProvisionResponse](../../doc/models/managed-accounts-provision-response.md).
 
 ## Example Usage
 
@@ -131,8 +134,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -173,7 +179,7 @@ CancelManagedAccountActionAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ManagedAccountCancelResponse>>`](../../doc/models/managed-account-cancel-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ManagedAccountCancelResponse](../../doc/models/managed-account-cancel-response.md).
 
 ## Example Usage
 
@@ -193,8 +199,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -237,7 +246,7 @@ ListManagedAccountAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ManagedAccountsGetAllResponse>>`](../../doc/models/managed-accounts-get-all-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ManagedAccountsGetAllResponse](../../doc/models/managed-accounts-get-all-response.md).
 
 ## Example Usage
 
@@ -253,8 +262,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 

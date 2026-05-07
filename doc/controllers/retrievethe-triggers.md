@@ -26,7 +26,7 @@ GetAllAvailableTriggersAsync()
 
 ## Response Type
 
-[`Task<ApiResponse<Models.TriggerValueResponse>>`](../../doc/models/trigger-value-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.TriggerValueResponse](../../doc/models/trigger-value-response.md).
 
 ## Example Usage
 
@@ -37,8 +37,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ReadySimRestErrorResponseException)
+    {
+       // TODO: Handle ReadySimRestErrorResponseException exception here
+    }
 }
 ```
 
@@ -66,7 +69,7 @@ GetAllTriggersByAccountNameAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.TriggerValueResponse>>`](../../doc/models/trigger-value-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.TriggerValueResponse](../../doc/models/trigger-value-response.md).
 
 ## Example Usage
 
@@ -78,8 +81,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ReadySimRestErrorResponseException)
+    {
+       // TODO: Handle ReadySimRestErrorResponseException exception here
+    }
 }
 ```
 
@@ -100,7 +106,7 @@ GetAllTriggersByTriggerCategoryAsync()
 
 ## Response Type
 
-[`Task<ApiResponse<Models.TriggerValueResponse2>>`](../../doc/models/trigger-value-response-2.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.TriggerValueResponse2](../../doc/models/trigger-value-response-2.md).
 
 ## Example Usage
 
@@ -111,8 +117,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ReadySimRestErrorResponseException)
+    {
+       // TODO: Handle ReadySimRestErrorResponseException exception here
+    }
 }
 ```
 
@@ -140,7 +149,7 @@ GetTriggersByIdAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.TriggerValueResponse2>>`](../../doc/models/trigger-value-response-2.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.TriggerValueResponse2](../../doc/models/trigger-value-response-2.md).
 
 ## Example Usage
 
@@ -152,8 +161,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ReadySimRestErrorResponseException)
+    {
+       // TODO: Handle ReadySimRestErrorResponseException exception here
+    }
 }
 ```
 

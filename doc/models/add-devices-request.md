@@ -11,7 +11,7 @@ Request to add the devices.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `State` | `string` | Required | The initial service state for the devices. The only valid state is “Preactive.” |
+| `State` | `string` | Required | The initial service state for the devices. The only valid state is “Pre-active.” |
 | `DevicesToAdd` | [`List<AccountDeviceList>`](../../doc/models/account-device-list.md) | Required | The devices that you want to add. |
 | `AccountName` | `string` | Optional | The billing account to which the devices are added. |
 | `CustomFields` | [`List<CustomFields>`](../../doc/models/custom-fields.md) | Optional | The names and values for any custom fields that you want set for the devices as they are added to the account. |
@@ -23,7 +23,7 @@ Request to add the devices.
 
 ```json
 {
-  "accountName": "0868924207-00001",
+  "accountName": "0000123456-00001",
   "customFields": [
     {
       "key": "CustomField2",
@@ -35,11 +35,11 @@ Request to add the devices.
       "deviceIds": [
         {
           "kind": "imei",
-          "id": "990013907835573"
+          "id": "15-digit IMEI"
         },
         {
           "kind": "iccid",
-          "id": "89141390780800784259"
+          "id": "20-digit ICCID"
         }
       ],
       "ipAddress": "ipAddress2"
@@ -48,18 +48,18 @@ Request to add the devices.
       "deviceIds": [
         {
           "kind": "imei",
-          "id": "990013907884259"
+          "id": "15-digit IMEI"
         },
         {
           "kind": "iccid",
-          "id": "89141390780800735573"
+          "id": "20-digit ICCID"
         }
       ],
       "ipAddress": "ipAddress2"
     }
   ],
   "groupName": "West Region",
-  "state": "preactive",
+  "state": "Pre-active",
   "skuNumber": "skuNumber2",
   "smsrOid": "smsrOid6"
 }

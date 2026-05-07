@@ -35,10 +35,7 @@ Changes the identifier of a 3G or 4G device to match hardware changes made for a
   "npaNxx": "509393",
   "servicePlan": "M2M2GB",
   "deviceIdsTo": [
-    {
-      "id": "id6",
-      "kind": "kind4"
-    }
+    null
   ]
 }
 ```

@@ -36,7 +36,7 @@ ListAvailableSoftwareAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.SoftwarePackage>>>`](../../doc/models/software-package.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.SoftwarePackage>](../../doc/models/software-package.md).
 
 ## Example Usage
 
@@ -52,8 +52,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -101,7 +104,7 @@ ListAccountDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V2AccountDeviceList>>`](../../doc/models/v2-account-device-list.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V2AccountDeviceList](../../doc/models/v2-account-device-list.md).
 
 ## Example Usage
 
@@ -119,8 +122,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -226,7 +232,7 @@ GetDeviceFirmwareUpgradeHistoryAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.DeviceSoftwareUpgrade>>>`](../../doc/models/device-software-upgrade.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.DeviceSoftwareUpgrade>](../../doc/models/device-software-upgrade.md).
 
 ## Example Usage
 
@@ -242,8 +248,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -300,7 +309,7 @@ GetCampaignHistoryByStatusAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V2CampaignHistory>>`](../../doc/models/v2-campaign-history.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V2CampaignHistory](../../doc/models/v2-campaign-history.md).
 
 ## Example Usage
 
@@ -318,8 +327,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -390,7 +402,7 @@ GetCampaignDeviceStatusAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V2CampaignDevice>>`](../../doc/models/v2-campaign-device.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V2CampaignDevice](../../doc/models/v2-campaign-device.md).
 
 ## Example Usage
 
@@ -408,8 +420,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 

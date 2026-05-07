@@ -31,7 +31,7 @@ GetAccountSubscriptionStatusAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V1AccountSubscription>>`](../../doc/models/v1-account-subscription.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V1AccountSubscription](../../doc/models/v1-account-subscription.md).
 
 ## Example Usage
 
@@ -43,8 +43,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV1ResultException)
+    {
+       // TODO: Handle FotaV1ResultException exception here
+    }
 }
 ```
 
@@ -86,7 +89,7 @@ GetAccountLicenseStatusAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.AccountLicenseInfo>>`](../../doc/models/account-license-info.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.AccountLicenseInfo](../../doc/models/account-license-info.md).
 
 ## Example Usage
 
@@ -102,8 +105,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV1ResultException)
+    {
+       // TODO: Handle FotaV1ResultException exception here
+    }
 }
 ```
 

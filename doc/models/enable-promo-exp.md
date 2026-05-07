@@ -9,13 +9,15 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `EnablePromoExp` | `bool?` | Optional | - |
+| `Key` | `string` | Optional | - |
+| `MValue` | `bool?` | Optional | - |
 
 ## Example (as JSON)
 
 ```json
 {
-  "enablePromoExp": true
+  "key": "EnablePromoExp",
+  "value": true
 }
 ```
 

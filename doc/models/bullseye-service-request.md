@@ -12,7 +12,7 @@ Account number and list of devices.
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `DeviceList` | [`List<DeviceServiceRequest>`](../../doc/models/device-service-request.md) | Required | A list of devices. |
-| `AccountNumber` | `string` | Required | A unique identifier for an account. |
+| `AccountNumber` | `string` | Required | The numeric ID of the account and must include leading zeroes. This value is indentical to `accountName`. |
 
 ## Example (as JSON)
 
@@ -20,11 +20,13 @@ Account number and list of devices.
 {
   "deviceList": [
     {
-      "imei": "354658090356210",
-      "BullseyeEnable": true
+      "imei": "15-digit IMEI",
+      "BullseyeEnable": {
+        "BullseyeEnable": true
+      }
     }
   ],
-  "accountNumber": "0242080353-00001"
+  "accountNumber": "0000123456-00001"
 }
 ```
 

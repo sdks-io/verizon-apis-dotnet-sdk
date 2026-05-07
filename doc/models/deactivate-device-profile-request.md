@@ -29,48 +29,48 @@
     {
       "ids": [
         {
-          "id": "id4",
-          "kind": "kind2"
+          "id": "id2",
+          "kind": "kind0"
         },
         {
-          "id": "id4",
-          "kind": "kind2"
+          "id": "id2",
+          "kind": "kind0"
         },
         {
-          "id": "id4",
-          "kind": "kind2"
+          "id": "id2",
+          "kind": "kind0"
         }
       ]
     },
     {
       "ids": [
         {
-          "id": "id4",
-          "kind": "kind2"
+          "id": "id2",
+          "kind": "kind0"
         },
         {
-          "id": "id4",
-          "kind": "kind2"
+          "id": "id2",
+          "kind": "kind0"
         },
         {
-          "id": "id4",
-          "kind": "kind2"
+          "id": "id2",
+          "kind": "kind0"
         }
       ]
     },
     {
       "ids": [
         {
-          "id": "id4",
-          "kind": "kind2"
+          "id": "id2",
+          "kind": "kind0"
         },
         {
-          "id": "id4",
-          "kind": "kind2"
+          "id": "id2",
+          "kind": "kind0"
         },
         {
-          "id": "id4",
-          "kind": "kind2"
+          "id": "id2",
+          "kind": "kind0"
         }
       ]
     }

@@ -1,5 +1,5 @@
 
-# Log in Request
+# Log In Request
 
 Request to initiate a Connectivity Management session and returns a VZ-M2M session token that is required in subsequent API requests.
 

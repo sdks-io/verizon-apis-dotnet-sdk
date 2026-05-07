@@ -13,7 +13,7 @@ Device list information.
 |  --- | --- | --- | --- |
 | `AccountName` | `string` | Required | Account name. |
 | `DeviceCount` | `int` | Required | Total device count. |
-| `DeviceList` | [`List<V3Device>`](../../doc/models/v3-device.md) | Required | List of devices with id in IMEI.<br>**Constraints**: *Maximum Items*: `1000` |
+| `DeviceList` | [`List<V3Device>`](../../doc/models/v3-device.md) | Required | List of devices with id in IMEI.<br><br>**Constraints**: *Maximum Items*: `1000` |
 
 ## Example (as JSON)
 

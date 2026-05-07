@@ -23,8 +23,8 @@ Request for device status to check availability of activation.
     {
       "deviceIds": [
         {
-          "kind": "meid",
-          "id": "A100008385E561"
+          "kind": "imei",
+          "id": "15-digit IMEI"
         }
       ],
       "ipAddress": "ipAddress4"

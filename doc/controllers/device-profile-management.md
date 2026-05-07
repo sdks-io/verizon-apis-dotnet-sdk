@@ -10,13 +10,13 @@ DeviceProfileManagementController deviceProfileManagementController = client.Dev
 
 ## Methods
 
-* [Activate Device Through Profile](../../doc/controllers/device-profile-management.md#activate-device-through-profile)
+* [Activate Device through Profile](../../doc/controllers/device-profile-management.md#activate-device-through-profile)
 * [Profile to Activate Device](../../doc/controllers/device-profile-management.md#profile-to-activate-device)
 * [Profile to Deactivate Device](../../doc/controllers/device-profile-management.md#profile-to-deactivate-device)
 * [Profile to Set Fallback Attribute](../../doc/controllers/device-profile-management.md#profile-to-set-fallback-attribute)
 
 
-# Activate Device Through Profile
+# Activate Device through Profile
 
 Uses the profile to bring the device under management.
 
@@ -33,7 +33,7 @@ ActivateDeviceThroughProfileAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.RequestResponse>>`](../../doc/models/request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.RequestResponse](../../doc/models/request-response.md).
 
 ## Example Usage
 
@@ -70,8 +70,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is RestErrorResponseException)
+    {
+       // TODO: Handle RestErrorResponseException exception here
+    }
 }
 ```
 
@@ -99,7 +102,7 @@ ProfileToActivateDeviceAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.RequestResponse>>`](../../doc/models/request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.RequestResponse](../../doc/models/request-response.md).
 
 ## Example Usage
 
@@ -124,8 +127,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is RestErrorResponseException)
+    {
+       // TODO: Handle RestErrorResponseException exception here
+    }
 }
 ```
 
@@ -153,7 +159,7 @@ ProfileToDeactivateDeviceAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.RequestResponse>>`](../../doc/models/request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.RequestResponse](../../doc/models/request-response.md).
 
 ## Example Usage
 
@@ -173,8 +179,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is RestErrorResponseException)
+    {
+       // TODO: Handle RestErrorResponseException exception here
+    }
 }
 ```
 
@@ -202,7 +211,7 @@ ProfileToSetFallbackAttributeAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.RequestResponse>>`](../../doc/models/request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.RequestResponse](../../doc/models/request-response.md).
 
 ## Example Usage
 
@@ -225,8 +234,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is RestErrorResponseException)
+    {
+       // TODO: Handle RestErrorResponseException exception here
+    }
 }
 ```
 

@@ -33,7 +33,7 @@
   "accountName": "accountName6",
   "dataTriggerRequest": {
     "comparator": "comparator2",
-    "threshold": 242,
+    "threshold": 100,
     "thresholdUnit": "thresholdUnit6"
   },
   "groupName": "groupName2",

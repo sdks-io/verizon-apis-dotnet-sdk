@@ -22,10 +22,7 @@ Request to return the daily network data usage of a single device during a speci
 {
   "earliest": "2018-03-20T00:00:01Z",
   "latest": "2020-12-31T00:00:01Z",
-  "deviceId": {
-    "id": "id0",
-    "kind": "kind8"
-  },
+  "deviceId": null,
   "label": {
     "name": "name0",
     "value": "value2"

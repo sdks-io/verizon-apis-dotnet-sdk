@@ -36,7 +36,7 @@ ScheduleCampaignFirmwareUpgradeAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.FirmwareCampaign>>`](../../doc/models/firmware-campaign.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.FirmwareCampaign](../../doc/models/firmware-campaign.md).
 
 ## Example Usage
 
@@ -76,8 +76,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 
@@ -134,7 +137,7 @@ UpdateCampaignFirmwareDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V3AddOrRemoveDeviceResult>>`](../../doc/models/v3-add-or-remove-device-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V3AddOrRemoveDeviceResult](../../doc/models/v3-add-or-remove-device-result.md).
 
 ## Example Usage
 
@@ -160,8 +163,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 
@@ -209,7 +215,7 @@ UpdateCampaignDatesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.FirmwareCampaign>>`](../../doc/models/firmware-campaign.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.FirmwareCampaign](../../doc/models/firmware-campaign.md).
 
 ## Example Usage
 
@@ -240,8 +246,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 
@@ -296,7 +305,7 @@ GetCampaignInformationAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.Campaign>>`](../../doc/models/campaign.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.Campaign](../../doc/models/campaign.md).
 
 ## Example Usage
 
@@ -312,8 +321,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 
@@ -370,7 +382,7 @@ CancelCampaignAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.FotaV3SuccessResult>>`](../../doc/models/fota-v3-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.FotaV3SuccessResult](../../doc/models/fota-v3-success-result.md).
 
 ## Example Usage
 
@@ -386,8 +398,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 

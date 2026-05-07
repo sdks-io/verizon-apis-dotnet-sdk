@@ -19,7 +19,7 @@
 {
   "comparator": "comparator0",
   "smsType": "smsType6",
-  "threshold": 222
+  "threshold": 100
 }
 ```
 

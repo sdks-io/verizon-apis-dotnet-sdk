@@ -1,5 +1,5 @@
 
-# Device List With Service Address
+# Device List with Service Address
 
 ## Structure
 
@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `DeviceId` | [`List<M5gBideviceId1>`](../../doc/models/5g-bidevice-id-1.md) | Optional | - |
-| `PrimaryPlaceofuse` | [`M5gBiaddressAndcustomerinfo`](../../doc/models/5g-biaddress-andcustomerinfo.md) | Optional | - |
+| `DeviceId` | [`List<M5gBideviceId1>`](../../doc/models/m5-g-bidevice-id-1.md) | Optional | - |
+| `PrimaryPlaceofuse` | [`M5gBiaddressAndcustomerinfo`](../../doc/models/m5-g-biaddress-andcustomerinfo.md) | Optional | - |
 
 ## Example (as JSON)
 

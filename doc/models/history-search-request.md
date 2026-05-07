@@ -26,18 +26,10 @@ Used to filter data by time period or number of devices.
       "id": "15-digit IMEI",
       "kind": "IMEI"
     },
-    "attributes": {
-      "name": "MANUFACTURER"
-    }
+    "attributes": null
   },
   "$limitNumber": 10,
-  "$limitTime": {
-    "startOn": "2016-03-13T12:52:32.123Z",
-    "duration": {
-      "value": 176,
-      "unit": "SECOND"
-    }
-  },
+  "$limitTime": null,
   "$page": "$page2"
 }
 ```

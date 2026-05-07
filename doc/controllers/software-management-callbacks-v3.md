@@ -33,7 +33,7 @@ ListRegisteredCallbacksAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.FotaV3CallbackSummary>>`](../../doc/models/fota-v3-callback-summary.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.FotaV3CallbackSummary](../../doc/models/fota-v3-callback-summary.md).
 
 ## Example Usage
 
@@ -45,8 +45,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 
@@ -84,7 +87,7 @@ UpdateCallbackAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.FotaV3CallbackRegistrationResult>>`](../../doc/models/fota-v3-callback-registration-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.FotaV3CallbackRegistrationResult](../../doc/models/fota-v3-callback-registration-result.md).
 
 ## Example Usage
 
@@ -104,8 +107,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 
@@ -143,7 +149,7 @@ RegisterCallbackAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.FotaV3CallbackRegistrationResult>>`](../../doc/models/fota-v3-callback-registration-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.FotaV3CallbackRegistrationResult](../../doc/models/fota-v3-callback-registration-result.md).
 
 ## Example Usage
 
@@ -163,8 +169,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 
@@ -200,7 +209,7 @@ DeregisterCallbackAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.FotaV3SuccessResult>>`](../../doc/models/fota-v3-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.FotaV3SuccessResult](../../doc/models/fota-v3-success-result.md).
 
 ## Example Usage
 
@@ -212,8 +221,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 

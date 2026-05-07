@@ -31,7 +31,7 @@ DeviceReachabilityStatusUsingPOSTAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -53,8 +53,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -90,7 +93,7 @@ RetrieveActiveMonitorsUsingPOSTAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -120,8 +123,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 

@@ -27,7 +27,7 @@ ListAnomalyDetectionTriggersAsync()
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.GetTriggerResponseList>>>`](../../doc/models/get-trigger-response-list.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.GetTriggerResponseList>](../../doc/models/get-trigger-response-list.md).
 
 ## Example Usage
 
@@ -38,8 +38,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is IntelligenceResultException)
+    {
+       // TODO: Handle IntelligenceResultException exception here
+    }
 }
 ```
 
@@ -73,7 +76,7 @@ UpdateAnomalyDetectionTriggerAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.AnomalyDetectionTrigger>>`](../../doc/models/anomaly-detection-trigger.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.AnomalyDetectionTrigger](../../doc/models/anomaly-detection-trigger.md).
 
 ## Example Usage
 
@@ -96,8 +99,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is IntelligenceResultException)
+    {
+       // TODO: Handle IntelligenceResultException exception here
+    }
 }
 ```
 
@@ -131,7 +137,7 @@ CreateAnomalyDetectionTriggerAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.AnomalyDetectionTrigger>>`](../../doc/models/anomaly-detection-trigger.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.AnomalyDetectionTrigger](../../doc/models/anomaly-detection-trigger.md).
 
 ## Example Usage
 
@@ -154,8 +160,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is IntelligenceResultException)
+    {
+       // TODO: Handle IntelligenceResultException exception here
+    }
 }
 ```
 
@@ -189,7 +198,7 @@ ListAnomalyDetectionTriggerSettingsAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.GetTriggerResponseList>>>`](../../doc/models/get-trigger-response-list.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.GetTriggerResponseList>](../../doc/models/get-trigger-response-list.md).
 
 ## Example Usage
 
@@ -201,8 +210,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is IntelligenceResultException)
+    {
+       // TODO: Handle IntelligenceResultException exception here
+    }
 }
 ```
 
@@ -236,7 +248,7 @@ DeleteAnomalyDetectionTriggerAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.AnomalyDetectionTrigger>>`](../../doc/models/anomaly-detection-trigger.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.AnomalyDetectionTrigger](../../doc/models/anomaly-detection-trigger.md).
 
 ## Example Usage
 
@@ -248,8 +260,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is IntelligenceResultException)
+    {
+       // TODO: Handle IntelligenceResultException exception here
+    }
 }
 ```
 

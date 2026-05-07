@@ -15,7 +15,7 @@ CloudConnectorDevicesController cloudConnectorDevicesController = client.CloudCo
 * [Search Devices Resources by Property Values](../../doc/controllers/cloud-connector-devices.md#search-devices-resources-by-property-values)
 * [Search Device Event History](../../doc/controllers/cloud-connector-devices.md#search-device-event-history)
 * [Search Sensor Readings](../../doc/controllers/cloud-connector-devices.md#search-sensor-readings)
-* [Delete Device From Account](../../doc/controllers/cloud-connector-devices.md#delete-device-from-account)
+* [Delete Device from Account](../../doc/controllers/cloud-connector-devices.md#delete-device-from-account)
 
 
 # Update Devices Configuration Value
@@ -35,7 +35,7 @@ UpdateDevicesConfigurationValueAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ChangeConfigurationResponse>>`](../../doc/models/change-configuration-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ChangeConfigurationResponse](../../doc/models/change-configuration-response.md).
 
 ## Example Usage
 
@@ -62,7 +62,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -108,7 +107,7 @@ FindDeviceByPropertyValuesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.FindDeviceByPropertyResponseList>>`](../../doc/models/find-device-by-property-response-list.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.FindDeviceByPropertyResponseList](../../doc/models/find-device-by-property-response-list.md).
 
 ## Example Usage
 
@@ -131,7 +130,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -195,7 +193,7 @@ SearchDevicesResourcesByPropertyValuesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.SearchDeviceByPropertyResponseList>>`](../../doc/models/search-device-by-property-response-list.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.SearchDeviceByPropertyResponseList](../../doc/models/search-device-by-property-response-list.md).
 
 ## Example Usage
 
@@ -218,7 +216,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -266,7 +263,7 @@ SearchDeviceEventHistoryAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.SearchDeviceEventHistoryResponseList>>`](../../doc/models/search-device-event-history-response-list.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.SearchDeviceEventHistoryResponseList](../../doc/models/search-device-event-history-response-list.md).
 
 ## Example Usage
 
@@ -294,7 +291,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -361,7 +357,7 @@ SearchSensorReadingsAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.SearchSensorHistoryResponseList>>`](../../doc/models/search-sensor-history-response-list.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.SearchSensorHistoryResponseList](../../doc/models/search-sensor-history-response-list.md).
 
 ## Example Usage
 
@@ -389,7 +385,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -442,7 +437,7 @@ catch (ApiException e)
 ```
 
 
-# Delete Device From Account
+# Delete Device from Account
 
 Remove a device from a ThingSpace account.
 
@@ -482,7 +477,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```

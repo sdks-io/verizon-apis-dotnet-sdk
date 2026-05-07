@@ -36,7 +36,7 @@ GetCampaignHistoryByStatusAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V3CampaignHistory>>`](../../doc/models/v3-campaign-history.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V3CampaignHistory](../../doc/models/v3-campaign-history.md).
 
 ## Example Usage
 
@@ -54,8 +54,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 
@@ -115,7 +118,7 @@ GetDeviceFirmwareUpgradeHistoryAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.DeviceFirmwareUpgrade>>>`](../../doc/models/device-firmware-upgrade.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.DeviceFirmwareUpgrade>](../../doc/models/device-firmware-upgrade.md).
 
 ## Example Usage
 
@@ -131,8 +134,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 
@@ -195,7 +201,7 @@ GetCampaignDeviceStatusAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V3CampaignDevice>>`](../../doc/models/v3-campaign-device.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V3CampaignDevice](../../doc/models/v3-campaign-device.md).
 
 ## Example Usage
 
@@ -213,8 +219,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 

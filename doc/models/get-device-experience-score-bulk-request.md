@@ -11,7 +11,7 @@ Get device experience score bulk request.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `AccountName` | `string` | Required | Account name.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9-]{3,32}$` |
+| `AccountName` | `string` | Required | Account name.<br><br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9-]{3,32}$` |
 | `DeviceList` | [`List<DeviceIdentifier>`](../../doc/models/device-identifier.md) | Required | **Constraints**: *Maximum Items*: `100` |
 
 ## Example (as JSON)

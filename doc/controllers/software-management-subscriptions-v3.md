@@ -26,7 +26,7 @@ GetAccountSubscriptionStatusAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.FotaV3Subscription>>`](../../doc/models/fota-v3-subscription.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.FotaV3Subscription](../../doc/models/fota-v3-subscription.md).
 
 ## Example Usage
 
@@ -38,8 +38,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 

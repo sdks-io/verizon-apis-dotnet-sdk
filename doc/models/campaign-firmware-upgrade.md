@@ -15,7 +15,7 @@ Firmware upgrade for devices.
 | `FirmwareName` | `string` | Required | Firmware name to upgrade to. |
 | `FirmwareFrom` | `string` | Required | Old firmware version. |
 | `FirmwareTo` | `string` | Required | New firmware version. |
-| `Protocol` | `string` | Required | Valid values include: LWM2M, OMA and HTTP.<br>**Default**: `"LWM2M"` |
+| `Protocol` | `string` | Required | Valid values include: LWM2M, OMA and HTTP.<br><br>**Default**: `"LWM2M"` |
 | `StartDate` | `DateTime` | Required | Campaign start date. |
 | `EndDate` | `DateTime` | Required | Campaign end date. |
 | `CampaignTimeWindowList` | [`List<V3TimeWindow>`](../../doc/models/v3-time-window.md) | Optional | List of allowed campaign time windows. |

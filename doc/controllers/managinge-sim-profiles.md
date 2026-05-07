@@ -39,7 +39,7 @@ ResumeProfileAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GIORequestResponse](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 
@@ -50,9 +50,18 @@ GIOProfileRequest body = new GIOProfileRequest
     {
         new GIODeviceList
         {
+            DeviceIds = new List<GIODeviceId>
+            {
+                new GIODeviceId
+                {
+                    Kind = "eid",
+                    Id = "12345678901234567890123456789012",
+                },
+            },
         },
     },
     AccountName = "0000123456-00001",
+    SmrsOid = "1.3.6.1.4.1.#####.1.500.200.101.5",
     MdnZipCode = "12345",
     ServicePlan = "service plan name",
 };
@@ -63,8 +72,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -92,7 +104,7 @@ ProfileSuspendAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GIORequestResponse](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 
@@ -103,9 +115,18 @@ GIOProfileRequest body = new GIOProfileRequest
     {
         new GIODeviceList
         {
+            DeviceIds = new List<GIODeviceId>
+            {
+                new GIODeviceId
+                {
+                    Kind = "eid",
+                    Id = "12345678901234567890123456789012",
+                },
+            },
         },
     },
     AccountName = "0000123456-00001",
+    SmrsOid = "1.3.6.1.4.1.#####.1.500.200.101.5",
     MdnZipCode = "12345",
     ServicePlan = "service plan name",
 };
@@ -116,8 +137,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -145,7 +169,7 @@ DeviceSuspendAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GIORequestResponse](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 
@@ -159,6 +183,7 @@ GIOProfileRequest body = new GIOProfileRequest
         },
     },
     AccountName = "0000123456-00001",
+    SmrsOid = "1.3.6.1.4.1.#####.1.500.200.101.5",
     MdnZipCode = "12345",
     ServicePlan = "service plan name",
 };
@@ -169,8 +194,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -198,7 +226,7 @@ SetFallbackAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GIORequestResponse](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 
@@ -213,8 +241,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -242,7 +273,7 @@ ActivateADeviceProfileAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GIORequestResponse](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 
@@ -256,6 +287,7 @@ GIOProfileRequest body = new GIOProfileRequest
         },
     },
     AccountName = "0000123456-00001",
+    SmrsOid = "1.3.6.1.4.1.#####.1.500.200.101.5",
     MdnZipCode = "12345",
     ServicePlan = "service plan name",
 };
@@ -266,8 +298,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -295,7 +330,7 @@ EnableADeviceProfileAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GIORequestResponse](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 
@@ -312,8 +347,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -341,7 +379,7 @@ DeactivateADeviceProfileAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GIORequestResponse](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 
@@ -360,8 +398,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -389,7 +430,7 @@ EnableADeviceProfileForDownloadAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GIORequestResponse](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 
@@ -406,8 +447,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -435,7 +479,7 @@ DownloadADeviceProfileAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GIORequestResponse](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 
@@ -452,8 +496,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -481,7 +528,7 @@ DeleteADeviceProfileAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GIORequestResponse](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 
@@ -498,8 +545,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 

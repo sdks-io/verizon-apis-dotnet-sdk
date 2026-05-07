@@ -29,11 +29,11 @@ AssignLicenseToDevicesAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `body` | [`AssignLicenseRequest`](../../doc/models/assign-license-request.md) | Body, Required | Request to assign license to devices. |
-| `xRequestID` | `string` | Header, Optional | Transaction Id.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9]-[0-9]{3,32}$` |
+| `xRequestID` | `string` | Header, Optional | Transaction Id.<br><br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9]-[0-9]{3,32}$` |
 
 ## Response Type
 
-[`Task<ApiResponse<Models.SecuritySuccessResult>>`](../../doc/models/security-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.SecuritySuccessResult](../../doc/models/security-success-result.md).
 
 ## Example Usage
 
@@ -64,8 +64,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is SecurityResultException)
+    {
+       // TODO: Handle SecurityResultException exception here
+    }
 }
 ```
 
@@ -103,11 +106,11 @@ UnassignLicenseToDevicesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `xRequestID` | `string` | Header, Required | Transaction Id.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9]-[0-9]{3,32}$` |
+| `xRequestID` | `string` | Header, Required | Transaction Id.<br><br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9]-[0-9]{3,32}$` |
 
 ## Response Type
 
-[`Task<ApiResponse<Models.SecuritySuccessResult>>`](../../doc/models/security-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.SecuritySuccessResult](../../doc/models/security-success-result.md).
 
 ## Example Usage
 
@@ -119,8 +122,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is SecurityResultException)
+    {
+       // TODO: Handle SecurityResultException exception here
+    }
 }
 ```
 

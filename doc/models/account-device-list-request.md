@@ -20,8 +20,8 @@ Request for listing account devices.
 | `GroupName` | `string` | Optional | Only include devices that are in this device group. |
 | `Latest` | `string` | Optional | Only include devices that were added before this date and time. |
 | `ServicePlan` | `string` | Optional | Only include devices that have this service plan. |
-| `MaxNumberOfDevices` | `int?` | Optional | **Constraints**: `>= 0`, `<= 100` |
-| `LargestDeviceIdSeen` | `long?` | Optional | **Constraints**: `>= 0`, `<= 100` |
+| `MaxNumberOfDevices` | `int?` | Optional | **Constraints**: `>= 0`, `<= 500` |
+| `LargestDeviceIdSeen` | `long?` | Optional | **Constraints**: `>= 0`, `<= 0` |
 
 ## Example (as JSON)
 
@@ -38,10 +38,7 @@ Request for listing account devices.
       }
     ]
   },
-  "deviceId": {
-    "id": "id0",
-    "kind": "kind8"
-  },
+  "deviceId": null,
   "currentState": "currentState0",
   "customFields": [
     {

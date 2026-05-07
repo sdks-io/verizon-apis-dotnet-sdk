@@ -11,8 +11,8 @@ Wireless network performance rest error response.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `ErrorCode` | `string` | Optional | Rest error response.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `3`, *Pattern*: `^[0-9]{3,3}$` |
-| `ErrorMessage` | `string` | Optional | Error message details.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `64`, *Pattern*: `^[A-Za-z0-9 ]{3,64}$` |
+| `ErrorCode` | `string` | Optional | Rest error response.<br><br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `3`, *Pattern*: `^[0-9]{3,3}$` |
+| `ErrorMessage` | `string` | Optional | Error message details.<br><br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `64`, *Pattern*: `^[A-Za-z0-9 ]{3,64}$` |
 
 ## Example (as JSON)
 

@@ -11,15 +11,17 @@ Device information.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Imei` | `string` | Required | International Mobile Equipment Identifier. The unique ID of a device.<br>**Constraints**: *Pattern*: `^[0-9]{15}$` |
-| `BullseyeEnable` | `bool` | Required | Set to Enable (true) or Disable (false). |
+| `Imei` | `string` | Required | The International Mobile Equipment Identifier of the device. |
+| `BullseyeEnable` | [`HplBullseyeEnable`](../../doc/models/hpl-bullseye-enable.md) | Required | A flag that shows if Hyper Precise is enabled (true) or disabled (false). |
 
 ## Example (as JSON)
 
 ```json
 {
-  "imei": "354658090356210",
-  "BullseyeEnable": true
+  "imei": "15-digit IMEI",
+  "BullseyeEnable": {
+    "BullseyeEnable": true
+  }
 }
 ```
 

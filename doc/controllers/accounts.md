@@ -34,7 +34,7 @@ GetAccountInformationAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.Account>>`](../../doc/models/account.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.Account](../../doc/models/account.md).
 
 ## Example Usage
 
@@ -46,8 +46,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -122,7 +125,7 @@ ListAccountStatesAndServicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.AccountStatesAndServices>>`](../../doc/models/account-states-and-services.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.AccountStatesAndServices](../../doc/models/account-states-and-services.md).
 
 ## Example Usage
 
@@ -134,8 +137,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -244,7 +250,7 @@ ListAccountLeadsAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.AccountLeadsResult>>`](../../doc/models/account-leads-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.AccountLeadsResult](../../doc/models/account-leads-result.md).
 
 ## Example Usage
 
@@ -256,8 +262,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 

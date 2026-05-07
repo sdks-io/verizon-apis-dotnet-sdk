@@ -11,18 +11,18 @@ Session and usage details for up to 10 devices.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Txid` | `string` | Required | A unique string that associates the request with the location report information that is sent in asynchronous callback message.ThingSpace will send a separate callback message for each device that was in the request. All of the callback messages will have the same txid. |
-| `Usage` | [`List<AggregateUsageItem>`](../../doc/models/aggregate-usage-item.md) | Optional | Contains usage per device.<br>**Constraints**: *Unique Items Required* |
-| `Errors` | [`List<AggregateUsageError>`](../../doc/models/aggregate-usage-error.md) | Optional | An object containing any errors reported by the device.<br>**Constraints**: *Unique Items Required* |
+| `Txid` | `string` | Optional | A unique string (UUID) that associates the request with the location report information that is sent in asynchronous callback message.ThingSpace will send a separate callback message for each device that was in the request. All of the callback messages will have a txid. |
+| `Usage` | [`List<AggregateUsageItem>`](../../doc/models/aggregate-usage-item.md) | Optional | Contains usage per device.<br><br>**Constraints**: *Unique Items Required* |
+| `Errors` | [`List<AggregateUsageError>`](../../doc/models/aggregate-usage-error.md) | Optional | An object containing any errors reported by the device.<br><br>**Constraints**: *Unique Items Required* |
 
 ## Example (as JSON)
 
 ```json
 {
-  "txid": "txid8",
+  "txid": "60c07fff-eeee-ffff-gggg-75e6a7c238f6",
   "usage": [
     {
-      "imei": "709312034493372",
+      "imei": "15-digit IMEI",
       "numberOfSessions": 1,
       "bytesTransferred": 2057
     }
@@ -32,7 +32,7 @@ Session and usage details for up to 10 devices.
       "imei": "imei6",
       "errorMessage": "errorMessage8",
       "errorResponse": {
-        "errorCode": "INTERNAL_ERROR",
+        "errorCode": "INVALID_PARAMETER",
         "errorMessage": "errorMessage4",
         "httpStatusCode": "423 LOCKED",
         "detailErrorMessage": "detailErrorMessage6"

@@ -32,7 +32,7 @@ ListRegisteredCallbacksAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.RegisteredCallbacks>>>`](../../doc/models/registered-callbacks.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.RegisteredCallbacks>](../../doc/models/registered-callbacks.md).
 
 ## Example Usage
 
@@ -44,8 +44,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV1ResultException)
+    {
+       // TODO: Handle FotaV1ResultException exception here
+    }
 }
 ```
 
@@ -87,7 +90,7 @@ RegisterCallbackAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.FotaV1CallbackRegistrationResult>>`](../../doc/models/fota-v1-callback-registration-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.FotaV1CallbackRegistrationResult](../../doc/models/fota-v1-callback-registration-result.md).
 
 ## Example Usage
 
@@ -108,8 +111,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV1ResultException)
+    {
+       // TODO: Handle FotaV1ResultException exception here
+    }
 }
 ```
 
@@ -148,7 +154,7 @@ DeregisterCallbackAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.FotaV1SuccessResult>>`](../../doc/models/fota-v1-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.FotaV1SuccessResult](../../doc/models/fota-v1-success-result.md).
 
 ## Example Usage
 
@@ -164,8 +170,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV1ResultException)
+    {
+       // TODO: Handle FotaV1ResultException exception here
+    }
 }
 ```
 

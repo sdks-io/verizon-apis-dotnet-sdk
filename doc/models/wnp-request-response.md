@@ -1,7 +1,7 @@
 
 # WNP Request Response
 
-Wireless network performance request response.
+UUID of the Wireless network performance request response.
 
 ## Structure
 
@@ -11,13 +11,13 @@ Wireless network performance request response.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `RequestId` | `string` | Optional | Request id.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `64`, *Pattern*: `^[A-Za-z0-9-]{3,64}$` |
+| `RequestId` | `string` | Optional | Request id.<br><br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `64`, *Pattern*: `^[A-Za-z0-9-]{3,64}$` |
 
 ## Example (as JSON)
 
 ```json
 {
-  "requestId": "d1f08526-5443-4054-9a29-4456490ea9f8"
+  "requestId": "d1f08526-eeee-ffff-gggg-4456490ea9f8"
 }
 ```
 

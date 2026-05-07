@@ -12,7 +12,7 @@ SoftwareManagementLicensesV2Controller softwareManagementLicensesV2Controller = 
 
 * [Get Account License Status](../../doc/controllers/software-management-licenses-v2.md#get-account-license-status)
 * [Assign Licenses to Devices](../../doc/controllers/software-management-licenses-v2.md#assign-licenses-to-devices)
-* [Remove Licenses From Devices](../../doc/controllers/software-management-licenses-v2.md#remove-licenses-from-devices)
+* [Remove Licenses from Devices](../../doc/controllers/software-management-licenses-v2.md#remove-licenses-from-devices)
 * [List Licenses to Remove](../../doc/controllers/software-management-licenses-v2.md#list-licenses-to-remove)
 * [Create List of Licenses to Remove](../../doc/controllers/software-management-licenses-v2.md#create-list-of-licenses-to-remove)
 * [Delete List of Licenses to Remove](../../doc/controllers/software-management-licenses-v2.md#delete-list-of-licenses-to-remove)
@@ -37,7 +37,7 @@ GetAccountLicenseStatusAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V2LicenseSummary>>`](../../doc/models/v2-license-summary.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V2LicenseSummary](../../doc/models/v2-license-summary.md).
 
 ## Example Usage
 
@@ -53,8 +53,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -117,7 +120,7 @@ AssignLicensesToDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V2LicensesAssignedRemovedResult>>`](../../doc/models/v2-licenses-assigned-removed-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V2LicensesAssignedRemovedResult](../../doc/models/v2-licenses-assigned-removed-result.md).
 
 ## Example Usage
 
@@ -141,8 +144,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -175,7 +181,7 @@ catch (ApiException e)
 | 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
 
 
-# Remove Licenses From Devices
+# Remove Licenses from Devices
 
 **This endpoint is deprecated.**
 
@@ -196,7 +202,7 @@ RemoveLicensesFromDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V2LicensesAssignedRemovedResult>>`](../../doc/models/v2-licenses-assigned-removed-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V2LicensesAssignedRemovedResult](../../doc/models/v2-licenses-assigned-removed-result.md).
 
 ## Example Usage
 
@@ -221,8 +227,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -281,7 +290,7 @@ ListLicensesToRemoveAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V2ListOfLicensesToRemove>>`](../../doc/models/v2-list-of-licenses-to-remove.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V2ListOfLicensesToRemove](../../doc/models/v2-list-of-licenses-to-remove.md).
 
 ## Example Usage
 
@@ -293,8 +302,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -344,7 +356,7 @@ CreateListOfLicensesToRemoveAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V2ListOfLicensesToRemoveResult>>`](../../doc/models/v2-list-of-licenses-to-remove-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V2ListOfLicensesToRemoveResult](../../doc/models/v2-list-of-licenses-to-remove-result.md).
 
 ## Example Usage
 
@@ -370,8 +382,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -413,7 +428,7 @@ DeleteListOfLicensesToRemoveAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.FotaV2SuccessResult>>`](../../doc/models/fota-v2-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.FotaV2SuccessResult](../../doc/models/fota-v2-success-result.md).
 
 ## Example Usage
 
@@ -425,8 +440,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 

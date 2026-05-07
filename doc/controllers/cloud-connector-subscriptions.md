@@ -32,7 +32,7 @@ CreateSubscriptionAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.Subscription>>`](../../doc/models/subscription.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.Subscription](../../doc/models/subscription.md).
 
 ## Example Usage
 
@@ -57,7 +57,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -101,7 +100,7 @@ QuerySubscriptionAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.Subscription>>>`](../../doc/models/subscription.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.Subscription>](../../doc/models/subscription.md).
 
 ## Example Usage
 
@@ -124,7 +123,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -196,7 +194,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```

@@ -32,7 +32,7 @@ StartConnectivityManagementSessionAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.LogInResult>>`](../../doc/models/log-in-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.LogInResult](../../doc/models/log-in-result.md).
 
 ## Example Usage
 
@@ -49,8 +49,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -79,7 +82,7 @@ EndConnectivityManagementSessionAsync()
 
 ## Response Type
 
-[`Task<ApiResponse<Models.LogOutRequest>>`](../../doc/models/log-out-request.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.LogOutRequest](../../doc/models/log-out-request.md).
 
 ## Example Usage
 
@@ -90,8 +93,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -127,7 +133,7 @@ ResetConnectivityManagementPasswordAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.SessionResetPasswordResult>>`](../../doc/models/session-reset-password-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.SessionResetPasswordResult](../../doc/models/session-reset-password-result.md).
 
 ## Example Usage
 
@@ -143,8 +149,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 

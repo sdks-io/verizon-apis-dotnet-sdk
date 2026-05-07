@@ -1,5 +1,5 @@
 
-# Check in History Item
+# Check In History Item
 
 Check-in history for a device.
 

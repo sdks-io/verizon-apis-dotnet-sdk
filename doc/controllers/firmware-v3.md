@@ -34,7 +34,7 @@ ListAvailableFirmwareAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.FirmwarePackage>>>`](../../doc/models/firmware-package.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.FirmwarePackage>](../../doc/models/firmware-package.md).
 
 ## Example Usage
 
@@ -50,8 +50,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 
@@ -98,7 +101,7 @@ SynchronizeDeviceFirmwareAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceFirmwareList>>`](../../doc/models/device-firmware-list.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceFirmwareList](../../doc/models/device-firmware-list.md).
 
 ## Example Usage
 
@@ -121,8 +124,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 
@@ -167,7 +173,7 @@ ReportDeviceFirmwareAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceFirmwareVersionUpdateResult>>`](../../doc/models/device-firmware-version-update-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceFirmwareVersionUpdateResult](../../doc/models/device-firmware-version-update-result.md).
 
 ## Example Usage
 
@@ -183,8 +189,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 

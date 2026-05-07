@@ -9,13 +9,13 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `RequestId` | `string` | Optional | **Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32` |
+| `RequestId` | `string` | Optional | - |
 
 ## Example (as JSON)
 
 ```json
 {
-  "requestId": "d1f08526-5443-4054-9a29"
+  "requestId": "595f5c44-eeee-ffff-gggg-020a1545a84d"
 }
 ```
 

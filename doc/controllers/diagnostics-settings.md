@@ -24,17 +24,17 @@ ListDiagnosticsSettingsAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `accountName` | `string` | Query, Required | Account identifier. |
-| `devices` | `string` | Query, Required | Devices list format: [{"id":"{imei1}","kind":"imei"},{"id":"{imei2}","kind":"imei"}]. |
+| `devices` | `string` | Query, Required | Devices list formatted as "id, kind" |
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.DiagnosticObservationSetting>>>`](../../doc/models/diagnostic-observation-setting.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.DiagnosticObservationSetting>](../../doc/models/diagnostic-observation-setting.md).
 
 ## Example Usage
 
 ```csharp
 string accountName = "0000123456-00001";
-string devices = "[{\"id\":\"864508030026238\",\"kind\":\"IMEI\"},{\"id\":\"864508030026238\",\"kind\":\"IMEI\"}]";
+string devices = "864508030026238,IMEI";
 try
 {
     ApiResponse<List<DiagnosticObservationSetting>> result = await diagnosticsSettingsController.ListDiagnosticsSettingsAsync(
@@ -44,8 +44,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceDiagnosticsResultException)
+    {
+       // TODO: Handle DeviceDiagnosticsResultException exception here
+    }
 }
 ```
 

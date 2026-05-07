@@ -24,8 +24,8 @@ Information required to associate a usage segmentation label with a device to re
   "labels": {
     "deviceIds": [
       {
-        "name": "name0",
-        "value": "value2"
+        "name": "name6",
+        "value": "value8"
       }
     ]
   },

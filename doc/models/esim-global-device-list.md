@@ -13,7 +13,7 @@
 | `ProvisioningStatusFilter` | [`ProvisioningStatusFilterEnum?`](../../doc/models/provisioning-status-filter-enum.md) | Optional | The last status of the device as a list filter. |
 | `ProfileStatusFilter` | [`ProfileStatusFilterEnum?`](../../doc/models/profile-status-filter-enum.md) | Optional | The last status of the device's profile as a filter. |
 | `CarrierNameFilter` | `string` | Optional | The cellular service provider. |
-| `DeviceFilter` | [`List<DeviceId2>`](../../doc/models/device-id-2.md) | Optional | An array of device identifiers to filter the list. |
+| `DeviceFilter` | [`List<ESIMGlobalDeviceListDeviceFilter>`](../../doc/models/containers/esim-global-device-list-device-filter.md) | Optional | This is List of a container for any-of cases. |
 
 ## Example (as JSON)
 

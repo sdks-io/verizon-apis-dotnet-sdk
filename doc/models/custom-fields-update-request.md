@@ -45,14 +45,8 @@ Request to assign or change custom field values for one or more devices.
   ],
   "accountName": "accountName4",
   "customFields": [
-    {
-      "key": "key0",
-      "value": "value2"
-    },
-    {
-      "key": "key0",
-      "value": "value2"
-    }
+    null,
+    {}
   ],
   "groupName": "groupName0"
 }

@@ -35,18 +35,9 @@ Request for a carrier action.
   ],
   "accountName": "accountName0",
   "customFields": [
-    {
-      "key": "key0",
-      "value": "value2"
-    },
-    {
-      "key": "key0",
-      "value": "value2"
-    },
-    {
-      "key": "key0",
-      "value": "value2"
-    }
+    null,
+    {},
+    {}
   ],
   "withBilling": false,
   "groupName": "groupName4"

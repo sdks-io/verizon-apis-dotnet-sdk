@@ -11,7 +11,7 @@ Get device experience score history.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `AccountName` | `string` | Required | Account name.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9-]{3,32}$` |
+| `AccountName` | `string` | Required | Account name.<br><br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9-]{3,32}$` |
 | `DeviceId` | [`DeviceIdentifier`](../../doc/models/device-identifier.md) | Required | Device Id details. |
 
 ## Example (as JSON)

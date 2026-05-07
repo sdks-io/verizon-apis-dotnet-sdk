@@ -32,7 +32,7 @@ ListRegisteredCallbacksAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.ConnectivityManagementCallback>>>`](../../doc/models/connectivity-management-callback.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.ConnectivityManagementCallback>](../../doc/models/connectivity-management-callback.md).
 
 ## Example Usage
 
@@ -44,8 +44,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -94,7 +97,7 @@ RegisterCallbackAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.CallbackActionResult>>`](../../doc/models/callback-action-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.CallbackActionResult](../../doc/models/callback-action-result.md).
 
 ## Example Usage
 
@@ -115,8 +118,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -155,7 +161,7 @@ DeregisterCallbackAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.CallbackActionResult>>`](../../doc/models/callback-action-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.CallbackActionResult](../../doc/models/callback-action-result.md).
 
 ## Example Usage
 
@@ -171,8 +177,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 

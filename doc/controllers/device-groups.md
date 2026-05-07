@@ -34,7 +34,7 @@ CreateDeviceGroupAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ConnectivityManagementSuccessResult>>`](../../doc/models/connectivity-management-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ConnectivityManagementSuccessResult](../../doc/models/connectivity-management-success-result.md).
 
 ## Example Usage
 
@@ -60,8 +60,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -97,7 +100,7 @@ ListDeviceGroupsAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.DeviceGroup>>>`](../../doc/models/device-group.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.DeviceGroup>](../../doc/models/device-group.md).
 
 ## Example Usage
 
@@ -109,8 +112,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -161,7 +167,7 @@ GetDeviceGroupInformationAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceGroupDevicesData>>`](../../doc/models/device-group-devices-data.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceGroupDevicesData](../../doc/models/device-group-devices-data.md).
 
 ## Example Usage
 
@@ -177,8 +183,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -234,7 +243,7 @@ UpdateDeviceGroupAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ConnectivityManagementSuccessResult>>`](../../doc/models/connectivity-management-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ConnectivityManagementSuccessResult](../../doc/models/connectivity-management-success-result.md).
 
 ## Example Usage
 
@@ -265,8 +274,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -304,7 +316,7 @@ DeleteDeviceGroupAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ConnectivityManagementSuccessResult>>`](../../doc/models/connectivity-management-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ConnectivityManagementSuccessResult](../../doc/models/connectivity-management-success-result.md).
 
 ## Example Usage
 
@@ -320,8 +332,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 

@@ -38,7 +38,7 @@ ScheduleCampaignFirmwareUpgradeAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.CampaignSoftware>>`](../../doc/models/campaign-software.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.CampaignSoftware](../../doc/models/campaign-software.md).
 
 ## Example Usage
 
@@ -87,8 +87,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -151,7 +154,7 @@ GetCampaignInformationAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.CampaignSoftware>>`](../../doc/models/campaign-software.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.CampaignSoftware](../../doc/models/campaign-software.md).
 
 ## Example Usage
 
@@ -167,8 +170,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -233,7 +239,7 @@ UpdateCampaignFirmwareDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V2AddOrRemoveDeviceResult>>`](../../doc/models/v2-add-or-remove-device-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V2AddOrRemoveDeviceResult](../../doc/models/v2-add-or-remove-device-result.md).
 
 ## Example Usage
 
@@ -261,8 +267,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -292,7 +301,7 @@ CancelCampaignAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.FotaV2SuccessResult>>`](../../doc/models/fota-v2-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.FotaV2SuccessResult](../../doc/models/fota-v2-success-result.md).
 
 ## Example Usage
 
@@ -308,8 +317,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -349,7 +361,7 @@ UpdateCampaignDatesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.CampaignSoftware>>`](../../doc/models/campaign-software.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.CampaignSoftware](../../doc/models/campaign-software.md).
 
 ## Example Usage
 
@@ -390,8 +402,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -462,7 +477,7 @@ ScheduleFileUpgradeAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.UploadAndScheduleFileResponse>>`](../../doc/models/upload-and-schedule-file-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.UploadAndScheduleFileResponse](../../doc/models/upload-and-schedule-file-response.md).
 
 ## Example Usage
 
@@ -488,8 +503,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -519,7 +537,7 @@ ScheduleSWUpgradeHttpDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.UploadAndScheduleFileResponse>>`](../../doc/models/upload-and-schedule-file-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.UploadAndScheduleFileResponse](../../doc/models/upload-and-schedule-file-response.md).
 
 ## Example Usage
 
@@ -568,8 +586,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 

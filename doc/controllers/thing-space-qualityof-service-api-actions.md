@@ -31,7 +31,7 @@ CreateAThingSpaceQualityOfServiceAPISubscriptionAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.M201success>>`](../../doc/models/m201-success.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.M201success](../../doc/models/m201-success.md).
 
 ## Example Usage
 
@@ -70,8 +70,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DefaultResponseException)
+    {
+       // TODO: Handle DefaultResponseException exception here
+    }
 }
 ```
 
@@ -101,7 +104,7 @@ StopAThingSpaceQualityOfServiceAPISubscriptionAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.M201success>>`](../../doc/models/m201-success.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.M201success](../../doc/models/m201-success.md).
 
 ## Example Usage
 
@@ -117,8 +120,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DefaultResponseException)
+    {
+       // TODO: Handle DefaultResponseException exception here
+    }
 }
 ```
 

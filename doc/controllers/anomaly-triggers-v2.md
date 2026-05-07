@@ -21,59 +21,61 @@ Creates the trigger to identify an anomaly.
 
 ```csharp
 CreateAnomalyDetectionTriggerV2Async(
-    List<Models.CreateTriggerRequestOptions> body)
+    List<CreateTriggerRequestOptions2> body)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`List<CreateTriggerRequestOptions>`](../../doc/models/create-trigger-request-options.md) | Body, Required | Request to create an anomaly trigger. |
+| `body` | [`List<CreateTriggerRequestOptions2>`](../../doc/models/containers/create-trigger-request-options-2.md) | Body, Required | Request to create an anomaly trigger. |
 
 ## Response Type
 
-[`Task<ApiResponse<Models.AnomalyDetectionTrigger>>`](../../doc/models/anomaly-detection-trigger.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.AnomalyDetectionTrigger](../../doc/models/anomaly-detection-trigger.md).
 
 ## Example Usage
 
 ```csharp
-List<CreateTriggerRequestOptions> body = new List<CreateTriggerRequestOptions>
+List<CreateTriggerRequestOptions2> body = new List<CreateTriggerRequestOptions2>
 {
-    new CreateTriggerRequestOptions
-    {
-        Name = "Anomaly Daily Usage REST Test-Patch 1",
-        TriggerCategory = "UsageAnomaly",
-        AccountName = "0000123456-00001",
-        AnomalyTriggerRequest = new AnomalyTriggerRequest
+    CreateTriggerRequestOptions2.FromTriggerType1(
+        new TriggerType1
         {
-            AccountNames = "0000123456-00001",
-            IncludeAbnormal = true,
-            IncludeVeryAbnormal = true,
-            IncludeUnderExpectedUsage = true,
-            IncludeOverExpectedUsage = true,
-        },
-        Notification = new TriggerNotification
-        {
-            NotificationType = "DailySummary",
-            Callback = true,
-            EmailNotification = false,
-            NotificationGroupName = "Anomaly Test API",
-            NotificationFrequencyFactor = 3,
-            NotificationFrequencyInterval = "Hourly",
-            ExternalEmailRecipients = "placeholder@verizon.com",
-            SmsNotification = true,
-            SmsNumbers = new List<SMSNumber>
+            Name = "Anomaly Daily Usage REST Test-Patch 1",
+            TriggerCategory = "UsageAnomaly",
+            AccountName = "0000123456-00001",
+            AnomalyTriggerRequest = new AnomalyTriggerRequest
             {
-                new SMSNumber
-                {
-                    Carrier = "US Cellular",
-                    Number = "9299280711",
-                },
+                AccountNames = "0000123456-00001",
+                IncludeAbnormal = true,
+                IncludeVeryAbnormal = true,
+                IncludeUnderExpectedUsage = true,
+                IncludeOverExpectedUsage = true,
             },
-            Reminder = true,
-            Severity = "Critical",
-        },
-    },
+            Notification = new TriggerNotification
+            {
+                NotificationType = "DailySummary",
+                Callback = true,
+                EmailNotification = false,
+                NotificationGroupName = "Anomaly Test API",
+                NotificationFrequencyFactor = 3,
+                NotificationFrequencyInterval = "Hourly",
+                ExternalEmailRecipients = "placeholder@verizon.com",
+                SmsNotification = true,
+                SmsNumbers = new List<SMSNumber>
+                {
+                    new SMSNumber
+                    {
+                        Carrier = "US Cellular",
+                        Number = "9299280711",
+                    },
+                },
+                Reminder = true,
+                Severity = "Critical",
+            },
+        }
+    ),
 };
 
 try
@@ -82,8 +84,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is IntelligenceResultException)
+    {
+       // TODO: Handle IntelligenceResultException exception here
+    }
 }
 ```
 
@@ -108,60 +113,62 @@ Updates an existing trigger using the account name.
 
 ```csharp
 UpdateAnomalyDetectionTriggerV2Async(
-    List<Models.UpdateTriggerRequestOptions> body)
+    List<UpdateTriggerRequestOptions2> body)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`List<UpdateTriggerRequestOptions>`](../../doc/models/update-trigger-request-options.md) | Body, Required | Request to update existing trigger. |
+| `body` | [`List<UpdateTriggerRequestOptions2>`](../../doc/models/containers/update-trigger-request-options-2.md) | Body, Required | Request to update existing trigger. |
 
 ## Response Type
 
-[`Task<ApiResponse<Models.IntelligenceSuccessResult>>`](../../doc/models/intelligence-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.IntelligenceSuccessResult](../../doc/models/intelligence-success-result.md).
 
 ## Example Usage
 
 ```csharp
-List<UpdateTriggerRequestOptions> body = new List<UpdateTriggerRequestOptions>
+List<UpdateTriggerRequestOptions2> body = new List<UpdateTriggerRequestOptions2>
 {
-    new UpdateTriggerRequestOptions
-    {
-        TriggerId = "595f5c44-c31c-4552-8670-020a1545a84d",
-        TriggerName = "Anomaly Daily Usage REST Test-Patch Update 4",
-        TriggerCategory = "UsageAnomaly",
-        AccountName = "0000123456-00001",
-        AnomalyTriggerRequest = new AnomalyTriggerRequest
+    UpdateTriggerRequestOptions2.FromTriggerType3(
+        new TriggerType3
         {
-            AccountNames = "0000123456-00001",
-            IncludeAbnormal = true,
-            IncludeVeryAbnormal = true,
-            IncludeUnderExpectedUsage = false,
-            IncludeOverExpectedUsage = true,
-        },
-        Notification = new TriggerNotification
-        {
-            NotificationType = "DailySummary",
-            Callback = true,
-            EmailNotification = false,
-            NotificationGroupName = "Anomaly Test API",
-            NotificationFrequencyFactor = 3,
-            NotificationFrequencyInterval = "Hourly",
-            ExternalEmailRecipients = "placeholder@verizon.com",
-            SmsNotification = true,
-            SmsNumbers = new List<SMSNumber>
+            TriggerId = "595f5c44-c31c-4552-8670-020a1545a84d",
+            TriggerName = "Anomaly Daily Usage REST Test-Patch Update 4",
+            TriggerCategory = "UsageAnomaly",
+            AccountName = "0000123456-00001",
+            AnomalyTriggerRequest = new AnomalyTriggerRequest
             {
-                new SMSNumber
-                {
-                    Carrier = "US Cellular",
-                    Number = "9299280711",
-                },
+                AccountNames = "0000123456-00001",
+                IncludeAbnormal = true,
+                IncludeVeryAbnormal = true,
+                IncludeUnderExpectedUsage = false,
+                IncludeOverExpectedUsage = true,
             },
-            Reminder = true,
-            Severity = "Critical",
-        },
-    },
+            Notification = new TriggerNotification
+            {
+                NotificationType = "DailySummary",
+                Callback = true,
+                EmailNotification = false,
+                NotificationGroupName = "Anomaly Test API",
+                NotificationFrequencyFactor = 3,
+                NotificationFrequencyInterval = "Hourly",
+                ExternalEmailRecipients = "placeholder@verizon.com",
+                SmsNotification = true,
+                SmsNumbers = new List<SMSNumber>
+                {
+                    new SMSNumber
+                    {
+                        Carrier = "US Cellular",
+                        Number = "9299280711",
+                    },
+                },
+                Reminder = true,
+                Severity = "Critical",
+            },
+        }
+    ),
 };
 
 try
@@ -170,8 +177,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is IntelligenceResultException)
+    {
+       // TODO: Handle IntelligenceResultException exception here
+    }
 }
 ```
 
@@ -207,7 +217,7 @@ ListAnomalyDetectionTriggerSettingsV2Async(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.AnomalyTriggerResult>>`](../../doc/models/anomaly-trigger-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.AnomalyTriggerResult](../../doc/models/anomaly-trigger-result.md).
 
 ## Example Usage
 
@@ -219,8 +229,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is IntelligenceResultException)
+    {
+       // TODO: Handle IntelligenceResultException exception here
+    }
 }
 ```
 

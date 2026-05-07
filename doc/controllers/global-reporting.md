@@ -31,7 +31,7 @@ DeviceprovhistoryUsingPOSTAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ESIMRequestResponse>>`](../../doc/models/esim-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ESIMRequestResponse](../../doc/models/esim-request-response.md).
 
 ## Example Usage
 
@@ -53,8 +53,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ESIMRestErrorResponseException)
+    {
+       // TODO: Handle ESIMRestErrorResponseException exception here
+    }
 }
 ```
 
@@ -96,7 +99,7 @@ RetrieveGlobalListAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ESIMRequestResponse>>`](../../doc/models/esim-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ESIMRequestResponse](../../doc/models/esim-request-response.md).
 
 ## Example Usage
 
@@ -113,8 +116,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ESIMRestErrorResponseException)
+    {
+       // TODO: Handle ESIMRestErrorResponseException exception here
+    }
 }
 ```
 

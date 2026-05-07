@@ -9,25 +9,19 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `AccountName` | `string` | Optional | **Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9]{3,32}$` |
+| `AccountName` | `string` | Optional | - |
 | `CustomFields` | [`List<KvPair>`](../../doc/models/kv-pair.md) | Optional | **Constraints**: *Maximum Items*: `5` |
-| `DataEncoding` | `string` | Optional | **Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9]{3,32}$` |
-| `GroupName` | `string` | Optional | **Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9]{3,32}$` |
-| `ServicePlan` | `string` | Optional | **Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9]{3,32}$` |
-| `TimeToLive` | `string` | Optional | **Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9]{3,32}$` |
-| `DeviceIds` | [`List<GIODeviceId>`](../../doc/models/gio-device-id.md) | Required | **Constraints**: *Maximum Items*: `100` |
-| `SmsMessage` | `string` | Required | **Constraints**: *Minimum Length*: `3`, *Maximum Length*: `64`, *Pattern*: `^[A-Za-z0-9 ]{3,64}$` |
+| `DataEncoding` | `string` | Optional | - |
+| `GroupName` | `string` | Optional | - |
+| `ServicePlan` | `string` | Optional | - |
+| `TimeToLive` | `string` | Optional | A period of time the message remains valid or an end date for the message. This value would be less than the 5 day default. |
+| `DeviceIds` | [`List<GIODeviceId>`](../../doc/models/gio-device-id.md) | Optional | **Constraints**: *Maximum Items*: `100` |
+| `SmsMessage` | `string` | Required | - |
 
 ## Example (as JSON)
 
 ```json
 {
-  "deviceIds": [
-    {
-      "kind": "eid",
-      "id": "12345678901234567890123456789012"
-    }
-  ],
   "smsMessage": "A text message",
   "accountName": "accountName2",
   "customFields": [

@@ -17,8 +17,8 @@ DeviceManagementController deviceManagementController = client.DeviceManagementC
 * [Deactivate Service for Devices](../../doc/controllers/device-management.md#deactivate-service-for-devices)
 * [Delete Deactivated Devices](../../doc/controllers/device-management.md#delete-deactivated-devices)
 * [List Devices Information](../../doc/controllers/device-management.md#list-devices-information)
-* [List Devices With Imei Iccid Mismatch](../../doc/controllers/device-management.md#list-devices-with-imei-iccid-mismatch)
-* [Move Devices Within Accounts of Profile](../../doc/controllers/device-management.md#move-devices-within-accounts-of-profile)
+* [List Devices with Imei Iccid Mismatch](../../doc/controllers/device-management.md#list-devices-with-imei-iccid-mismatch)
+* [Move Devices within Accounts of Profile](../../doc/controllers/device-management.md#move-devices-within-accounts-of-profile)
 * [Update Devices State](../../doc/controllers/device-management.md#update-devices-state)
 * [Change Devices Service Plan](../../doc/controllers/device-management.md#change-devices-service-plan)
 * [Suspend Service for Devices](../../doc/controllers/device-management.md#suspend-service-for-devices)
@@ -37,8 +37,8 @@ DeviceManagementController deviceManagementController = client.DeviceManagementC
 * [Billed Usage Info](../../doc/controllers/device-management.md#billed-usage-info)
 * [Usage Segmentation Label Association](../../doc/controllers/device-management.md#usage-segmentation-label-association)
 * [Usage Segmentation Label Deletion](../../doc/controllers/device-management.md#usage-segmentation-label-deletion)
-* [Activation Order Status](../../doc/controllers/device-management.md#activation-order-status)
-* [Upload Device Identifier](../../doc/controllers/device-management.md#upload-device-identifier)
+* [Upload Activate Device](../../doc/controllers/device-management.md#upload-activate-device)
+* [Device Upload Status](../../doc/controllers/device-management.md#device-upload-status)
 
 
 # Activate Service for Devices
@@ -58,7 +58,7 @@ ActivateServiceForDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -139,8 +139,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -176,14 +179,14 @@ AddDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.AddDevicesResult>>>`](../../doc/models/add-devices-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.AddDevicesResult>](../../doc/models/add-devices-result.md).
 
 ## Example Usage
 
 ```csharp
 AddDevicesRequest body = new AddDevicesRequest
 {
-    State = "preactive",
+    State = "Pre-active",
     DevicesToAdd = new List<AccountDeviceList>
     {
         new AccountDeviceList
@@ -192,12 +195,12 @@ AddDevicesRequest body = new AddDevicesRequest
             {
                 new DeviceId
                 {
-                    Id = "990013907835573",
+                    Id = "15-digit IMEI",
                     Kind = "imei",
                 },
                 new DeviceId
                 {
-                    Id = "89141390780800784259",
+                    Id = "20-digit ICCID",
                     Kind = "iccid",
                 },
             },
@@ -208,18 +211,18 @@ AddDevicesRequest body = new AddDevicesRequest
             {
                 new DeviceId
                 {
-                    Id = "990013907884259",
+                    Id = "15-digit IMEI",
                     Kind = "imei",
                 },
                 new DeviceId
                 {
-                    Id = "89141390780800735573",
+                    Id = "20-digit ICCID",
                     Kind = "iccid",
                 },
             },
         },
     },
-    AccountName = "0868924207-00001",
+    AccountName = "0000123456-00001",
     CustomFields = new List<CustomFields>
     {
         new CustomFields
@@ -237,8 +240,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -249,7 +255,7 @@ catch (ApiException e)
   {
     "deviceIds": [
       {
-        "id": "89148000000800784259",
+        "id": "20-digit ICCID",
         "kind": "iccid"
       }
     ],
@@ -282,7 +288,7 @@ UpdateDevicesContactInformationAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -341,8 +347,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -378,7 +387,7 @@ UpdateDevicesCustomFieldsAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -420,8 +429,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -457,7 +469,7 @@ DeactivateServiceForDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -490,8 +502,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -527,7 +542,7 @@ DeleteDeactivatedDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.DeleteDevicesResult>>>`](../../doc/models/delete-devices-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.DeleteDevicesResult>](../../doc/models/delete-devices-result.md).
 
 ## Example Usage
 
@@ -578,8 +593,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -642,7 +660,7 @@ ListDevicesInformationAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.AccountDeviceListResult>>`](../../doc/models/account-device-list-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.AccountDeviceListResult](../../doc/models/account-device-list-result.md).
 
 ## Example Usage
 
@@ -662,8 +680,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -714,7 +735,7 @@ catch (ApiException e)
 | 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
-# List Devices With Imei Iccid Mismatch
+# List Devices with Imei Iccid Mismatch
 
 Returns a list of all 4G devices with an ICCID (SIM) that was not activated with the expected IMEI (hardware) during a specified time frame.
 
@@ -731,7 +752,7 @@ ListDevicesWithImeiIccidMismatchAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceMismatchListResult>>`](../../doc/models/device-mismatch-list-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceMismatchListResult](../../doc/models/device-mismatch-list-result.md).
 
 ## Example Usage
 
@@ -771,8 +792,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -801,7 +825,7 @@ catch (ApiException e)
 | 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
-# Move Devices Within Accounts of Profile
+# Move Devices within Accounts of Profile
 
 Move active devices from one billing account to another within a customer profile.
 
@@ -818,7 +842,7 @@ MoveDevicesWithinAccountsOfProfileAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -849,8 +873,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -886,7 +913,7 @@ UpdateDevicesStateAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -959,8 +986,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -996,7 +1026,7 @@ ChangeDevicesServicePlanAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1027,8 +1057,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -1064,7 +1097,7 @@ SuspendServiceForDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1093,8 +1126,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -1130,7 +1166,7 @@ RestoreServiceForSuspendedDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1159,8 +1195,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -1196,7 +1235,7 @@ CheckDevicesAvailabilityForActivationAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1226,8 +1265,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -1263,7 +1305,7 @@ RetrieveDeviceConnectionHistoryAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ConnectionHistoryResult>>`](../../doc/models/connection-history-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ConnectionHistoryResult](../../doc/models/connection-history-result.md).
 
 ## Example Usage
 
@@ -1285,8 +1327,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -1356,7 +1401,7 @@ UpdateDevicesCostCenterCodeAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1386,8 +1431,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -1423,14 +1471,14 @@ GetDeviceExtendedDiagnosticInformationAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceExtendedDiagnosticsResult>>`](../../doc/models/device-extended-diagnostics-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceExtendedDiagnosticsResult](../../doc/models/device-extended-diagnostics-result.md).
 
 ## Example Usage
 
 ```csharp
 DeviceExtendedDiagnosticsRequest body = new DeviceExtendedDiagnosticsRequest
 {
-    AccountName = "1223334444-00001",
+    AccountName = "0000123456-00001",
     DeviceList = new List<DeviceId>
     {
         new DeviceId
@@ -1447,8 +1495,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -1456,13 +1507,476 @@ catch (ApiException e)
 
 ```json
 {
+  "accountName": "0000123456-00001",
+  "deviceList": [
+    {
+      "id": "15-digit IMEI",
+      "kind": "imei"
+    }
+  ],
   "categories": [
+    {
+      "categoryName": "DeviceIdentifier",
+      "extendedAttributes": [
+        {
+          "key": "ICCID",
+          "value": "20-digit ICCID"
+        },
+        {
+          "key": "IMEI",
+          "value": "15-digit IMEI"
+        },
+        {
+          "key": "IMSI",
+          "value": "15-digit IMSI"
+        },
+        {
+          "key": "MDN",
+          "value": "10-digit phone number"
+        },
+        {
+          "key": "MIN",
+          "value": "10-digit phone number"
+        },
+        {
+          "key": "MSISDN",
+          "value": "1+ 10-digit phone number"
+        }
+      ]
+    },
+    {
+      "categoryName": "DeviceAttributes",
+      "extendedAttributes": [
+        {
+          "key": "AccountName",
+          "value": "0000123456-00001"
+        },
+        {
+          "key": "GroupName",
+          "value": "Default: 0000123456-00001"
+        },
+        {
+          "key": "DeviceSku",
+          "value": "VZW080000100112"
+        },
+        {
+          "key": "CustomFields1",
+          "value": "5G SA FWA site"
+        },
+        {
+          "key": "ServicePlanType",
+          "value": "Public Dynamic"
+        },
+        {
+          "key": "FeatureCodes",
+          "value": "84777,86112"
+        },
+        {
+          "key": "FeatureNames",
+          "value": "84777,86112"
+        },
+        {
+          "key": "FeatureTypes",
+          "value": "4G PUBLIC DYNAM IP DSS STREAM,5G IPV/IPV6 IP"
+        },
+        {
+          "key": "BundleSku",
+          "value": "TSS-IOT-INTELLIGENCE-CUSTOM"
+        },
+        {
+          "key": "RatePlanCode",
+          "value": "5GBI100MBPS"
+        },
+        {
+          "key": "DeviceMake",
+          "value": "ODI"
+        },
+        {
+          "key": "DeviceModel",
+          "value": "DIGI - EX50-WXS6-GLB"
+        },
+        {
+          "key": "ModemGeneration",
+          "value": "5G"
+        },
+        {
+          "key": "4GDeviceDetectionDate",
+          "value": "2024-09-25T22:18:07Z"
+        },
+        {
+          "key": "Services",
+          "value": "null"
+        },
+        {
+          "key": "ModemType",
+          "value": "5GE"
+        },
+        {
+          "key": "DiagnosticsEligibility",
+          "value": "StreamEligible"
+        },
+        {
+          "key": "DiagnosticsSKUName",
+          "value": "TSS-IOT-INTLG-CUSTOM-DIAG-LWM2M"
+        },
+        {
+          "key": "AvailableNetworks",
+          "value": "6"
+        },
+        {
+          "key": "ModemCategory",
+          "value": "IoT Module"
+        }
+      ]
+    },
+    {
+      "categoryName": "Provisioning",
+      "extendedAttributes": [
+        {
+          "key": "LastActivationBy",
+          "value": "Verizon, User"
+        },
+        {
+          "key": "LastActivationDate",
+          "value": "2024-09-25T00:10:24Z"
+        },
+        {
+          "key": "CreatedAt",
+          "value": "2024-09-24T20:56:12Z"
+        },
+        {
+          "key": "DeviceState",
+          "value": "active"
+        },
+        {
+          "key": "LastDeactivationDate",
+          "value": "2024-09-25T00:05:21Z"
+        }
+      ]
+    },
     {
       "categoryName": "Connectivity",
       "extendedAttributes": [
         {
           "key": "Connected",
+          "value": "true"
+        },
+        {
+          "key": "LastConnectionDate",
+          "value": "2025-03-14T13:12:01.000Z"
+        },
+        {
+          "key": "IPAddress",
+          "value": "10.0.0.0"
+        },
+        {
+          "key": "LastDisconnectDate",
+          "value": "2025-03-14T08:34:43.000Z"
+        },
+        {
+          "key": "RoamingStatus",
           "value": "false"
+        },
+        {
+          "key": "RomaingLastModifiedDate",
+          "value": "2025-03-14T13:12:01.000Z"
+        },
+        {
+          "key": "RequiredAPN",
+          "value": "The Access point name"
+        }
+      ]
+    },
+    {
+      "categoryName": "Billing",
+      "extendedAttributes": [
+        {
+          "key": "BillingCycleStartDate",
+          "value": "2024-09-25T12:00:00Z"
+        },
+        {
+          "key": "BillingCycleEndDate",
+          "value": "2024-09-25T12:00:00Z"
+        },
+        {
+          "key": "DefaultRatePlan",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "categoryName": "Usage",
+      "extendedAttributes": [
+        {
+          "key": "CurrentRatedUsageRecordDate",
+          "value": "2024-09-25T00:00:00Z"
+        },
+        {
+          "key": "CurrentBillCycleDataRatedUsage",
+          "value": "0"
+        },
+        {
+          "key": "CurrentBillCycleRatedSMSUsage",
+          "value": "0"
+        },
+        {
+          "key": "PromoSmsUsage",
+          "value": "0"
+        },
+        {
+          "key": "PromoSmsUsagePercent",
+          "value": "0"
+        },
+        {
+          "key": "PromoDataUsage",
+          "value": "0"
+        },
+        {
+          "key": "PromoDataUsagePercent",
+          "value": "0"
+        },
+        {
+          "key": "AaaPromoDataUsage",
+          "value": "0"
+        },
+        {
+          "key": "RtrPromoDataUsage",
+          "value": "0"
+        },
+        {
+          "key": "InternationalRoamingUsage",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "categoryName": "Location",
+      "extendedAttributes": [
+        {
+          "key": "LocationSkuName",
+          "value": "TSS-IOT-INTLG-CUSTOM-LOC-COARSE"
+        },
+        {
+          "key": "LastLocationUpdate",
+          "value": "2024-06-17T16:23:14Z"
+        },
+        {
+          "key": "Latitude",
+          "value": "33.122153"
+        },
+        {
+          "key": "Longitude",
+          "value": "-96.641825"
+        },
+        {
+          "key": "LastLocationAttemptDate",
+          "value": "2024-09-25T16:23:14Z"
+        },
+        {
+          "key": "LastLocationStatus",
+          "value": "122"
+        }
+      ]
+    },
+    {
+      "categoryName": "FOTA",
+      "extendedAttributes": [
+        {
+          "key": "FotaCurrentFirmwareVersion",
+          "value": "SWIX55C_03.09.11.00"
+        },
+        {
+          "key": "FotaSku",
+          "value": "TSS-IOT-INTLG-CUSTOM-SWMT"
+        },
+        {
+          "key": "FotaMake",
+          "value": "Sierra Wireless"
+        },
+        {
+          "key": "FotaModel",
+          "value": "EM9191"
+        },
+        {
+          "key": "FotaProtocol",
+          "value": "LWM2M"
+        }
+      ]
+    },
+    {
+      "categoryName": "PrimaryPlaceOfUse",
+      "extendedAttributes": [
+        {
+          "key": "CustomerFirstName",
+          "value": "first name"
+        },
+        {
+          "key": "CustomerLastName",
+          "value": "last name"
+        },
+        {
+          "key": "CustomerAddressLine1",
+          "value": "street number and name"
+        },
+        {
+          "key": "CustomerAddressCity",
+          "value": "PLANO"
+        },
+        {
+          "key": "CustomerAddressState",
+          "value": "TX"
+        },
+        {
+          "key": "CustomerAddressZipCode",
+          "value": "75075"
+        },
+        {
+          "key": "CustomerCountry",
+          "value": "USA"
+        },
+        {
+          "key": "CustomerPpuLatitude",
+          "value": "latitude in decimal degrees"
+        },
+        {
+          "key": "CustomerPpuLongitude",
+          "value": "longitude in decimal degrees"
+        }
+      ]
+    },
+    {
+      "categoryName": "SIMSECURE"
+    },
+    {
+      "categoryName": "RTR",
+      "extendedAttributes": [
+        {
+          "key": "RTRUnRatedDataUsage",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "categoryName": "PMEC",
+      "extendedAttributes": [
+        {
+          "key": "IsPmec",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "categoryName": "RfAttributes",
+      "extendedAttributes": [
+        {
+          "key": "CellID",
+          "value": "cellular ID"
+        },
+        {
+          "key": "CellIDUpdatedDate",
+          "value": "2024-09-25T21:35:50Z"
+        },
+        {
+          "key": "CellIDStreamStatus",
+          "value": "ObserveInprogress"
+        },
+        {
+          "key": "CellIDIntervalInSeconds",
+          "value": "15"
+        },
+        {
+          "key": "CellIDDurationInSeconds",
+          "value": "900"
+        },
+        {
+          "key": "NetworkBearer",
+          "value": "6"
+        },
+        {
+          "key": "NetworkBearerUpdateDate",
+          "value": "2024-09-25T21:35:50Z"
+        },
+        {
+          "key": "NetworkBearerStreamStatus",
+          "value": "ObserveInprogress"
+        },
+        {
+          "key": "NetworkBearerIntervalInSeconds",
+          "value": "15"
+        },
+        {
+          "key": "NetworkBearerDurationInSeconds",
+          "value": "900"
+        },
+        {
+          "key": "RadioSignalStrength",
+          "value": "-59"
+        },
+        {
+          "key": "RadioSignalStrengthUpdatedDate",
+          "value": "2024-09-25T21:35:50Z"
+        },
+        {
+          "key": "RadioSignalStrengthStreamStatus",
+          "value": "ObserveDurationExpired"
+        },
+        {
+          "key": "RadioSignalStrengthIntervalInSeconds",
+          "value": "15"
+        },
+        {
+          "key": "RadioSignalStrengthDurationInSeconds",
+          "value": "3600"
+        },
+        {
+          "key": "LinkQuality",
+          "value": "-11"
+        },
+        {
+          "key": "LinkQualityUpdatedDate",
+          "value": "2024-09-25T21:35:50Z"
+        },
+        {
+          "key": "LinkQualityStreamStatus",
+          "value": "ObserveInprogress"
+        },
+        {
+          "key": "LinkQualityIntervalInSeconds",
+          "value": "15"
+        },
+        {
+          "key": "LinkQualityDurationInSeconds",
+          "value": "3600"
+        }
+      ]
+    },
+    {
+      "categoryName": "Battery",
+      "extendedAttributes": [
+        {
+          "key": "BatteryLevel",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "categoryName": "Restart",
+      "extendedAttributes": [
+        {
+          "key": "DeviceRebootStatus",
+          "value": "REBOOT_QUEUED"
+        },
+        {
+          "key": "DeviceRebootStatusDate",
+          "value": "2024-05-07T14:21:59Z"
+        },
+        {
+          "key": "DeviceRebootStatusErrorCode",
+          "value": "DEVICE_UNREACHABLE"
+        },
+        {
+          "key": "DeviceRebootStatusErrorDescription",
+          "value": "Device not reachable, request will send to device once it become available"
         }
       ]
     }
@@ -1494,7 +2008,7 @@ ListDevicesProvisioningHistoryAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.DeviceProvisioningHistoryListResult>>>`](../../doc/models/device-provisioning-history-list-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.DeviceProvisioningHistoryListResult>](../../doc/models/device-provisioning-history-list-result.md).
 
 ## Example Usage
 
@@ -1516,8 +2030,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -1567,7 +2084,7 @@ ListCurrentDevicesPRLVersionAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1595,8 +2112,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -1632,7 +2152,7 @@ GetDeviceServiceSuspensionStatusAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1660,8 +2180,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -1697,7 +2220,7 @@ ListDevicesUsageHistoryAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceUsageListResult>>`](../../doc/models/device-usage-list-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceUsageListResult](../../doc/models/device-usage-list-result.md).
 
 ## Example Usage
 
@@ -1719,8 +2242,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -1770,7 +2296,7 @@ RetrieveAggregateDeviceUsageHistoryAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1796,8 +2322,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -1835,7 +2364,7 @@ UpdateDeviceIdAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1873,8 +2402,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -1895,7 +2427,7 @@ catch (ApiException e)
 
 # Device Upload
 
-This corresponds to the M2M-MC SOAP interface, `DeviceUploadService`.
+Upload a device record
 
 ```csharp
 DeviceUploadAsync(
@@ -1910,7 +2442,7 @@ DeviceUploadAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.RequestResponse>>`](../../doc/models/request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.RequestResponse](../../doc/models/request-response.md).
 
 ## Example Usage
 
@@ -1965,8 +2497,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is RestErrorResponseException)
+    {
+       // TODO: Handle RestErrorResponseException exception here
+    }
 }
 ```
 
@@ -1994,7 +2529,7 @@ BilledUsageInfoAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -2010,8 +2545,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -2047,7 +2585,7 @@ UsageSegmentationLabelAssociationAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -2072,8 +2610,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -2111,7 +2652,7 @@ UsageSegmentationLabelDeletionAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -2130,8 +2671,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -2150,12 +2694,12 @@ catch (ApiException e)
 | 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
-# Activation Order Status
+# Upload Activate Device
 
 Uploads and activates device identifiers and SKUs for new devices from OEMs to Verizon.
 
 ```csharp
-ActivationOrderStatusAsync(
+UploadActivateDeviceAsync(
     Models.UploadsActivatesDeviceRequest body)
 ```
 
@@ -2163,11 +2707,11 @@ ActivationOrderStatusAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`UploadsActivatesDeviceRequest`](../../doc/models/uploads-activates-device-request.md) | Body, Required | Request to Uploads and activates device. |
+| `body` | [`UploadsActivatesDeviceRequest`](../../doc/models/uploads-activates-device-request.md) | Body, Required | Request to Upload and Activate device. |
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -2204,12 +2748,15 @@ UploadsActivatesDeviceRequest body = new UploadsActivatesDeviceRequest
 
 try
 {
-    ApiResponse<DeviceManagementResult> result = await deviceManagementController.ActivationOrderStatusAsync(body);
+    ApiResponse<DeviceManagementResult> result = await deviceManagementController.UploadActivateDeviceAsync(body);
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -2228,12 +2775,12 @@ catch (ApiException e)
 | 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
-# Upload Device Identifier
+# Device Upload Status
 
 Checks the status of an activation order and lists where the order is in the provisioning process.
 
 ```csharp
-UploadDeviceIdentifierAsync(
+DeviceUploadStatusAsync(
     Models.CheckOrderStatusRequest body)
 ```
 
@@ -2245,7 +2792,7 @@ UploadDeviceIdentifierAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -2272,12 +2819,15 @@ CheckOrderStatusRequest body = new CheckOrderStatusRequest
 
 try
 {
-    ApiResponse<DeviceManagementResult> result = await deviceManagementController.UploadDeviceIdentifierAsync(body);
+    ApiResponse<DeviceManagementResult> result = await deviceManagementController.DeviceUploadStatusAsync(body);
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 

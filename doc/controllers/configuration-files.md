@@ -33,7 +33,7 @@ GetListOfFilesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.RetrievesAvailableFilesResponseList>>`](../../doc/models/retrieves-available-files-response-list.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.RetrievesAvailableFilesResponseList](../../doc/models/retrieves-available-files-response-list.md).
 
 ## Example Usage
 
@@ -49,8 +49,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -88,7 +91,7 @@ UploadConfigFileAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.UploadConfigurationFilesResponse>>`](../../doc/models/upload-configuration-files-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.UploadConfigurationFilesResponse](../../doc/models/upload-configuration-files-response.md).
 
 ## Example Usage
 
@@ -111,8 +114,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 

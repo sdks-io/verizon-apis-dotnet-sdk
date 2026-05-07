@@ -32,7 +32,7 @@ CreateNewTriggerAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.UsageTriggerResponse>>`](../../doc/models/usage-trigger-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.UsageTriggerResponse](../../doc/models/usage-trigger-response.md).
 
 ## Example Usage
 
@@ -56,8 +56,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -106,7 +109,7 @@ UpdateTriggerAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.UsageTriggerResponse>>`](../../doc/models/usage-trigger-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.UsageTriggerResponse](../../doc/models/usage-trigger-response.md).
 
 ## Example Usage
 
@@ -127,8 +130,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -177,7 +183,7 @@ DeleteTriggerAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceLocationSuccessResult>>`](../../doc/models/device-location-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceLocationSuccessResult](../../doc/models/device-location-success-result.md).
 
 ## Example Usage
 
@@ -193,8 +199,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 

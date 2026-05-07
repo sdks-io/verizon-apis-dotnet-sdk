@@ -34,7 +34,7 @@ QueryTargetAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.Target>>>`](../../doc/models/target.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.Target>](../../doc/models/target.md).
 
 ## Example Usage
 
@@ -57,7 +57,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -134,7 +133,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -157,7 +155,7 @@ CreateTargetAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.Target>>`](../../doc/models/target.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.Target](../../doc/models/target.md).
 
 ## Example Usage
 
@@ -194,7 +192,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -236,7 +233,7 @@ GenerateTargetExternalIDAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GenerateExternalIDResult>>`](../../doc/models/generate-external-id-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GenerateExternalIDResult](../../doc/models/generate-external-id-result.md).
 
 ## Example Usage
 
@@ -255,7 +252,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```
@@ -288,7 +284,7 @@ CreateAzureCentralIoTApplicationAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.CreateIoTApplicationResponse>>`](../../doc/models/create-io-t-application-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.CreateIoTApplicationResponse](../../doc/models/create-io-t-application-response.md).
 
 ## Example Usage
 
@@ -316,7 +312,6 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
 }
 ```

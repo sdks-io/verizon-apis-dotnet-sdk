@@ -27,24 +27,24 @@
     {
       "deviceIds": [
         {
-          "id": "id0",
-          "kind": "kind8"
+          "id": "id4",
+          "kind": "kind2"
         }
       ]
     },
     {
       "deviceIds": [
         {
-          "id": "id0",
-          "kind": "kind8"
+          "id": "id4",
+          "kind": "kind2"
         }
       ]
     },
     {
       "deviceIds": [
         {
-          "id": "id0",
-          "kind": "kind8"
+          "id": "id4",
+          "kind": "kind2"
         }
       ]
     }

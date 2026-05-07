@@ -10,7 +10,7 @@ ClientLoggingController clientLoggingController = client.ClientLoggingController
 
 ## Methods
 
-* [List Devices With Logging Enabled](../../doc/controllers/client-logging.md#list-devices-with-logging-enabled)
+* [List Devices with Logging Enabled](../../doc/controllers/client-logging.md#list-devices-with-logging-enabled)
 * [Enable Logging for Devices](../../doc/controllers/client-logging.md#enable-logging-for-devices)
 * [Disable Logging for Devices](../../doc/controllers/client-logging.md#disable-logging-for-devices)
 * [Enable Device Logging](../../doc/controllers/client-logging.md#enable-device-logging)
@@ -18,7 +18,7 @@ ClientLoggingController clientLoggingController = client.ClientLoggingController
 * [List Device Logs](../../doc/controllers/client-logging.md#list-device-logs)
 
 
-# List Devices With Logging Enabled
+# List Devices with Logging Enabled
 
 Returns an array of all devices in the specified account for which logging is enabled.
 
@@ -35,7 +35,7 @@ ListDevicesWithLoggingEnabledAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.DeviceLoggingStatus>>>`](../../doc/models/device-logging-status.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.DeviceLoggingStatus>](../../doc/models/device-logging-status.md).
 
 ## Example Usage
 
@@ -47,8 +47,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -105,7 +108,7 @@ EnableLoggingForDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.DeviceLoggingStatus>>>`](../../doc/models/device-logging-status.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.DeviceLoggingStatus>](../../doc/models/device-logging-status.md).
 
 ## Example Usage
 
@@ -132,8 +135,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -206,8 +212,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -237,7 +246,7 @@ EnableDeviceLoggingAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceLoggingStatus>>`](../../doc/models/device-logging-status.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceLoggingStatus](../../doc/models/device-logging-status.md).
 
 ## Example Usage
 
@@ -253,8 +262,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -309,8 +321,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 
@@ -340,7 +355,7 @@ ListDeviceLogsAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.DeviceLog>>>`](../../doc/models/device-log.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.DeviceLog>](../../doc/models/device-log.md).
 
 ## Example Usage
 
@@ -356,8 +371,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV2ResultException)
+    {
+       // TODO: Handle FotaV2ResultException exception here
+    }
 }
 ```
 

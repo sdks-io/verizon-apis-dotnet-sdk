@@ -12,7 +12,7 @@ SoftwareManagementLicensesV3Controller softwareManagementLicensesV3Controller = 
 
 * [Get Account Licenses Status](../../doc/controllers/software-management-licenses-v3.md#get-account-licenses-status)
 * [Assign Licenses to Devices](../../doc/controllers/software-management-licenses-v3.md#assign-licenses-to-devices)
-* [Remove Licenses From Devices](../../doc/controllers/software-management-licenses-v3.md#remove-licenses-from-devices)
+* [Remove Licenses from Devices](../../doc/controllers/software-management-licenses-v3.md#remove-licenses-from-devices)
 
 
 # Get Account Licenses Status
@@ -34,7 +34,7 @@ GetAccountLicensesStatusAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V3LicenseSummary>>`](../../doc/models/v3-license-summary.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V3LicenseSummary](../../doc/models/v3-license-summary.md).
 
 ## Example Usage
 
@@ -50,8 +50,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 
@@ -103,7 +106,7 @@ AssignLicensesToDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V3LicenseAssignedRemovedResult>>`](../../doc/models/v3-license-assigned-removed-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V3LicenseAssignedRemovedResult](../../doc/models/v3-license-assigned-removed-result.md).
 
 ## Example Usage
 
@@ -127,8 +130,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 
@@ -159,7 +165,7 @@ catch (ApiException e)
 | 400 | Unexpected error. | [`FotaV3ResultException`](../../doc/models/fota-v3-result-exception.md) |
 
 
-# Remove Licenses From Devices
+# Remove Licenses from Devices
 
 This endpoint allows user to remove licenses from a list of devices.
 
@@ -178,7 +184,7 @@ RemoveLicensesFromDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.V3LicenseAssignedRemovedResult>>`](../../doc/models/v3-license-assigned-removed-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.V3LicenseAssignedRemovedResult](../../doc/models/v3-license-assigned-removed-result.md).
 
 ## Example Usage
 
@@ -203,8 +209,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is FotaV3ResultException)
+    {
+       // TODO: Handle FotaV3ResultException exception here
+    }
 }
 ```
 

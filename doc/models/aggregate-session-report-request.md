@@ -11,29 +11,27 @@ Request for getting an aggregated session report.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `AccountNumber` | `string` | Required | The unique identifier for the account. |
+| `AccountNumber` | `string` | Required | The numeric ID of the account and must include leading zeroes. This value is indentical to `accountName`. |
 | `StartDate` | `string` | Optional | Start date of session to include. If not specified  information will be shown from the earliest available (180 days). Can be either date in ISO 8601 format or predefined constants. |
 | `EndDate` | `string` | Optional | End date of session to include. If not specified  information will be shown to the latest available. Can be either date in ISO 8601 format or predefined constants. |
 | `Imei` | `List<string>` | Required | Devices for which return usage info. Could be 0, 1 or more. In case of 0 will return all devices belonging to customer (except of filtered by other parameters). |
-| `DeviceGroup` | `string` | Optional | User defined group name the devices are a member of. |
-| `DeviceLabel` | `string` | Optional | Optional filter parameter. |
-| `DataPlan` | `string` | Optional | The data plan the devices beign queried belong to. |
-| `NoSessionFlag` | `string` | Optional | Optional filter parameter which return only devices with no sessions. |
+| `DeviceGroup` | `string` | Optional | Optional filter — only include devices matching this device group name. |
+| `DataPlan` | `string` | Optional | Optional filter — only include devices matching this carrier rate plan code. |
+| `NoSessionFlag` | `bool?` | Optional | Optional filter — when "true", returns only devices with no sessions. |
 
 ## Example (as JSON)
 
 ```json
 {
-  "accountNumber": "0844021539-00001",
+  "accountNumber": "0000123456-00001",
   "startDate": "2022-12-09T22:01:06.217Z",
   "endDate": "2022-12-09T22:01:08.734Z",
   "imei": [
-    "709312034493372"
+    "15-digit IMEI"
   ],
-  "deviceGroup": "deviceGroup4",
-  "dataPlan": "dataPlan2",
-  "noSessionFlag": "false",
-  "deviceLabel": "deviceLabel4"
+  "deviceGroup": "string",
+  "dataPlan": "string",
+  "noSessionFlag": false
 }
 ```
 

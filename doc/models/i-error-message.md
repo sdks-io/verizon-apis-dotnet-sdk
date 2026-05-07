@@ -20,8 +20,8 @@ Error message.
 
 ```json
 {
+  "errorCode": "UNAUTHORIZED",
   "httpStatusCode": "200 OK",
-  "errorCode": "INVALID_ACCESS",
   "errorMessage": "errorMessage4",
   "detailErrorMessage": "detailErrorMessage6"
 }

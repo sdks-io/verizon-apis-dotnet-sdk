@@ -32,7 +32,7 @@ GetDiagnosticsSubscriptionCallbackInfoAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.DeviceDiagnosticsCallback>>>`](../../doc/models/device-diagnostics-callback.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.DeviceDiagnosticsCallback>](../../doc/models/device-diagnostics-callback.md).
 
 ## Example Usage
 
@@ -44,8 +44,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceDiagnosticsResultException)
+    {
+       // TODO: Handle DeviceDiagnosticsResultException exception here
+    }
 }
 ```
 
@@ -87,7 +90,7 @@ RegisterDiagnosticsCallbackURLAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceDiagnosticsCallback>>`](../../doc/models/device-diagnostics-callback.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceDiagnosticsCallback](../../doc/models/device-diagnostics-callback.md).
 
 ## Example Usage
 
@@ -106,8 +109,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceDiagnosticsResultException)
+    {
+       // TODO: Handle DeviceDiagnosticsResultException exception here
+    }
 }
 ```
 
@@ -149,7 +155,7 @@ UnregisterDiagnosticsCallbackAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceDiagnosticsCallback>>`](../../doc/models/device-diagnostics-callback.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceDiagnosticsCallback](../../doc/models/device-diagnostics-callback.md).
 
 ## Example Usage
 
@@ -165,8 +171,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceDiagnosticsResultException)
+    {
+       // TODO: Handle DeviceDiagnosticsResultException exception here
+    }
 }
 ```
 

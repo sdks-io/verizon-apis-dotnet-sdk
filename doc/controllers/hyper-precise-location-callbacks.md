@@ -28,24 +28,27 @@ ListRegisteredCallbacksAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `accountNumber` | `string` | Query, Required | A unique identifier for an account. |
+| `accountNumber` | `string` | Query, Required | The numeric ID of the account and must include leading zeroes. This value is indentical to `accountName`. |
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.CallbackCreated>>>`](../../doc/models/callback-created.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.CallbackCreated>](../../doc/models/callback-created.md).
 
 ## Example Usage
 
 ```csharp
-string accountNumber = "0844021539-00001";
+string accountNumber = "0000123456-00001";
 try
 {
     ApiResponse<List<CallbackCreated>> result = await hyperPreciseLocationCallbacksController.ListRegisteredCallbacksAsync(accountNumber);
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is HyperPreciseLocationResultException)
+    {
+       // TODO: Handle HyperPreciseLocationResultException exception here
+    }
 }
 ```
 
@@ -54,7 +57,7 @@ catch (ApiException e)
 ```json
 [
   {
-    "aname": "0844021539-00001",
+    "accountName": "0000123456-00001",
     "name": "BullseyeReporting",
     "url": "https://tsustgtests.mocklab.io/notifications/bullseye"
   }
@@ -92,12 +95,12 @@ RegisterCallbackAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.CallbackRegistered>>`](../../doc/models/callback-registered.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.CallbackRegistered](../../doc/models/callback-registered.md).
 
 ## Example Usage
 
 ```csharp
-string accountNumber = "0844021539-00001";
+string accountNumber = "0000123456-00001";
 HyperPreciseLocationCallback body = new HyperPreciseLocationCallback
 {
     Name = "BullseyeReporting",
@@ -113,8 +116,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is HyperPreciseLocationResultException)
+    {
+       // TODO: Handle HyperPreciseLocationResultException exception here
+    }
 }
 ```
 
@@ -122,7 +128,7 @@ catch (ApiException e)
 
 ```json
 {
-  "accountName": "0844021539-00001",
+  "accountName": "0000123456-00001",
   "name": "BullseyeReporting"
 }
 ```
@@ -153,7 +159,7 @@ DeregisterCallbackAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `accountNumber` | `string` | Query, Required | A unique identifier for a account. |
+| `accountNumber` | `string` | Query, Required | The numeric ID of the account and must include leading zeroes. This value is indentical to `accountName`. |
 | `service` | `string` | Query, Required | The name of the callback service that will be deleted. |
 
 ## Response Type
@@ -163,7 +169,7 @@ DeregisterCallbackAsync(
 ## Example Usage
 
 ```csharp
-string accountNumber = "0844021539-00001";
+string accountNumber = "0000123456-00001";
 string service = "BullseyeReporting";
 try
 {
@@ -174,8 +180,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is HyperPreciseLocationResultException)
+    {
+       // TODO: Handle HyperPreciseLocationResultException exception here
+    }
 }
 ```
 

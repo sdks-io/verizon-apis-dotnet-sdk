@@ -11,6 +11,7 @@ Error Code.
 
 | Name |
 |  --- |
+| `UNAUTHORIZED` |
 | `INVALIDACCESS` |
 | `INVALIDPARAMETER` |
 | `INTERNALERROR` |
@@ -19,6 +20,6 @@ Error Code.
 ## Example
 
 ```
-INVALID_ACCESS
+UNAUTHORIZED
 ```
 

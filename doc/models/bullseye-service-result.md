@@ -11,7 +11,7 @@ Status of Hyper Precise Location on the device.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `AccountNumber` | `string` | Optional | The account the device belongs to. |
+| `AccountNumber` | `string` | Optional | The numeric ID of the account and must include leading zeroes. This value is indentical to `accountName`. |
 | `DeviceList` | [`List<DeviceServiceInformation>`](../../doc/models/device-service-information.md) | Optional | List of devices. |
 | `ResponseType` | [`ApiResponseCode`](../../doc/models/api-response-code.md) | Optional | ResponseCode and/or a message indicating success or failure of the request. |
 
@@ -19,14 +19,16 @@ Status of Hyper Precise Location on the device.
 
 ```json
 {
-  "accountNumber": "0844021539-00001",
+  "accountNumber": "0000123456-00001",
   "deviceList": [
     {
-      "imei": "709312034493372",
-      "BullseyeEnable": true,
       "responseType": {
         "responseCode": "INTERNAL_ERROR",
         "message": "message8"
+      },
+      "imei": "imei4",
+      "BullseyeEnable": {
+        "BullseyeEnable": false
       }
     }
   ],

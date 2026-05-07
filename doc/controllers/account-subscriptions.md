@@ -24,11 +24,11 @@ ListAccountSubscriptionsAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `body` | [`SecuritySubscriptionRequest`](../../doc/models/security-subscription-request.md) | Body, Required | Request for account subscription. |
-| `xRequestID` | `string` | Header, Optional | Transaction Id.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9]-[0-9]{3,32}$` |
+| `xRequestID` | `string` | Header, Optional | Transaction Id.<br><br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9]-[0-9]{3,32}$` |
 
 ## Response Type
 
-[`Task<ApiResponse<Models.SecuritySubscriptionResult>>`](../../doc/models/security-subscription-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.SecuritySubscriptionResult](../../doc/models/security-subscription-result.md).
 
 ## Example Usage
 
@@ -45,8 +45,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is SecurityResultException)
+    {
+       // TODO: Handle SecurityResultException exception here
+    }
 }
 ```
 

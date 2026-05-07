@@ -1,5 +1,5 @@
 
-# Get Device List With Profiles Request
+# Get Device List with Profiles Request
 
 ## Structure
 

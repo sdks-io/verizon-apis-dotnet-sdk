@@ -32,21 +32,23 @@ CalculateAggregatedReportSynchronousAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.AggregateSessionReport>>`](../../doc/models/aggregate-session-report.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.AggregateSessionReport](../../doc/models/aggregate-session-report.md).
 
 ## Example Usage
 
 ```csharp
 AggregateSessionReportRequest body = new AggregateSessionReportRequest
 {
-    AccountNumber = "0844021539-00001",
+    AccountNumber = "0000123456-00001",
     Imei = new List<string>
     {
-        "709312034493372",
+        "15-digit IMEI",
     },
     StartDate = "2022-12-09T22:01:06.217Z",
     EndDate = "2022-12-09T22:01:08.734Z",
-    NoSessionFlag = "false",
+    DeviceGroup = "string",
+    DataPlan = "string",
+    NoSessionFlag = false,
 };
 
 try
@@ -55,23 +57,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
-}
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "txid": null,
-  "usage": [
+    if (e is HyperPreciseLocationResultException)
     {
-      "imei": "709312034493372",
-      "numberOfSessions": 1,
-      "bytesTransferred": 2057
+       // TODO: Handle HyperPreciseLocationResultException exception here
     }
-  ]
 }
 ```
 
@@ -104,21 +94,23 @@ CalculateAggregatedReportAsynchronousAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.AggregatedReportCallbackResult>>`](../../doc/models/aggregated-report-callback-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.AggregatedReportCallbackResult](../../doc/models/aggregated-report-callback-result.md).
 
 ## Example Usage
 
 ```csharp
 AggregateSessionReportRequest body = new AggregateSessionReportRequest
 {
-    AccountNumber = "0844021539-00001",
+    AccountNumber = "0000123456-00001",
     Imei = new List<string>
     {
-        "709312034493372",
+        "15-digit IMEI",
     },
     StartDate = "2022-12-09T22:01:06.217Z",
     EndDate = "2022-12-09T22:01:08.734Z",
-    NoSessionFlag = "false",
+    DeviceGroup = "string",
+    DataPlan = "string",
+    NoSessionFlag = false,
 };
 
 try
@@ -127,8 +119,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is HyperPreciseLocationResultException)
+    {
+       // TODO: Handle HyperPreciseLocationResultException exception here
+    }
 }
 ```
 
@@ -136,7 +131,7 @@ catch (ApiException e)
 
 ```json
 {
-  "txid": "60c07fff-470b-4d6d-afcc-75e6a7c238f6",
+  "txid": "60c07fff-eeee-ffff-gggg-75e6a7c238f6",
   "status": "QUEUED"
 }
 ```
@@ -170,17 +165,19 @@ GetSessionsReportAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.SessionReport>>`](../../doc/models/session-report.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.SessionReport](../../doc/models/session-report.md).
 
 ## Example Usage
 
 ```csharp
 SessionReportRequest body = new SessionReportRequest
 {
-    AccountNumber = "0844021539-00001",
-    Imei = "709312034493372",
+    AccountNumber = "0000123456-00001",
+    Imei = "15-digit IMEI",
     StartDate = "2022-12-09T22:01:06.217Z",
     EndDate = "2022-12-09T22:01:08.734Z",
+    DurationLow = 0,
+    DurationHigh = 0,
 };
 
 try
@@ -189,8 +186,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is HyperPreciseLocationResultException)
+    {
+       // TODO: Handle HyperPreciseLocationResultException exception here
+    }
 }
 ```
 
@@ -198,8 +198,15 @@ catch (ApiException e)
 
 ```json
 {
-  "id": "709312034493372",
-  "txid": "60c07fff-470b-4d6d-afcc-75e6a7c238f6"
+  "id": "The 10-digit ID of the device",
+  "txid": "60c07fff-eeee-ffff-gggg-75e6a7c238f6",
+  "sessions": [
+    {
+      "startTime": "Start date of session. ISO 8601 format.",
+      "endTime": "End date of session. ISO 8601 format.",
+      "numBytes": 0
+    }
+  ]
 }
 ```
 

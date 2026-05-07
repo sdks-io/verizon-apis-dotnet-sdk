@@ -38,7 +38,7 @@
   "cycleType": "cycleone",
   "dataTriggerRequest": {
     "comparator": "comparator2",
-    "threshold": 242,
+    "threshold": 100,
     "thresholdUnit": "thresholdUnit6"
   }
 }

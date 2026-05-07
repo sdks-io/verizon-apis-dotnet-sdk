@@ -11,8 +11,8 @@ Coordinates information.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Latitude` | `string` | Optional | Latitude value of location.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `12`, *Pattern*: `^[-+]?([0-9.]{3,12})$` |
-| `Longitude` | `string` | Optional | Longitude value of location.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `12`, *Pattern*: `^[-+]?([0-9.]{3,12})$` |
+| `Latitude` | `string` | Optional | Latitude value of location.<br><br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `12`, *Pattern*: `^[-+]?([0-9.]{3,12})$` |
+| `Longitude` | `string` | Optional | Longitude value of location.<br><br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `12`, *Pattern*: `^[-+]?([0-9.]{3,12})$` |
 
 ## Example (as JSON)
 

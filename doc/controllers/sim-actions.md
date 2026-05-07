@@ -32,7 +32,7 @@ NewactivatecodeAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ESIMRequestResponse>>`](../../doc/models/esim-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ESIMRequestResponse](../../doc/models/esim-request-response.md).
 
 ## Example Usage
 
@@ -43,18 +43,22 @@ ESIMProfileRequest2 body = new ESIMProfileRequest2
     {
         new ESIMDeviceList
         {
-            DeviceIds = new List<DeviceId2>
+            DeviceIds = new List<ESIMDeviceListDeviceIds>
             {
-                new DeviceId2
-                {
-                    Id = "15-digit IMEI",
-                    Kind = "imei",
-                },
-                new DeviceId2
-                {
-                    Id = "20-digit ICCID",
-                    Kind = "iccid",
-                },
+                ESIMDeviceListDeviceIds.FromESIMDeviceId(
+                    new ESIMDeviceId
+                    {
+                        Id = "15-digit IMEI",
+                        Kind = "imei",
+                    }
+                ),
+                ESIMDeviceListDeviceIds.FromESIMDeviceId(
+                    new ESIMDeviceId
+                    {
+                        Id = "20-digit ICCID",
+                        Kind = "iccid",
+                    }
+                ),
             },
         },
     },
@@ -69,8 +73,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ESIMRestErrorResponseException)
+    {
+       // TODO: Handle ESIMRestErrorResponseException exception here
+    }
 }
 ```
 
@@ -112,7 +119,7 @@ SetactivateUsingPOSTAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ESIMRequestResponse>>`](../../doc/models/esim-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ESIMRequestResponse](../../doc/models/esim-request-response.md).
 
 ## Example Usage
 
@@ -123,23 +130,29 @@ ESIMProfileRequest body = new ESIMProfileRequest
     {
         new ESIMDeviceList
         {
-            DeviceIds = new List<DeviceId2>
+            DeviceIds = new List<ESIMDeviceListDeviceIds>
             {
-                new DeviceId2
-                {
-                    Id = "32-digit EID",
-                    Kind = "eid",
-                },
-                new DeviceId2
-                {
-                    Id = "15-digit IMEI",
-                    Kind = "imei",
-                },
-                new DeviceId2
-                {
-                    Id = "20-digit ICCID",
-                    Kind = "iccid (ICCID is only used for reactivation)",
-                },
+                ESIMDeviceListDeviceIds.FromESIMDeviceId(
+                    new ESIMDeviceId
+                    {
+                        Id = "32-digit EID",
+                        Kind = "eid",
+                    }
+                ),
+                ESIMDeviceListDeviceIds.FromESIMDeviceId(
+                    new ESIMDeviceId
+                    {
+                        Id = "15-digit IMEI",
+                        Kind = "imei",
+                    }
+                ),
+                ESIMDeviceListDeviceIds.FromESIMDeviceId(
+                    new ESIMDeviceId
+                    {
+                        Id = "20-digit ICCID",
+                        Kind = "iccid (ICCID is only used for reactivation)",
+                    }
+                ),
             },
         },
     },
@@ -155,8 +168,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ESIMRestErrorResponseException)
+    {
+       // TODO: Handle ESIMRestErrorResponseException exception here
+    }
 }
 ```
 
@@ -198,7 +214,7 @@ SetdeactivateUsingPOSTAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ESIMRequestResponse>>`](../../doc/models/esim-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ESIMRequestResponse](../../doc/models/esim-request-response.md).
 
 ## Example Usage
 
@@ -218,8 +234,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ESIMRestErrorResponseException)
+    {
+       // TODO: Handle ESIMRestErrorResponseException exception here
+    }
 }
 ```
 

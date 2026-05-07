@@ -16,7 +16,7 @@ ExclusionsController exclusionsController = client.ExclusionsController;
 * [Devices Location Give Consent Async](../../doc/controllers/exclusions.md#devices-location-give-consent-async)
 * [Devices Location Update Consent](../../doc/controllers/exclusions.md#devices-location-update-consent)
 * [Exclude Devices](../../doc/controllers/exclusions.md#exclude-devices)
-* [Remove Devices From Exclusion List](../../doc/controllers/exclusions.md#remove-devices-from-exclusion-list)
+* [Remove Devices from Exclusion List](../../doc/controllers/exclusions.md#remove-devices-from-exclusion-list)
 * [List Excluded Devices](../../doc/controllers/exclusions.md#list-excluded-devices)
 
 
@@ -39,7 +39,7 @@ DevicesLocationGetConsentAsyncAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GetAccountDeviceConsent>>`](../../doc/models/get-account-device-consent.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GetAccountDeviceConsent](../../doc/models/get-account-device-consent.md).
 
 ## Example Usage
 
@@ -55,8 +55,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -84,7 +87,7 @@ DevicesLocationGiveConsentAsyncAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ConsentTransactionID>>`](../../doc/models/consent-transaction-id.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ConsentTransactionID](../../doc/models/consent-transaction-id.md).
 
 ## Example Usage
 
@@ -100,8 +103,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -129,7 +135,7 @@ DevicesLocationUpdateConsentAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ConsentTransactionID>>`](../../doc/models/consent-transaction-id.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ConsentTransactionID](../../doc/models/consent-transaction-id.md).
 
 ## Example Usage
 
@@ -146,8 +152,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -175,7 +184,7 @@ ExcludeDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceLocationSuccessResult>>`](../../doc/models/device-location-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceLocationSuccessResult](../../doc/models/device-location-success-result.md).
 
 ## Example Usage
 
@@ -199,8 +208,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -211,7 +223,7 @@ catch (ApiException e)
 | 400 | Unexpected error. | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
 
 
-# Remove Devices From Exclusion List
+# Remove Devices from Exclusion List
 
 Removes devices from the exclusion list so that they can be located with Device Location Services requests.
 
@@ -230,7 +242,7 @@ RemoveDevicesFromExclusionListAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceLocationSuccessResult>>`](../../doc/models/device-location-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceLocationSuccessResult](../../doc/models/device-location-success-result.md).
 
 ## Example Usage
 
@@ -246,8 +258,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -285,7 +300,7 @@ ListExcludedDevicesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DevicesConsentResult>>`](../../doc/models/devices-consent-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DevicesConsentResult](../../doc/models/devices-consent-result.md).
 
 ## Example Usage
 
@@ -301,8 +316,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 

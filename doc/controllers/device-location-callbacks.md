@@ -35,7 +35,7 @@ CancelAsyncReportAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.TransactionID>>`](../../doc/models/transaction-id.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.TransactionID](../../doc/models/transaction-id.md).
 
 ## Example Usage
 
@@ -51,8 +51,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -88,7 +91,7 @@ ListRegisteredCallbacksAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.DeviceLocationCallback>>>`](../../doc/models/device-location-callback.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.DeviceLocationCallback>](../../doc/models/device-location-callback.md).
 
 ## Example Usage
 
@@ -100,8 +103,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -146,7 +152,7 @@ RegisterCallbackAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.CallbackRegistrationResult>>`](../../doc/models/callback-registration-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.CallbackRegistrationResult](../../doc/models/callback-registration-result.md).
 
 ## Example Usage
 
@@ -167,8 +173,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -207,7 +216,7 @@ DeregisterCallbackAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceLocationSuccessResult>>`](../../doc/models/device-location-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceLocationSuccessResult](../../doc/models/device-location-success-result.md).
 
 ## Example Usage
 
@@ -223,8 +232,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 

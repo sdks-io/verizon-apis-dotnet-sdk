@@ -17,7 +17,7 @@ Firmware upgrade information.
 | `FirmwareName` | `string` | Optional | Firmware name (for firmware upgrade only). |
 | `FirmwareFrom` | `string` | Required | Old firmware version (for firmware upgrade only). |
 | `FirmwareTo` | `string` | Required | New firmware version (for firmware upgrade only). |
-| `Protocol` | `string` | Required | Available values: LWM2M.<br>**Default**: `"LWM2M"` |
+| `Protocol` | `string` | Required | Available values: LWM2M.<br><br>**Default**: `"LWM2M"` |
 | `Make` | `string` | Required | - |
 | `Model` | `string` | Required | - |
 | `StartDate` | `DateTime` | Required | Campaign start date. |

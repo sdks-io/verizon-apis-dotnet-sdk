@@ -11,7 +11,7 @@ Contains usage information per device.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Imei` | `string` | Optional | International Mobile Equipment Identifier. This is the ID of the device reporting usage. |
+| `Imei` | `string` | Optional | The International Mobile Equipment Identifier of the device. |
 | `NumberOfSessions` | `int?` | Optional | Number of sessions established by the device reporting usage. |
 | `BytesTransferred` | `int?` | Optional | The amount of data transferred by the device reporting usage, measured in Bytes. |
 
@@ -19,7 +19,7 @@ Contains usage information per device.
 
 ```json
 {
-  "imei": "709312034493372",
+  "imei": "15-digit IMEI",
   "numberOfSessions": 1,
   "bytesTransferred": 2057
 }

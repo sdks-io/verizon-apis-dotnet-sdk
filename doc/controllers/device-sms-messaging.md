@@ -33,22 +33,33 @@ SendAnSmsMessageAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GIORequestResponse](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 
 ```csharp
 GIOSMSSendRequest body = new GIOSMSSendRequest
 {
+    SmsMessage = "the body or text of the message itself",
+    AccountName = "0000123456-00001",
+    CustomFields = new List<KvPair>
+    {
+        new KvPair
+        {
+            Key = "CustomField1",
+            MValue = "value of the field",
+        },
+    },
+    DataEncoding = "optional 7 or 8-bit encoding",
+    TimeToLive = "000000010000000R",
     DeviceIds = new List<GIODeviceId>
     {
         new GIODeviceId
         {
-            Kind = "eid",
-            Id = "12345678901234567890123456789012",
+            Kind = "iccid",
+            Id = "20-digit ICCID",
         },
     },
-    SmsMessage = "A text message",
 };
 
 try
@@ -57,8 +68,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -83,12 +97,12 @@ GetSmsMessagesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `accountName` | `string` | Template, Required | Numeric account name<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9\-]{3,32}$` |
-| `next` | `string` | Query, Optional | Continue the previous query from the pageUrl in Location Header<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `64`, *Pattern*: `^[A-Za-z0-9]{3,32}$` |
+| `accountName` | `string` | Template, Required | Numeric account name<br><br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9\-]{3,32}$` |
+| `next` | `string` | Query, Optional | Continue the previous query from the pageUrl in Location Header<br><br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `64`, *Pattern*: `^[A-Za-z0-9]{3,32}$` |
 
 ## Response Type
 
-[`Task<ApiResponse<Models.SmsMessagesResponse>>`](../../doc/models/sms-messages-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.SmsMessagesResponse](../../doc/models/sms-messages-response.md).
 
 ## Example Usage
 
@@ -104,8 +118,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -129,11 +146,11 @@ StartSmsMessageDeliveryAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `accountName` | `string` | Template, Required | Numeric account name<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9\-]{3,32}$` |
+| `accountName` | `string` | Template, Required | Numeric account name<br><br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9\-]{3,32}$` |
 
 ## Response Type
 
-[`Task<ApiResponse<Models.SuccessResponse>>`](../../doc/models/success-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.SuccessResponse](../../doc/models/success-response.md).
 
 ## Example Usage
 
@@ -145,8 +162,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 
@@ -174,7 +194,7 @@ ListSmsMessageHistoryAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.GIORequestResponse>>`](../../doc/models/gio-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.GIORequestResponse](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 
@@ -194,8 +214,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is GIORestErrorResponseException)
+    {
+       // TODO: Handle GIORestErrorResponseException exception here
+    }
 }
 ```
 

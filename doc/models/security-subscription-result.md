@@ -12,7 +12,7 @@ Response for a subscription request.
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `AccountName` | `string` | Optional | The name of a billing account. |
-| `SubscriptionList` | [`List<SecuritySubscription>`](../../doc/models/security-subscription.md) | Optional | The list of SKU numbers and counts for each license type specified in the request.<br>**Constraints**: *Maximum Items*: `5` |
+| `SubscriptionList` | [`List<SecuritySubscription>`](../../doc/models/security-subscription.md) | Optional | The list of SKU numbers and counts for each license type specified in the request.<br><br>**Constraints**: *Maximum Items*: `5` |
 
 ## Example (as JSON)
 

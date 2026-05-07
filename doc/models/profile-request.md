@@ -14,7 +14,7 @@
 | `CarrierName` | `string` | Optional | - |
 | `ServicePlan` | `string` | Optional | - |
 | `MdnZipCode` | `string` | Optional | - |
-| `PrimaryPlaceOfUse` | [`List<PrimaryPlaceOfUse>`](../../doc/models/primary-place-of-use.md) | Optional | **Constraints**: *Maximum Items*: `25` |
+| `PrimaryPlaceOfUse` | [`List<ProfileRequestPrimaryPlaceOfUse>`](../../doc/models/containers/profile-request-primary-place-of-use.md) | Optional | This is List of a container for any-of cases.<br><br>**Constraints**: *Maximum Items*: `25` |
 | `SmsrOid` | `string` | Optional | **Constraints**: *Minimum Length*: `3`, *Maximum Length*: `46`, *Pattern*: `^[0-9.]{3,46}$` |
 | `CarrierIpPoolName` | `string` | Optional | The name of the pool of IP addresses assigned to the profile. |
 
@@ -45,32 +45,13 @@
           "middleName": "middleName8",
           "lastName": "lastName4",
           "suffix": "suffix0"
-        }
-      ],
-      "address": [
-        {
-          "addressLine1": "addressLine18",
-          "addressLine2": "addressLine26",
-          "city": "city6",
-          "state": "state2",
-          "zip": "zip0",
-          "zip4": "zip40",
-          "country": "country0",
-          "phone": "phone4",
-          "phoneType": "phoneType0",
-          "emailAddress": "emailAddress6"
         },
         {
-          "addressLine1": "addressLine18",
-          "addressLine2": "addressLine26",
-          "city": "city6",
-          "state": "state2",
-          "zip": "zip0",
-          "zip4": "zip40",
-          "country": "country0",
-          "phone": "phone4",
-          "phoneType": "phoneType0",
-          "emailAddress": "emailAddress6"
+          "title": "title4",
+          "firstName": "firstName4",
+          "middleName": "middleName8",
+          "lastName": "lastName4",
+          "suffix": "suffix0"
         }
       ]
     },
@@ -82,32 +63,13 @@
           "middleName": "middleName8",
           "lastName": "lastName4",
           "suffix": "suffix0"
-        }
-      ],
-      "address": [
-        {
-          "addressLine1": "addressLine18",
-          "addressLine2": "addressLine26",
-          "city": "city6",
-          "state": "state2",
-          "zip": "zip0",
-          "zip4": "zip40",
-          "country": "country0",
-          "phone": "phone4",
-          "phoneType": "phoneType0",
-          "emailAddress": "emailAddress6"
         },
         {
-          "addressLine1": "addressLine18",
-          "addressLine2": "addressLine26",
-          "city": "city6",
-          "state": "state2",
-          "zip": "zip0",
-          "zip4": "zip40",
-          "country": "country0",
-          "phone": "phone4",
-          "phoneType": "phoneType0",
-          "emailAddress": "emailAddress6"
+          "title": "title4",
+          "firstName": "firstName4",
+          "middleName": "middleName8",
+          "lastName": "lastName4",
+          "suffix": "suffix0"
         }
       ]
     }

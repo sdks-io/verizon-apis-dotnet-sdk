@@ -26,7 +26,7 @@ GetDiagnosticsHistoryAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<List<Models.History>>>`](../../doc/models/history.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [List<Models.History>](../../doc/models/history.md).
 
 ## Example Usage
 
@@ -54,8 +54,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceDiagnosticsResultException)
+    {
+       // TODO: Handle DeviceDiagnosticsResultException exception here
+    }
 }
 ```
 

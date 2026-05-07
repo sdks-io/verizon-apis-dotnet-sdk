@@ -11,8 +11,8 @@ Get network conditions.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `AccountName` | `string` | Required | Account name.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9-]{3,32}$` |
-| `LocationType` | `string` | Required | Type of location detail.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `10`, *Pattern*: `^[A-Za-z]{3,10}$` |
+| `AccountName` | `string` | Required | Account name.<br><br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9-]{3,32}$` |
+| `LocationType` | `string` | Required | Type of location detail. |
 | `Coordinates` | [`Coordinates`](../../doc/models/coordinates.md) | Required | Coordinates information. |
 
 ## Example (as JSON)

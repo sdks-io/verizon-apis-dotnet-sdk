@@ -31,7 +31,7 @@ GetPromoDeviceUsageHistoryAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ResponseToUsageQuery>>`](../../doc/models/response-to-usage-query.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ResponseToUsageQuery](../../doc/models/response-to-usage-query.md).
 
 ## Example Usage
 
@@ -52,8 +52,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ReadySimRestErrorResponseException)
+    {
+       // TODO: Handle ReadySimRestErrorResponseException exception here
+    }
 }
 ```
 
@@ -104,7 +107,7 @@ GetPromoDeviceAggregateUsageHistoryAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.UsageRequestResponse>>`](../../doc/models/usage-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.UsageRequestResponse](../../doc/models/usage-request-response.md).
 
 ## Example Usage
 
@@ -126,8 +129,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ReadySimRestErrorResponseException)
+    {
+       // TODO: Handle ReadySimRestErrorResponseException exception here
+    }
 }
 ```
 

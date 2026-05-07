@@ -17,7 +17,7 @@ Campaign and campaign details.
 | `FirmwareName` | `string` | Optional | Firmware name. |
 | `FirmwareFrom` | `string` | Optional | Old firmware version. |
 | `FirmwareTo` | `string` | Optional | New software version. |
-| `Protocol` | [`CampaignMetaInfoProtocolEnum?`](../../doc/models/campaign-meta-info-protocol-enum.md) | Optional | Firmware protocol. Valid values include: LWM2M, OMD-DM.<br>**Default**: `CampaignMetaInfoProtocolEnum.LWM2M` |
+| `Protocol` | [`CampaignMetaInfoProtocolEnum?`](../../doc/models/campaign-meta-info-protocol-enum.md) | Optional | Firmware protocol. Valid values include: LWM2M, OMD-DM.<br><br>**Default**: `CampaignMetaInfoProtocolEnum.LWM2M` |
 | `Make` | `string` | Required | Device make. |
 | `Model` | `string` | Required | Device model. |
 | `StartDate` | `DateTime` | Required | Campaign start date. |

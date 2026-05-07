@@ -34,7 +34,7 @@ SendSMSToDeviceAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceManagementResult>>`](../../doc/models/device-management-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceManagementResult](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -42,15 +42,25 @@ SendSMSToDeviceAsync(
 SMSSendRequest body = new SMSSendRequest
 {
     AccountName = "0000123456-00001",
-    SmsMessage = "Can you hear me now?",
+    SmsMessage = "the body or text of the message itself",
+    CustomFields = new List<CustomFields>
+    {
+        new CustomFields
+        {
+            Key = "CustomField1",
+            MValue = "value of the field",
+        },
+    },
+    DataEncoding = "optional 7 or 8-bit encoding",
     DeviceIds = new List<DeviceId>
     {
         new DeviceId
         {
-            Id = "89148000000800139708",
+            Id = "20-digit ICCID",
             Kind = "iccid",
         },
     },
+    TimeToLive = "a000000010000000R",
 };
 
 try
@@ -59,8 +69,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -98,7 +111,7 @@ ListDevicesSMSMessagesAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.SMSMessagesQueryResult>>`](../../doc/models/sms-messages-query-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.SMSMessagesQueryResult](../../doc/models/sms-messages-query-result.md).
 
 ## Example Usage
 
@@ -110,8 +123,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 
@@ -169,7 +185,7 @@ StartQueuedSMSDeliveryAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.ConnectivityManagementSuccessResult>>`](../../doc/models/connectivity-management-success-result.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.ConnectivityManagementSuccessResult](../../doc/models/connectivity-management-success-result.md).
 
 ## Example Usage
 
@@ -181,8 +197,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is ConnectivityManagementResultException)
+    {
+       // TODO: Handle ConnectivityManagementResultException exception here
+    }
 }
 ```
 

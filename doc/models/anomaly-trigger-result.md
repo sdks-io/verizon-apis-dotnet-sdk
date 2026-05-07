@@ -11,7 +11,7 @@ A result containing a list of anomaly triggers.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `Triggers` | [`List<TriggersListOptions>`](../../doc/models/triggers-list-options.md) | Optional | Trigger value chunk details. |
+| `Triggers` | [`List<TriggersListOptions2>`](../../doc/models/containers/triggers-list-options-2.md) | Optional | Trigger value chunk details. |
 
 ## Example (as JSON)
 

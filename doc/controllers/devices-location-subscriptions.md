@@ -31,7 +31,7 @@ GetLocationServiceSubscriptionStatusAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.DeviceLocationSubscription>>`](../../doc/models/device-location-subscription.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.DeviceLocationSubscription](../../doc/models/device-location-subscription.md).
 
 ## Example Usage
 
@@ -43,8 +43,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 
@@ -83,7 +86,7 @@ GetLocationServiceUsageAsync(
 
 ## Response Type
 
-`Task<ApiResponse<object>>`
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type object.
 
 ## Example Usage
 
@@ -102,8 +105,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is DeviceLocationResultException)
+    {
+       // TODO: Handle DeviceLocationResultException exception here
+    }
 }
 ```
 

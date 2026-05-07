@@ -34,7 +34,7 @@ NearRealTimeNetworkConditionsAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.WNPRequestResponse>>`](../../doc/models/wnp-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.WNPRequestResponse](../../doc/models/wnp-request-response.md).
 
 ## Example Usage
 
@@ -56,8 +56,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is WNPRestErrorResponseException)
+    {
+       // TODO: Handle WNPRestErrorResponseException exception here
+    }
 }
 ```
 
@@ -65,7 +68,7 @@ catch (ApiException e)
 
 ```json
 {
-  "requestId": "d1f08526-5443-4054-9a29-4456490ea9f8"
+  "requestId": "d1f08526-eeee-ffff-gggg-4456490ea9f8"
 }
 ```
 
@@ -78,50 +81,55 @@ catch (ApiException e)
 
 # Domestic 4 G and 5G Nationwide Network Coverage
 
-Run a report to determine network types available and available coverage. Network types covered include: CAT-M, NB-IOT, LTE, LTE-AWS, 5GNW and C-BAND.
+Run a report for FWA Address qualification or to determine network types available and available coverage. Network types covered include: CAT-M, NB-IOT, LTE, LTE-AWS, 5GNW, MMWAVE and C-BAND.
 
 ```csharp
 Domestic4GAnd5gNationwideNetworkCoverageAsync(
-    Models.GetWirelessCoverageRequest body)
+    Domestic4GAnd5gNationwideNetworkCoverageBody body)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`GetWirelessCoverageRequest`](../../doc/models/get-wireless-coverage-request.md) | Body, Required | Request for network coverage details. |
+| `body` | [`Domestic4GAnd5gNationwideNetworkCoverageBody`](../../doc/models/containers/domestic-4-g-and-5g-nationwide-network-coverage-body.md) | Body, Required | This is a container for any-of cases. |
 
 ## Response Type
 
-[`Task<ApiResponse<Models.WNPRequestResponse>>`](../../doc/models/wnp-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.WNPRequestResponse](../../doc/models/wnp-request-response.md).
 
 ## Example Usage
 
 ```csharp
-GetWirelessCoverageRequest body = new GetWirelessCoverageRequest
-{
-    AccountName = "0000123456-00001",
-    RequestType = "NW",
-    LocationType = "LONGLAT",
-    Locations = new Locationscoord
+Domestic4GAnd5gNationwideNetworkCoverageBody body = Domestic4GAnd5gNationwideNetworkCoverageBody.FromGetWirelessCoverageRequestFWA(
+    new GetWirelessCoverageRequestFWA
     {
-        CoordinatesList = new List<Coordinates>
+        AccountName = "0000123456-00001",
+        RequestType = "FWA",
+        LocationType = "ADDRESS",
+        Locations = new Locations
         {
-            new Coordinates
+            AddressList = new List<AddressItem>
             {
-                Latitude = "-33.84819",
-                Longitude = "151.22049",
+                new AddressItem
+                {
+                    AddressLine1 = "street address",
+                    City = "city",
+                    State = "LA",
+                    Country = "USA",
+                    Zip = "00000",
+                },
             },
         },
-    },
-    NetworkTypesList = new List<NetworkType>
-    {
-        new NetworkType
+        NetworkTypesList = new List<NetworkTypeObject>
         {
-            NetworkTypeProp = "LTE",
+            new NetworkTypeObject
+            {
+                NetworkType = "LTE",
+            },
         },
-    },
-};
+    }
+);
 
 try
 {
@@ -129,8 +137,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is WNPRestErrorResponseException)
+    {
+       // TODO: Handle WNPRestErrorResponseException exception here
+    }
 }
 ```
 
@@ -138,7 +149,7 @@ catch (ApiException e)
 
 ```json
 {
-  "requestId": "d1f08526-5443-4054-9a29-4456490ea9f8"
+  "requestId": "d1f08526-eeee-ffff-gggg-4456490ea9f8"
 }
 ```
 
@@ -166,7 +177,7 @@ SiteProximityAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.WNPRequestResponse>>`](../../doc/models/wnp-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.WNPRequestResponse](../../doc/models/wnp-request-response.md).
 
 ## Example Usage
 
@@ -188,8 +199,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is WNPRestErrorResponseException)
+    {
+       // TODO: Handle WNPRestErrorResponseException exception here
+    }
 }
 ```
 
@@ -197,7 +211,7 @@ catch (ApiException e)
 
 ```json
 {
-  "requestId": "d1f08526-5443-4054-9a29-4456490ea9f8"
+  "requestId": "d1f08526-eeee-ffff-gggg-4456490ea9f8"
 }
 ```
 
@@ -225,7 +239,7 @@ DeviceExperience30daysHistoryAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.WNPRequestResponse>>`](../../doc/models/wnp-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.WNPRequestResponse](../../doc/models/wnp-request-response.md).
 
 ## Example Usage
 
@@ -247,8 +261,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is WNPRestErrorResponseException)
+    {
+       // TODO: Handle WNPRestErrorResponseException exception here
+    }
 }
 ```
 
@@ -256,7 +273,7 @@ catch (ApiException e)
 
 ```json
 {
-  "requestId": "d1f08526-5443-4054-9a29-4456490ea9f8"
+  "requestId": "d1f08526-eeee-ffff-gggg-4456490ea9f8"
 }
 ```
 
@@ -284,7 +301,7 @@ DeviceExperienceBulkLatestAsync(
 
 ## Response Type
 
-[`Task<ApiResponse<Models.WNPRequestResponse>>`](../../doc/models/wnp-request-response.md)
+This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `Data` property of this instance returns the response data which is of type [Models.WNPRequestResponse](../../doc/models/wnp-request-response.md).
 
 ## Example Usage
 
@@ -309,8 +326,11 @@ try
 }
 catch (ApiException e)
 {
-    // TODO: Handle exception here
     Console.WriteLine(e.Message);
+    if (e is WNPRestErrorResponseException)
+    {
+       // TODO: Handle WNPRestErrorResponseException exception here
+    }
 }
 ```
 
@@ -318,7 +338,7 @@ catch (ApiException e)
 
 ```json
 {
-  "requestId": "d1f08526-5443-4054-9a29-4456490ea9f8"
+  "requestId": "d1f08526-eeee-ffff-gggg-4456490ea9f8"
 }
 ```
 
